@@ -1,19 +1,10 @@
 {
   "private": true,
-  "name": "once-ui-monorepo",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
+  "name": "@dev/design",
+  "workspaces": ["packages/*"],
   "scripts": {
-    "dev": "turbo dev",
-    "build": "turbo build --filter=docs..."
-  },
-  "engines": {
-    "node": "20.x"
-  },
-  "packageManager": "pnpm@10.14.0",
-  "devDependencies": {
-    "turbo": "^2.5.6"
+    "build": "bun run --filter '@once-ui-system/core' build",
+    "dev": "bun run --filter '@once-ui-system/core' dev",
+    "clean": "rm -rf node_modules packages/*/node_modules packages/*/dist"
   }
 }

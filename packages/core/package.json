@@ -68,16 +68,14 @@
     }
   },
   "scripts": {
-    "build": "pnpm clean && pnpm generate-emoji-data && tsc --project tsconfig.build.json && pnpm copy-files && pnpm build:css",
+    "build": "bun run clean && bun run generate-emoji-data && tsc --project tsconfig.build.json && bun run copy-files && bun run build:css",
     "build:css": "sass src/styles/index.scss:dist/css/styles.css src/tokens/index.scss:dist/css/tokens.css --style=compressed",
     "copy-files": "node scripts/copy-files.js",
     "clean": "rimraf dist",
-    "prepare": "pnpm build",
     "lint": "biome check .",
     "format": "biome format --write .",
     "typecheck": "tsc --noEmit",
     "dev": "tsc --watch --preserveWatchOutput",
-    "prepack": "pnpm build",
     "generate-emoji-data": "node scripts/generate-emoji-data.js"
   },
   "dependencies": {
@@ -86,7 +84,6 @@
     "compressorjs": "^1.2.1",
     "date-fns": "^4.1.0",
     "prismjs": "^1.30.0",
-    "react-icons": "^5.2.1",
     "recharts": "^2.15.1"
   },
   "peerDependencies": {
