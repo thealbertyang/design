@@ -761,17 +761,6 @@
       ]
     },
     {
-      "char": "😲",
-      "description": "astonished face",
-      "aliases": [
-        "astonished"
-      ],
-      "tags": [
-        "amazed",
-        "gasp"
-      ]
-    },
-    {
       "char": "😳",
       "description": "flushed face",
       "aliases": [
@@ -6294,6 +6283,16 @@
       ]
     },
     {
+      "char": "🪿",
+      "description": "goose",
+      "aliases": [
+        "goose"
+      ],
+      "tags": [
+        "honk"
+      ]
+    },
+    {
       "char": "🐸",
       "description": "frog",
       "aliases": [
@@ -11326,17 +11325,6 @@
       ],
       "tags": [
         "trash"
-      ]
-    },
-    {
-      "char": "🔒",
-      "description": "locked",
-      "aliases": [
-        "lock"
-      ],
-      "tags": [
-        "security",
-        "private"
       ]
     },
     {
