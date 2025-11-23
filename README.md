@@ -47,7 +47,7 @@ Found a bug? Report it [here](https://github.com/once-ui-system/core/issues/new?
 
 ## Contributing
 
-Please read our [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to Once UI.
+Please read our [CONTRIBUTING.md](https://github.com/once-ui-system/core/blob/main/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to Once UI.
 
 ## Sponsors
 
