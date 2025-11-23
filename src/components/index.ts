@@ -33,6 +33,7 @@ export * from "./DateRangePicker";
 export * from "./Dialog";
 export * from "./Dropdown";
 export * from "./DropdownWrapper";
+export * from "./PopoverDropdown";
 export * from "./ElementType";
 export * from "./EmojiPicker";
 export * from "./EmojiPickerDropdown";

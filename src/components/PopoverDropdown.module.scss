@@ -1,0 +1,158 @@
+// PopoverDropdown - Native Popover API with CSS Anchor Positioning
+// Uses cutting-edge CSS features (2024-2025):
+// - Native Popover API (popover="auto")
+// - CSS Anchor Positioning (position-area, position-anchor)
+// - @starting-style for entry animations
+// - @position-try for auto-flip behavior
+
+.popover {
+  // Base sizing
+  min-width: var(--min-width, auto);
+  max-width: var(--max-width, 90vw);
+  min-height: var(--min-height, auto);
+
+  // Reset popover defaults
+  pointer-events: none;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  inset: unset;
+  width: max-content;
+  height: max-content;
+
+  // Remove default backdrop
+  &::backdrop {
+    display: none;
+    background: none;
+  }
+
+  // Open state
+  &:popover-open {
+    pointer-events: auto;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+
+    // Entry animation using @starting-style
+    @starting-style {
+      opacity: 0;
+      transform: translateY(-0.25rem) scale(0.98);
+    }
+  }
+
+  // Exit animation (when closing)
+  opacity: 0;
+  transform: translateY(-0.25rem) scale(0.98);
+
+  // Smooth transitions for open/close
+  transition:
+    opacity 150ms ease-out,
+    transform 150ms ease-out,
+    overlay 150ms ease-out allow-discrete,
+    display 150ms ease-out allow-discrete;
+
+  // Placement variants using CSS anchor positioning
+  &.bottom,
+  &.bottom-start,
+  &.bottom-end {
+    position-area: bottom;
+    margin-top: 0.25rem;
+  }
+
+  &.top,
+  &.top-start,
+  &.top-end {
+    position-area: top;
+    margin-bottom: 0.25rem;
+  }
+
+  &.left,
+  &.left-start,
+  &.left-end {
+    position-area: left;
+    margin-right: 0.25rem;
+  }
+
+  &.right,
+  &.right-start,
+  &.right-end {
+    position-area: right;
+    margin-left: 0.25rem;
+  }
+
+  // Alignment variants
+  &.bottom-start,
+  &.top-start {
+    align-self: start;
+  }
+
+  &.bottom-end,
+  &.top-end {
+    align-self: end;
+  }
+
+  &.left-start,
+  &.right-start {
+    justify-self: start;
+  }
+
+  &.left-end,
+  &.right-end {
+    justify-self: end;
+  }
+
+  // Auto-flip behavior using @position-try
+  &.top,
+  &.top-start,
+  &.top-end {
+    position-try-fallbacks: --flip-bottom, --flip-left, --flip-right;
+  }
+
+  &.bottom,
+  &.bottom-start,
+  &.bottom-end {
+    position-try-fallbacks: --flip-top, --flip-left, --flip-right;
+  }
+
+  &.left,
+  &.left-start,
+  &.left-end {
+    position-try-fallbacks: --flip-right, --flip-top, --flip-bottom;
+  }
+
+  &.right,
+  &.right-start,
+  &.right-end {
+    position-try-fallbacks: --flip-left, --flip-top, --flip-bottom;
+  }
+}
+
+// Position try fallbacks for auto-flip behavior
+@position-try --flip-top {
+  position-area: top;
+}
+
+@position-try --flip-bottom {
+  position-area: bottom;
+}
+
+@position-try --flip-left {
+  position-area: left;
+}
+
+@position-try --flip-right {
+  position-area: right;
+}
+
+// Fallback for browsers without anchor positioning support
+@supports not (anchor-name: --test) {
+  .popover {
+    // Falls back to fixed positioning at trigger location
+    // The popover will still work, just without smart positioning
+    position: fixed;
+    top: var(--popover-top, auto);
+    left: var(--popover-left, auto);
+    right: var(--popover-right, auto);
+    bottom: var(--popover-bottom, auto);
+  }
+}
