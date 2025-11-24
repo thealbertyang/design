@@ -1,6 +1,7 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import type React from "react";
+import { createContext, type ReactNode, useContext, useEffect, useState } from "react";
 
 // Default breakpoints
 export const DEFAULT_BREAKPOINTS = {
@@ -8,7 +9,7 @@ export const DEFAULT_BREAKPOINTS = {
   s: 768, // Small (mobile)
   m: 1024, // Medium (tablet)
   l: 1440, // Large (desktop)
-  xl: Infinity, // Above all breakpoints
+  xl: Number.POSITIVE_INFINITY, // Above all breakpoints
 } as const;
 
 export type BreakpointKey = keyof typeof DEFAULT_BREAKPOINTS;
@@ -37,7 +38,7 @@ const LayoutProvider: React.FC<LayoutProviderProps> = ({
 }) => {
   // Merge custom breakpoints with defaults
   const breakpoints: Breakpoints = {
-  ...DEFAULT_BREAKPOINTS,
+    ...DEFAULT_BREAKPOINTS,
     ...customBreakpoints,
   };
 
@@ -86,7 +87,7 @@ const LayoutProvider: React.FC<LayoutProviderProps> = ({
     const updateWidth = () => {
       const newWidth = window.innerWidth;
       const newBreakpoint = getCurrentBreakpoint(newWidth);
-      
+
       // Only update state if breakpoint actually changed
       setWidth(newWidth);
       setCurrentBreakpoint((prev) => {

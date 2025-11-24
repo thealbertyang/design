@@ -1,8 +1,9 @@
 "use client";
 
+import type React from "react";
+import { forwardRef, useEffect, useMemo, useRef, useState } from "react";
 import { Row } from ".";
 import styles from "./AutoScroll.module.scss";
-import React, { forwardRef, useState, useRef, useEffect, useMemo } from "react";
 
 interface AutoScrollProps extends React.ComponentProps<typeof Row> {
   children: React.ReactNode;
@@ -140,7 +141,7 @@ const AutoScroll = forwardRef<HTMLDivElement, AutoScrollProps>(
 
       const animation = element.animate(keyframes, {
         duration,
-        iterations: Infinity,
+        iterations: Number.POSITIVE_INFINITY,
         easing: "linear",
       });
 

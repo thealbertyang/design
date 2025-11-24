@@ -1,6 +1,7 @@
 "use client";
 
-import React, { forwardRef, useId, type ReactNode } from "react";
+import type React from "react";
+import { forwardRef, type ReactNode, useId } from "react";
 import { Dropdown } from ".";
 import styles from "./PopoverDropdown.module.scss";
 
@@ -120,12 +121,7 @@ const PopoverDropdown = forwardRef<HTMLDivElement, PopoverDropdownProps>(
           className={`${styles.popover} ${styles[placement]}`}
           style={popoverStyle}
         >
-          <Dropdown
-            radius="l"
-            padding="0"
-            selectedOption={selectedOption}
-            onSelect={handleSelect}
-          >
+          <Dropdown radius="l" padding="0" selectedOption={selectedOption} onSelect={handleSelect}>
             {dropdown}
           </Dropdown>
         </div>

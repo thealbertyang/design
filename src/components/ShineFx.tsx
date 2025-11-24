@@ -1,9 +1,9 @@
 "use client";
 
-import React from "react";
+import classNames from "classnames";
+import type React from "react";
 import { Text } from ".";
 import styles from "./ShineFx.module.scss";
-import classNames from "classnames";
 
 export interface ShineFxProps extends React.ComponentProps<typeof Text> {
   speed?: number;
@@ -28,7 +28,12 @@ const ShineFx: React.FC<ShineFxProps> = ({
   return (
     <Text
       {...text}
-      className={classNames(styles.shineFx, disabled ? styles.disabled : "", inverse ? styles.inverse : styles.default, className)}
+      className={classNames(
+        styles.shineFx,
+        disabled ? styles.disabled : "",
+        inverse ? styles.inverse : styles.default,
+        className,
+      )}
       style={{
         ...style,
         animationDuration,

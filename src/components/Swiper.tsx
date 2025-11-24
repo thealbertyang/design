@@ -1,7 +1,7 @@
 "use client";
 
-import { Flex, Media, Column, Row, IconButton } from ".";
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Column, Flex, IconButton, Media, Row } from ".";
 import styles from "./Swiper.module.scss";
 
 interface SwiperItem {
@@ -49,7 +49,7 @@ const Swiper: React.FC<SwiperProps> = ({
       const scrollLeft = container.scrollLeft;
       const slideWidth = container.clientWidth;
       const newIndex = Math.round(scrollLeft / slideWidth);
-      
+
       if (newIndex !== activeIndex && newIndex >= 0 && newIndex < items.length) {
         setActiveIndex(newIndex);
       }
@@ -90,7 +90,7 @@ const Swiper: React.FC<SwiperProps> = ({
 
     isScrollingProgrammatically.current = true;
     const slideWidth = container.clientWidth;
-    
+
     container.scrollTo({
       left: slideWidth * index,
       behavior: "smooth",
@@ -150,16 +150,16 @@ const Swiper: React.FC<SwiperProps> = ({
       const currentScroll = container.scrollLeft;
       const nearestIndex = Math.round(currentScroll / slideWidth);
       const targetScroll = nearestIndex * slideWidth;
-      
+
       // Smooth scroll to nearest slide
       container.scrollTo({
         left: targetScroll,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
-      
+
       setActiveIndex(nearestIndex);
       setIsDragging(false);
-      
+
       // Re-enable snap after a brief delay to let smooth scroll complete
       setTimeout(() => {
         setScrollSnapType("x mandatory");
@@ -181,7 +181,13 @@ const Swiper: React.FC<SwiperProps> = ({
   }
 
   return (
-    <Column fillWidth fillHeight={fill} aspectRatio={undefined} style={{ isolation: "isolate" }} {...rest}>
+    <Column
+      fillWidth
+      fillHeight={fill}
+      aspectRatio={undefined}
+      style={{ isolation: "isolate" }}
+      {...rest}
+    >
       <Flex
         fillWidth
         fillHeight={fill}
@@ -213,48 +219,52 @@ const Swiper: React.FC<SwiperProps> = ({
               userSelect: "none",
             }}
           >
-          {items.map((item, index) => (
-            <Flex
-              key={index}
-              ref={(el) => {
-                slideRefs.current[index] = el;
-              }}
-              fillWidth
-              fillHeight={fill}
-              className={styles.slide}
-              style={{
-                scrollSnapAlign: "start",
-                scrollSnapStop: "always",
-                flexShrink: 0,
-              }}
-            >
-              {typeof item.slide === "string" ? (
-                <Media
-                  fill={fill}
-                  sizes={sizes}
-                  priority={priority && index === 0}
-                  aspectRatio={fill ? undefined : aspectRatio === "auto" ? undefined : aspectRatio}
-                  src={item.slide as string}
-                  alt={item.alt || ""}
-                  onDragStart={(e) => e.preventDefault()}
-                  style={{
-                    userSelect: "none",
-                  }}
-                />
-              ) : (
-                <Flex
-                  fill
-                  aspectRatio={fill ? undefined : aspectRatio === "auto" ? undefined : aspectRatio}
-                  onDragStart={(e) => e.preventDefault()}
-                  style={{
-                    userSelect: "none",
-                  }}
-                >
-                  {item.slide}
-                </Flex>
-              )}
-            </Flex>
-          ))}
+            {items.map((item, index) => (
+              <Flex
+                key={index}
+                ref={(el) => {
+                  slideRefs.current[index] = el;
+                }}
+                fillWidth
+                fillHeight={fill}
+                className={styles.slide}
+                style={{
+                  scrollSnapAlign: "start",
+                  scrollSnapStop: "always",
+                  flexShrink: 0,
+                }}
+              >
+                {typeof item.slide === "string" ? (
+                  <Media
+                    fill={fill}
+                    sizes={sizes}
+                    priority={priority && index === 0}
+                    aspectRatio={
+                      fill ? undefined : aspectRatio === "auto" ? undefined : aspectRatio
+                    }
+                    src={item.slide as string}
+                    alt={item.alt || ""}
+                    onDragStart={(e) => e.preventDefault()}
+                    style={{
+                      userSelect: "none",
+                    }}
+                  />
+                ) : (
+                  <Flex
+                    fill
+                    aspectRatio={
+                      fill ? undefined : aspectRatio === "auto" ? undefined : aspectRatio
+                    }
+                    onDragStart={(e) => e.preventDefault()}
+                    style={{
+                      userSelect: "none",
+                    }}
+                  >
+                    {item.slide}
+                  </Flex>
+                )}
+              </Flex>
+            ))}
           </Row>
         </Flex>
 
@@ -307,13 +317,17 @@ const Swiper: React.FC<SwiperProps> = ({
       {/* Dot Indicators */}
       {indicator && items.length > 1 && (
         <Row
-          gap="8" fillWidth horizontal="center" paddingX="16"
+          gap="8"
+          fillWidth
+          horizontal="center"
+          paddingX="16"
           paddingTop={controls === "contained" ? undefined : "12"}
           position={controls === "contained" ? "absolute" : "relative"}
           bottom={controls === "contained" ? "16" : undefined}
           style={{
             transform: controls === "contained" ? "translateY(-100%)" : undefined,
-          }}>
+          }}
+        >
           {items.map((_, index) => (
             <Flex
               key={index}

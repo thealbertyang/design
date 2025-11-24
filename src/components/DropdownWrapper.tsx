@@ -1,30 +1,30 @@
 "use client";
 
+import {
+  autoUpdate,
+  flip,
+  offset,
+  type Placement,
+  shift,
+  size,
+  useFloating,
+} from "@floating-ui/react-dom";
 import React, {
-  useState,
-  useRef,
-  useEffect,
-  useLayoutEffect,
-  ReactNode,
+  type FocusEvent,
   forwardRef,
-  useImperativeHandle,
+  type KeyboardEvent,
+  type ReactNode,
   useCallback,
-  KeyboardEvent,
-  FocusEvent,
+  useEffect,
+  useImperativeHandle,
+  useLayoutEffect,
+  useRef,
+  useState,
 } from "react";
 import { createPortal } from "react-dom";
-import {
-  useFloating,
-  shift,
-  offset,
-  flip,
-  size,
-  autoUpdate,
-  Placement,
-} from "@floating-ui/react-dom";
-import { Flex, Dropdown, Column, Row, FocusTrap, ArrowNavigation } from ".";
+import type { NavigationLayout } from "../hooks/useArrowNavigation";
+import { ArrowNavigation, Column, Dropdown, Flex, FocusTrap, Row } from ".";
 import styles from "./DropdownWrapper.module.scss";
-import { NavigationLayout } from "../hooks/useArrowNavigation";
 
 export interface DropdownWrapperProps {
   fillWidth?: boolean;
@@ -98,13 +98,16 @@ const DropdownWrapper = forwardRef<HTMLDivElement, DropdownWrapperProps>(
       (newIsOpen: boolean) => {
         if (newIsOpen) {
           // Close any other open dropdown before opening this one
-          if ((window as any).lastOpenedDropdown && (window as any).lastOpenedDropdown !== dropdownId.current) {
+          if (
+            (window as any).lastOpenedDropdown &&
+            (window as any).lastOpenedDropdown !== dropdownId.current
+          ) {
             // Dispatch event to close other dropdowns
-            const closeEvent = new CustomEvent('close-other-dropdowns', {
-              detail: { exceptId: dropdownId.current }
+            const closeEvent = new CustomEvent("close-other-dropdowns", {
+              detail: { exceptId: dropdownId.current },
             });
             document.dispatchEvent(closeEvent);
-            
+
             // Small delay to let the other dropdown close and restore scroll first
             setTimeout(() => {
               if (!isControlled) {
@@ -115,7 +118,7 @@ const DropdownWrapper = forwardRef<HTMLDivElement, DropdownWrapperProps>(
             }, 50);
             return;
           }
-          
+
           // Set this as the last opened dropdown using global variable
           (window as any).lastOpenedDropdown = dropdownId.current;
         } else {
@@ -204,10 +207,10 @@ const DropdownWrapper = forwardRef<HTMLDivElement, DropdownWrapperProps>(
         // Store current scroll position
         const scrollY = window.scrollY;
         const scrollX = window.scrollX;
-        
+
         // Calculate scrollbar width to prevent layout shift
         const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-        
+
         // Store original styles
         const originalPosition = document.body.style.position;
         const originalTop = document.body.style.top;
@@ -216,18 +219,18 @@ const DropdownWrapper = forwardRef<HTMLDivElement, DropdownWrapperProps>(
         const originalOverflow = document.body.style.overflow;
         const originalPaddingRight = document.body.style.paddingRight;
         const originalScrollBehavior = document.documentElement.style.scrollBehavior;
-        
+
         // Disable smooth scrolling completely
-        document.documentElement.style.scrollBehavior = 'auto';
-        
+        document.documentElement.style.scrollBehavior = "auto";
+
         // Lock scroll by fixing body position at current scroll offset
-        document.body.style.position = 'fixed';
+        document.body.style.position = "fixed";
         document.body.style.top = `-${scrollY}px`;
         document.body.style.left = `-${scrollX}px`;
-        document.body.style.width = '100%';
-        document.body.style.overflow = 'hidden';
+        document.body.style.width = "100%";
+        document.body.style.overflow = "hidden";
         document.body.style.paddingRight = `${scrollbarWidth}px`;
-        
+
         return () => {
           // Restore body position first (so it becomes scrollable again)
           document.body.style.position = originalPosition;
@@ -236,10 +239,10 @@ const DropdownWrapper = forwardRef<HTMLDivElement, DropdownWrapperProps>(
           document.body.style.width = originalWidth;
           document.body.style.overflow = originalOverflow;
           document.body.style.paddingRight = originalPaddingRight;
-          
+
           // Restore scroll position while scroll-behavior is still 'auto'
           window.scrollTo(scrollX, scrollY);
-          
+
           // Finally restore smooth scrolling
           document.documentElement.style.scrollBehavior = originalScrollBehavior;
         };
@@ -393,7 +396,7 @@ const DropdownWrapper = forwardRef<HTMLDivElement, DropdownWrapperProps>(
       const handleCloseOtherDropdowns = (e: Event) => {
         const customEvent = e as CustomEvent;
         const exceptId = customEvent.detail?.exceptId;
-        
+
         // Close this dropdown if it's not the one being excepted
         if (isOpen && dropdownId.current !== exceptId) {
           handleOpenChange(false);
@@ -402,7 +405,10 @@ const DropdownWrapper = forwardRef<HTMLDivElement, DropdownWrapperProps>(
       };
 
       document.addEventListener("close-nested-dropdowns", handleCloseNestedDropdowns);
-      document.addEventListener("close-other-dropdowns", handleCloseOtherDropdowns as EventListener);
+      document.addEventListener(
+        "close-other-dropdowns",
+        handleCloseOtherDropdowns as EventListener,
+      );
 
       return () => {
         document.removeEventListener("click", handleClickOutside);
@@ -411,7 +417,10 @@ const DropdownWrapper = forwardRef<HTMLDivElement, DropdownWrapperProps>(
           handleFocusOut as unknown as EventListener,
         );
         document.removeEventListener("close-nested-dropdowns", handleCloseNestedDropdowns);
-        document.removeEventListener("close-other-dropdowns", handleCloseOtherDropdowns as EventListener);
+        document.removeEventListener(
+          "close-other-dropdowns",
+          handleCloseOtherDropdowns as EventListener,
+        );
       };
     }, [handleClickOutside, handleFocusOut, isNested, isOpen, handleOpenChange]);
 
@@ -431,7 +440,7 @@ const DropdownWrapper = forwardRef<HTMLDivElement, DropdownWrapperProps>(
       const handleOptionHover = (e: MouseEvent) => {
         const target = e.target as HTMLElement;
         const option = target.closest('[role="option"], [data-value]') as HTMLElement;
-        
+
         if (option && dropdownRef.current?.contains(option)) {
           const options = getOptions();
           const index = options.indexOf(option);
@@ -442,10 +451,10 @@ const DropdownWrapper = forwardRef<HTMLDivElement, DropdownWrapperProps>(
       };
 
       const dropdown = dropdownRef.current;
-      dropdown.addEventListener('mouseover', handleOptionHover);
+      dropdown.addEventListener("mouseover", handleOptionHover);
 
       return () => {
-        dropdown.removeEventListener('mouseover', handleOptionHover);
+        dropdown.removeEventListener("mouseover", handleOptionHover);
       };
     }, [isOpen, focusedIndex, getOptions]);
 
@@ -507,7 +516,7 @@ const DropdownWrapper = forwardRef<HTMLDivElement, DropdownWrapperProps>(
           const container = dropdownRef.current;
           const optionRect = option.getBoundingClientRect();
           const containerRect = container.getBoundingClientRect();
-          
+
           // Check if option is outside visible area of container
           if (optionRect.bottom > containerRect.bottom) {
             option.scrollIntoView({ block: "nearest", behavior: "auto" });
@@ -650,7 +659,9 @@ const DropdownWrapper = forwardRef<HTMLDivElement, DropdownWrapperProps>(
                 <ArrowNavigation
                   layout={navigationLayout}
                   itemCount={optionsCount}
-                  columns={typeof columns === "string" ? parseInt(columns, 10) || 8 : columns}
+                  columns={
+                    typeof columns === "string" ? Number.parseInt(columns, 10) || 8 : columns
+                  }
                   onSelect={handleOptionSelect}
                   onFocusChange={handleFocusChange}
                   wrap
@@ -696,7 +707,9 @@ const DropdownWrapper = forwardRef<HTMLDivElement, DropdownWrapperProps>(
                     onMouseDown={(e) => {
                       // Allow interactive elements (inputs, buttons, etc.) to work normally
                       const target = e.target as HTMLElement;
-                      const isInteractive = target.closest('input, textarea, select, button, [role="button"], a');
+                      const isInteractive = target.closest(
+                        'input, textarea, select, button, [role="button"], a',
+                      );
                       if (!isInteractive) {
                         e.preventDefault();
                       }
@@ -704,7 +717,9 @@ const DropdownWrapper = forwardRef<HTMLDivElement, DropdownWrapperProps>(
                     onPointerDown={(e) => {
                       // Allow interactive elements (inputs, buttons, etc.) to work normally
                       const target = e.target as HTMLElement;
-                      const isInteractive = target.closest('input, textarea, select, button, [role="button"], a');
+                      const isInteractive = target.closest(
+                        'input, textarea, select, button, [role="button"], a',
+                      );
                       if (!isInteractive) {
                         e.preventDefault();
                       }
@@ -712,7 +727,9 @@ const DropdownWrapper = forwardRef<HTMLDivElement, DropdownWrapperProps>(
                     onTouchStart={(e) => {
                       // Allow interactive elements (inputs, buttons, etc.) to work normally
                       const target = e.target as HTMLElement;
-                      const isInteractive = target.closest('input, textarea, select, button, [role="button"], a');
+                      const isInteractive = target.closest(
+                        'input, textarea, select, button, [role="button"], a',
+                      );
                       if (!isInteractive) {
                         e.preventDefault();
                       }
@@ -790,7 +807,9 @@ const DropdownWrapper = forwardRef<HTMLDivElement, DropdownWrapperProps>(
                   onMouseDown={(e) => {
                     // Allow interactive elements (inputs, buttons, etc.) to work normally
                     const target = e.target as HTMLElement;
-                    const isInteractive = target.closest('input, textarea, select, button, [role="button"], a');
+                    const isInteractive = target.closest(
+                      'input, textarea, select, button, [role="button"], a',
+                    );
                     if (!isInteractive) {
                       e.preventDefault();
                     }
@@ -798,7 +817,9 @@ const DropdownWrapper = forwardRef<HTMLDivElement, DropdownWrapperProps>(
                   onPointerDown={(e) => {
                     // Allow interactive elements (inputs, buttons, etc.) to work normally
                     const target = e.target as HTMLElement;
-                    const isInteractive = target.closest('input, textarea, select, button, [role="button"], a');
+                    const isInteractive = target.closest(
+                      'input, textarea, select, button, [role="button"], a',
+                    );
                     if (!isInteractive) {
                       e.preventDefault();
                     }
@@ -806,7 +827,9 @@ const DropdownWrapper = forwardRef<HTMLDivElement, DropdownWrapperProps>(
                   onTouchStart={(e) => {
                     // Allow interactive elements (inputs, buttons, etc.) to work normally
                     const target = e.target as HTMLElement;
-                    const isInteractive = target.closest('input, textarea, select, button, [role="button"], a');
+                    const isInteractive = target.closest(
+                      'input, textarea, select, button, [role="button"], a',
+                    );
                     if (!isInteractive) {
                       e.preventDefault();
                     }

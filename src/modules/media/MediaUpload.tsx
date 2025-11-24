@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useRef, useState, forwardRef, useEffect } from "react";
 import Compressor from "compressorjs";
+import type React from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
 import { Flex, Icon, Media, Spinner, Text } from "../../";
 import styles from "./MediaUpload.module.scss";
 

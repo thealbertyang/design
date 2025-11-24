@@ -1,5 +1,5 @@
-import { CSSProperties, ElementType, HTMLAttributes, ReactNode } from "react";
-import {
+import type { CSSProperties, ElementType, HTMLAttributes, ReactNode } from "react";
+import type {
   Colors,
   flex,
   gridSize,
@@ -114,41 +114,15 @@ export interface StyleProps extends HTMLAttributes<HTMLDivElement> {
   textSize?: TextSize;
   textType?: TextType;
   textWeight?: TextWeight;
-  background?:
-    | Colors
-    | "surface"
-    | "overlay"
-    | "page"
-    | "transparent";
+  background?: Colors | "surface" | "overlay" | "page" | "transparent";
   solid?: Colors;
-  borderTop?:
-    | Colors
-    | "surface"
-    | "transparent";
-  borderRight?:
-    | Colors
-    | "surface"
-    | "transparent";
-  borderBottom?:
-    | Colors
-    | "surface"
-    | "transparent";
-  borderLeft?:
-    | Colors
-    | "surface"
-    | "transparent";
-  borderX?:
-    | Colors
-    | "surface"
-    | "transparent";
-  borderY?:
-    | Colors
-    | "surface"
-    | "transparent";
-  border?:
-    | Colors
-    | "surface"
-    | "transparent";
+  borderTop?: Colors | "surface" | "transparent";
+  borderRight?: Colors | "surface" | "transparent";
+  borderBottom?: Colors | "surface" | "transparent";
+  borderLeft?: Colors | "surface" | "transparent";
+  borderX?: Colors | "surface" | "transparent";
+  borderY?: Colors | "surface" | "transparent";
+  border?: Colors | "surface" | "transparent";
   borderStyle?: "solid" | "dashed";
   borderWidth?: 1 | 2 | 4 | 6 | 8;
   topRadius?: RadiusSize;

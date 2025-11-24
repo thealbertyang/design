@@ -1,5 +1,6 @@
 import Link from "next/link";
-import React, { ReactNode, forwardRef } from "react";
+import type React from "react";
+import { forwardRef, type ReactNode } from "react";
 import { Flex } from ".";
 
 interface ElementTypeProps {
@@ -38,7 +39,6 @@ const ElementType = forwardRef<HTMLElement, ElementTypeProps>(
       return (
         <Link
           href={href}
-          ref={ref as React.Ref<HTMLAnchorElement>}
           className={className}
           style={style}
           onClick={() => onLinkClick?.()}

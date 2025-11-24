@@ -1,9 +1,10 @@
 "use client";
 
-import React, { CSSProperties, forwardRef, useEffect, useRef, useState } from "react";
+import classNames from "classnames";
+import type React from "react";
+import { type CSSProperties, forwardRef, useEffect, useRef, useState } from "react";
 import { Flex } from ".";
 import styles from "./Mask.module.scss";
-import classNames from "classnames";
 
 export interface MaskProps extends Omit<React.ComponentProps<typeof Flex>, "radius" | "cursor"> {
   cursor?: boolean;

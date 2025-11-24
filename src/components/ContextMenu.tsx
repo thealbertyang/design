@@ -1,18 +1,19 @@
 "use client";
 
-import React, {
-  useState,
-  useRef,
-  ReactNode,
+import type { Placement } from "@floating-ui/react-dom";
+import type React from "react";
+import {
   forwardRef,
-  MouseEvent as ReactMouseEvent,
-  KeyboardEvent,
+  type KeyboardEvent,
+  type MouseEvent as ReactMouseEvent,
+  type ReactNode,
   useCallback,
   useEffect,
+  useRef,
+  useState,
 } from "react";
-import { Placement } from "@floating-ui/react-dom";
 import { createPortal } from "react-dom";
-import { Flex, Dropdown } from ".";
+import { Dropdown, Flex } from ".";
 import styles from "./ContextMenu.module.scss";
 
 export interface ContextMenuProps {

@@ -1,10 +1,10 @@
 "use client";
 
-import React from "react";
+import type React from "react";
 import { Row } from "../../components";
-import { RadiusSize, SpacingToken } from "../../types";
 import { useDataTheme } from "../../contexts";
-import { ChartVariant } from "./interfaces";
+import type { RadiusSize, SpacingToken } from "../../types";
+import type { ChartVariant } from "./interfaces";
 
 export interface SwatchProps {
   color: string;

@@ -1,16 +1,17 @@
 "use client";
 
-import React, {
-  useState,
-  useRef,
-  useEffect,
-  ReactNode,
+import type { Placement } from "@floating-ui/react-dom";
+import type React from "react";
+import {
   forwardRef,
-  useImperativeHandle,
+  type ReactNode,
   useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
 } from "react";
 import { createPortal } from "react-dom";
-import { Placement } from "@floating-ui/react-dom";
 import { Flex } from ".";
 import styles from "./CursorCard.module.scss";
 

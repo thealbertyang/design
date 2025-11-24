@@ -1,11 +1,10 @@
 "use client";
 
-import { forwardRef } from "react";
-import { ServerFlex, Cursor } from ".";
-import { FlexProps, StyleProps, DisplayProps } from "../interfaces";
-import { useRef, useEffect, useCallback, CSSProperties, useState } from "react";
+import { type CSSProperties, forwardRef, useCallback, useEffect, useRef, useState } from "react";
 import { useLayout } from "..";
 import { useResponsiveClasses } from "../hooks/useResponsiveClasses";
+import type { DisplayProps, FlexProps, StyleProps } from "../interfaces";
+import { Cursor, ServerFlex } from ".";
 
 interface ClientFlexProps extends FlexProps, StyleProps, DisplayProps {
   cursor?: StyleProps["cursor"];

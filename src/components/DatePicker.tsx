@@ -1,22 +1,23 @@
 "use client";
 
-import React, { useState, forwardRef, useEffect, useCallback } from "react";
 import classNames from "classnames";
+import type React from "react";
+import { forwardRef, useCallback, useEffect, useState } from "react";
 import {
-  Flex,
-  Text,
-  Button,
-  Grid,
-  SegmentedControl,
-  IconButton,
-  RevealFx,
-  NumberInput,
-  DropdownWrapper,
-  Option,
-  Column,
-  Icon,
-  Row,
   ArrowNavigation,
+  Button,
+  Column,
+  DropdownWrapper,
+  Flex,
+  Grid,
+  Icon,
+  IconButton,
+  NumberInput,
+  Option,
+  RevealFx,
+  Row,
+  SegmentedControl,
+  Text,
 } from ".";
 import styles from "./DatePicker.module.scss";
 
@@ -445,7 +446,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
         const isDisabled = (minDate && currentDate < minDate) || (maxDate && currentDate > maxDate);
 
         // Calculate border radius for disabled days
-        let disabledRadius: "left" | "right" | "none" | undefined = undefined;
+        let disabledRadius: "left" | "right" | "none" | undefined;
         if (isDisabled) {
           // Find consecutive disabled days
           let consecutiveDisabledStart = day;

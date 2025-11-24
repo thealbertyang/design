@@ -1,19 +1,28 @@
 "use client";
 
-import { useState, useCallback, useRef, useEffect, KeyboardEvent, useId, memo, useMemo } from "react";
 import {
-  SegmentedControl,
-  ButtonOption,
-  IconButton,
-  Grid,
-  Flex,
-  Text,
-  Input,
-  Icon,
-  Column,
-  Row,
-} from ".";
+  type KeyboardEvent,
+  memo,
+  useCallback,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useDebounce } from "../hooks/useDebounce";
+import {
+  type ButtonOption,
+  Column,
+  type Flex,
+  Grid,
+  Icon,
+  IconButton,
+  Input,
+  Row,
+  SegmentedControl,
+  Text,
+} from ".";
 import styles from "./EmojiPicker.module.scss";
 
 type EmojiItem = {
@@ -80,8 +89,8 @@ const fallbackEmojiData: EmojiData = {
   ],
 };
 
+import type { gridSize, StyleProps } from "../";
 import generatedEmojiData from "../data/emoji-data.json";
-import { StyleProps, gridSize } from "../";
 
 const emojiData: EmojiData =
   Object.keys(generatedEmojiData).length > 0
@@ -186,13 +195,15 @@ const EmojiPicker = ({
     setActiveCategory(value);
   }, []);
 
-  const filteredEmojis = useMemo(() => 
-    searchQuery
-      ? Object.values(emojiData)
-          .flat()
-          .filter((emoji: EmojiItem) => emoji.description.includes(searchQuery.toLowerCase()))
-      : emojiData[activeCategory as keyof typeof emojiData] || []
-  , [searchQuery, activeCategory]);
+  const filteredEmojis = useMemo(
+    () =>
+      searchQuery
+        ? Object.values(emojiData)
+            .flat()
+            .filter((emoji: EmojiItem) => emoji.description.includes(searchQuery.toLowerCase()))
+        : emojiData[activeCategory as keyof typeof emojiData] || [],
+    [searchQuery, activeCategory],
+  );
 
   // Reset focused index when filtered emojis change
   useEffect(() => {

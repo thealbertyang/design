@@ -1,34 +1,34 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { isWithinInterval, parseISO } from "date-fns";
-import { formatDate } from "./utils/formatDate";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
-  ComposedChart as RechartsComposedChart,
+  Area as RechartsArea,
   Bar as RechartsBar,
+  CartesianGrid as RechartsCartesianGrid,
+  ComposedChart as RechartsComposedChart,
+  Legend as RechartsLegend,
+  ResponsiveContainer as RechartsResponsiveContainer,
+  Tooltip as RechartsTooltip,
   XAxis as RechartsXAxis,
   YAxis as RechartsYAxis,
-  CartesianGrid as RechartsCartesianGrid,
-  Tooltip as RechartsTooltip,
-  ResponsiveContainer as RechartsResponsiveContainer,
-  Legend as RechartsLegend,
-  Area as RechartsArea,
 } from "recharts";
-import { Column, Row, DateRange } from "../../components";
+import type { RadiusSize } from "@/types";
+import { Column, type DateRange, Row } from "../../components";
+import { useDataTheme } from "../../contexts/DataThemeProvider";
 import {
-  LinearGradient,
+  type barWidth,
   ChartHeader,
+  type ChartProps,
+  ChartStatus,
+  type ChartVariant,
+  type curveType,
   DataTooltip,
   Legend,
-  ChartStatus,
-  ChartProps,
-  SeriesConfig,
-  ChartVariant,
-  barWidth,
-  curveType,
+  LinearGradient,
+  type SeriesConfig,
 } from ".";
-import { useDataTheme } from "../../contexts/DataThemeProvider";
-import { RadiusSize } from "@/types";
+import { formatDate } from "./utils/formatDate";
 
 interface LineBarChartProps extends ChartProps {
   barWidth?: barWidth;
@@ -168,7 +168,9 @@ const LineBarChart: React.FC<LineBarChartProps> = ({
         legend.position === "top-center" ||
         legend.position === "top-left" ||
         legend.position === "top-right"
-          ? reverseX ? 32 : 0
+          ? reverseX
+            ? 32
+            : 0
           : undefined,
       bottom:
         legend.position === "bottom-center" ||
@@ -217,7 +219,14 @@ const LineBarChart: React.FC<LineBarChartProps> = ({
         onDateRangeChange={handleDateRangeChange}
         presets={date?.presets}
       />
-      <Row fill borderTop={(title || description || date?.selector) ? (border || "neutral-alpha-weak") : undefined} topRadius={flex.radius as RadiusSize || "l"} overflow="hidden">
+      <Row
+        fill
+        borderTop={
+          title || description || date?.selector ? border || "neutral-alpha-weak" : undefined
+        }
+        topRadius={(flex.radius as RadiusSize) || "l"}
+        overflow="hidden"
+      >
         <ChartStatus
           loading={loading}
           empty={!filteredData || filteredData.length === 0}
@@ -245,12 +254,13 @@ const LineBarChart: React.FC<LineBarChartProps> = ({
                   variant={variant as ChartVariant}
                 />
               </defs>
-              <RechartsCartesianGrid vertical={grid === "x" || grid === "both"} horizontal={grid === "y" || grid === "both"} stroke="var(--neutral-alpha-weak)" />
+              <RechartsCartesianGrid
+                vertical={grid === "x" || grid === "both"}
+                horizontal={grid === "y" || grid === "both"}
+                stroke="var(--neutral-alpha-weak)"
+              />
               {legend.display && (
-                <RechartsLegend
-                  content={legendContent}
-                  wrapperStyle={legendWrapperStyle}
-                />
+                <RechartsLegend content={legendContent} wrapperStyle={legendWrapperStyle} />
               )}
               <RechartsXAxis
                 height={32}

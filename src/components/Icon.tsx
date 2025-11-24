@@ -1,12 +1,12 @@
 "use client";
 
-import React, { forwardRef, ReactNode } from "react";
 import classNames from "classnames";
-import { IconType } from "react-icons";
-import { IconName } from "../icons";
+import type React from "react";
+import { forwardRef, type ReactNode } from "react";
 import { useIcons } from "../contexts/IconProvider";
-import { ColorScheme, ColorWeight } from "../types";
-import { Flex, Tooltip, HoverCard } from ".";
+import type { IconComponent, IconName } from "../icons";
+import type { ColorScheme, ColorWeight } from "../types";
+import { Flex, HoverCard, Tooltip } from ".";
 import styles from "./Icon.module.scss";
 
 interface IconProps extends React.ComponentProps<typeof Flex> {
@@ -38,9 +38,9 @@ const Icon = forwardRef<HTMLDivElement, IconProps>(
     ref,
   ) => {
     const { icons } = useIcons();
-    const IconComponent: IconType | undefined = icons[name];
+    const IconSvg: IconComponent | undefined = icons[name];
 
-    if (!IconComponent) {
+    if (!IconSvg) {
       console.warn(`Icon "${name}" does not exist in the library.`);
       return null;
     }
@@ -72,17 +72,13 @@ const Icon = forwardRef<HTMLDivElement, IconProps>(
         style={style}
         {...rest}
       >
-        <IconComponent />
+        <IconSvg />
       </Flex>
     );
 
     if (tooltip) {
       return (
-        <HoverCard
-          trigger={icon}
-          placement={tooltipPosition}
-          offsetDistance="4"
-        >
+        <HoverCard trigger={icon} placement={tooltipPosition} offsetDistance="4">
           <Tooltip label={tooltip} />
         </HoverCard>
       );

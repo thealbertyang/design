@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import { SpacingToken } from "../types";
-import { DisplayProps } from "../interfaces";
+import type { DisplayProps } from "../interfaces";
+import type { SpacingToken } from "../types";
 import { Flex } from ".";
 
 interface ParticleProps extends React.ComponentProps<typeof Flex> {
@@ -100,8 +100,8 @@ const Particle = React.forwardRef<HTMLDivElement, ParticleProps>(
           const initial = initialPositions.get(particleEl);
           if (!currentTarget || !initial) return;
 
-          const currentX = parseFloat(particleEl.style.left);
-          const currentY = parseFloat(particleEl.style.top);
+          const currentX = Number.parseFloat(particleEl.style.left);
+          const currentY = Number.parseFloat(particleEl.style.top);
 
           const time = Date.now() * 0.001 * speed;
           const baseNoiseX = Math.sin(time + index) * 0.5;
@@ -122,7 +122,7 @@ const Particle = React.forwardRef<HTMLDivElement, ParticleProps>(
               if (mode === "attract") {
                 // Attract: move towards cursor
                 const minDistance = 8;
-                
+
                 if (distance <= minDistance) {
                   // Particle is close - freeze it at cursor position (no noise, no movement)
                   targetX = mousePosition.x;

@@ -1,17 +1,17 @@
 "use client";
 
-import React, {
-  useState,
-  useEffect,
-  forwardRef,
-  TextareaHTMLAttributes,
-  useCallback,
-  ReactNode,
-} from "react";
 import classNames from "classnames";
+import React, {
+  forwardRef,
+  type ReactNode,
+  type TextareaHTMLAttributes,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
+import { useDebounce } from "../hooks/useDebounce";
 import { Column, Row, Text } from ".";
 import styles from "./Input.module.scss";
-import { useDebounce } from "../hooks/useDebounce";
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   id: string;
@@ -179,7 +179,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
                 } else if (ref) {
                   ref.current = node;
                 }
-                // @ts-ignore
+                // @ts-expect-error
                 textareaRef.current = node;
               }}
               id={id}
@@ -211,21 +211,21 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             )}
             {children}
             {characterCount && props.maxLength && (
-            <Row fillWidth paddingLeft="16" paddingY="8" className={styles.suffix}>
-              <Text
-                variant="label-default-s"
-                onBackground={
-                  props.maxLength - String(props.value || '').length <= 5
-                    ? "danger-weak"
-                    : props.maxLength - String(props.value || '').length <= 10
-                      ? "warning-weak"
-                      : "neutral-weak"
-                }
-              >
-                {props.maxLength - String(props.value || '').length}
-              </Text>
-            </Row>
-          )}
+              <Row fillWidth paddingLeft="16" paddingY="8" className={styles.suffix}>
+                <Text
+                  variant="label-default-s"
+                  onBackground={
+                    props.maxLength - String(props.value || "").length <= 5
+                      ? "danger-weak"
+                      : props.maxLength - String(props.value || "").length <= 10
+                        ? "warning-weak"
+                        : "neutral-weak"
+                  }
+                >
+                  {props.maxLength - String(props.value || "").length}
+                </Text>
+              </Row>
+            )}
           </Column>
           {hasSuffix && (
             <Row paddingRight="12" className={styles.suffix}>
@@ -234,12 +234,22 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           )}
         </Row>
         {displayError && errorMessage !== false && (
-          <Row paddingX="16" id={`${id}-error`} textVariant="body-default-s" onBackground="danger-weak">
+          <Row
+            paddingX="16"
+            id={`${id}-error`}
+            textVariant="body-default-s"
+            onBackground="danger-weak"
+          >
             {displayError}
           </Row>
         )}
         {description && (
-          <Row paddingX="16" id={`${id}-description`} textVariant="body-default-s" onBackground="neutral-weak">
+          <Row
+            paddingX="16"
+            id={`${id}-description`}
+            textVariant="body-default-s"
+            onBackground="neutral-weak"
+          >
             {description}
           </Row>
         )}

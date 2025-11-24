@@ -1,10 +1,10 @@
-import React, { forwardRef } from "react";
-import type { CSSProperties, ReactNode } from "react";
-import { SpacingToken } from "../types";
-import { Column } from "./Column";
 import classNames from "classnames";
-import styles from "./MasonryGrid.module.scss";
+import type { CSSProperties, ReactNode } from "react";
+import React, { forwardRef } from "react";
+import type { SpacingToken } from "../types";
+import { Column } from "./Column";
 import { Flex } from "./Flex";
+import styles from "./MasonryGrid.module.scss";
 
 function parseToken(value: SpacingToken | "-1" | number | undefined, type: "width" | "height") {
   if (value === undefined) return undefined;
@@ -60,7 +60,7 @@ const MasonryGrid = forwardRef<HTMLDivElement, MasonryGridProps>(
     );
 
     return (
-      <Flex   
+      <Flex
         fillWidth
         className={classes}
         ref={ref}
@@ -69,7 +69,8 @@ const MasonryGrid = forwardRef<HTMLDivElement, MasonryGridProps>(
           display: "block",
           columnGap: gapValue,
           ...style,
-        }}>
+        }}
+      >
         {React.Children.map(children, (child, idx) => (
           <Column
             key={idx}

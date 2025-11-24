@@ -1,12 +1,14 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { Row, Text, CountFx, CountFxProps } from ".";
+import type React from "react";
+import { useEffect, useState } from "react";
+import { CountFx, type CountFxProps, Row, Text } from ".";
 
-export interface CountdownFxProps extends Omit<CountFxProps, 'value' | 'format' | 'separator' | 'effect'> {
+export interface CountdownFxProps
+  extends Omit<CountFxProps, "value" | "format" | "separator" | "effect"> {
   targetDate: Date | string;
   format?: "HH:MM:SS" | "DD:HH:MM:SS" | "MM:SS";
-  effect?: CountFxProps['effect'];
+  effect?: CountFxProps["effect"];
   onComplete?: () => void;
 }
 
@@ -28,7 +30,8 @@ const CountdownFx: React.FC<CountdownFxProps> = ({
   useEffect(() => {
     const calculateTimeRemaining = () => {
       const now = new Date().getTime();
-      const target = typeof targetDate === 'string' ? new Date(targetDate).getTime() : targetDate.getTime();
+      const target =
+        typeof targetDate === "string" ? new Date(targetDate).getTime() : targetDate.getTime();
       const difference = target - now;
 
       if (difference <= 0) {
@@ -53,18 +56,18 @@ const CountdownFx: React.FC<CountdownFxProps> = ({
     return () => clearInterval(interval);
   }, [targetDate, onComplete]);
 
-  const padZero = (num: number) => num.toString().padStart(2, '0');
+  const padZero = (num: number) => num.toString().padStart(2, "0");
 
   const renderTimeUnit = (value: number, key: string) => {
     const paddedValue = padZero(value);
-    const digits = paddedValue.split('');
-    
+    const digits = paddedValue.split("");
+
     return (
       <Row key={key} gap="0" inline>
         {digits.map((digit, index) => (
           <CountFx
             key={`${key}-${index}`}
-            value={parseInt(digit)}
+            value={Number.parseInt(digit)}
             effect={effect}
             speed={400}
             {...countFxProps}
@@ -75,27 +78,36 @@ const CountdownFx: React.FC<CountdownFxProps> = ({
   };
 
   const renderSeparator = () => (
-    <Text key={`sep-${Math.random()}`} {...countFxProps} style={{ width: '0.5em', textAlign: 'center' }}>
+    <Text
+      key={`sep-${Math.random()}`}
+      {...countFxProps}
+      style={{ width: "0.5em", textAlign: "center" }}
+    >
       :
     </Text>
   );
 
   if (timeRemaining.total === 0) {
     return (
-      <Row gap="0" align="center" textVariant={countFxProps.variant} style={{ fontVariantNumeric: 'tabular-nums' }}>
+      <Row
+        gap="0"
+        align="center"
+        textVariant={countFxProps.variant}
+        style={{ fontVariantNumeric: "tabular-nums" }}
+      >
         {format === "DD:HH:MM:SS" && (
           <>
-            {renderTimeUnit(0, 'days')}
+            {renderTimeUnit(0, "days")}
             {renderSeparator()}
           </>
         )}
-        {renderTimeUnit(0, 'hours')}
+        {renderTimeUnit(0, "hours")}
         {renderSeparator()}
-        {renderTimeUnit(0, 'minutes')}
+        {renderTimeUnit(0, "minutes")}
         {format !== "MM:SS" && (
           <>
             {renderSeparator()}
-            {renderTimeUnit(0, 'seconds')}
+            {renderTimeUnit(0, "seconds")}
           </>
         )}
       </Row>
@@ -103,25 +115,27 @@ const CountdownFx: React.FC<CountdownFxProps> = ({
   }
 
   return (
-    <Row gap="0" align="center" style={{ fontVariantNumeric: 'tabular-nums' }}>
+    <Row gap="0" align="center" style={{ fontVariantNumeric: "tabular-nums" }}>
       {format === "DD:HH:MM:SS" && timeRemaining.days > 0 && (
         <>
-          {renderTimeUnit(timeRemaining.days, 'days')}
+          {renderTimeUnit(timeRemaining.days, "days")}
           {renderSeparator()}
         </>
       )}
       {format !== "MM:SS" && (
         <>
           {renderTimeUnit(
-            format === "DD:HH:MM:SS" ? timeRemaining.hours : timeRemaining.days * 24 + timeRemaining.hours,
-            'hours'
+            format === "DD:HH:MM:SS"
+              ? timeRemaining.hours
+              : timeRemaining.days * 24 + timeRemaining.hours,
+            "hours",
           )}
           {renderSeparator()}
         </>
       )}
-      {renderTimeUnit(timeRemaining.minutes, 'minutes')}
+      {renderTimeUnit(timeRemaining.minutes, "minutes")}
       {renderSeparator()}
-      {renderTimeUnit(timeRemaining.seconds, 'seconds')}
+      {renderTimeUnit(timeRemaining.seconds, "seconds")}
     </Row>
   );
 };

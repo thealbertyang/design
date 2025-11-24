@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import type React from "react";
+import { useEffect, useRef, useState } from "react";
 import { Row, Text } from ".";
 
 export interface CountFxProps extends React.ComponentProps<typeof Text> {
@@ -44,11 +45,11 @@ const CountFx: React.FC<CountFxProps> = ({
       case "linear":
         return progress;
       case "ease-out":
-        return 1 - Math.pow(1 - progress, 3);
+        return 1 - (1 - progress) ** 3;
       case "ease-in-out":
-        return progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+        return progress < 0.5 ? 2 * progress * progress : 1 - (-2 * progress + 2) ** 2 / 2;
       default:
-        return 1 - Math.pow(1 - progress, 3);
+        return 1 - (1 - progress) ** 3;
     }
   };
 
@@ -59,8 +60,8 @@ const CountFx: React.FC<CountFxProps> = ({
     const maxLength = Math.max(currentStr.length, targetStr.length);
 
     return Array.from({ length: maxLength }, (_, index) => {
-      const currentDigit = parseInt(currentStr[maxLength - 1 - index] || "0");
-      const targetDigit = parseInt(targetStr[maxLength - 1 - index] || "0");
+      const currentDigit = Number.parseInt(currentStr[maxLength - 1 - index] || "0");
+      const targetDigit = Number.parseInt(targetStr[maxLength - 1 - index] || "0");
 
       // Calculate progress for this specific digit
       const digitDifference = targetDigit - currentDigit;
@@ -135,8 +136,8 @@ const CountFx: React.FC<CountFxProps> = ({
     const maxLength = Math.max(startStr.length, targetStr.length);
 
     return Array.from({ length: maxLength }, (_, index) => {
-      const startDigit = parseInt(startStr[maxLength - 1 - index] || "0");
-      const targetDigit = parseInt(targetStr[maxLength - 1 - index] || "0");
+      const startDigit = Number.parseInt(startStr[maxLength - 1 - index] || "0");
+      const targetDigit = Number.parseInt(targetStr[maxLength - 1 - index] || "0");
 
       // Calculate the shortest path between digits (handles wrapping around 0-9)
       let digitDifference = targetDigit - startDigit;
@@ -165,7 +166,7 @@ const CountFx: React.FC<CountFxProps> = ({
         position = relativePosition * 200; // 200% for full wheel height
 
         const opacity = Math.max(0, 1 - Math.abs(relativePosition) * 2);
-        
+
         wheelDigits.push(
           <Row
             center
@@ -178,9 +179,9 @@ const CountFx: React.FC<CountFxProps> = ({
             fillWidth
             key={i}
             style={{
-              height: '1em',
+              height: "1em",
               transform: `translateY(${position}%)`,
-              transition: 'none',
+              transition: "none",
               opacity: opacity,
             }}
           >
@@ -193,19 +194,20 @@ const CountFx: React.FC<CountFxProps> = ({
         <Row
           key={index}
           style={{
-            height: '1em',
-            marginLeft: '-0.125em',
-            marginRight: '-0.125em',
-        }}>
+            height: "1em",
+            marginLeft: "-0.125em",
+            marginRight: "-0.125em",
+          }}
+        >
           <Row
             align="center"
             inline
             overflow="hidden"
             style={{
               opacity: 1,
-              height: '2em',
-              width: '0.8em',
-              isolation: 'isolate',
+              height: "2em",
+              width: "0.8em",
+              isolation: "isolate",
             }}
           >
             {wheelDigits}

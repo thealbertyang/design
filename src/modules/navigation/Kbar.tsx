@@ -1,9 +1,20 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback, useMemo, ReactNode } from "react";
-import { Flex, Text, Icon, Column, Input, Option, Row, Kbd, ArrowNavigation, useArrowNavigationContext } from "../../";
+import { usePathname, useRouter } from "next/navigation";
+import React, { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { useRouter, usePathname } from "next/navigation";
+import {
+  ArrowNavigation,
+  Column,
+  Flex,
+  Icon,
+  Input,
+  Kbd,
+  Option,
+  Row,
+  Text,
+  useArrowNavigationContext,
+} from "../../";
 import styles from "./Kbar.module.scss";
 
 export interface KbarItem {
@@ -428,8 +439,8 @@ export const Kbar: React.FC<KbarProps> = ({ items, children, ...rest }) => {
 
   return (
     <>
-      <KbarTrigger 
-        tabIndex={0} 
+      <KbarTrigger
+        tabIndex={0}
         onClick={handleOpen}
         onKeyDown={(e: React.KeyboardEvent) => {
           if (e.key === "Enter" || e.key === " ") {

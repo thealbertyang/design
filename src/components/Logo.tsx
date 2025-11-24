@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useEffect } from "react";
-import Link from "next/link";
 import classNames from "classnames";
-import { SpacingToken } from "../types";
-import { Flex, ContextMenu, Option, Icon, Column, Line } from ".";
+import Link from "next/link";
+import type React from "react";
+import { useEffect } from "react";
 import { useToast } from "../contexts";
+import type { SpacingToken } from "../types";
+import { Column, ContextMenu, Flex, Icon, Line, Option } from ".";
 
 const sizeMap: Record<string, SpacingToken> = {
   xs: "20",
@@ -50,7 +51,7 @@ const Logo: React.FC<LogoProps> = ({
   const content = (
     <>
       {icon && (
-        // @ts-ignore
+        // @ts-expect-error
         <img
           style={{
             height: `var(--static-space-${sizeMap[size]})`,
@@ -61,7 +62,7 @@ const Logo: React.FC<LogoProps> = ({
         />
       )}
       {wordmark && (
-        // @ts-ignore
+        // @ts-expect-error
         <img
           style={{
             height: `var(--static-space-${sizeMap[size]})`,

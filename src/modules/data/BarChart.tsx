@@ -1,32 +1,31 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { formatDate } from "./utils/formatDate";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
-  BarChart as RechartsBarChart,
   Bar as RechartsBar,
+  BarChart as RechartsBarChart,
+  CartesianGrid as RechartsCartesianGrid,
+  Legend as RechartsLegend,
+  ResponsiveContainer as RechartsResponsiveContainer,
+  Tooltip as RechartsTooltip,
   XAxis as RechartsXAxis,
   YAxis as RechartsYAxis,
-  ResponsiveContainer as RechartsResponsiveContainer,
-  CartesianGrid as RechartsCartesianGrid,
-  Tooltip as RechartsTooltip,
-  Legend as RechartsLegend,
 } from "recharts";
-
-import { Column, Row, DateRange } from "../../components";
-import { getDistributedColor } from "./utils/colorDistribution";
+import type { RadiusSize } from "@/types";
+import { Column, type DateRange, Row } from "../../components";
+import { useDataTheme } from "../../contexts/DataThemeProvider";
 import {
-  ChartProps,
-  LinearGradient,
+  type barWidth,
+  ChartHeader,
+  type ChartProps,
+  ChartStatus,
+  type ChartVariant,
   DataTooltip,
   Legend,
-  ChartVariant,
-  ChartStatus,
-  ChartHeader,
-  barWidth,
+  LinearGradient,
 } from ".";
-import { useDataTheme } from "../../contexts/DataThemeProvider";
-import { RadiusSize } from "@/types";
+import { getDistributedColor } from "./utils/colorDistribution";
+import { formatDate } from "./utils/formatDate";
 
 interface BarChartProps extends ChartProps {
   barWidth?: barWidth;
@@ -152,7 +151,9 @@ const BarChart: React.FC<BarChartProps> = ({
         legend.position === "top-center" ||
         legend.position === "top-left" ||
         legend.position === "top-right"
-          ? reverseX ? 32 : 0
+          ? reverseX
+            ? 32
+            : 0
           : undefined,
       bottom:
         legend.position === "bottom-center" ||
@@ -222,7 +223,14 @@ const BarChart: React.FC<BarChartProps> = ({
         onDateRangeChange={handleDateRangeChange}
         presets={date?.presets}
       />
-      <Row fill borderTop={(title || description || date?.selector) ? (border || "neutral-alpha-weak") : undefined} topRadius={flex.radius as RadiusSize || "l"} overflow="hidden">
+      <Row
+        fill
+        borderTop={
+          title || description || date?.selector ? border || "neutral-alpha-weak" : undefined
+        }
+        topRadius={(flex.radius as RadiusSize) || "l"}
+        overflow="hidden"
+      >
         <ChartStatus
           loading={loading}
           empty={!filteredData || filteredData.length === 0}
@@ -237,12 +245,13 @@ const BarChart: React.FC<BarChartProps> = ({
               margin={{ left: 0, bottom: 0, top: 0, right: 0 }}
               barGap={4}
             >
-              <RechartsCartesianGrid vertical={grid === "x" || grid === "both"} horizontal={grid === "y" || grid === "both"} stroke="var(--neutral-alpha-weak)" />
+              <RechartsCartesianGrid
+                vertical={grid === "x" || grid === "both"}
+                horizontal={grid === "y" || grid === "both"}
+                stroke="var(--neutral-alpha-weak)"
+              />
               {legend.display && (
-                <RechartsLegend
-                  content={legendContent}
-                  wrapperStyle={legendWrapperStyle}
-                />
+                <RechartsLegend content={legendContent} wrapperStyle={legendWrapperStyle} />
               )}
               <RechartsXAxis
                 dataKey={xAxisKey}
@@ -281,7 +290,9 @@ const BarChart: React.FC<BarChartProps> = ({
               )}
               {tooltip && (
                 <RechartsTooltip
-                  cursor={{ fill: hover ? "var(--neutral-alpha-weak)" : "var(--static-transparent)" }}
+                  cursor={{
+                    fill: hover ? "var(--neutral-alpha-weak)" : "var(--static-transparent)",
+                  }}
                   content={(props) => (
                     <DataTooltip {...props} date={date} variant={variant as ChartVariant} />
                   )}

@@ -1,10 +1,10 @@
 "use client";
 
-import React from "react";
+import type React from "react";
 import { Row, Text } from "../../components";
-import { Swatch } from ".";
 import { useDataTheme } from "../../contexts/DataThemeProvider";
-import { ChartVariant } from "./interfaces";
+import { Swatch } from ".";
+import type { ChartVariant } from "./interfaces";
 
 interface LegendProps {
   payload?: readonly any[];

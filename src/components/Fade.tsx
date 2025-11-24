@@ -1,9 +1,9 @@
-import React, { forwardRef, ReactNode } from "react";
-import styles from "./Fade.module.scss";
-
-import { Flex } from ".";
-import { ColorScheme, ColorWeight, SpacingToken } from "../types";
 import classNames from "classnames";
+import type React from "react";
+import { forwardRef, type ReactNode } from "react";
+import type { ColorScheme, ColorWeight, SpacingToken } from "../types";
+import { Flex } from ".";
+import styles from "./Fade.module.scss";
 
 export type BaseColor =
   | `${ColorScheme}-${ColorWeight}`

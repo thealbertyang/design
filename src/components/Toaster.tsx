@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import type React from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { Column, Row, Toast } from ".";
 import styles from "./Toaster.module.scss";
@@ -26,13 +27,7 @@ const Toaster: React.FC<ToasterProps> = ({ toasts, removeToast }) => {
   if (!mounted) return null;
 
   return createPortal(
-    <Column
-      zIndex={10}
-      fillWidth
-      maxWidth={32}
-      position="fixed"
-      className={styles.toastContainer}
-    >
+    <Column zIndex={10} fillWidth maxWidth={32} position="fixed" className={styles.toastContainer}>
       {toasts.map((toast, index, array) => (
         <Row
           padding="4"

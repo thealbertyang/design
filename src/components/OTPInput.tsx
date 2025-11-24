@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useRef, forwardRef, useEffect } from "react";
+import type React from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
 import { Column, Flex, Input, Text } from ".";
 import styles from "./OTPInput.module.scss";
 

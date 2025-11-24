@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useRef, forwardRef } from "react";
-import { Flex, Input, InputProps, IconButton, Icon } from ".";
+import type React from "react";
+import { forwardRef, useRef } from "react";
+import { Flex, Icon, IconButton, Input, type InputProps } from ".";
 
 interface ColorInputProps extends Omit<InputProps, "onChange" | "value"> {
   value: string;
@@ -43,7 +44,13 @@ const ColorInput = forwardRef<HTMLInputElement, ColorInputProps>(
                 transform: value ? "scale(0)" : "scale(1)",
               }}
             >
-              <Icon marginLeft="4" padding="2" size="xs" name="eyeDropper" onBackground="neutral-medium" />
+              <Icon
+                marginLeft="4"
+                padding="2"
+                size="xs"
+                name="eyeDropper"
+                onBackground="neutral-medium"
+              />
             </Flex>
             <Flex
               border="neutral-strong"
@@ -87,7 +94,8 @@ const ColorInput = forwardRef<HTMLInputElement, ColorInputProps>(
                 right="12"
                 style={{
                   transform: "translateY(-50%)",
-                }}>
+                }}
+              >
                 <IconButton
                   onClick={handleReset}
                   variant="secondary"

@@ -1,11 +1,11 @@
 import { forwardRef } from "react";
-import {
-  GridProps,
-  StyleProps,
-  SpacingProps,
-  SizeProps,
+import type {
   CommonProps,
   DisplayProps,
+  GridProps,
+  SizeProps,
+  SpacingProps,
+  StyleProps,
 } from "../interfaces";
 import { ClientGrid } from "./ClientGrid";
 import { ServerGrid } from "./ServerGrid";

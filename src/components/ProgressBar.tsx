@@ -1,9 +1,10 @@
 "use client";
 
-import React, { forwardRef } from "react";
 import classNames from "classnames";
+import type React from "react";
+import { forwardRef } from "react";
+import type { StyleProps } from "@/interfaces";
 import { Column, CountFx, Flex, Text } from ".";
-import { StyleProps } from "@/interfaces";
 
 interface ProgressBarProps extends React.ComponentProps<typeof Flex> {
   value: number;

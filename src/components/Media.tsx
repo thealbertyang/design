@@ -1,9 +1,10 @@
 "use client";
 
-import React, { CSSProperties, useState, useRef, useEffect, ReactNode } from "react";
-import { Column, Flex, Row, Skeleton } from ".";
-import Image from "next/image";
 import classNames from "classnames";
+import Image from "next/image";
+import type React from "react";
+import { type CSSProperties, type ReactNode, useEffect, useRef, useState } from "react";
+import { Column, Flex, Row, Skeleton } from ".";
 
 export interface MediaProps extends React.ComponentProps<typeof Flex> {
   aspectRatio?: string;
@@ -116,13 +117,13 @@ const Media: React.FC<MediaProps> = ({
 
   const isYouTubeVideo = (url: string) => {
     const youtubeRegex =
-      /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+      /(?:youtube\.com\/(?:[^/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
     return youtubeRegex.test(url);
   };
 
   const getYouTubeEmbedUrl = (url: string) => {
     const match = url.match(
-      /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/,
+      /(?:youtube\.com\/(?:[^/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/,
     );
     return match
       ? `https://www.youtube.com/embed/${match[1]}?controls=0&rel=0&modestbranding=1`
@@ -134,7 +135,7 @@ const Media: React.FC<MediaProps> = ({
 
   return (
     <>
-      {isEnlarged && enlarge && typeof document !== 'undefined' && (
+      {isEnlarged && enlarge && typeof document !== "undefined" && (
         <Flex
           center
           position="fixed"
@@ -166,14 +167,28 @@ const Media: React.FC<MediaProps> = ({
           style={{
             outline: "none",
             isolation: "isolate",
-            height: aspectRatio === "original" ? undefined : aspectRatio ? "" : height ? `${height}rem` : "100%",
+            height:
+              aspectRatio === "original"
+                ? undefined
+                : aspectRatio
+                  ? ""
+                  : height
+                    ? `${height}rem`
+                    : "100%",
             aspectRatio: aspectRatio === "original" ? undefined : aspectRatio,
             borderRadius: isEnlarged ? "0" : undefined,
             ...calculateTransform(),
             ...style,
           }}
           onClick={handleImageClick}
-          className={classNames(enlarge && !isEnlarged ? "cursor-zoom-in" : enlarge && isEnlarged ? "cursor-zoom-out" : undefined, className)}
+          className={classNames(
+            enlarge && !isEnlarged
+              ? "cursor-zoom-in"
+              : enlarge && isEnlarged
+                ? "cursor-zoom-out"
+                : undefined,
+            className,
+          )}
           {...rest}
         >
           {loading && <Skeleton shape="block" radius={rest.radius} />}

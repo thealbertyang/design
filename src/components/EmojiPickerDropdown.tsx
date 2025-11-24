@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import type React from "react";
+import type { gridSize, StyleProps } from "..";
 import { DropdownWrapper, EmojiPicker } from ".";
-import { StyleProps, gridSize } from "..";
 
 export interface EmojiPickerDropdownProps
   extends Omit<React.ComponentProps<typeof DropdownWrapper>, "dropdown"> {

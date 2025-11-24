@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import type React from "react";
 import { useDataTheme } from "../../contexts/DataThemeProvider";
-import { ChartVariant } from "./interfaces";
+import type { ChartVariant } from "./interfaces";
 
 interface GradientStop {
   offset: string;
@@ -35,7 +35,7 @@ interface RadialGradientProps {
 
 const getStopsByVariant = (
   variant: ChartVariant = "gradient",
-  isRadial: boolean = false,
+  isRadial = false,
 ): GradientStop[] => {
   if (isRadial) {
     // For radial gradients, we invert the opacity for better visual effect

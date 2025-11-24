@@ -1,10 +1,10 @@
 "use client";
 
-import React from "react";
+import type { Placement } from "@floating-ui/react-dom";
 import classNames from "classnames";
-import { DropdownWrapper, User, UserProps, DropdownWrapperProps, Column } from ".";
+import type React from "react";
+import { Column, DropdownWrapper, type DropdownWrapperProps, User, type UserProps } from ".";
 import styles from "./UserMenu.module.scss";
-import { Placement } from "@floating-ui/react-dom";
 
 interface UserMenuProps
   extends UserProps,
@@ -55,7 +55,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
       }
       dropdown={dropdown}
     />
-);
+  );
 };
 
 UserMenu.displayName = "UserMenu";

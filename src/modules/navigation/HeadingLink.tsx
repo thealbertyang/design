@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useCallback } from "react";
+import type React from "react";
+import { useCallback } from "react";
 import { Animation, Heading, IconButton, Row } from "../../components";
 import { useToast } from "../../contexts";
 import styles from "./HeadingLink.module.scss";

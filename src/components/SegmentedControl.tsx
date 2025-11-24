@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { ToggleButton, Scroller, Flex, ToggleButtonProps } from ".";
+import { useEffect, useRef, useState } from "react";
+import { Flex, Scroller, ToggleButton, type ToggleButtonProps } from ".";
 
 interface ButtonOption extends Omit<ToggleButtonProps, "selected"> {
   value: string;
@@ -58,7 +58,7 @@ const SegmentedControl: React.FC<SegmentedControlProps> = ({
 
     switch (event.key) {
       case "ArrowLeft":
-      case "ArrowUp":
+      case "ArrowUp": {
         event.preventDefault();
         const prevIndex =
           focusedIndex === -1
@@ -68,8 +68,9 @@ const SegmentedControl: React.FC<SegmentedControlProps> = ({
               : buttons.length - 1;
         buttonRefs.current[prevIndex]?.focus();
         break;
+      }
       case "ArrowRight":
-      case "ArrowDown":
+      case "ArrowDown": {
         event.preventDefault();
         const nextIndex =
           focusedIndex === -1
@@ -79,6 +80,7 @@ const SegmentedControl: React.FC<SegmentedControlProps> = ({
               : 0;
         buttonRefs.current[nextIndex]?.focus();
         break;
+      }
       case "Enter":
       case " ": // Space key
         event.preventDefault();
@@ -119,13 +121,21 @@ const SegmentedControl: React.FC<SegmentedControlProps> = ({
                 buttonRefs.current[index] = el as HTMLButtonElement;
               }}
               variant={compact ? "outline" : "ghost"}
-              radius={compact ? (index === 0 ? "left" : index === buttons.length - 1 ? "right" : "none") : undefined}
+              radius={
+                compact
+                  ? index === 0
+                    ? "left"
+                    : index === buttons.length - 1
+                      ? "right"
+                      : "none"
+                  : undefined
+              }
               key={button.value}
               selected={index === selectedIndex}
               onClick={(event) => handleButtonClick(button, event)}
               role="tab"
               className={className}
-              style={{opacity: (index !== selectedIndex && !compact) ? 0.6 : 1, ...style}}
+              style={{ opacity: index !== selectedIndex && !compact ? 0.6 : 1, ...style }}
               aria-selected={index === selectedIndex}
               aria-controls={`panel-${button.value}`}
               tabIndex={index === selectedIndex ? 0 : -1}

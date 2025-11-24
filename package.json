@@ -67,42 +67,42 @@
     }
   },
   "scripts": {
-    "build": "bun run clean && bun run generate-emoji-data && tsc --project tsconfig.build.json && bun run copy-files && bun run build:css",
+    "build": "bun run clean && bun run icons:generate && bun run generate-emoji-data && tsc --project tsconfig.build.json && bun run copy-files && bun run build:css",
     "build:css": "sass src/styles/index.scss:dist/css/styles.css src/tokens/index.scss:dist/css/tokens.css --style=compressed",
     "copy-files": "node scripts/copy-files.js",
-    "clean": "rimraf dist",
+    "clean": "rm -rf dist",
+    "clean:node": "rm -rf node_modules",
+    "kill": "pkill -15 -f 'tsc --watch' || true",
     "lint": "biome check .",
-    "format": "biome format --write .",
+    "format": "biome format --write",
     "typecheck": "tsc --noEmit",
     "dev": "tsc --watch --preserveWatchOutput",
-    "generate-emoji-data": "node scripts/generate-emoji-data.js"
+    "generate-emoji-data": "node scripts/generate-emoji-data.js",
+    "icons:generate": "node ../../scripts/generate-icons.js --package once-ui && bunx @biomejs/biome check --write src/icons/",
+    "icons:generate:force": "node ../../scripts/generate-icons.js --package once-ui --force && bunx @biomejs/biome check --write src/icons/"
   },
   "dependencies": {
-    "@floating-ui/react-dom": "^2.1.1",
-    "classnames": "^2.5.1",
-    "compressorjs": "^1.2.1",
-    "date-fns": "^4.1.0",
-    "prismjs": "^1.30.0",
-    "recharts": "^2.15.1"
+    "@floating-ui/react-dom": "catalog:ui",
+    "classnames": "catalog:frontend",
+    "compressorjs": "catalog:ui",
+    "date-fns": "catalog:ui",
+    "prismjs": "catalog:ui",
+    "recharts": "catalog:ui"
   },
   "peerDependencies": {
     "next": ">=13.4",
     "react": ">=18",
     "react-dom": ">=18",
-    "react-icons": "^5.0.0",
     "sass": "^1.77.6",
     "sharp": "^0.33.4"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
-    "@types/node": "20.17.23",
-    "@types/react": "19.0.1",
-    "@types/react-dom": "19.0.2",
-    "rimraf": "^5.0.10",
-    "typescript": "5.8.2"
-  },
-  "overrides": {
-    "@types/react": "19.0.1",
-    "@types/react-dom": "19.0.2"
+    "@biomejs/biome": "catalog:linting",
+    "@types/node": "catalog:runtime",
+    "@types/react": "catalog:frontend",
+    "@types/react-dom": "catalog:frontend",
+    "react-icons": "catalog:frontend",
+    "rimraf": "catalog:ui",
+    "typescript": "catalog:types"
   }
 }

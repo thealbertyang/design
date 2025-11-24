@@ -1,7 +1,7 @@
 import classNames from "classnames";
-import { CSSProperties, forwardRef } from "react";
+import { type CSSProperties, forwardRef } from "react";
 
-import {
+import type {
   CommonProps,
   DisplayProps,
   FlexProps,
@@ -9,7 +9,7 @@ import {
   SpacingProps,
   StyleProps,
 } from "../interfaces";
-import { ColorScheme, ColorWeight, SpacingToken, TextVariant } from "../types";
+import type { ColorScheme, ColorWeight, SpacingToken, TextVariant } from "../types";
 
 interface ComponentProps
   extends FlexProps,
@@ -239,7 +239,10 @@ const ServerFlex = forwardRef<HTMLDivElement, ComponentProps>(
       overflow && `overflow-${overflow}`,
       overflowX && `overflow-x-${overflowX}`,
       overflowY && `overflow-y-${overflowY}`,
-      (overflow && overflow !== "hidden" || overflowX && overflowX !== "hidden" || overflowY && overflowY !== "hidden") && `scrollbar-${scrollbar}`,
+      ((overflow && overflow !== "hidden") ||
+        (overflowX && overflowX !== "hidden") ||
+        (overflowY && overflowY !== "hidden")) &&
+        `scrollbar-${scrollbar}`,
       flex && `flex-${flex}`,
       horizontal &&
         (direction === "row" || direction === "row-reverse" || direction === undefined

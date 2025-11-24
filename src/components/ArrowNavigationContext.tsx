@@ -1,9 +1,10 @@
 "use client";
 
-import React, { createContext, useContext, useRef, ReactNode, useEffect } from "react";
-import { useArrowNavigation, ArrowNavigationOptions } from "../hooks/useArrowNavigation";
-import { FocusTrap } from "./FocusTrap";
+import type React from "react";
+import { createContext, type ReactNode, useContext, useEffect, useRef } from "react";
+import { type ArrowNavigationOptions, useArrowNavigation } from "../hooks/useArrowNavigation";
 import { Column } from "./Column";
+import { FocusTrap } from "./FocusTrap";
 
 interface ArrowNavigationContextType {
   focusedIndex: number;

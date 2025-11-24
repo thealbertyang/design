@@ -1,15 +1,15 @@
-import { CSSProperties, forwardRef } from "react";
 import classNames from "classnames";
+import { type CSSProperties, forwardRef } from "react";
 
-import {
-  GridProps,
-  SpacingProps,
-  SizeProps,
-  StyleProps,
+import type {
   CommonProps,
   DisplayProps,
+  GridProps,
+  SizeProps,
+  SpacingProps,
+  StyleProps,
 } from "../interfaces";
-import { SpacingToken, ColorScheme, ColorWeight } from "../types";
+import type { ColorScheme, ColorWeight, SpacingToken } from "../types";
 
 interface ComponentProps
   extends GridProps,
@@ -187,7 +187,10 @@ const ServerGrid = forwardRef<HTMLDivElement, ComponentProps>(
       overflow && `overflow-${overflow}`,
       overflowX && `overflow-x-${overflowX}`,
       overflowY && `overflow-y-${overflowY}`,
-      (overflow && overflow !== "hidden" || overflowX && overflowX !== "hidden" || overflowY && overflowY !== "hidden") && `scrollbar-${scrollbar}`,
+      ((overflow && overflow !== "hidden") ||
+        (overflowX && overflowX !== "hidden") ||
+        (overflowY && overflowY !== "hidden")) &&
+        `scrollbar-${scrollbar}`,
       padding && `p-${padding}`,
       paddingLeft && `pl-${paddingLeft}`,
       paddingRight && `pr-${paddingRight}`,

@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { Icon, Column, Flex, Option, Accordion, ElementType, Text } from "../../";
+import type React from "react";
+import { Accordion, Column, ElementType, Flex, Icon, Option, Text } from "../../";
 
 interface MenuLink {
   label: React.ReactNode;

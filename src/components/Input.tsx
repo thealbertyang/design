@@ -1,17 +1,18 @@
 "use client";
 
-import React, {
-  useState,
-  useEffect,
-  forwardRef,
-  InputHTMLAttributes,
-  useCallback,
-  ReactNode,
-} from "react";
 import classNames from "classnames";
+import type React from "react";
+import {
+  forwardRef,
+  type InputHTMLAttributes,
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
+import { useDebounce } from "../hooks/useDebounce";
 import { Column, Row, Text } from ".";
 import styles from "./Input.module.scss";
-import { useDebounce } from "../hooks/useDebounce";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
@@ -193,14 +194,14 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               <Text
                 variant="label-default-s"
                 onBackground={
-                  props.maxLength - String(props.value || '').length <= 5
+                  props.maxLength - String(props.value || "").length <= 5
                     ? "danger-weak"
-                    : props.maxLength - String(props.value || '').length <= 10
+                    : props.maxLength - String(props.value || "").length <= 10
                       ? "warning-weak"
                       : "neutral-weak"
                 }
               >
-                {props.maxLength - String(props.value || '').length}
+                {props.maxLength - String(props.value || "").length}
               </Text>
             </Row>
           )}
@@ -211,12 +212,22 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           )}
         </Row>
         {displayError && errorMessage !== false && (
-          <Row paddingX="16" id={`${id}-error`} textVariant="body-default-s" onBackground="danger-weak">
+          <Row
+            paddingX="16"
+            id={`${id}-error`}
+            textVariant="body-default-s"
+            onBackground="danger-weak"
+          >
             {validationError || errorMessage}
           </Row>
         )}
         {description && (
-          <Row paddingX="16" id={`${id}-description`} textVariant="body-default-s" onBackground="neutral-weak">
+          <Row
+            paddingX="16"
+            id={`${id}-description`}
+            textVariant="body-default-s"
+            onBackground="neutral-weak"
+          >
             {description}
           </Row>
         )}

@@ -1,12 +1,13 @@
 "use client";
 
-import React, { ReactNode, forwardRef } from "react";
-import { ElementType } from "./ElementType";
 import classNames from "classnames";
+import type React from "react";
+import { forwardRef, type ReactNode } from "react";
+import type { IconName } from "../icons";
 
-import { Spinner, Icon, Arrow, Flex } from ".";
+import { Arrow, Flex, Icon, Spinner } from ".";
 import styles from "./Button.module.scss";
-import { IconName } from "../icons";
+import { ElementType } from "./ElementType";
 
 interface CommonProps {
   variant?: "primary" | "secondary" | "tertiary" | "danger";

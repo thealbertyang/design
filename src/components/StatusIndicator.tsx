@@ -1,7 +1,8 @@
-import React, { forwardRef } from "react";
 import classNames from "classnames";
-import styles from "./StatusIndicator.module.scss";
+import type React from "react";
+import { forwardRef } from "react";
 import { Flex } from ".";
+import styles from "./StatusIndicator.module.scss";
 
 interface StatusIndicatorProps extends React.ComponentProps<typeof Flex> {
   size?: "s" | "m" | "l";

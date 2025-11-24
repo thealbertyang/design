@@ -1,10 +1,10 @@
 "use client";
 
-import React from "react";
-import { formatDate } from "./utils/formatDate";
-import { Column, Text, Row, CountFx } from "../../components";
+import type React from "react";
+import { Column, CountFx, Row, Text } from "../../components";
+import type { ChartVariant, DateConfig } from "./interfaces";
 import { Swatch } from "./Swatch";
-import { ChartVariant, DateConfig } from "./interfaces";
+import { formatDate } from "./utils/formatDate";
 
 interface DataTooltipProps {
   active?: boolean;

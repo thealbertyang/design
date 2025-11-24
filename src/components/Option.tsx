@@ -1,9 +1,10 @@
 "use client";
 
 import classNames from "classnames";
-import { Text, ElementType, Column, Row } from ".";
+import type React from "react";
+import { forwardRef, type KeyboardEvent, useEffect, useRef, useState } from "react";
+import { Column, ElementType, Row, Text } from ".";
 import styles from "./Option.module.scss";
-import React, { forwardRef, KeyboardEvent, useRef, useEffect, useState } from "react";
 
 export interface OptionProps extends Omit<React.ComponentProps<typeof Row>, "onClick"> {
   label?: React.ReactNode;
@@ -60,13 +61,14 @@ const Option = forwardRef<HTMLDivElement, OptionProps>(
           ) {
             if (mutation.target instanceof HTMLElement) {
               const element = mutation.target;
-              const hasHighlighted = element.classList.contains("highlighted") ||
+              const hasHighlighted =
+                element.classList.contains("highlighted") ||
                 element.getAttribute("data-highlighted") === "true";
-              
+
               // If highlighted class was just added but element is being hovered, remove it immediately
-              if (hasHighlighted && element.matches(':hover')) {
-                element.classList.remove('highlighted');
-                element.removeAttribute('data-highlighted');
+              if (hasHighlighted && element.matches(":hover")) {
+                element.classList.remove("highlighted");
+                element.removeAttribute("data-highlighted");
                 setIsHighlightedByClass(false);
               } else {
                 setIsHighlightedByClass(hasHighlighted);
@@ -82,13 +84,14 @@ const Option = forwardRef<HTMLDivElement, OptionProps>(
       });
 
       // Initial check
-      const hasHighlighted = elementRef.current.classList.contains("highlighted") ||
+      const hasHighlighted =
+        elementRef.current.classList.contains("highlighted") ||
         elementRef.current.getAttribute("data-highlighted") === "true";
-      
+
       // Check if element is being hovered on initial check too
-      if (hasHighlighted && elementRef.current.matches(':hover')) {
-        elementRef.current.classList.remove('highlighted');
-        elementRef.current.removeAttribute('data-highlighted');
+      if (hasHighlighted && elementRef.current.matches(":hover")) {
+        elementRef.current.classList.remove("highlighted");
+        elementRef.current.removeAttribute("data-highlighted");
         setIsHighlightedByClass(false);
       } else {
         setIsHighlightedByClass(hasHighlighted);
@@ -104,8 +107,8 @@ const Option = forwardRef<HTMLDivElement, OptionProps>(
         if (elementRef.current?.parentElement) {
           const allOptions = elementRef.current.parentElement.querySelectorAll('[role="option"]');
           allOptions.forEach((option) => {
-            option.classList.remove('highlighted');
-            option.removeAttribute('data-highlighted');
+            option.classList.remove("highlighted");
+            option.removeAttribute("data-highlighted");
           });
         }
       }

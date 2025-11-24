@@ -1,5 +1,6 @@
-import React, { forwardRef, ReactNode } from "react";
-import { IconButton, Icon, Flex, Text, Column } from ".";
+import type React from "react";
+import { forwardRef, type ReactNode } from "react";
+import { Column, Flex, Icon, IconButton, Text } from ".";
 
 interface FeedbackProps extends Omit<React.ComponentProps<typeof Flex>, "title"> {
   variant?: "info" | "danger" | "warning" | "success";

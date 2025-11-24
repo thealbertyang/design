@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
-import { Column, Accordion, Line, Flex } from ".";
+import React, { useCallback, useState } from "react";
+import { Accordion, Column, type Flex, Line } from ".";
 
 export type AccordionItem = {
   title: React.ReactNode;

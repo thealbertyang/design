@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useEffect, useState, forwardRef, useCallback } from "react";
-import styles from "./GlitchFx.module.scss";
-import { Flex } from ".";
 import classNames from "classnames";
+import type React from "react";
+import { forwardRef, useCallback, useEffect, useState } from "react";
+import { Flex } from ".";
+import styles from "./GlitchFx.module.scss";
 
 interface GlitchFxProps extends React.ComponentProps<typeof Flex> {
   children: React.ReactNode;

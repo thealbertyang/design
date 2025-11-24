@@ -1,13 +1,7 @@
 "use client";
 
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useLayoutEffect,
-  useCallback,
-  forwardRef,
-} from "react";
+import type React from "react";
+import { forwardRef, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Flex } from ".";
 
 export interface FlipFxProps extends React.ComponentProps<typeof Flex> {

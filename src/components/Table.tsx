@@ -1,7 +1,7 @@
 "use client";
 
-import { Flex, Row, IconButton } from ".";
-import { useState, ReactNode } from "react";
+import { type ReactNode, useState } from "react";
+import { type Flex, IconButton, Row } from ".";
 import styles from "./Table.module.scss";
 
 type TableProps = React.ComponentProps<typeof Flex> & {

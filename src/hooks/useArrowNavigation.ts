@@ -1,4 +1,4 @@
-import { useState, useCallback, KeyboardEvent, RefObject, useEffect } from "react";
+import { type KeyboardEvent, type RefObject, useCallback, useEffect, useState } from "react";
 
 export type NavigationLayout = "row" | "column" | "grid";
 
@@ -220,9 +220,9 @@ export const useArrowNavigation = ({
           e.preventDefault();
           newIndex = itemCount - 1;
           break;
-          
-        case 'Enter':
-        case ' ':
+
+        case "Enter":
+        case " ":
           if (focusedIndex >= 0 && focusedIndex < itemCount) {
             e.preventDefault();
             onSelect?.(focusedIndex);

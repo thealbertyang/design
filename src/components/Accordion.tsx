@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState, forwardRef, useImperativeHandle, useEffect, useCallback } from "react";
-import { Flex, Icon, Text, Column, Grid, Row } from ".";
-import styles from "./Accordion.module.scss";
 import classNames from "classnames";
+import type React from "react";
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useState } from "react";
+import { Column, type Flex, Grid, Icon, Row, Text } from ".";
+import styles from "./Accordion.module.scss";
 
 export interface AccordionHandle extends HTMLDivElement {
   toggle: () => void;
@@ -60,19 +61,15 @@ const Accordion = forwardRef<AccordionHandle, AccordionProps>(
       }
     }, [onToggle]);
 
-    useImperativeHandle(
-      ref,
-      () => {
-        const methods = {
-          toggle: toggleAccordion,
-          open: () => setIsOpen(true),
-          close: () => setIsOpen(false),
-        };
+    useImperativeHandle(ref, () => {
+      const methods = {
+        toggle: toggleAccordion,
+        open: () => setIsOpen(true),
+        close: () => setIsOpen(false),
+      };
 
-        return Object.assign(document.createElement("div"), methods) as unknown as AccordionHandle;
-      },
-      [toggleAccordion],
-    );
+      return Object.assign(document.createElement("div"), methods) as unknown as AccordionHandle;
+    }, [toggleAccordion]);
 
     return (
       <Column fillWidth>
@@ -98,7 +95,9 @@ const Accordion = forwardRef<AccordionHandle, AccordionProps>(
           radius={radius}
           role="button"
         >
-          <Row fillWidth textVariant="heading-strong-s">{title}</Row>
+          <Row fillWidth textVariant="heading-strong-s">
+            {title}
+          </Row>
           <Icon
             name={icon}
             size={size === "s" ? "xs" : "s"}

@@ -1,9 +1,9 @@
 "use client";
 
-import { CondensedTShirtSizes } from "@/types";
-import { Column, Media, Text, Row, Card, Skeleton } from ".";
-import { useOgData } from "../hooks/useFetchOg";
 import { useMemo } from "react";
+import type { CondensedTShirtSizes } from "@/types";
+import { useOgData } from "../hooks/useFetchOg";
+import { Card, Column, Media, Row, Skeleton, Text } from ".";
 
 export interface OgServiceConfig {
   proxyImageUrl?: (url: string) => string;

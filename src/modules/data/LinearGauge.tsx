@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { Column, Flex, Row, Text } from "../../";
+import type React from "react";
+import { useEffect, useState } from "react";
+import { Column, type Flex, Row, Text } from "../../";
 import styles from "./Gauge.module.css";
 
 interface LinearGaugeProps extends React.ComponentProps<typeof Flex> {
@@ -42,7 +43,7 @@ export const LinearGauge = ({
   ...flex
 }: LinearGaugeProps) => {
   const pad = 8;
-  
+
   // Destructure line with individual defaults
   const lineCount = line?.count ?? 48;
   const lineWidth = line?.width ?? 3;
@@ -98,11 +99,14 @@ export const LinearGauge = ({
           style={{
             strokeWidth: lineWidth,
             opacity: isActive ? 1 : 0.7,
-            stroke: isActive && hasHue
-              ? `hsl(${finalHue}, 100%, 50%)`
-              : isActive && color ? `var(--data-${color})` : 'var(--neutral-alpha-medium)',
+            stroke:
+              isActive && hasHue
+                ? `hsl(${finalHue}, 100%, 50%)`
+                : isActive && color
+                  ? `var(--data-${color})`
+                  : "var(--neutral-alpha-medium)",
           }}
-        />
+        />,
       );
     }
     return lines;
@@ -114,7 +118,7 @@ export const LinearGauge = ({
     let labelValues: (string | number)[] = [];
 
     if (labels === "percentage") {
-      labelValues = [0, 25, 50, 75, 100].map(p => `${p}%`);
+      labelValues = [0, 25, 50, 75, 100].map((p) => `${p}%`);
     } else if (Array.isArray(labels)) {
       labelValues = labels;
     }
@@ -122,9 +126,7 @@ export const LinearGauge = ({
     return (
       <Row fillWidth horizontal="between" paddingX="8">
         {labelValues.map((label, i) => (
-          <Text key={`label-${i}`}>
-            {label}
-          </Text>
+          <Text key={`label-${i}`}>{label}</Text>
         ))}
       </Row>
     );
@@ -134,9 +136,9 @@ export const LinearGauge = ({
     <Column fillWidth gap="8" textVariant="label-default-s" onBackground="neutral-weak" {...flex}>
       {renderLabels()}
       <Column fillWidth fill>
-        <svg 
-          width="100%" 
-          height="100%" 
+        <svg
+          width="100%"
+          height="100%"
           viewBox={`0 0 ${width} ${lineLength}`}
           preserveAspectRatio="none"
           className={styles.svg}

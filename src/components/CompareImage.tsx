@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { Flex, Media, IconButton } from ".";
+import { useEffect, useRef, useState } from "react";
+import { Flex, IconButton, Media } from ".";
 import styles from "./CompareImage.module.scss";
 
 interface SideContent {
@@ -84,7 +84,13 @@ const CompareImage = ({ leftContent, rightContent, aspectRatio, ...rest }: Compa
   }, []);
 
   return (
-    <Flex ref={containerRef} aspectRatio={aspectRatio || "16/9"} fillWidth style={{ touchAction: "none" }} {...rest}>
+    <Flex
+      ref={containerRef}
+      aspectRatio={aspectRatio || "16/9"}
+      fillWidth
+      style={{ touchAction: "none" }}
+      {...rest}
+    >
       {renderContent(leftContent, `inset(0 ${100 - position}% 0 0)`, aspectRatio)}
       {renderContent(rightContent, `inset(0 0 0 ${position}%)`, aspectRatio)}
 
@@ -111,7 +117,8 @@ const CompareImage = ({ leftContent, rightContent, aspectRatio, ...rest }: Compa
         className={styles.dragIcon}
         style={{
           left: `${position}%`,
-        }}>
+        }}
+      >
         <IconButton
           icon="chevronsLeftRight"
           variant="secondary"

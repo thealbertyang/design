@@ -1,16 +1,16 @@
 "use client";
 
+import classNames from "classnames";
 import React, {
-  ReactNode,
-  useEffect,
-  useCallback,
-  useRef,
   forwardRef,
-  useState,
+  type ReactNode,
+  useCallback,
   useContext,
+  useEffect,
+  useRef,
+  useState,
 } from "react";
 import ReactDOM from "react-dom";
-import classNames from "classnames";
 import { Column, Flex, Heading, IconButton, Text } from ".";
 import styles from "./Dialog.module.scss";
 
@@ -288,13 +288,7 @@ const Dialog: React.FC<DialogProps> = forwardRef<HTMLDivElement, DialogProps>(
             }}
             {...rest}
           >
-            <Column
-              as="header"
-              paddingX="24"
-              paddingTop="24"
-              paddingBottom="s"
-              gap="4"
-            >
+            <Column as="header" paddingX="24" paddingTop="24" paddingBottom="s" gap="4">
               <Flex fillWidth horizontal="between" gap="8">
                 {typeof title === "string" ? (
                   <Heading id="dialog-title" variant="heading-strong-l">
@@ -317,13 +311,7 @@ const Dialog: React.FC<DialogProps> = forwardRef<HTMLDivElement, DialogProps>(
                 </Text>
               )}
             </Column>
-            <Column
-              as="section"
-              paddingX="24"
-              paddingBottom="24"
-              flex={1}
-              overflowY="auto"
-            >
+            <Column as="section" paddingX="24" paddingBottom="24" flex={1} overflowY="auto">
               {children}
             </Column>
             {footer && (

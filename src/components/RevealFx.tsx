@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState, useEffect, forwardRef, useRef } from "react";
-import { SpacingToken } from "../types";
-import styles from "./RevealFx.module.scss";
+import type React from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
+import type { SpacingToken } from "../types";
 import { Flex } from ".";
+import styles from "./RevealFx.module.scss";
 
 interface RevealFxProps extends React.ComponentProps<typeof Flex> {
   children: React.ReactNode;

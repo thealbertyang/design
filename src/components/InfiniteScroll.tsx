@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactNode, useEffect, useRef, useState } from "react";
+import React, { type ReactNode, useEffect, useRef, useState } from "react";
 import { Column, Row, Spinner } from ".";
 
 export interface InfiniteScrollProps<T> extends React.ComponentProps<typeof Row> {
@@ -59,7 +59,7 @@ function InfiniteScroll<T>({
         root: null,
         rootMargin: `0px 0px ${threshold}px 0px`,
         threshold: 0,
-      }
+      },
     );
 
     if (sentinelRef.current) {

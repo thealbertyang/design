@@ -1,9 +1,10 @@
 "use client";
 
-import React, { forwardRef } from "react";
 import classNames from "classnames";
-import styles from "./List.module.scss";
+import type React from "react";
+import { forwardRef } from "react";
 import { Text } from ".";
+import styles from "./List.module.scss";
 
 interface ListItemProps extends React.ComponentProps<typeof Text> {
   children?: React.ReactNode;

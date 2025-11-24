@@ -1,11 +1,11 @@
 import { forwardRef } from "react";
-import {
-  FlexProps,
-  StyleProps,
-  SpacingProps,
-  SizeProps,
+import type {
   CommonProps,
   DisplayProps,
+  FlexProps,
+  SizeProps,
+  SpacingProps,
+  StyleProps,
 } from "../interfaces";
 import { ClientFlex } from "./ClientFlex";
 import { ServerFlex } from "./ServerFlex";

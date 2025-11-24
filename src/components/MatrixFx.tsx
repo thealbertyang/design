@@ -90,7 +90,7 @@ const MatrixFx = React.forwardRef<HTMLDivElement, MatrixFxProps>(
       // Set canvas size
       let canvasWidth = 0;
       let canvasHeight = 0;
-      
+
       const updateSize = () => {
         const rect = container.getBoundingClientRect();
         canvasWidth = rect.width;
@@ -124,7 +124,12 @@ const MatrixFx = React.forwardRef<HTMLDivElement, MatrixFxProps>(
       let dots: Dot[] = dotsRef.current;
       let maxDistance = 0;
 
-      if (dots.length === 0 || dots[0]?.gridSize !== totalSize || dots[0]?.canvasW !== canvasWidth || dots[0]?.canvasH !== canvasHeight) {
+      if (
+        dots.length === 0 ||
+        dots[0]?.gridSize !== totalSize ||
+        dots[0]?.canvasW !== canvasWidth ||
+        dots[0]?.canvasH !== canvasHeight
+      ) {
         // Create new dot grid
         dots = [];
 
@@ -139,11 +144,12 @@ const MatrixFx = React.forwardRef<HTMLDivElement, MatrixFxProps>(
             const centerY = canvasHeight / 2;
 
             switch (revealFrom) {
-              case "center":
+              case "center": {
                 const dx = x - centerX;
                 const dy = y - centerY;
                 distanceFromOrigin = Math.sqrt(dx * dx + dy * dy);
                 break;
+              }
               case "top":
                 distanceFromOrigin = y;
                 break;
@@ -187,10 +193,9 @@ const MatrixFx = React.forwardRef<HTMLDivElement, MatrixFxProps>(
         maxDistance = Math.max(...dots.map((d) => d.distanceFromOrigin));
       }
 
-
       // Animation loop
       const startTime = Date.now();
-      
+
       // Bulge configuration
       const bulgeEnabled = !!bulge;
       const bulgeType = bulge?.type ?? "ripple"; // Default: ripple
@@ -198,17 +203,17 @@ const MatrixFx = React.forwardRef<HTMLDivElement, MatrixFxProps>(
       const bulgeIntensity = bulge?.intensity ?? 10; // Default: 10px displacement
       const bulgeRepeat = bulge?.repeat ?? true; // Default: true
       const bulgeDelay = bulge?.delay ?? 0; // Default: 0ms
-      
+
       // Calculate center point for circular wave
       const centerX = canvasWidth / 2;
       const centerY = canvasHeight / 2;
       const maxRadius = Math.sqrt(centerX * centerX + centerY * centerY);
-      
+
       const animate = () => {
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
         const time = (Date.now() - startTime) / 1000; // Time in seconds
-        
+
         // Calculate circular wave radius (travels from center to edge)
         let waveProgress = 0;
         let showBulge = false;
@@ -219,7 +224,7 @@ const MatrixFx = React.forwardRef<HTMLDivElement, MatrixFxProps>(
           const totalCycleDuration = bulgeDuration + delaySeconds;
           const adjustedTime = bulgeElapsed - delaySeconds;
           const fadeStartPercent = 0.6; // Start fading at 60% of wave duration
-          
+
           if (adjustedTime >= 0) {
             showBulge = true;
             if (bulgeRepeat) {
@@ -231,7 +236,7 @@ const MatrixFx = React.forwardRef<HTMLDivElement, MatrixFxProps>(
               // Single wave with opacity fade during last 40%
               if (adjustedTime <= bulgeDuration) {
                 waveProgress = adjustedTime / bulgeDuration;
-                
+
                 // Start fading opacity at 60% of duration
                 if (waveProgress >= fadeStartPercent) {
                   const fadeProgress = (waveProgress - fadeStartPercent) / (1 - fadeStartPercent);
@@ -251,14 +256,14 @@ const MatrixFx = React.forwardRef<HTMLDivElement, MatrixFxProps>(
           dots.forEach((dot) => {
             ctx.fillStyle = dot.color;
             let opacity = dot.baseOpacity;
-            
+
             // Apply flicker effect if enabled
             if (flicker) {
               const flickerValue = Math.sin(time * dot.flickerSpeed * 3 + dot.flickerPhase);
-              const flickerMultiplier = 0.6 + (flickerValue * 0.4); // Oscillate between 0.6 and 1.0
+              const flickerMultiplier = 0.6 + flickerValue * 0.4; // Oscillate between 0.6 and 1.0
               opacity *= flickerMultiplier;
             }
-            
+
             // Calculate bulge displacement
             let offsetX = 0;
             let offsetY = 0;
@@ -270,81 +275,97 @@ const MatrixFx = React.forwardRef<HTMLDivElement, MatrixFxProps>(
                 const dx = dot.x - centerX;
                 const dy = dot.y - centerY;
                 const distanceFromCenter = Math.sqrt(dx * dx + dy * dy);
-                
+
                 const distanceToWave = Math.abs(distanceFromCenter - waveRadius);
                 const waveWidth = maxRadius * 0.15;
                 const distanceNorm = distanceToWave / waveWidth;
-                
+
                 const waveFactor = Math.exp(-distanceNorm * distanceNorm * 4);
-                
+
                 const angle = Math.atan2(dy, dx);
                 const displacementAmount = waveFactor * bulgeIntensity * bulgeFadeOut;
                 offsetX = Math.cos(angle) * displacementAmount;
                 offsetY = Math.sin(angle) * displacementAmount;
-                
+
                 sizeMultiplier = 1 + waveFactor * 0.8 * bulgeFadeOut;
-                
+
                 const waveOpacity = 0.3 + waveFactor * 0.7;
                 bulgeOpacity = 1 + (waveOpacity - 1) * bulgeFadeOut;
               } else if (bulgeType === "wave") {
                 // Wave: Organic S-curve from bottom-left to top-right with rotation
-                const diagonalLength = Math.sqrt(canvasWidth * canvasWidth + canvasHeight * canvasHeight);
+                const diagonalLength = Math.sqrt(
+                  canvasWidth * canvasWidth + canvasHeight * canvasHeight,
+                );
                 // Start wave off-screen before bottom-left, end off-screen after top-right
-                const wavePosOnDiagonal = (waveProgress * diagonalLength * 1.4) - (diagonalLength * 0.2);
-                
+                const wavePosOnDiagonal =
+                  waveProgress * diagonalLength * 1.4 - diagonalLength * 0.2;
+
                 // Calculate distance along the diagonal (from bottom-left to top-right)
                 const normalizedX = dot.x / canvasWidth;
-                const normalizedY = 1 - (dot.y / canvasHeight);
-                const dotDiagonalPos = (normalizedX + normalizedY) / 2 * diagonalLength;
-                
+                const normalizedY = 1 - dot.y / canvasHeight;
+                const dotDiagonalPos = ((normalizedX + normalizedY) / 2) * diagonalLength;
+
                 // Distance from wave front
                 const distanceToWaveFront = dotDiagonalPos - wavePosOnDiagonal;
                 const waveWidth = diagonalLength * 0.25;
                 const distanceNorm = distanceToWaveFront / waveWidth;
-                
+
                 // Smooth wave factor with wider influence
                 const waveFactor = Math.exp(-distanceNorm * distanceNorm * 2.5);
-                
+
                 // Create rotating S-curve with multiple frequency components
                 const perpendicularOffset = normalizedY - normalizedX;
-                
+
                 // Primary S-curve that rotates over time
                 const rotationPhase = waveProgress * Math.PI * 3; // Rotates 1.5 times during animation
                 const primaryFreq = 3; // Number of S-curves along the wave
-                const sCurvePrimary = Math.sin(perpendicularOffset * Math.PI * primaryFreq + rotationPhase);
-                
+                const sCurvePrimary = Math.sin(
+                  perpendicularOffset * Math.PI * primaryFreq + rotationPhase,
+                );
+
                 // Secondary curve for complexity (higher frequency, lower amplitude)
                 const secondaryFreq = 7;
-                const sCurveSecondary = Math.sin(perpendicularOffset * Math.PI * secondaryFreq - rotationPhase * 1.5) * 0.4;
-                
+                const sCurveSecondary =
+                  Math.sin(perpendicularOffset * Math.PI * secondaryFreq - rotationPhase * 1.5) *
+                  0.4;
+
                 // Combine curves for organic motion
                 const sCurveFactor = sCurvePrimary + sCurveSecondary;
-                
+
                 // Wave straightens at the edges (distanceNorm affects curve strength)
                 const curveStrength = 1 - Math.abs(distanceNorm) * 0.5;
                 const modulatedCurve = sCurveFactor * curveStrength;
-                
+
                 // Apply displacement
                 const baseDisplacement = waveFactor * bulgeIntensity * bulgeFadeOut;
                 const diagonalAngle = Math.PI / 4;
-                
+
                 // Perpendicular displacement creates the S-curve
                 const perpAngle = diagonalAngle + Math.PI / 2;
-                
-                offsetX = Math.cos(diagonalAngle) * baseDisplacement + Math.cos(perpAngle) * modulatedCurve * baseDisplacement * 0.8;
-                offsetY = -Math.sin(diagonalAngle) * baseDisplacement - Math.sin(perpAngle) * modulatedCurve * baseDisplacement * 0.8;
-                
+
+                offsetX =
+                  Math.cos(diagonalAngle) * baseDisplacement +
+                  Math.cos(perpAngle) * modulatedCurve * baseDisplacement * 0.8;
+                offsetY =
+                  -Math.sin(diagonalAngle) * baseDisplacement -
+                  Math.sin(perpAngle) * modulatedCurve * baseDisplacement * 0.8;
+
                 sizeMultiplier = 1 + waveFactor * 0.5 * bulgeFadeOut;
-                
+
                 const waveOpacity = 0.4 + waveFactor * 0.6;
                 bulgeOpacity = 1 + (waveOpacity - 1) * bulgeFadeOut;
               }
             }
-            
+
             ctx.globalAlpha = opacity * bulgeOpacity;
             const adjustedSize = size * sizeMultiplier;
             const sizeOffset = (adjustedSize - size) / 2;
-            ctx.fillRect(dot.x + offsetX - sizeOffset, dot.y + offsetY - sizeOffset, adjustedSize, adjustedSize);
+            ctx.fillRect(
+              dot.x + offsetX - sizeOffset,
+              dot.y + offsetY - sizeOffset,
+              adjustedSize,
+              adjustedSize,
+            );
           });
           ctx.globalAlpha = 1;
           animationRef.current = requestAnimationFrame(animate);
@@ -358,13 +379,13 @@ const MatrixFx = React.forwardRef<HTMLDivElement, MatrixFxProps>(
             const now = Date.now();
             const elapsed = (now - revealStartTimeRef.current) / 1000;
             // Cubic easing: starts very slow, then explodes
-            const revealProgress = Math.pow(elapsed, 3) * speed * 3;
-            
+            const revealProgress = elapsed ** 3 * speed * 3;
+
             // Check if animation is complete (max offset is ~1.3)
             if (revealProgress >= 2.0) {
               mountAnimationCompleteRef.current = true;
             }
-            
+
             dots.forEach((dot) => {
               const normalizedDistance = dot.distanceFromOrigin / maxDistance;
               const introOffset = normalizedDistance * 0.8 + dot.randomOffset * 0.5;
@@ -373,11 +394,11 @@ const MatrixFx = React.forwardRef<HTMLDivElement, MatrixFxProps>(
               if (revealProgress > introOffset) {
                 const fadeIn = (revealProgress - introOffset) * 8;
                 opacity = Math.min(1, fadeIn * fadeIn) * dot.baseOpacity;
-                
+
                 // Apply flicker effect if enabled
                 if (flicker) {
                   const flickerValue = Math.sin(time * dot.flickerSpeed * 3 + dot.flickerPhase);
-                  const flickerMultiplier = 0.6 + (flickerValue * 0.4);
+                  const flickerMultiplier = 0.6 + flickerValue * 0.4;
                   opacity *= flickerMultiplier;
                 }
               }
@@ -404,11 +425,13 @@ const MatrixFx = React.forwardRef<HTMLDivElement, MatrixFxProps>(
                     sizeMultiplier = 1 + waveFactor * 0.8;
                     bulgeOpacity = 0.3 + waveFactor * 0.7;
                   } else if (bulgeType === "wave") {
-                    const diagonalLength = Math.sqrt(canvasWidth * canvasWidth + canvasHeight * canvasHeight);
+                    const diagonalLength = Math.sqrt(
+                      canvasWidth * canvasWidth + canvasHeight * canvasHeight,
+                    );
                     const wavePosOnDiagonal = waveProgress * diagonalLength * 1.2;
                     const normalizedX = dot.x / canvasWidth;
-                    const normalizedY = 1 - (dot.y / canvasHeight);
-                    const dotDiagonalPos = (normalizedX + normalizedY) / 2 * diagonalLength;
+                    const normalizedY = 1 - dot.y / canvasHeight;
+                    const dotDiagonalPos = ((normalizedX + normalizedY) / 2) * diagonalLength;
                     const distanceToWaveFront = dotDiagonalPos - wavePosOnDiagonal;
                     const waveWidth = diagonalLength * 0.2;
                     const distanceNorm = Math.abs(distanceToWaveFront) / waveWidth;
@@ -418,18 +441,27 @@ const MatrixFx = React.forwardRef<HTMLDivElement, MatrixFxProps>(
                     const sCurveFactor = Math.sin(sCurvePhase + waveProgress * Math.PI * 2);
                     const baseDisplacement = waveFactor * bulgeIntensity;
                     const diagonalAngle = Math.PI / 4;
-                    offsetX = Math.cos(diagonalAngle) * baseDisplacement + sCurveFactor * baseDisplacement * 0.5;
-                    offsetY = -Math.sin(diagonalAngle) * baseDisplacement + sCurveFactor * baseDisplacement * 0.5;
+                    offsetX =
+                      Math.cos(diagonalAngle) * baseDisplacement +
+                      sCurveFactor * baseDisplacement * 0.5;
+                    offsetY =
+                      -Math.sin(diagonalAngle) * baseDisplacement +
+                      sCurveFactor * baseDisplacement * 0.5;
                     sizeMultiplier = 1 + waveFactor * 0.6;
                     bulgeOpacity = 0.4 + waveFactor * 0.6;
                   }
                 }
-                
+
                 ctx.fillStyle = dot.color;
                 ctx.globalAlpha = opacity * bulgeOpacity;
                 const adjustedSize = size * sizeMultiplier;
                 const sizeOffset = (adjustedSize - size) / 2;
-                ctx.fillRect(dot.x + offsetX - sizeOffset, dot.y + offsetY - sizeOffset, adjustedSize, adjustedSize);
+                ctx.fillRect(
+                  dot.x + offsetX - sizeOffset,
+                  dot.y + offsetY - sizeOffset,
+                  adjustedSize,
+                  adjustedSize,
+                );
               }
             });
           } else {
@@ -437,13 +469,13 @@ const MatrixFx = React.forwardRef<HTMLDivElement, MatrixFxProps>(
             dots.forEach((dot) => {
               ctx.fillStyle = dot.color;
               let opacity = dot.baseOpacity;
-              
+
               if (flicker) {
                 const flickerValue = Math.sin(time * dot.flickerSpeed * 3 + dot.flickerPhase);
-                const flickerMultiplier = 0.6 + (flickerValue * 0.4);
+                const flickerMultiplier = 0.6 + flickerValue * 0.4;
                 opacity *= flickerMultiplier;
               }
-              
+
               // Calculate bulge displacement
               let offsetX = 0;
               let offsetY = 0;
@@ -465,11 +497,13 @@ const MatrixFx = React.forwardRef<HTMLDivElement, MatrixFxProps>(
                   sizeMultiplier = 1 + waveFactor * 0.8;
                   bulgeOpacity = 0.3 + waveFactor * 0.7;
                 } else if (bulgeType === "wave") {
-                  const diagonalLength = Math.sqrt(canvasWidth * canvasWidth + canvasHeight * canvasHeight);
+                  const diagonalLength = Math.sqrt(
+                    canvasWidth * canvasWidth + canvasHeight * canvasHeight,
+                  );
                   const wavePosOnDiagonal = waveProgress * diagonalLength * 1.2;
                   const normalizedX = dot.x / canvasWidth;
-                  const normalizedY = 1 - (dot.y / canvasHeight);
-                  const dotDiagonalPos = (normalizedX + normalizedY) / 2 * diagonalLength;
+                  const normalizedY = 1 - dot.y / canvasHeight;
+                  const dotDiagonalPos = ((normalizedX + normalizedY) / 2) * diagonalLength;
                   const distanceToWaveFront = dotDiagonalPos - wavePosOnDiagonal;
                   const waveWidth = diagonalLength * 0.2;
                   const distanceNorm = Math.abs(distanceToWaveFront) / waveWidth;
@@ -479,20 +513,29 @@ const MatrixFx = React.forwardRef<HTMLDivElement, MatrixFxProps>(
                   const sCurveFactor = Math.sin(sCurvePhase + waveProgress * Math.PI * 2);
                   const baseDisplacement = waveFactor * bulgeIntensity;
                   const diagonalAngle = Math.PI / 4;
-                  offsetX = Math.cos(diagonalAngle) * baseDisplacement + sCurveFactor * baseDisplacement * 0.5;
-                  offsetY = -Math.sin(diagonalAngle) * baseDisplacement + sCurveFactor * baseDisplacement * 0.5;
+                  offsetX =
+                    Math.cos(diagonalAngle) * baseDisplacement +
+                    sCurveFactor * baseDisplacement * 0.5;
+                  offsetY =
+                    -Math.sin(diagonalAngle) * baseDisplacement +
+                    sCurveFactor * baseDisplacement * 0.5;
                   sizeMultiplier = 1 + waveFactor * 0.6;
                   bulgeOpacity = 0.4 + waveFactor * 0.6;
                 }
               }
-              
+
               ctx.globalAlpha = opacity * bulgeOpacity;
               const adjustedSize = size * sizeMultiplier;
               const sizeOffset = (adjustedSize - size) / 2;
-              ctx.fillRect(dot.x + offsetX - sizeOffset, dot.y + offsetY - sizeOffset, adjustedSize, adjustedSize);
+              ctx.fillRect(
+                dot.x + offsetX - sizeOffset,
+                dot.y + offsetY - sizeOffset,
+                adjustedSize,
+                adjustedSize,
+              );
             });
           }
-          
+
           ctx.globalAlpha = 1;
           animationRef.current = requestAnimationFrame(animate);
           return;
@@ -502,123 +545,43 @@ const MatrixFx = React.forwardRef<HTMLDivElement, MatrixFxProps>(
         if (trigger === "hover" || trigger === "click" || trigger === "manual") {
           if (isHoveredRef.current) {
             // Revealing animation with explosive easing
-          const now = Date.now();
-          const elapsed = (now - revealStartTimeRef.current) / 1000;
-          // Cubic easing: starts very slow, then explodes
-          const revealProgress = Math.pow(elapsed, 3) * speed * 3;
-          
-          // Cap progress to prevent infinite growth (max offset is ~1.3)
-          const cappedProgress = Math.min(revealProgress, 2.0);
-          
-          // Track maximum progress for reverse animation
-          maxRevealProgressRef.current = cappedProgress;
+            const now = Date.now();
+            const elapsed = (now - revealStartTimeRef.current) / 1000;
+            // Cubic easing: starts very slow, then explodes
+            const revealProgress = elapsed ** 3 * speed * 3;
 
-          dots.forEach((dot) => {
-            const normalizedDistance = dot.distanceFromOrigin / maxDistance;
-            const introOffset = normalizedDistance * 0.8 + dot.randomOffset * 0.5; // Much lower threshold
+            // Cap progress to prevent infinite growth (max offset is ~1.3)
+            const cappedProgress = Math.min(revealProgress, 2.0);
 
-            let opacity = 0;
-            if (cappedProgress > introOffset) {
-              // Explosive opacity increase
-              const fadeIn = (cappedProgress - introOffset) * 8; // Faster fade-in
-              opacity = Math.min(1, fadeIn * fadeIn) * dot.baseOpacity;
-              
-              // Apply flicker effect if enabled
-              if (flicker) {
-                const flickerValue = Math.sin(time * dot.flickerSpeed * 3 + dot.flickerPhase);
-                const flickerMultiplier = 0.6 + (flickerValue * 0.4); // Oscillate between 0.6 and 1.0
-                opacity *= flickerMultiplier;
-              }
-            }
+            // Track maximum progress for reverse animation
+            maxRevealProgressRef.current = cappedProgress;
 
-            if (opacity > 0) {
-              // Calculate bulge displacement
-              let offsetX = 0;
-              let offsetY = 0;
-              let sizeMultiplier = 1;
-              let bulgeOpacity = 1;
-              if (bulgeEnabled) {
-                if (bulgeType === "ripple") {
-                  const dx = dot.x - centerX;
-                  const dy = dot.y - centerY;
-                  const distanceFromCenter = Math.sqrt(dx * dx + dy * dy);
-                  const distanceToWave = Math.abs(distanceFromCenter - waveRadius);
-                  const waveWidth = maxRadius * 0.15;
-                  const distanceNorm = distanceToWave / waveWidth;
-                  const waveFactor = Math.exp(-distanceNorm * distanceNorm * 4);
-                  const angle = Math.atan2(dy, dx);
-                  const displacementAmount = waveFactor * bulgeIntensity;
-                  offsetX = Math.cos(angle) * displacementAmount;
-                  offsetY = Math.sin(angle) * displacementAmount;
-                  sizeMultiplier = 1 + waveFactor * 0.8;
-                  bulgeOpacity = 0.3 + waveFactor * 0.7;
-                } else if (bulgeType === "wave") {
-                  const diagonalLength = Math.sqrt(canvasWidth * canvasWidth + canvasHeight * canvasHeight);
-                  const wavePosOnDiagonal = waveProgress * diagonalLength * 1.2;
-                  const normalizedX = dot.x / canvasWidth;
-                  const normalizedY = 1 - (dot.y / canvasHeight);
-                  const dotDiagonalPos = (normalizedX + normalizedY) / 2 * diagonalLength;
-                  const distanceToWaveFront = dotDiagonalPos - wavePosOnDiagonal;
-                  const waveWidth = diagonalLength * 0.2;
-                  const distanceNorm = Math.abs(distanceToWaveFront) / waveWidth;
-                  const waveFactor = Math.exp(-distanceNorm * distanceNorm * 3);
-                  const perpendicularOffset = normalizedY - normalizedX;
-                  const sCurvePhase = perpendicularOffset * Math.PI * 2;
-                  const sCurveFactor = Math.sin(sCurvePhase + waveProgress * Math.PI * 2);
-                  const baseDisplacement = waveFactor * bulgeIntensity;
-                  const diagonalAngle = Math.PI / 4;
-                  offsetX = Math.cos(diagonalAngle) * baseDisplacement + sCurveFactor * baseDisplacement * 0.5;
-                  offsetY = -Math.sin(diagonalAngle) * baseDisplacement + sCurveFactor * baseDisplacement * 0.5;
-                  sizeMultiplier = 1 + waveFactor * 0.6;
-                  bulgeOpacity = 0.4 + waveFactor * 0.6;
+            dots.forEach((dot) => {
+              const normalizedDistance = dot.distanceFromOrigin / maxDistance;
+              const introOffset = normalizedDistance * 0.8 + dot.randomOffset * 0.5; // Much lower threshold
+
+              let opacity = 0;
+              if (cappedProgress > introOffset) {
+                // Explosive opacity increase
+                const fadeIn = (cappedProgress - introOffset) * 8; // Faster fade-in
+                opacity = Math.min(1, fadeIn * fadeIn) * dot.baseOpacity;
+
+                // Apply flicker effect if enabled
+                if (flicker) {
+                  const flickerValue = Math.sin(time * dot.flickerSpeed * 3 + dot.flickerPhase);
+                  const flickerMultiplier = 0.6 + flickerValue * 0.4; // Oscillate between 0.6 and 1.0
+                  opacity *= flickerMultiplier;
                 }
               }
-              
-              ctx.fillStyle = dot.color;
-              ctx.globalAlpha = opacity * bulgeOpacity;
-              const adjustedSize = size * sizeMultiplier;
-              const sizeOffset = (adjustedSize - size) / 2;
-              ctx.fillRect(dot.x + offsetX - sizeOffset, dot.y + offsetY - sizeOffset, adjustedSize, adjustedSize);
-            }
-          });
 
-        } else {
-          // Reverse animation when hover ends - only run if there's something to hide
-          if (hideStartProgressRef.current > 0) {
-            const elapsed = (Date.now() - hideStartTimeRef.current) / 1000;
-            // Use quadratic easing for faster hide (power of 2)
-            const hideSpeed = speed * 6; // Faster to handle max progress of 2.0
-            const hideProgress = Math.pow(elapsed, 2) * hideSpeed;
-            
-            // Reverse from the progress we had when hide started
-            const reverseProgress = Math.max(0, hideStartProgressRef.current - hideProgress);
-            
-            if (reverseProgress > 0.01) { // Small threshold to ensure completion
-              // Still have dots to hide
-              dots.forEach((dot) => {
-                const normalizedDistance = dot.distanceFromOrigin / maxDistance;
-                const introOffset = normalizedDistance * 0.8 + dot.randomOffset * 0.5;
-
-                let opacity = 0;
-                if (reverseProgress > introOffset) {
-                  const fadeIn = (reverseProgress - introOffset) * 8;
-                  opacity = Math.min(1, fadeIn * fadeIn) * dot.baseOpacity;
-                  
-                  // Apply flicker effect if enabled
-                  if (flicker) {
-                    const flickerValue = Math.sin(time * dot.flickerSpeed * 3 + dot.flickerPhase);
-                    const flickerMultiplier = 0.6 + (flickerValue * 0.4);
-                    opacity *= flickerMultiplier;
-                  }
-                }
-
-                if (opacity > 0) {
-                  // Calculate bulge displacement
-                  let offsetX = 0;
-                  let offsetY = 0;
-                  let sizeMultiplier = 1;
-                  let bulgeOpacity = 1;
-                  if (bulgeEnabled) {
+              if (opacity > 0) {
+                // Calculate bulge displacement
+                let offsetX = 0;
+                let offsetY = 0;
+                let sizeMultiplier = 1;
+                let bulgeOpacity = 1;
+                if (bulgeEnabled) {
+                  if (bulgeType === "ripple") {
                     const dx = dot.x - centerX;
                     const dy = dot.y - centerY;
                     const distanceFromCenter = Math.sqrt(dx * dx + dy * dy);
@@ -628,24 +591,121 @@ const MatrixFx = React.forwardRef<HTMLDivElement, MatrixFxProps>(
                     const waveFactor = Math.exp(-distanceNorm * distanceNorm * 4);
                     const angle = Math.atan2(dy, dx);
                     const displacementAmount = waveFactor * bulgeIntensity;
-                    offsetX = Math.cos(angle) * displacementAmount * 0.3;
-                    offsetY = Math.sin(angle) * displacementAmount * 0.3 - waveFactor * bulgeIntensity;
+                    offsetX = Math.cos(angle) * displacementAmount;
+                    offsetY = Math.sin(angle) * displacementAmount;
                     sizeMultiplier = 1 + waveFactor * 0.8;
                     bulgeOpacity = 0.3 + waveFactor * 0.7;
+                  } else if (bulgeType === "wave") {
+                    const diagonalLength = Math.sqrt(
+                      canvasWidth * canvasWidth + canvasHeight * canvasHeight,
+                    );
+                    const wavePosOnDiagonal = waveProgress * diagonalLength * 1.2;
+                    const normalizedX = dot.x / canvasWidth;
+                    const normalizedY = 1 - dot.y / canvasHeight;
+                    const dotDiagonalPos = ((normalizedX + normalizedY) / 2) * diagonalLength;
+                    const distanceToWaveFront = dotDiagonalPos - wavePosOnDiagonal;
+                    const waveWidth = diagonalLength * 0.2;
+                    const distanceNorm = Math.abs(distanceToWaveFront) / waveWidth;
+                    const waveFactor = Math.exp(-distanceNorm * distanceNorm * 3);
+                    const perpendicularOffset = normalizedY - normalizedX;
+                    const sCurvePhase = perpendicularOffset * Math.PI * 2;
+                    const sCurveFactor = Math.sin(sCurvePhase + waveProgress * Math.PI * 2);
+                    const baseDisplacement = waveFactor * bulgeIntensity;
+                    const diagonalAngle = Math.PI / 4;
+                    offsetX =
+                      Math.cos(diagonalAngle) * baseDisplacement +
+                      sCurveFactor * baseDisplacement * 0.5;
+                    offsetY =
+                      -Math.sin(diagonalAngle) * baseDisplacement +
+                      sCurveFactor * baseDisplacement * 0.5;
+                    sizeMultiplier = 1 + waveFactor * 0.6;
+                    bulgeOpacity = 0.4 + waveFactor * 0.6;
                   }
-                  
-                  ctx.fillStyle = dot.color;
-                  ctx.globalAlpha = opacity * bulgeOpacity;
-                  const adjustedSize = size * sizeMultiplier;
-                  const sizeOffset = (adjustedSize - size) / 2;
-                  ctx.fillRect(dot.x + offsetX - sizeOffset, dot.y + offsetY - sizeOffset, adjustedSize, adjustedSize);
                 }
-              });
-            } else {
-              // Hide animation complete, reset progress and clear canvas
-              hideStartProgressRef.current = 0;
+
+                ctx.fillStyle = dot.color;
+                ctx.globalAlpha = opacity * bulgeOpacity;
+                const adjustedSize = size * sizeMultiplier;
+                const sizeOffset = (adjustedSize - size) / 2;
+                ctx.fillRect(
+                  dot.x + offsetX - sizeOffset,
+                  dot.y + offsetY - sizeOffset,
+                  adjustedSize,
+                  adjustedSize,
+                );
+              }
+            });
+          } else {
+            // Reverse animation when hover ends - only run if there's something to hide
+            if (hideStartProgressRef.current > 0) {
+              const elapsed = (Date.now() - hideStartTimeRef.current) / 1000;
+              // Use quadratic easing for faster hide (power of 2)
+              const hideSpeed = speed * 6; // Faster to handle max progress of 2.0
+              const hideProgress = elapsed ** 2 * hideSpeed;
+
+              // Reverse from the progress we had when hide started
+              const reverseProgress = Math.max(0, hideStartProgressRef.current - hideProgress);
+
+              if (reverseProgress > 0.01) {
+                // Small threshold to ensure completion
+                // Still have dots to hide
+                dots.forEach((dot) => {
+                  const normalizedDistance = dot.distanceFromOrigin / maxDistance;
+                  const introOffset = normalizedDistance * 0.8 + dot.randomOffset * 0.5;
+
+                  let opacity = 0;
+                  if (reverseProgress > introOffset) {
+                    const fadeIn = (reverseProgress - introOffset) * 8;
+                    opacity = Math.min(1, fadeIn * fadeIn) * dot.baseOpacity;
+
+                    // Apply flicker effect if enabled
+                    if (flicker) {
+                      const flickerValue = Math.sin(time * dot.flickerSpeed * 3 + dot.flickerPhase);
+                      const flickerMultiplier = 0.6 + flickerValue * 0.4;
+                      opacity *= flickerMultiplier;
+                    }
+                  }
+
+                  if (opacity > 0) {
+                    // Calculate bulge displacement
+                    let offsetX = 0;
+                    let offsetY = 0;
+                    let sizeMultiplier = 1;
+                    let bulgeOpacity = 1;
+                    if (bulgeEnabled) {
+                      const dx = dot.x - centerX;
+                      const dy = dot.y - centerY;
+                      const distanceFromCenter = Math.sqrt(dx * dx + dy * dy);
+                      const distanceToWave = Math.abs(distanceFromCenter - waveRadius);
+                      const waveWidth = maxRadius * 0.15;
+                      const distanceNorm = distanceToWave / waveWidth;
+                      const waveFactor = Math.exp(-distanceNorm * distanceNorm * 4);
+                      const angle = Math.atan2(dy, dx);
+                      const displacementAmount = waveFactor * bulgeIntensity;
+                      offsetX = Math.cos(angle) * displacementAmount * 0.3;
+                      offsetY =
+                        Math.sin(angle) * displacementAmount * 0.3 - waveFactor * bulgeIntensity;
+                      sizeMultiplier = 1 + waveFactor * 0.8;
+                      bulgeOpacity = 0.3 + waveFactor * 0.7;
+                    }
+
+                    ctx.fillStyle = dot.color;
+                    ctx.globalAlpha = opacity * bulgeOpacity;
+                    const adjustedSize = size * sizeMultiplier;
+                    const sizeOffset = (adjustedSize - size) / 2;
+                    ctx.fillRect(
+                      dot.x + offsetX - sizeOffset,
+                      dot.y + offsetY - sizeOffset,
+                      adjustedSize,
+                      adjustedSize,
+                    );
+                  }
+                });
+              } else {
+                // Hide animation complete, reset progress and clear canvas
+                hideStartProgressRef.current = 0;
+              }
             }
-          }
           }
         }
 
@@ -672,9 +732,9 @@ const MatrixFx = React.forwardRef<HTMLDivElement, MatrixFxProps>(
         if (hideStartProgressRef.current > 0) {
           const hideElapsed = (now - hideStartTimeRef.current) / 1000;
           const hideSpeed = speed * 6;
-          const hideProgress = Math.pow(hideElapsed, 2) * hideSpeed;
+          const hideProgress = hideElapsed ** 2 * hideSpeed;
           const currentProgress = Math.max(0, hideStartProgressRef.current - hideProgress);
-          const effectiveElapsed = Math.pow(currentProgress / (speed * 3), 1 / 3);
+          const effectiveElapsed = (currentProgress / (speed * 3)) ** (1 / 3);
           const simulatedStartTime = now - effectiveElapsed * 1000;
           revealStartTimeRef.current = simulatedStartTime;
         } else {
@@ -699,30 +759,30 @@ const MatrixFx = React.forwardRef<HTMLDivElement, MatrixFxProps>(
     const handleMouseEnter = () => {
       if (trigger === "hover" && !isHoveredRef.current) {
         const now = Date.now();
-        
+
         // If we're currently hiding, resume from where we left off
         if (hideStartProgressRef.current > 0) {
           // Calculate current position during hide
           const hideElapsed = (now - hideStartTimeRef.current) / 1000;
           const hideSpeed = speed * 6;
-          const hideProgress = Math.pow(hideElapsed, 2) * hideSpeed;
+          const hideProgress = hideElapsed ** 2 * hideSpeed;
           const currentProgress = Math.max(0, hideStartProgressRef.current - hideProgress);
-          
+
           // Reverse the cubic easing formula: progress = elapsed^3 * speed * 3
           // So: elapsed = (progress / (speed * 3)) ^ (1/3)
-          const effectiveElapsed = Math.pow(currentProgress / (speed * 3), 1 / 3);
+          const effectiveElapsed = (currentProgress / (speed * 3)) ** (1 / 3);
           const simulatedStartTime = now - effectiveElapsed * 1000;
           revealStartTimeRef.current = simulatedStartTime;
         } else {
           // Fresh start
           revealStartTimeRef.current = now;
         }
-        
+
         // Reset bulge animation on each hover when repeat is false
         if (bulge && !bulge.repeat) {
           bulgeStartTimeRef.current = now;
         }
-        
+
         isHoveredRef.current = true;
         hideStartProgressRef.current = 0; // Clear hide state
       }
@@ -752,9 +812,9 @@ const MatrixFx = React.forwardRef<HTMLDivElement, MatrixFxProps>(
         if (hideStartProgressRef.current > 0) {
           const hideElapsed = (now - hideStartTimeRef.current) / 1000;
           const hideSpeed = speed * 6;
-          const hideProgress = Math.pow(hideElapsed, 2) * hideSpeed;
+          const hideProgress = hideElapsed ** 2 * hideSpeed;
           const currentProgress = Math.max(0, hideStartProgressRef.current - hideProgress);
-          const effectiveElapsed = Math.pow(currentProgress / (speed * 3), 1 / 3);
+          const effectiveElapsed = (currentProgress / (speed * 3)) ** (1 / 3);
           const simulatedStartTime = now - effectiveElapsed * 1000;
           revealStartTimeRef.current = simulatedStartTime;
         } else {

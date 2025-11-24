@@ -1,4 +1,5 @@
-import React, { ReactNode, forwardRef } from "react";
+import type React from "react";
+import { forwardRef, type ReactNode } from "react";
 
 import { Flex, Text } from ".";
 

@@ -1,6 +1,7 @@
 "use client";
 
-import React, { ReactNode, forwardRef, SyntheticEvent } from "react";
+import type React from "react";
+import { forwardRef, type ReactNode, type SyntheticEvent } from "react";
 import { Column, Row } from ".";
 
 interface DropdownProps extends Omit<React.ComponentProps<typeof Row>, "onSelect"> {

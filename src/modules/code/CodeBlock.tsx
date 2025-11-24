@@ -1,21 +1,21 @@
 "use client";
 
-import React, { ReactNode, RefObject, useEffect, useRef, useState } from "react";
-import ReactDOM from "react-dom";
 import classNames from "classnames";
-import { Language, SpacingToken } from "../../types";
 import Prism from "prismjs";
-import styles from "./CodeBlock.module.scss";
+import React, { type ReactNode, type RefObject, useEffect, useRef, useState } from "react";
+import ReactDOM from "react-dom";
 import {
+  Column,
   Flex,
   IconButton,
-  Scroller,
   Row,
+  Scroller,
   StyleOverlay,
-  ToggleButton,
-  Column,
   Text,
+  ToggleButton,
 } from "../../components";
+import { Language, type SpacingToken } from "../../types";
+import styles from "./CodeBlock.module.scss";
 
 const loadCssFiles = async () => {
   if (typeof window !== "undefined") {
@@ -154,7 +154,7 @@ const loadLanguageWithDependencies = async (lang: string): Promise<boolean> => {
   const languageAliases: Record<string, string> = {
     ts: "typescript",
   };
-  
+
   const actualLang = languageAliases[lang] || lang;
 
   // Skip if already loaded
@@ -238,8 +238,8 @@ const parseDiff = (diffContent: string, startLineNumber?: number) => {
       // Parse hunk header to get line numbers
       const match = line.match(/@@ -(\d+)(?:,\d+)? \+(\d+)(?:,\d+)? @@/);
       if (match) {
-        oldLineNumber = parseInt(match[1]) - 1;
-        newLineNumber = parseInt(match[2]) - 1;
+        oldLineNumber = Number.parseInt(match[1]) - 1;
+        newLineNumber = Number.parseInt(match[2]) - 1;
       }
       parsedLines.push({
         type: "hunk",
@@ -291,7 +291,7 @@ const renderDiff = (
 
   // Apply syntax highlighting to code lines
   let highlightedLines: string[] = [];
-  
+
   if (lang && Prism.languages[lang]) {
     try {
       highlightedLines = codeLines.map((line) => {
@@ -341,11 +341,19 @@ const renderDiff = (
           <div key={index} className={`diff-row ${line.type}`}>
             <div className="diff-line-number">
               {(line.type === "deleted" || line.type === "context") &&
-                line.oldLineNumber !== undefined && <Text variant="code-default-s" style={{ transform: "scale(0.9)" }}>{line.oldLineNumber}</Text>}
+                line.oldLineNumber !== undefined && (
+                  <Text variant="code-default-s" style={{ transform: "scale(0.9)" }}>
+                    {line.oldLineNumber}
+                  </Text>
+                )}
             </div>
             <div className="diff-line-number">
               {(line.type === "added" || line.type === "context") &&
-                line.newLineNumber !== undefined && <Text variant="code-default-s" style={{ transform: "scale(0.9)" }}>{line.newLineNumber}</Text>}
+                line.newLineNumber !== undefined && (
+                  <Text variant="code-default-s" style={{ transform: "scale(0.9)" }}>
+                    {line.newLineNumber}
+                  </Text>
+                )}
             </div>
             <div className="diff-line-content">
               <span className="diff-sign"></span>
@@ -420,7 +428,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
     language: "",
   };
   const { code, language, startLineNumber } = codeInstance;
-  
+
   const highlight =
     codeInstance.highlight !== undefined ? codeInstance.highlight : deprecatedHighlight;
 
@@ -446,7 +454,15 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
         Prism.highlightAll();
       }, 0);
     }
-  }, [dependenciesLoaded, code, codes.length, selectedInstance, isFullscreen, isAnimating, language]);
+  }, [
+    dependenciesLoaded,
+    code,
+    codes.length,
+    selectedInstance,
+    isFullscreen,
+    isAnimating,
+    language,
+  ]);
 
   useEffect(() => {
     if (isFullscreen) {
@@ -696,13 +712,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
         </Row>
       )}
       {preview && (
-        <Row
-          key={refreshKey}
-          paddingX="4"
-          paddingBottom="4"
-          paddingTop={compact ? "4" : "0"}
-          fill
-        >
+        <Row key={refreshKey} paddingX="4" paddingBottom="4" paddingTop={compact ? "4" : "0"} fill>
           <Row
             fill
             background="overlay"
@@ -736,10 +746,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
           <Row overflowX="auto" fillWidth tabIndex={-1}>
             {language.includes("diff") ? (
               <div
-                className={classNames(
-                  styles.pre,
-                  `language-diff`,
-                )}
+                className={classNames(styles.pre, `language-diff`)}
                 style={{ maxHeight: `${codeHeight}rem`, overflow: "auto", width: "100%" }}
               >
                 {renderDiff(

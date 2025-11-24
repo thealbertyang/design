@@ -1,11 +1,10 @@
 "use client";
 
-import React, { forwardRef } from "react";
-import { Arrow, Flex, Icon, SmartLink } from ".";
-
-import styles from "./Badge.module.scss";
-import { IconName } from "../icons";
 import classNames from "classnames";
+import React, { forwardRef } from "react";
+import type { IconName } from "../icons";
+import { Arrow, Flex, Icon, SmartLink } from ".";
+import styles from "./Badge.module.scss";
 
 export interface BadgeProps extends React.ComponentProps<typeof Flex> {
   title?: string;

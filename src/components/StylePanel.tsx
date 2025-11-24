@@ -1,22 +1,22 @@
 "use client";
 
-import { forwardRef, useState, useEffect } from "react";
-import { Flex, Text, SegmentedControl, IconButton, Scroller, Column, ThemeSwitcher } from ".";
+import classNames from "classnames";
+import { forwardRef, useEffect, useState } from "react";
+import type { ChartMode } from "@/modules/data";
+import { useDataTheme } from "../contexts/DataThemeProvider";
 import {
-  BorderStyle,
-  NeutralColor,
-  ScalingSize,
-  SolidStyle,
-  SolidType,
-  SurfaceStyle,
-  TransitionStyle,
+  type BorderStyle,
+  type NeutralColor,
+  type ScalingSize,
+  type SolidStyle,
+  type SolidType,
+  type SurfaceStyle,
+  type TransitionStyle,
   useStyle,
 } from "../contexts/ThemeProvider";
-import { useDataTheme } from "../contexts/DataThemeProvider";
+import { type Schemes, schemes } from "../types";
+import { Column, Flex, IconButton, Scroller, SegmentedControl, Text, ThemeSwitcher } from ".";
 import styles from "./StylePanel.module.scss";
-import classNames from "classnames";
-import { Schemes, schemes } from "../types";
-import { ChartMode } from "@/modules/data";
 
 interface StylePanelProps extends React.ComponentProps<typeof Flex> {
   style?: React.CSSProperties;

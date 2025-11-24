@@ -1,28 +1,28 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  PieChart as RechartsPieChart,
-  Pie as RechartsPie,
   Cell as RechartsCell,
-  Tooltip as RechartsTooltip,
-  ResponsiveContainer as RechartsResponsiveContainer,
   Legend as RechartsLegend,
+  Pie as RechartsPie,
+  PieChart as RechartsPieChart,
+  ResponsiveContainer as RechartsResponsiveContainer,
+  Tooltip as RechartsTooltip,
 } from "recharts";
 import {
-  schemes,
-  Column,
-  Row,
-  DateRange,
-  ChartProps,
-  ChartVariant,
-  ChartStatus,
-  RadialGradient,
-  DataTooltip,
-  Legend,
   ChartHeader,
+  type ChartProps,
+  ChartStatus,
+  type ChartVariant,
+  Column,
+  DataTooltip,
+  type DateRange,
+  Legend,
+  RadialGradient,
+  type RadiusSize,
+  Row,
+  schemes,
   useDataTheme,
-  RadiusSize,
 } from "../../";
 
 import { getDistributedColor } from "./utils/colorDistribution";
@@ -138,7 +138,14 @@ export const PieChart: React.FC<PieChartProps> = ({
         onDateRangeChange={handleDateRangeChange}
         presets={date?.presets}
       />
-      <Row fill borderTop={(title || description || date?.selector) ? (border || "neutral-alpha-weak") : undefined} topRadius={flex.radius as RadiusSize || "l"} overflow="hidden">
+      <Row
+        fill
+        borderTop={
+          title || description || date?.selector ? border || "neutral-alpha-weak" : undefined
+        }
+        topRadius={(flex.radius as RadiusSize) || "l"}
+        overflow="hidden"
+      >
         <ChartStatus
           loading={loading}
           empty={!filteredData || filteredData.length === 0}
@@ -261,7 +268,7 @@ export const PieChart: React.FC<PieChartProps> = ({
                       fill={variant === "outline" ? "transparent" : `url(#${gradientId})`}
                       strokeWidth={variant === "outline" ? 2 : 1}
                       stroke={baseColor}
-                      style={{outline: "none"}}
+                      style={{ outline: "none" }}
                     />
                   );
                 })}
@@ -273,7 +280,8 @@ export const PieChart: React.FC<PieChartProps> = ({
                       const entry = props.payload[0];
                       const index = filteredData.findIndex((item) => item[nameKey] === entry.name);
                       const colorKey =
-                        filteredData[index]?.color || getDistributedColor(index, filteredData.length);
+                        filteredData[index]?.color ||
+                        getDistributedColor(index, filteredData.length);
                       const color = `var(--data-${colorKey})`;
 
                       props.payload[0].color = color;

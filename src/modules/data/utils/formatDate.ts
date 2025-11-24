@@ -1,5 +1,5 @@
 import { format, parseISO } from "date-fns";
-import { DateConfig } from "../interfaces";
+import type { DateConfig } from "../interfaces";
 
 /**
  * Formats a value as a date if it's a valid date and a format is provided

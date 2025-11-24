@@ -1,6 +1,6 @@
-import { Flex, DateRange } from "../../components";
-import { TShirtSizes } from "../../types";
-import { CurveType } from "recharts/types/shape/Curve";
+import type { CurveType } from "recharts/types/shape/Curve";
+import type { DateRange, Flex } from "../../components";
+import type { TShirtSizes } from "../../types";
 
 type ChartVariant = "flat" | "gradient" | "outline";
 type ChartMode = "categorical" | "divergent" | "sequential";

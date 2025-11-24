@@ -1,23 +1,24 @@
 "use client";
 
-import React, { useState, useRef, useEffect, forwardRef, ReactNode, useId } from "react";
+import type { Placement } from "@floating-ui/react-dom";
 import classNames from "classnames";
+import type React from "react";
+import { forwardRef, type ReactNode, useEffect, useId, useRef, useState } from "react";
 import {
+  ArrowNavigation,
+  Column,
   DropdownWrapper,
+  type DropdownWrapperProps,
   Flex,
   Icon,
   IconButton,
   Input,
-  InputProps,
+  type InputProps,
   Option,
-  OptionProps,
-  DropdownWrapperProps,
-  Column,
-  ArrowNavigation,
+  type OptionProps,
   useArrowNavigationContext,
 } from ".";
 import inputStyles from "./Input.module.scss";
-import { Placement } from "@floating-ui/react-dom";
 
 type SelectOptionType = Omit<OptionProps, "selected">;
 
@@ -92,15 +93,13 @@ const SearchInput: React.FC<{
           navKeyDown(e as any);
           return;
         }
-        
+
         if (e.key === "Escape") {
           e.preventDefault();
           e.stopPropagation();
           setIsDropdownOpen(false);
           setSearchQuery("");
-          const mainInput = selectRef.current?.querySelector(
-            "input:not([id^='select-search'])",
-          );
+          const mainInput = selectRef.current?.querySelector("input:not([id^='select-search'])");
           if (mainInput instanceof HTMLInputElement) {
             mainInput.focus();
           }
@@ -108,8 +107,7 @@ const SearchInput: React.FC<{
       }}
       onBlur={(e) => {
         const relatedTarget = e.relatedTarget as Node;
-        const isClickInDropdown =
-          selectRef.current && selectRef.current.contains(relatedTarget);
+        const isClickInDropdown = selectRef.current && selectRef.current.contains(relatedTarget);
         if (!isClickInDropdown) {
           handleBlur(e);
         }
@@ -318,7 +316,7 @@ const Select = forwardRef<HTMLDivElement, SelectProps>(
                   selectRef={selectRef}
                 />
               )}
-            
+
               <Column fillWidth paddingTop="4" gap="2">
                 {filteredOptions.map((option, index) => (
                   <Option
