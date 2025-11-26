@@ -4,12 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import { Flex, Scroller, ToggleButton, type ToggleButtonProps } from ".";
 
 interface ButtonOption extends Omit<ToggleButtonProps, "selected"> {
+  href?: string;
   value: string;
 }
 
 interface SegmentedControlProps extends Omit<React.ComponentProps<typeof Scroller>, "onToggle"> {
   buttons: ButtonOption[];
-  onToggle: (value: string, event?: React.MouseEvent<HTMLButtonElement>) => void;
+  onToggle?: (value: string, event?: React.MouseEvent<HTMLElement>) => void;
   defaultSelected?: string;
   fillWidth?: boolean;
   selected?: string;
@@ -35,7 +36,7 @@ const SegmentedControl: React.FC<SegmentedControlProps> = ({
     return buttons[0]?.value || "";
   });
 
-  const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const buttonRefs = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
     if (selected !== undefined) {
@@ -43,18 +44,15 @@ const SegmentedControl: React.FC<SegmentedControlProps> = ({
     }
   }, [selected]);
 
-  const handleButtonClick = (
-    clickedButton: ButtonOption,
-    event: React.MouseEvent<HTMLButtonElement>,
-  ) => {
+  const handleButtonClick = (clickedButton: ButtonOption, event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
     const newSelected = clickedButton.value;
     setInternalSelected(newSelected);
-    onToggle(newSelected, event);
+    onToggle?.(newSelected, event);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    const focusedIndex = buttonRefs.current.findIndex((ref) => ref === document.activeElement);
+    const focusedIndex = buttonRefs.current.indexOf(document.activeElement as HTMLElement | null);
 
     switch (event.key) {
       case "ArrowLeft":
@@ -87,7 +85,7 @@ const SegmentedControl: React.FC<SegmentedControlProps> = ({
         if (focusedIndex >= 0 && focusedIndex < buttons.length) {
           const focusedButton = buttons[focusedIndex];
           setInternalSelected(focusedButton.value);
-          onToggle(focusedButton.value);
+          onToggle?.(focusedButton.value);
         }
         break;
       default:
@@ -118,7 +116,7 @@ const SegmentedControl: React.FC<SegmentedControlProps> = ({
           return (
             <ToggleButton
               ref={(el) => {
-                buttonRefs.current[index] = el as HTMLButtonElement;
+                buttonRefs.current[index] = el;
               }}
               variant={compact ? "outline" : "ghost"}
               radius={
