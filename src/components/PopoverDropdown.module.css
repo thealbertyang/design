@@ -1,17 +1,17 @@
-// PopoverDropdown - Native Popover API with CSS Anchor Positioning
-// Uses cutting-edge CSS features (2024-2025):
-// - Native Popover API (popover="auto")
-// - CSS Anchor Positioning (position-area, position-anchor)
-// - @starting-style for entry animations
-// - @position-try for auto-flip behavior
+/* PopoverDropdown - Native Popover API with CSS Anchor Positioning
+   Uses cutting-edge CSS features (2024-2025):
+   - Native Popover API (popover="auto")
+   - CSS Anchor Positioning (position-area, position-anchor)
+   - @starting-style for entry animations
+   - @position-try for auto-flip behavior */
 
 .popover {
-  // Base sizing
+  /* Base sizing */
   min-width: var(--min-width, auto);
   max-width: var(--max-width, 90vw);
   min-height: var(--min-height, auto);
 
-  // Reset popover defaults
+  /* Reset popover defaults */
   pointer-events: none;
   background: transparent;
   border: none;
@@ -21,37 +21,37 @@
   width: max-content;
   height: max-content;
 
-  // Remove default backdrop
+  /* Remove default backdrop */
   &::backdrop {
     display: none;
     background: none;
   }
 
-  // Open state
+  /* Open state */
   &:popover-open {
     pointer-events: auto;
     opacity: 1;
     transform: translateY(0) scale(1);
 
-    // Entry animation using @starting-style
+    /* Entry animation using @starting-style */
     @starting-style {
       opacity: 0;
       transform: translateY(-0.25rem) scale(0.98);
     }
   }
 
-  // Exit animation (when closing)
+  /* Exit animation (when closing) */
   opacity: 0;
   transform: translateY(-0.25rem) scale(0.98);
 
-  // Smooth transitions for open/close
+  /* Smooth transitions for open/close */
   transition:
     opacity 150ms ease-out,
     transform 150ms ease-out,
     overlay 150ms ease-out allow-discrete,
     display 150ms ease-out allow-discrete;
 
-  // Placement variants using CSS anchor positioning
+  /* Placement variants using CSS anchor positioning */
   &.bottom,
   &.bottom-start,
   &.bottom-end {
@@ -80,7 +80,7 @@
     margin-left: 0.25rem;
   }
 
-  // Alignment variants
+  /* Alignment variants */
   &.bottom-start,
   &.top-start {
     align-self: start;
@@ -101,7 +101,7 @@
     justify-self: end;
   }
 
-  // Auto-flip behavior using @position-try
+  /* Auto-flip behavior using @position-try */
   &.top,
   &.top-start,
   &.top-end {
@@ -127,7 +127,7 @@
   }
 }
 
-// Position try fallbacks for auto-flip behavior
+/* Position try fallbacks for auto-flip behavior */
 @position-try --flip-top {
   position-area: top;
 }
@@ -144,11 +144,11 @@
   position-area: right;
 }
 
-// Fallback for browsers without anchor positioning support
+/* Fallback for browsers without anchor positioning support */
 @supports not (anchor-name: --test) {
   .popover {
-    // Falls back to fixed positioning at trigger location
-    // The popover will still work, just without smart positioning
+    /* Falls back to fixed positioning at trigger location
+       The popover will still work, just without smart positioning */
     position: fixed;
     top: var(--popover-top, auto);
     left: var(--popover-left, auto);

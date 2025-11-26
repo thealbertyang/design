@@ -1,19 +1,19 @@
 .option {
     border-color: var(--static-transparent);
-  
-    // Keyboard navigation highlight (lowest priority)
+
+    /* Keyboard navigation highlight (lowest priority) */
     &.highlighted:not(:hover):not(:focus) {
         background: var(--static-transparent);
         border-color: var(--neutral-alpha-medium);
     }
-    
-    // Selected state (medium priority)
+
+    /* Selected state (medium priority) */
     &.selected:not(:hover):not(:focus) {
         background: var(--neutral-alpha-medium);
         border-color: var(--neutral-alpha-medium);
     }
-  
-    // Hover/Focus state (highest priority - always overrides highlighted and selected)
+
+    /* Hover/Focus state (highest priority - always overrides highlighted and selected) */
     &:hover, &:focus {
         background: var(--neutral-alpha-weak);
         border-color: var(--neutral-alpha-medium);
@@ -24,10 +24,10 @@
             color: var(--neutral-on-background-weak);
         }
     }
-  
+
     &.danger {
         color: var(--danger-on-background-medium);
-  
+
         &:hover, &:focus {
             background: var(--danger-solid-strong);
             color: var(--danger-on-solid-strong);
@@ -35,7 +35,7 @@
         }
     }
 }
-  
+
 .focused {
     background: var(--neutral-background-strong);
 }
