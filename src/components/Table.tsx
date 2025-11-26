@@ -2,7 +2,7 @@
 
 import { type ReactNode, useState } from "react";
 import { type Flex, IconButton, Row } from ".";
-import styles from "./Table.module.scss";
+import styles from "./Table.module.css";
 
 type TableProps = React.ComponentProps<typeof Flex> & {
   data: {

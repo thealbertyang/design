@@ -4,7 +4,7 @@ import classNames from "classnames";
 import type React from "react";
 import { forwardRef, useState } from "react";
 import { Column, Flex, IconButton, Input } from ".";
-import styles from "./NumberInput.module.scss";
+import styles from "./NumberInput.module.css";
 
 interface NumberInputProps
   extends Omit<React.ComponentProps<typeof Input>, "type" | "value" | "onChange"> {

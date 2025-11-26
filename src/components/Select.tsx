@@ -18,7 +18,7 @@ import {
   type OptionProps,
   useArrowNavigationContext,
 } from ".";
-import inputStyles from "./Input.module.scss";
+import inputStyles from "./Input.module.css";
 
 type SelectOptionType = Omit<OptionProps, "selected">;
 

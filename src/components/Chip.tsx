@@ -5,7 +5,7 @@ import type React from "react";
 import { forwardRef, type MouseEventHandler, type ReactNode } from "react";
 import type { IconName } from "../icons";
 import { Flex, Icon, IconButton, type IconButtonProps, Text } from ".";
-import styles from "./Chip.module.scss";
+import styles from "./Chip.module.css";
 
 interface ChipProps extends React.ComponentProps<typeof Flex> {
   label: string;

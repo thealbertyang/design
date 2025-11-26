@@ -5,9 +5,9 @@ import type React from "react";
 import { forwardRef, type ReactNode } from "react";
 import type { IconName } from "../icons";
 import { Flex, HoverCard, Icon, Tooltip } from ".";
-import buttonStyles from "./Button.module.scss";
+import buttonStyles from "./Button.module.css";
 import { ElementType } from "./ElementType";
-import iconStyles from "./IconButton.module.scss";
+import iconStyles from "./IconButton.module.css";
 
 interface CommonProps {
   icon?: IconName;

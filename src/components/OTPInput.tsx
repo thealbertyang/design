@@ -3,7 +3,7 @@
 import type React from "react";
 import { forwardRef, useEffect, useRef, useState } from "react";
 import { Column, Flex, Input, Text } from ".";
-import styles from "./OTPInput.module.scss";
+import styles from "./OTPInput.module.css";
 
 interface OTPInputProps extends React.HTMLAttributes<HTMLDivElement> {
   length?: number;

@@ -3,7 +3,7 @@
 import type React from "react";
 import { forwardRef, useEffect, useMemo, useRef, useState } from "react";
 import { Row } from ".";
-import styles from "./AutoScroll.module.scss";
+import styles from "./AutoScroll.module.css";
 
 interface AutoScrollProps extends React.ComponentProps<typeof Row> {
   children: React.ReactNode;

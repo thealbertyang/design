@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import type React from "react";
 import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Column, Flex, Icon, Row, Text, ToggleButton } from "../../";
-import styles from "./MegaMenu.module.scss";
+import styles from "./MegaMenu.module.css";
 
 export interface MenuLink {
   label: ReactNode;

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { SpacingToken } from "@/types";
 import { Column, Fade, Flex, IconButton, Media, ProgressBar, RevealFx, Row, Scroller } from ".";
-import styles from "./Carousel.module.scss";
+import styles from "./Carousel.module.css";
 
 interface CarouselItem {
   slide: string | React.ReactNode;

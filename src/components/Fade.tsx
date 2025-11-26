@@ -3,7 +3,7 @@ import type React from "react";
 import { forwardRef, type ReactNode } from "react";
 import type { ColorScheme, ColorWeight, SpacingToken } from "../types";
 import { Flex } from ".";
-import styles from "./Fade.module.scss";
+import styles from "./Fade.module.css";
 
 export type BaseColor =
   | `${ColorScheme}-${ColorWeight}`

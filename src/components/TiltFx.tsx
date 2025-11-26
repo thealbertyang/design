@@ -3,7 +3,7 @@
 import type React from "react";
 import { useRef } from "react";
 import { Flex } from ".";
-import styles from "./TiltFx.module.scss";
+import styles from "./TiltFx.module.css";
 
 interface TiltFxProps extends React.ComponentProps<typeof Flex> {
   children: React.ReactNode;

@@ -2,7 +2,7 @@ import classNames from "classnames";
 import type React from "react";
 import { forwardRef, type ReactNode } from "react";
 import { Flex } from ".";
-import styles from "./InlineCode.module.scss";
+import styles from "./InlineCode.module.css";
 
 interface InlineCodeProps extends React.ComponentProps<typeof Flex> {
   children: ReactNode;

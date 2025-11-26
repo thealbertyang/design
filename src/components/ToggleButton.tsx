@@ -5,7 +5,7 @@ import type React from "react";
 import { forwardRef, type ReactNode } from "react";
 import type { IconName } from "../icons";
 import { ElementType, Flex, Icon } from ".";
-import styles from "./ToggleButton.module.scss";
+import styles from "./ToggleButton.module.css";
 
 interface CommonProps {
   label?: ReactNode;

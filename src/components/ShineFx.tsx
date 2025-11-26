@@ -3,7 +3,7 @@
 import classNames from "classnames";
 import type React from "react";
 import { Text } from ".";
-import styles from "./ShineFx.module.scss";
+import styles from "./ShineFx.module.css";
 
 export interface ShineFxProps extends React.ComponentProps<typeof Text> {
   speed?: number;

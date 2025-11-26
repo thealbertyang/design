@@ -19,7 +19,7 @@ import {
   SegmentedControl,
   Text,
 } from ".";
-import styles from "./DatePicker.module.scss";
+import styles from "./DatePicker.module.css";
 
 export interface DatePickerProps extends Omit<React.ComponentProps<typeof Flex>, "onChange"> {
   value?: Date;

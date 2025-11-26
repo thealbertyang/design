@@ -4,7 +4,7 @@ import type { Placement } from "@floating-ui/react-dom";
 import classNames from "classnames";
 import type React from "react";
 import { Column, DropdownWrapper, type DropdownWrapperProps, User, type UserProps } from ".";
-import styles from "./UserMenu.module.scss";
+import styles from "./UserMenu.module.css";
 
 interface UserMenuProps
   extends UserProps,

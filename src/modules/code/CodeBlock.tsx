@@ -15,7 +15,7 @@ import {
   ToggleButton,
 } from "../../components";
 import { Language, type SpacingToken } from "../../types";
-import styles from "./CodeBlock.module.scss";
+import styles from "./CodeBlock.module.css";
 
 const loadCssFiles = async () => {
   if (typeof window !== "undefined") {

@@ -4,7 +4,7 @@ import classNames from "classnames";
 import type React from "react";
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useState } from "react";
 import { Column, type Flex, Grid, Icon, Row, Text } from ".";
-import styles from "./Accordion.module.scss";
+import styles from "./Accordion.module.css";
 
 export interface AccordionHandle extends HTMLDivElement {
   toggle: () => void;

@@ -5,7 +5,7 @@ import type React from "react";
 import { forwardRef, useEffect, useState } from "react";
 import type { IconName } from "../icons";
 import { Flex, Icon, IconButton, Row } from ".";
-import styles from "./Toast.module.scss";
+import styles from "./Toast.module.css";
 
 interface ToastProps {
   className?: string;

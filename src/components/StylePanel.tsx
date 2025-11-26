@@ -16,7 +16,7 @@ import {
 } from "../contexts/ThemeProvider";
 import { type Schemes, schemes } from "../types";
 import { Column, Flex, IconButton, Scroller, SegmentedControl, Text, ThemeSwitcher } from ".";
-import styles from "./StylePanel.module.scss";
+import styles from "./StylePanel.module.css";
 
 interface StylePanelProps extends React.ComponentProps<typeof Flex> {
   style?: React.CSSProperties;

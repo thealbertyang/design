@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Flex, IconButton, Media } from ".";
-import styles from "./CompareImage.module.scss";
+import styles from "./CompareImage.module.css";
 
 interface SideContent {
   src: string | React.ReactNode;

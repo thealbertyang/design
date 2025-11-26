@@ -4,7 +4,7 @@ import Compressor from "compressorjs";
 import type React from "react";
 import { forwardRef, useEffect, useRef, useState } from "react";
 import { Flex, Icon, Media, Spinner, Text } from "../../";
-import styles from "./MediaUpload.module.scss";
+import styles from "./MediaUpload.module.css";
 
 interface MediaUploadProps extends React.ComponentProps<typeof Flex> {
   onFileUpload?: (file: File) => Promise<void>;

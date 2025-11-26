@@ -24,7 +24,7 @@ import React, {
 import { createPortal } from "react-dom";
 import type { NavigationLayout } from "../hooks/useArrowNavigation";
 import { ArrowNavigation, Column, Dropdown, Flex, FocusTrap, Row } from ".";
-import styles from "./DropdownWrapper.module.scss";
+import styles from "./DropdownWrapper.module.css";
 
 export interface DropdownWrapperProps {
   fillWidth?: boolean;

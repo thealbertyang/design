@@ -5,7 +5,7 @@ import type React from "react";
 import { forwardRef } from "react";
 
 import { Flex } from ".";
-import styles from "./Skeleton.module.scss";
+import styles from "./Skeleton.module.css";
 
 interface SkeletonProps extends React.ComponentProps<typeof Flex> {
   shape: "line" | "circle" | "block";

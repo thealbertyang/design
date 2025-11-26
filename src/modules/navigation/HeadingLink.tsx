@@ -4,7 +4,7 @@ import type React from "react";
 import { useCallback } from "react";
 import { Animation, Heading, IconButton, Row } from "../../components";
 import { useToast } from "../../contexts";
-import styles from "./HeadingLink.module.scss";
+import styles from "./HeadingLink.module.css";
 
 interface HeadingLinkProps extends React.ComponentProps<typeof Row> {
   id: string;

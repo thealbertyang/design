@@ -14,7 +14,7 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import { Dropdown, Flex } from ".";
-import styles from "./ContextMenu.module.scss";
+import styles from "./ContextMenu.module.css";
 
 export interface ContextMenuProps {
   children: ReactNode;

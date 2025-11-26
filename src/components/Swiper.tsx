@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Column, Flex, IconButton, Media, Row } from ".";
-import styles from "./Swiper.module.scss";
+import styles from "./Swiper.module.css";
 
 interface SwiperItem {
   slide: string | React.ReactNode;

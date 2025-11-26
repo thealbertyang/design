@@ -12,7 +12,7 @@ import React, {
 } from "react";
 import ReactDOM from "react-dom";
 import { Column, Flex, Heading, IconButton, Text } from ".";
-import styles from "./Dialog.module.scss";
+import styles from "./Dialog.module.css";
 
 interface DialogProps extends Omit<React.ComponentProps<typeof Flex>, "title"> {
   isOpen: boolean;

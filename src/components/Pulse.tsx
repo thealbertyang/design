@@ -3,7 +3,7 @@
 import { forwardRef, type ReactNode } from "react";
 import type { ColorScheme, CondensedTShirtSizes } from "../types";
 import { Row } from ".";
-import styles from "./Pulse.module.scss";
+import styles from "./Pulse.module.css";
 
 interface PulseProps extends React.ComponentProps<typeof Row> {
   variant?: ColorScheme;

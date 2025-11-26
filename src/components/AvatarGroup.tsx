@@ -4,7 +4,7 @@ import classNames from "classnames";
 import type React from "react";
 import { forwardRef } from "react";
 import { Avatar, type AvatarProps, Flex } from ".";
-import styles from "./AvatarGroup.module.scss";
+import styles from "./AvatarGroup.module.css";
 
 interface AvatarGroupProps extends React.ComponentProps<typeof Flex> {
   avatars: AvatarProps[];

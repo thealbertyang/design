@@ -11,7 +11,7 @@ import React, {
 } from "react";
 import { useDebounce } from "../hooks/useDebounce";
 import { Column, Row, Text } from ".";
-import styles from "./Input.module.scss";
+import styles from "./Input.module.css";
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   id: string;

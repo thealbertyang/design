@@ -5,7 +5,7 @@ import { forwardRef } from "react";
 
 import type { IconName } from "@/icons";
 import { Flex, Icon, Media, Skeleton, StatusIndicator, Text } from ".";
-import styles from "./Avatar.module.scss";
+import styles from "./Avatar.module.css";
 
 interface AvatarProps extends React.ComponentProps<typeof Flex> {
   size?: "xs" | "s" | "m" | "l" | "xl" | number;

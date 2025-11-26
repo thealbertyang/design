@@ -11,7 +11,7 @@ import {
   useState,
 } from "react";
 import { type Flex, Row } from ".";
-import styles from "./Hover.module.scss";
+import styles from "./Hover.module.css";
 
 export interface HoverProps extends React.ComponentProps<typeof Flex> {
   trigger: ReactNode;

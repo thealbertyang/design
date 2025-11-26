@@ -13,7 +13,7 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import { Flex } from ".";
-import styles from "./CursorCard.module.scss";
+import styles from "./CursorCard.module.css";
 
 export interface CursorCardProps extends React.ComponentProps<typeof Flex> {
   trigger?: ReactNode;

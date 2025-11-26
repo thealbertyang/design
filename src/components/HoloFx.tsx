@@ -5,7 +5,7 @@ import type React from "react";
 import type { CSSProperties } from "react";
 import { useEffect, useRef } from "react";
 import { Flex } from ".";
-import styles from "./HoloFx.module.scss";
+import styles from "./HoloFx.module.css";
 
 interface MaskOptions {
   maskPosition?: string;

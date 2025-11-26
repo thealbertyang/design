@@ -15,7 +15,7 @@ import {
   Text,
   useArrowNavigationContext,
 } from "../../";
-import styles from "./Kbar.module.scss";
+import styles from "./Kbar.module.css";
 
 export interface KbarItem {
   id: string;

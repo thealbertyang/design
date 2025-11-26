@@ -3,7 +3,7 @@
 import { forwardRef, useState } from "react";
 import type { DisplayProps } from "../interfaces";
 import { Background, Flex, IconButton, StylePanel } from ".";
-import styles from "./StyleOverlay.module.scss";
+import styles from "./StyleOverlay.module.css";
 
 interface StyleOverlayProps extends React.ComponentProps<typeof Flex> {
   iconButtonProps?: Partial<React.ComponentProps<typeof IconButton>>;

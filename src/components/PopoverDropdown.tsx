@@ -3,7 +3,7 @@
 import type React from "react";
 import { forwardRef, type ReactNode, useId } from "react";
 import { Dropdown } from ".";
-import styles from "./PopoverDropdown.module.scss";
+import styles from "./PopoverDropdown.module.css";
 
 export type PopoverPlacement =
   | "top"

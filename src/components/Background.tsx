@@ -6,7 +6,7 @@ import { forwardRef, useEffect, useRef } from "react";
 import type { DisplayProps } from "../interfaces";
 import type { SpacingToken } from "../types";
 import { Flex, Mask, type MaskProps } from ".";
-import styles from "./Background.module.scss";
+import styles from "./Background.module.css";
 
 function setRef<T>(ref: React.Ref<T> | undefined, value: T | null) {
   if (typeof ref === "function") {

@@ -4,7 +4,7 @@ import type React from "react";
 import { forwardRef, useEffect, useRef, useState } from "react";
 import type { SpacingToken } from "../types";
 import { Flex } from ".";
-import styles from "./RevealFx.module.scss";
+import styles from "./RevealFx.module.css";
 
 interface RevealFxProps extends React.ComponentProps<typeof Flex> {
   children: React.ReactNode;

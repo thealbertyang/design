@@ -6,7 +6,7 @@
     "once-ui",
     "react",
     "nextjs",
-    "scss",
+    "css",
     "design system",
     "design framework",
     "nextjs design system"
@@ -68,7 +68,7 @@
   },
   "scripts": {
     "build": "bun run clean && bun run icons:generate && bun run generate-emoji-data && tsc --project tsconfig.build.json && bun run copy-files && bun run build:css",
-    "build:css": "sass src/styles/index.scss:dist/css/styles.css src/tokens/index.scss:dist/css/tokens.css --style=compressed",
+    "build:css": "node scripts/build-css.js",
     "copy-files": "node scripts/copy-files.js",
     "clean": "rm -rf dist",
     "clean:node": "rm -rf node_modules",
@@ -93,7 +93,6 @@
     "next": ">=13.4",
     "react": ">=18",
     "react-dom": ">=18",
-    "sass": "^1.77.6",
     "sharp": "^0.33.4"
   },
   "devDependencies": {

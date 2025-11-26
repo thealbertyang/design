@@ -6,7 +6,7 @@ import { forwardRef, type ReactNode } from "react";
 import type { IconName } from "../icons";
 
 import { Arrow, Flex, Icon, Spinner } from ".";
-import styles from "./Button.module.scss";
+import styles from "./Button.module.css";
 import { ElementType } from "./ElementType";
 
 interface CommonProps {

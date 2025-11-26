@@ -4,7 +4,7 @@ import classNames from "classnames";
 import type React from "react";
 import { forwardRef, useCallback, useEffect, useState } from "react";
 import { Flex } from ".";
-import styles from "./GlitchFx.module.scss";
+import styles from "./GlitchFx.module.css";
 
 interface GlitchFxProps extends React.ComponentProps<typeof Flex> {
   children: React.ReactNode;

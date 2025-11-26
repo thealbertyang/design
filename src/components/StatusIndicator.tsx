@@ -2,7 +2,7 @@ import classNames from "classnames";
 import type React from "react";
 import { forwardRef } from "react";
 import { Flex } from ".";
-import styles from "./StatusIndicator.module.scss";
+import styles from "./StatusIndicator.module.css";
 
 interface StatusIndicatorProps extends React.ComponentProps<typeof Flex> {
   size?: "s" | "m" | "l";

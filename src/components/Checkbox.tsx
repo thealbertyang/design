@@ -4,7 +4,7 @@ import classNames from "classnames";
 import type React from "react";
 import { forwardRef, useEffect, useState } from "react";
 import { Flex, Icon, InteractiveDetails, type InteractiveDetailsProps } from ".";
-import styles from "./SharedInteractiveStyles.module.scss";
+import styles from "./SharedInteractiveStyles.module.css";
 
 interface CheckboxProps
   extends Omit<InteractiveDetailsProps, "onClick">,

@@ -4,7 +4,7 @@ import React, { forwardRef } from "react";
 import type { SpacingToken } from "../types";
 import { Column } from "./Column";
 import { Flex } from "./Flex";
-import styles from "./MasonryGrid.module.scss";
+import styles from "./MasonryGrid.module.css";
 
 function parseToken(value: SpacingToken | "-1" | number | undefined, type: "width" | "height") {
   if (value === undefined) return undefined;

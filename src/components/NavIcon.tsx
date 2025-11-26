@@ -2,7 +2,7 @@ import classNames from "classnames";
 import type React from "react";
 import { forwardRef } from "react";
 import { Flex } from ".";
-import styles from "./NavIcon.module.scss";
+import styles from "./NavIcon.module.css";
 
 interface NavIconProps extends React.ComponentProps<typeof Flex> {
   className?: string;

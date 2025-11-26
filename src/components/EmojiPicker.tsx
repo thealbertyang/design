@@ -23,7 +23,7 @@ import {
   SegmentedControl,
   Text,
 } from ".";
-import styles from "./EmojiPicker.module.scss";
+import styles from "./EmojiPicker.module.css";
 
 type EmojiItem = {
   char: string;

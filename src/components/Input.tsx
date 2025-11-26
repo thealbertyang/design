@@ -12,7 +12,7 @@ import {
 } from "react";
 import { useDebounce } from "../hooks/useDebounce";
 import { Column, Row, Text } from ".";
-import styles from "./Input.module.scss";
+import styles from "./Input.module.css";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;

@@ -7,7 +7,7 @@ import { forwardRef, type ReactNode } from "react";
 import type { ColorScheme } from "@/types";
 import type { IconName } from "../icons";
 import { type Flex, Icon, Row, Text } from ".";
-import styles from "./Tag.module.scss";
+import styles from "./Tag.module.css";
 
 interface TagProps extends React.ComponentProps<typeof Flex> {
   variant?: ColorScheme | "gradient";

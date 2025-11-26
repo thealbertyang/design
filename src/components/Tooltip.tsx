@@ -3,7 +3,7 @@ import type React from "react";
 import { forwardRef, type ReactNode } from "react";
 import type { IconName } from "../icons";
 import { Icon, Row } from ".";
-import styles from "./Tooltip.module.scss";
+import styles from "./Tooltip.module.css";
 
 interface TooltipProps extends React.ComponentProps<typeof Row> {
   label: ReactNode;

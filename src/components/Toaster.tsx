@@ -4,7 +4,7 @@ import type React from "react";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { Column, Row, Toast } from ".";
-import styles from "./Toaster.module.scss";
+import styles from "./Toaster.module.css";
 
 interface ToasterProps {
   toasts: {
