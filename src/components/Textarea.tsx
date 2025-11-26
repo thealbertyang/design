@@ -179,7 +179,6 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
                 } else if (ref) {
                   ref.current = node;
                 }
-                // @ts-expect-error
                 textareaRef.current = node;
               }}
               id={id}

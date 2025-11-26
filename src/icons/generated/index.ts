@@ -45,7 +45,6 @@ export { Search } from "./search";
 export { Security } from "./security";
 export { Smiley } from "./smiley";
 export { Sparkle } from "./sparkle";
-export { Symbol } from "./symbol";
 export { Warning } from "./warning";
 export { Wordmark } from "./wordmark";
 export { World } from "./world";

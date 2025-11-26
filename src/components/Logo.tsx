@@ -51,7 +51,6 @@ const Logo: React.FC<LogoProps> = ({
   const content = (
     <>
       {icon && (
-        // @ts-expect-error
         <img
           style={{
             height: `var(--static-space-${sizeMap[size]})`,
@@ -62,7 +61,6 @@ const Logo: React.FC<LogoProps> = ({
         />
       )}
       {wordmark && (
-        // @ts-expect-error
         <img
           style={{
             height: `var(--static-space-${sizeMap[size]})`,
