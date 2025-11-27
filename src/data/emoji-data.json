@@ -2,7 +2,8 @@
   "smileys": [
     {
       "char": "😀",
-      "description": "grinning face",      "aliases": [
+      "description": "grinning face",
+      "aliases": [
         "grinning"
       ],
       "tags": [
@@ -6290,6 +6291,16 @@
       ],
       "tags": [
         "fly"
+      ]
+    },
+    {
+      "char": "🪿",
+      "description": "goose",
+      "aliases": [
+        "goose"
+      ],
+      "tags": [
+        "honk"
       ]
     },
     {
