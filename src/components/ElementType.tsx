@@ -1,81 +1,91 @@
 import Link from "next/link";
 import type React from "react";
-import { forwardRef, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Flex } from ".";
 
 interface ElementTypeProps {
   href?: string;
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLElement>;
   onLinkClick?: () => void;
   children: ReactNode;
   className?: string;
   style?: React.CSSProperties;
-  type?: "button" | "submit" | "reset";
-  [key: string]: any;
+  type?: "button" | "submit" | "reset" | (string & {});
+  ref?: React.Ref<HTMLElement>;
+  [key: string]: unknown;
 }
 
 const isExternalLink = (url: string) => /^https?:\/\//.test(url);
 
-const ElementType = forwardRef<HTMLElement, ElementTypeProps>(
-  ({ href, type, onClick, onLinkClick, children, className, style, ...props }, ref) => {
-    if (href) {
-      const isExternal = isExternalLink(href);
-      if (isExternal) {
-        return (
-          <a
-            href={href}
-            target="_blank"
-            rel="noreferrer"
-            ref={ref as React.Ref<HTMLAnchorElement>}
-            className={className}
-            style={style}
-            onClick={() => onLinkClick?.()}
-            {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
-          >
-            {children}
-          </a>
-        );
-      }
+function ElementType({
+  href,
+  type,
+  onClick,
+  onLinkClick,
+  children,
+  className,
+  style,
+  ref,
+  ...props
+}: ElementTypeProps) {
+  if (href) {
+    const isExternal = isExternalLink(href);
+    if (isExternal) {
       return (
-        <Link
+        <a
           href={href}
+          target="_blank"
+          rel="noreferrer"
+          ref={ref as React.Ref<HTMLAnchorElement>}
           className={className}
           style={style}
           onClick={() => onLinkClick?.()}
           {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
         >
           {children}
-        </Link>
+        </a>
       );
     }
-
-    if (onClick || type === "submit" || type === "button") {
-      return (
-        <button
-          ref={ref as React.Ref<HTMLButtonElement>}
-          className={className}
-          onClick={onClick}
-          style={style}
-          type={type}
-          {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
-        >
-          {children}
-        </button>
-      );
-    }
-
     return (
-      <Flex
-        ref={ref as React.Ref<HTMLDivElement>}
+      <Link
+        href={href}
+        prefetch={true}
         className={className}
         style={style}
-        {...(props as React.HTMLAttributes<HTMLDivElement>)}
+        onClick={() => onLinkClick?.()}
+        {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
       >
         {children}
-      </Flex>
+      </Link>
     );
-  },
-);
+  }
+
+  if (onClick || type === "submit" || type === "button") {
+    return (
+      <button
+        ref={ref as React.Ref<HTMLButtonElement>}
+        className={className}
+        onClick={onClick}
+        style={style}
+        type={type as "button" | "submit" | "reset" | undefined}
+        {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+      >
+        {children}
+      </button>
+    );
+  }
+
+  return (
+    <Flex
+      ref={ref as React.Ref<HTMLDivElement>}
+      className={className}
+      style={style}
+      {...(props as React.HTMLAttributes<HTMLDivElement>)}
+    >
+      {children}
+    </Flex>
+  );
+}
 
 ElementType.displayName = "ElementType";
 export { ElementType };

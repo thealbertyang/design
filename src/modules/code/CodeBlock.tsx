@@ -14,7 +14,7 @@ import {
   Text,
   ToggleButton,
 } from "../../components";
-import { Language, type SpacingToken } from "../../types";
+import type { SpacingToken } from "../../types";
 import styles from "./CodeBlock.module.css";
 
 const loadCssFiles = async () => {
@@ -196,7 +196,7 @@ const loadPrismDependencies = async (...langs: string[]): Promise<boolean> => {
     ]);
 
     // Filter out empty/invalid languages and remove duplicates
-    const validLangs = [...new Set(langs.filter((lang) => lang && lang.trim()))];
+    const validLangs = [...new Set(langs.filter((lang) => lang?.trim()))];
 
     // Load each language with its dependencies
     const results = await Promise.all(validLangs.map((lang) => loadLanguageWithDependencies(lang)));
@@ -238,8 +238,8 @@ const parseDiff = (diffContent: string, startLineNumber?: number) => {
       // Parse hunk header to get line numbers
       const match = line.match(/@@ -(\d+)(?:,\d+)? \+(\d+)(?:,\d+)? @@/);
       if (match) {
-        oldLineNumber = Number.parseInt(match[1]) - 1;
-        newLineNumber = Number.parseInt(match[2]) - 1;
+        oldLineNumber = Number.parseInt(match[1], 10) - 1;
+        newLineNumber = Number.parseInt(match[2], 10) - 1;
       }
       parsedLines.push({
         type: "hunk",
@@ -282,7 +282,7 @@ const isInformationalLine = (type: "file-header" | "hunk" | "added" | "deleted" 
 const renderDiff = (
   diffContent: string,
   startLineNumber: number | undefined,
-  codeRef: RefObject<HTMLElement | null>,
+  _codeRef: RefObject<HTMLElement | null>,
   lang: string | undefined,
 ) => {
   const parsedLines = parseDiff(diffContent, startLineNumber);
@@ -446,7 +446,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
     };
 
     loadDependencies();
-  }, []);
+  }, [codes.flatMap]);
 
   useEffect(() => {
     if (dependenciesLoaded && codeRef.current && codes.length > 0) {
@@ -454,15 +454,30 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
         Prism.highlightAll();
       }, 0);
     }
-  }, [
-    dependenciesLoaded,
-    code,
-    codes.length,
-    selectedInstance,
-    isFullscreen,
-    isAnimating,
-    language,
-  ]);
+  }, [dependenciesLoaded, codes.length]);
+
+  const toggleFullscreen = () => {
+    if (isFullscreen) {
+      // When exiting fullscreen, first remove animation class, then remove portal after transition
+      setIsAnimating(false);
+      setTimeout(() => {
+        setIsFullscreen(false);
+
+        // Re-highlight after exiting fullscreen
+        setTimeout(() => {
+          Prism.highlightAll();
+        }, 10);
+      }, 300); // Match transition duration
+    } else {
+      // When entering fullscreen, immediately show portal
+      setIsFullscreen(true);
+
+      // Re-highlight after entering fullscreen
+      setTimeout(() => {
+        Prism.highlightAll();
+      }, 50);
+    }
+  };
 
   useEffect(() => {
     if (isFullscreen) {
@@ -493,7 +508,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
     return () => {
       document.body.style.overflow = "";
     };
-  }, [isFullscreen]);
+  }, [isFullscreen, toggleFullscreen]);
 
   // Special handling for diff highlighting
   useEffect(() => {
@@ -532,7 +547,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
 
       return () => clearTimeout(timeoutId);
     }
-  }, [codeInstance, codes]);
+  }, [codeInstance]);
 
   const [copyIcon, setCopyIcon] = useState<string>("clipboard");
   const handleCopy = () => {
@@ -566,29 +581,6 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
       setTimeout(() => {
         Prism.highlightAll();
       }, 10);
-    }
-  };
-
-  const toggleFullscreen = () => {
-    if (isFullscreen) {
-      // When exiting fullscreen, first remove animation class, then remove portal after transition
-      setIsAnimating(false);
-      setTimeout(() => {
-        setIsFullscreen(false);
-
-        // Re-highlight after exiting fullscreen
-        setTimeout(() => {
-          Prism.highlightAll();
-        }, 10);
-      }, 300); // Match transition duration
-    } else {
-      // When entering fullscreen, immediately show portal
-      setIsFullscreen(true);
-
-      // Re-highlight after entering fullscreen
-      setTimeout(() => {
-        Prism.highlightAll();
-      }, 50);
     }
   };
 

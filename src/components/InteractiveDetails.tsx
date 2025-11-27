@@ -1,10 +1,10 @@
 "use client";
 
 import type React from "react";
-import { forwardRef } from "react";
 import { Column, IconButton, type IconButtonProps, Row, Text } from ".";
 
 interface InteractiveDetailsProps {
+  ref?: React.Ref<HTMLDivElement>;
   label?: React.ReactNode;
   description?: React.ReactNode;
   disabled?: boolean;
@@ -14,10 +14,16 @@ interface InteractiveDetailsProps {
   id?: string;
 }
 
-const InteractiveDetails: React.FC<InteractiveDetailsProps> = forwardRef<
-  HTMLDivElement,
-  InteractiveDetailsProps
->(({ label, description, iconButtonProps, onClick, className, id, disabled }, ref) => {
+function InteractiveDetails({
+  ref,
+  label,
+  description,
+  iconButtonProps,
+  onClick,
+  className,
+  id,
+  disabled,
+}: InteractiveDetailsProps) {
   return (
     <Column
       ref={ref}
@@ -35,9 +41,16 @@ const InteractiveDetails: React.FC<InteractiveDetailsProps> = forwardRef<
           {label}
         </Text>
         {iconButtonProps?.tooltip && (
-          <div onClick={(e) => e.stopPropagation()}>
-            <IconButton size="s" variant="ghost" icon="help" {...iconButtonProps} />
-          </div>
+          <IconButton
+            size="s"
+            variant="ghost"
+            icon="help"
+            {...iconButtonProps}
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+              e.stopPropagation();
+              iconButtonProps?.onClick?.(e);
+            }}
+          />
         )}
       </Row>
       {description && (
@@ -47,7 +60,7 @@ const InteractiveDetails: React.FC<InteractiveDetailsProps> = forwardRef<
       )}
     </Column>
   );
-});
+}
 
 InteractiveDetails.displayName = "InteractiveDetails";
 
