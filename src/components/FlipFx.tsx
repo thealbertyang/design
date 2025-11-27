@@ -1,7 +1,8 @@
 "use client";
 
 import type React from "react";
-import { forwardRef, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useIsomorphicLayoutEffect } from "../hooks/useIsomorphicLayoutEffect";
 import { Flex } from ".";
 
 export interface FlipFxProps extends React.ComponentProps<typeof Flex> {
@@ -15,23 +16,23 @@ export interface FlipFxProps extends React.ComponentProps<typeof Flex> {
   back: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
+  ref?: React.Ref<HTMLDivElement>;
 }
 
-const FlipFx = forwardRef<HTMLDivElement, FlipFxProps>((props, ref) => {
-  const {
-    flipDirection = "horizontal",
-    timing = 2000,
-    flipped,
-    onFlip,
-    disableClickFlip = false,
-    autoFlipInterval,
-    front,
-    back,
-    className,
-    style,
-    ...flex
-  } = props;
-
+const FlipFx: React.FC<FlipFxProps> = ({
+  flipDirection = "horizontal",
+  timing = 2000,
+  flipped,
+  onFlip,
+  disableClickFlip = false,
+  autoFlipInterval,
+  front,
+  back,
+  className,
+  style,
+  ref,
+  ...flex
+}) => {
   const [internalFlipped, setInternalFlipped] = useState(false);
   const flippedState = flipped ?? internalFlipped;
 
@@ -39,7 +40,17 @@ const FlipFx = forwardRef<HTMLDivElement, FlipFxProps>((props, ref) => {
   const frontRef = useRef<HTMLDivElement>(null);
   const backRef = useRef<HTMLDivElement>(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    if (ref) {
+      if (typeof ref === "function") {
+        ref(cardRef.current);
+      } else {
+        ref.current = cardRef.current;
+      }
+    }
+  }, [ref]);
+
+  useIsomorphicLayoutEffect(() => {
     const updateHeight = () => {
       if (cardRef.current && frontRef.current && backRef.current) {
         const frontH = frontRef.current.scrollHeight;
@@ -55,7 +66,7 @@ const FlipFx = forwardRef<HTMLDivElement, FlipFxProps>((props, ref) => {
     if (backRef.current) observer.observe(backRef.current);
 
     return () => observer.disconnect();
-  }, [flippedState, front, back]);
+  }, []);
 
   useEffect(() => {
     if (autoFlipInterval) {
@@ -86,11 +97,7 @@ const FlipFx = forwardRef<HTMLDivElement, FlipFxProps>((props, ref) => {
 
   return (
     <Flex
-      ref={(node) => {
-        cardRef.current = node as HTMLDivElement;
-        if (typeof ref === "function") ref(node as HTMLDivElement);
-        else if (ref) (ref as React.RefObject<HTMLDivElement | null>).current = node;
-      }}
+      ref={cardRef}
       className={className}
       style={{
         transformStyle: "preserve-3d",
@@ -146,7 +153,7 @@ const FlipFx = forwardRef<HTMLDivElement, FlipFxProps>((props, ref) => {
       </Flex>
     </Flex>
   );
-});
+};
 
 FlipFx.displayName = "FlipFx";
 export { FlipFx };

@@ -3,6 +3,15 @@
 import type React from "react";
 import { type KeyboardEvent, type ReactNode, type RefObject, useEffect, useRef } from "react";
 
+// Helper function to get all focusable elements within a container
+const getFocusableElements = (container: HTMLElement): HTMLElement[] => {
+  return Array.from(
+    container.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+    ),
+  ) as HTMLElement[];
+};
+
 interface FocusTrapProps {
   children: ReactNode;
   active: boolean;
@@ -39,7 +48,7 @@ const FocusTrap: React.FC<FocusTrapProps> = ({
 
       if (autoFocus) {
         // Focus the specified initial element or the first focusable element
-        if (initialFocusRef && initialFocusRef.current) {
+        if (initialFocusRef?.current) {
           initialFocusRef.current.focus({ preventScroll: true });
         } else if (containerRef.current) {
           const focusableElements = getFocusableElements(containerRef.current);
@@ -108,18 +117,11 @@ const FocusTrap: React.FC<FocusTrapProps> = ({
     }
   };
 
-  // Helper function to get all focusable elements within a container
-  const getFocusableElements = (container: HTMLElement): HTMLElement[] => {
-    return Array.from(
-      container.querySelectorAll(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-      ),
-    ) as HTMLElement[];
-  };
-
   return (
+    // biome-ignore lint/a11y/useSemanticElements: FocusTrap requires keyboard handling on container
     <div
       ref={containerRef}
+      role="group"
       className={className}
       style={style}
       onKeyDown={handleKeyDown}
