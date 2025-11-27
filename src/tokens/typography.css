@@ -1,4 +1,21 @@
 :root {
+  /* FONT SCALING - Base sizes for responsive typography */
+  --font-scaling-desktop: 100%;
+  --font-scaling-tablet: 100%;
+  --font-scaling-mobile: 100%;
+
+  /* FONT SIZE MULTIPLIERS - Adjust type scale per category */
+  --font-size-display-multiplier: 1;
+  --font-size-heading-multiplier: 1;
+  --font-size-body-multiplier: 1;
+  --font-size-label-multiplier: 1;
+
+  /* LINE HEIGHT MULTIPLIERS */
+  --line-height-display-multiplier: 1;
+  --line-height-heading-multiplier: 1;
+  --line-height-body-multiplier: 1;
+  --line-height-label-multiplier: 1;
+
   /* FONT WEIGHT */
   --font-weight-thin: 100;
   --font-weight-extraLight: 200;
