@@ -11,3 +11,4 @@ export * from "./LineChart";
 export * from "./PieChart";
 export * from "./RadialGauge";
 export * from "./Swatch";
+export { getDistributedColor } from "./utils/colorDistribution";

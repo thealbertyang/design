@@ -5,6 +5,7 @@ export {
   ChartHeader,
   ChartStatus,
   DataTooltip,
+  getDistributedColor,
   Legend,
   LinearGauge,
   LinearGradient,
