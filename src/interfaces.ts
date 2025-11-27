@@ -43,9 +43,11 @@ export interface ResponsiveGridProps extends ResponsiveProps {
 export interface GridProps extends HTMLAttributes<HTMLDivElement> {
   columns?: gridSize;
   rows?: gridSize;
+  xl?: ResponsiveGridProps;
   l?: ResponsiveGridProps;
   m?: ResponsiveGridProps;
   s?: ResponsiveGridProps;
+  xs?: ResponsiveGridProps;
 }
 
 export interface FlexProps extends HTMLAttributes<HTMLDivElement> {

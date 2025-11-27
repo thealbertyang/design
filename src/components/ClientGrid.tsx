@@ -1,149 +1,152 @@
 "use client";
 
-import { type CSSProperties, forwardRef, useCallback, useEffect, useRef, useState } from "react";
+import type { CSSProperties, Ref } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useLayout } from "..";
 import { useResponsiveClasses } from "../hooks/useResponsiveClasses";
-import type { DisplayProps, GridProps, StyleProps } from "../interfaces";
+import type { DisplayProps, GridProps, ResponsiveGridProps, StyleProps } from "../interfaces";
 import { Cursor, ServerGrid } from ".";
 
 interface ClientGridProps extends GridProps, StyleProps, DisplayProps {
   cursor?: StyleProps["cursor"];
-  xl?: any;
-  l?: any;
-  m?: any;
-  s?: any;
-  xs?: any;
   hide?: boolean;
+  ref?: Ref<HTMLDivElement>;
 }
 
-const ClientGrid = forwardRef<HTMLDivElement, ClientGridProps>(
-  ({ cursor, hide, xl, l, m, s, xs, ...props }, ref) => {
-    const elementRef = useRef<HTMLDivElement>(null);
-    const [isTouchDevice, setIsTouchDevice] = useState(false);
-    const { currentBreakpoint, isDefaultBreakpoints } = useLayout();
+function ClientGrid({ cursor, hide, xl, l, m, s, xs, ref, ...props }: ClientGridProps) {
+  const elementRef = useRef<HTMLDivElement>(null);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const { currentBreakpoint, isDefaultBreakpoints } = useLayout();
 
-    if (!isDefaultBreakpoints()) {
-      useResponsiveClasses(elementRef, { xl, l, m, s, xs }, currentBreakpoint);
-    }
+  // Always call hooks unconditionally - pass enabled flag instead
+  const shouldUseResponsiveClasses = !isDefaultBreakpoints();
+  useResponsiveClasses(
+    elementRef,
+    { xl, l, m, s, xs },
+    currentBreakpoint,
+    shouldUseResponsiveClasses,
+  );
 
-    // Combine refs
-    const combinedRef = (node: HTMLDivElement) => {
+  // Combine refs using React 19 pattern
+  const combinedRef = useCallback(
+    (node: HTMLDivElement | null) => {
       elementRef.current = node;
       if (typeof ref === "function") {
         ref(node);
-      } else if (ref) {
-        ref.current = node;
+      } else if (ref && "current" in ref) {
+        (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
       }
-    };
-    const appliedResponsiveStyles = useRef<Set<string>>(new Set());
-    const baseStyleRef = useRef<CSSProperties>({});
+    },
+    [ref],
+  );
 
-    // Responsive styles logic (client-side only)
-    const applyResponsiveStyles = useCallback(() => {
-      if (!elementRef.current) return;
+  const appliedResponsiveStyles = useRef<Set<string>>(new Set());
+  const baseStyleRef = useRef<CSSProperties>({});
 
-      const element = elementRef.current;
+  // Responsive styles logic (client-side only)
+  const applyResponsiveStyles = useCallback(() => {
+    if (!elementRef.current) return;
 
-      // Update base styles when style prop changes
-      if (props.style) {
-        baseStyleRef.current = { ...props.style };
-      }
+    const element = elementRef.current;
 
-      // Determine which responsive props to apply based on current breakpoint
-      let currentResponsiveProps: any = null;
-      if (currentBreakpoint === "xl" && xl) {
-        currentResponsiveProps = xl;
-      } else if (currentBreakpoint === "l" && l) {
-        currentResponsiveProps = l;
-      } else if (currentBreakpoint === "m" && m) {
-        currentResponsiveProps = m;
-      } else if (currentBreakpoint === "s" && s) {
-        currentResponsiveProps = s;
-      } else if (currentBreakpoint === "xs" && xs) {
-        currentResponsiveProps = xs;
-      }
+    // Update base styles when style prop changes
+    if (props.style) {
+      baseStyleRef.current = { ...props.style };
+    }
 
-      // Clear only responsive styles, not base styles
-      appliedResponsiveStyles.current.forEach((key) => {
-        (element.style as any)[key] = "";
+    // Determine which responsive props to apply based on current breakpoint
+    let currentResponsiveProps: ResponsiveGridProps | null = null;
+    if (currentBreakpoint === "xl" && xl) {
+      currentResponsiveProps = xl;
+    } else if (currentBreakpoint === "l" && l) {
+      currentResponsiveProps = l;
+    } else if (currentBreakpoint === "m" && m) {
+      currentResponsiveProps = m;
+    } else if (currentBreakpoint === "s" && s) {
+      currentResponsiveProps = s;
+    } else if (currentBreakpoint === "xs" && xs) {
+      currentResponsiveProps = xs;
+    }
+
+    // Clear only responsive styles, not base styles
+    const styleRecord = element.style as unknown as Record<string, string>;
+    appliedResponsiveStyles.current.forEach((key) => {
+      styleRecord[key] = "";
+    });
+    appliedResponsiveStyles.current.clear();
+
+    // Reapply base styles
+    if (baseStyleRef.current) {
+      Object.entries(baseStyleRef.current).forEach(([key, value]) => {
+        styleRecord[key] = value as string;
       });
-      appliedResponsiveStyles.current.clear();
+    }
 
-      // Reapply base styles
-      if (baseStyleRef.current) {
-        Object.entries(baseStyleRef.current).forEach(([key, value]) => {
-          (element.style as any)[key] = value;
+    // Apply new responsive styles if we have them for current breakpoint
+    if (currentResponsiveProps) {
+      if (currentResponsiveProps.style) {
+        Object.entries(currentResponsiveProps.style).forEach(([key, value]) => {
+          styleRecord[key] = value as string;
+          appliedResponsiveStyles.current.add(key);
         });
       }
-
-      // Apply new responsive styles if we have them for current breakpoint
-      if (currentResponsiveProps) {
-        if (currentResponsiveProps.style) {
-          Object.entries(currentResponsiveProps.style).forEach(([key, value]) => {
-            (element.style as any)[key] = value;
-            appliedResponsiveStyles.current.add(key);
-          });
-        }
-        if (currentResponsiveProps.aspectRatio) {
-          element.style.aspectRatio = currentResponsiveProps.aspectRatio;
-          appliedResponsiveStyles.current.add("aspect-ratio");
-        }
+      if (currentResponsiveProps.aspectRatio) {
+        element.style.aspectRatio = String(currentResponsiveProps.aspectRatio);
+        appliedResponsiveStyles.current.add("aspect-ratio");
       }
-    }, [xl, l, m, s, xs, props.style, currentBreakpoint]);
+    }
+  }, [xl, l, m, s, xs, props.style, currentBreakpoint]);
 
-    useEffect(() => {
-      applyResponsiveStyles();
-    }, [applyResponsiveStyles]);
+  useEffect(() => {
+    applyResponsiveStyles();
+  }, [applyResponsiveStyles]);
 
-    // Detect touch device
-    useEffect(() => {
-      const checkTouchDevice = () => {
-        const hasTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
-        const hasPointer = window.matchMedia("(pointer: fine)").matches;
-        setIsTouchDevice(hasTouch && !hasPointer);
-      };
+  // Detect touch device
+  useEffect(() => {
+    const checkTouchDevice = () => {
+      const hasTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+      const hasPointer = window.matchMedia("(pointer: fine)").matches;
+      setIsTouchDevice(hasTouch && !hasPointer);
+    };
 
-      checkTouchDevice();
+    checkTouchDevice();
 
-      const mediaQuery = window.matchMedia("(pointer: fine)");
-      const handlePointerChange = () => checkTouchDevice();
+    const mediaQuery = window.matchMedia("(pointer: fine)");
+    const handlePointerChange = () => checkTouchDevice();
 
-      mediaQuery.addEventListener("change", handlePointerChange);
+    mediaQuery.addEventListener("change", handlePointerChange);
 
-      return () => {
-        mediaQuery.removeEventListener("change", handlePointerChange);
-      };
-    }, []);
+    return () => {
+      mediaQuery.removeEventListener("change", handlePointerChange);
+    };
+  }, []);
 
-    // Determine if we should hide the default cursor
-    const shouldHideCursor = typeof cursor === "object" && cursor && !isTouchDevice;
+  // Determine if we should hide the default cursor
+  const shouldHideCursor = typeof cursor === "object" && cursor && !isTouchDevice;
 
-    // Pass hide prop directly to ServerGrid - it will handle responsive hiding via CSS classes
-    // No need for client-side logic that causes re-renders on every resize
-    return (
-      <>
-        <ServerGrid
-          {...props}
-          xl={xl}
-          l={l}
-          m={m}
-          s={s}
-          xs={xs}
-          isDefaultBreakpoints={isDefaultBreakpoints()}
-          hide={hide}
-          ref={combinedRef}
-          style={{
-            ...props.style,
-            cursor: shouldHideCursor ? "none" : props.style?.cursor,
-          }}
-        />
-        {typeof cursor === "object" && cursor && !isTouchDevice && (
-          <Cursor cursor={cursor} elementRef={elementRef} />
-        )}
-      </>
-    );
-  },
-);
+  return (
+    <>
+      <ServerGrid
+        {...props}
+        xl={xl}
+        l={l}
+        m={m}
+        s={s}
+        xs={xs}
+        isDefaultBreakpoints={isDefaultBreakpoints()}
+        hide={hide}
+        ref={combinedRef}
+        style={{
+          ...props.style,
+          cursor: shouldHideCursor ? "none" : props.style?.cursor,
+        }}
+      />
+      {typeof cursor === "object" && cursor && !isTouchDevice && (
+        <Cursor cursor={cursor} elementRef={elementRef} />
+      )}
+    </>
+  );
+}
 
 ClientGrid.displayName = "ClientGrid";
 export { ClientGrid };
