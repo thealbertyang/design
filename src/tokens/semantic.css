@@ -290,6 +290,41 @@
     --success-alpha-weak: var(--function-success-6-15);
 
     /* ════════════════════════════════════════════════════════════════════════
+       CALM TOKENS (uses function-calm)
+       ════════════════════════════════════════════════════════════════════════ */
+
+    --calm-background-strong: light-dark(var(--function-calm-8), var(--function-calm-3));
+    --calm-background-medium: light-dark(var(--function-calm-10), var(--function-calm-2));
+    --calm-background-weak: light-dark(var(--static-white), var(--function-calm-1));
+
+    /* Colored text: follows brand pattern - light mode darker=prominent, dark mode lighter=prominent */
+    --calm-on-background-weak: light-dark(var(--function-calm-5), var(--function-calm-7));
+    --calm-on-background-soft: light-dark(var(--function-calm-4), var(--function-calm-8));
+    --calm-on-background-medium: light-dark(var(--function-calm-3), var(--function-calm-9));
+    --calm-on-background-bold: light-dark(var(--function-calm-2), var(--function-calm-10));
+    --calm-on-background-strong: light-dark(var(--function-calm-1), var(--static-white));
+
+    --calm-solid-strong: light-dark(var(--function-calm-6), var(--function-calm-5));
+    --calm-solid-medium: light-dark(var(--function-calm-5), var(--function-calm-4));
+    --calm-solid-weak: light-dark(var(--function-calm-4), var(--function-calm-3));
+
+    --calm-on-solid-weak: light-dark(var(--function-calm-11), var(--function-calm-9));
+    --calm-on-solid-soft: light-dark(var(--function-calm-10), var(--function-calm-10));
+    --calm-on-solid-medium: light-dark(var(--function-calm-12), var(--function-calm-11));
+    --calm-on-solid-bold: light-dark(var(--static-white), var(--function-calm-12));
+    --calm-on-solid-strong: light-dark(var(--static-white), var(--static-white));
+
+    --calm-border-weak: light-dark(var(--function-calm-10), var(--function-calm-2));
+    --calm-border-soft: light-dark(var(--function-calm-9), var(--function-calm-3));
+    --calm-border-medium: light-dark(var(--function-calm-8), var(--function-calm-4));
+    --calm-border-bold: light-dark(var(--function-calm-7), var(--function-calm-5));
+    --calm-border-strong: light-dark(var(--function-calm-6), var(--function-calm-6));
+
+    --calm-alpha-strong: var(--function-calm-6-50);
+    --calm-alpha-medium: var(--function-calm-6-30);
+    --calm-alpha-weak: var(--function-calm-6-15);
+
+    /* ════════════════════════════════════════════════════════════════════════
        CODE SYNTAX HIGHLIGHTING
        ════════════════════════════════════════════════════════════════════════ */
 

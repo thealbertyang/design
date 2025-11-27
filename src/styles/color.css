@@ -381,3 +381,39 @@
 [data-level="4"] .text-neutral {
   color: var(--neutral-on-background-strong);
 }
+
+/* Info (aqua) - weak → medium → bold → strong */
+.text-info {
+  color: var(--info-on-background-medium);
+}
+[data-level="0"] .text-info {
+  color: var(--info-on-background-weak);
+}
+[data-level="1"] .text-info {
+  color: var(--info-on-background-medium);
+}
+[data-level="2"] .text-info {
+  color: var(--info-on-background-bold);
+}
+[data-level="3"] .text-info,
+[data-level="4"] .text-info {
+  color: var(--info-on-background-strong);
+}
+
+/* Calm (aqua) - weak → medium → bold → strong */
+.text-calm {
+  color: var(--calm-on-background-medium);
+}
+[data-level="0"] .text-calm {
+  color: var(--calm-on-background-weak);
+}
+[data-level="1"] .text-calm {
+  color: var(--calm-on-background-medium);
+}
+[data-level="2"] .text-calm {
+  color: var(--calm-on-background-bold);
+}
+[data-level="3"] .text-calm,
+[data-level="4"] .text-calm {
+  color: var(--calm-on-background-strong);
+}
