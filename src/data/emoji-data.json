@@ -2,8 +2,7 @@
   "smileys": [
     {
       "char": "😀",
-      "description": "grinning face",
-      "aliases": [
+      "description": "grinning face",      "aliases": [
         "grinning"
       ],
       "tags": [
