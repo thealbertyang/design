@@ -32,7 +32,7 @@ a:not(.button) {
   transition: var(--transition-micro-medium);
   text-decoration-thickness: var(--static-space-1);
   text-underline-offset: 0.25em;
-  text-decoration-color: var(--neutral-border-strong) !important;
+  text-decoration-color: var(--neutral-border-strong);
 }
 
 a:not(.button):hover {

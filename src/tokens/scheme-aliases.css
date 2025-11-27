@@ -1,0 +1,284 @@
+/*
+ * Scheme Aliases - Backwards Compatibility Layer
+ *
+ * Maps old --scheme-{color}-{100-1200} variables to new --color-{color}-{1-12} system.
+ * This allows existing components to work without modification.
+ *
+ * Scale mapping: N00 → N/100 (e.g., --scheme-blue-700 → --color-blue-7)
+ */
+
+@layer primitives {
+  :root {
+    /* ════════════════════════════════════════════════════════════════════════
+       GRAY ALIASES
+       ════════════════════════════════════════════════════════════════════════ */
+    --scheme-gray-100: var(--color-gray-1);
+    --scheme-gray-200: var(--color-gray-2);
+    --scheme-gray-300: var(--color-gray-3);
+    --scheme-gray-400: var(--color-gray-4);
+    --scheme-gray-500: var(--color-gray-5);
+    --scheme-gray-600: var(--color-gray-6);
+    --scheme-gray-700: var(--color-gray-7);
+    --scheme-gray-800: var(--color-gray-8);
+    --scheme-gray-900: var(--color-gray-9);
+    --scheme-gray-1000: var(--color-gray-10);
+    --scheme-gray-1100: var(--color-gray-11);
+    --scheme-gray-1200: var(--color-gray-12);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       SLATE ALIASES
+       ════════════════════════════════════════════════════════════════════════ */
+    --scheme-slate-100: var(--color-slate-1);
+    --scheme-slate-200: var(--color-slate-2);
+    --scheme-slate-300: var(--color-slate-3);
+    --scheme-slate-400: var(--color-slate-4);
+    --scheme-slate-500: var(--color-slate-5);
+    --scheme-slate-600: var(--color-slate-6);
+    --scheme-slate-700: var(--color-slate-7);
+    --scheme-slate-800: var(--color-slate-8);
+    --scheme-slate-900: var(--color-slate-9);
+    --scheme-slate-1000: var(--color-slate-10);
+    --scheme-slate-1100: var(--color-slate-11);
+    --scheme-slate-1200: var(--color-slate-12);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       SAND ALIASES
+       ════════════════════════════════════════════════════════════════════════ */
+    --scheme-sand-100: var(--color-sand-1);
+    --scheme-sand-200: var(--color-sand-2);
+    --scheme-sand-300: var(--color-sand-3);
+    --scheme-sand-400: var(--color-sand-4);
+    --scheme-sand-500: var(--color-sand-5);
+    --scheme-sand-600: var(--color-sand-6);
+    --scheme-sand-700: var(--color-sand-7);
+    --scheme-sand-800: var(--color-sand-8);
+    --scheme-sand-900: var(--color-sand-9);
+    --scheme-sand-1000: var(--color-sand-10);
+    --scheme-sand-1100: var(--color-sand-11);
+    --scheme-sand-1200: var(--color-sand-12);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       RED ALIASES
+       ════════════════════════════════════════════════════════════════════════ */
+    --scheme-red-100: var(--color-red-1);
+    --scheme-red-200: var(--color-red-2);
+    --scheme-red-300: var(--color-red-3);
+    --scheme-red-400: var(--color-red-4);
+    --scheme-red-500: var(--color-red-5);
+    --scheme-red-600: var(--color-red-6);
+    --scheme-red-700: var(--color-red-7);
+    --scheme-red-800: var(--color-red-8);
+    --scheme-red-900: var(--color-red-9);
+    --scheme-red-1000: var(--color-red-10);
+    --scheme-red-1100: var(--color-red-11);
+    --scheme-red-1200: var(--color-red-12);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       ORANGE ALIASES
+       ════════════════════════════════════════════════════════════════════════ */
+    --scheme-orange-100: var(--color-orange-1);
+    --scheme-orange-200: var(--color-orange-2);
+    --scheme-orange-300: var(--color-orange-3);
+    --scheme-orange-400: var(--color-orange-4);
+    --scheme-orange-500: var(--color-orange-5);
+    --scheme-orange-600: var(--color-orange-6);
+    --scheme-orange-700: var(--color-orange-7);
+    --scheme-orange-800: var(--color-orange-8);
+    --scheme-orange-900: var(--color-orange-9);
+    --scheme-orange-1000: var(--color-orange-10);
+    --scheme-orange-1100: var(--color-orange-11);
+    --scheme-orange-1200: var(--color-orange-12);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       YELLOW ALIASES
+       ════════════════════════════════════════════════════════════════════════ */
+    --scheme-yellow-100: var(--color-yellow-1);
+    --scheme-yellow-200: var(--color-yellow-2);
+    --scheme-yellow-300: var(--color-yellow-3);
+    --scheme-yellow-400: var(--color-yellow-4);
+    --scheme-yellow-500: var(--color-yellow-5);
+    --scheme-yellow-600: var(--color-yellow-6);
+    --scheme-yellow-700: var(--color-yellow-7);
+    --scheme-yellow-800: var(--color-yellow-8);
+    --scheme-yellow-900: var(--color-yellow-9);
+    --scheme-yellow-1000: var(--color-yellow-10);
+    --scheme-yellow-1100: var(--color-yellow-11);
+    --scheme-yellow-1200: var(--color-yellow-12);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       MOSS ALIASES
+       ════════════════════════════════════════════════════════════════════════ */
+    --scheme-moss-100: var(--color-moss-1);
+    --scheme-moss-200: var(--color-moss-2);
+    --scheme-moss-300: var(--color-moss-3);
+    --scheme-moss-400: var(--color-moss-4);
+    --scheme-moss-500: var(--color-moss-5);
+    --scheme-moss-600: var(--color-moss-6);
+    --scheme-moss-700: var(--color-moss-7);
+    --scheme-moss-800: var(--color-moss-8);
+    --scheme-moss-900: var(--color-moss-9);
+    --scheme-moss-1000: var(--color-moss-10);
+    --scheme-moss-1100: var(--color-moss-11);
+    --scheme-moss-1200: var(--color-moss-12);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       GREEN ALIASES
+       ════════════════════════════════════════════════════════════════════════ */
+    --scheme-green-100: var(--color-green-1);
+    --scheme-green-200: var(--color-green-2);
+    --scheme-green-300: var(--color-green-3);
+    --scheme-green-400: var(--color-green-4);
+    --scheme-green-500: var(--color-green-5);
+    --scheme-green-600: var(--color-green-6);
+    --scheme-green-700: var(--color-green-7);
+    --scheme-green-800: var(--color-green-8);
+    --scheme-green-900: var(--color-green-9);
+    --scheme-green-1000: var(--color-green-10);
+    --scheme-green-1100: var(--color-green-11);
+    --scheme-green-1200: var(--color-green-12);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       EMERALD ALIASES
+       ════════════════════════════════════════════════════════════════════════ */
+    --scheme-emerald-100: var(--color-emerald-1);
+    --scheme-emerald-200: var(--color-emerald-2);
+    --scheme-emerald-300: var(--color-emerald-3);
+    --scheme-emerald-400: var(--color-emerald-4);
+    --scheme-emerald-500: var(--color-emerald-5);
+    --scheme-emerald-600: var(--color-emerald-6);
+    --scheme-emerald-700: var(--color-emerald-7);
+    --scheme-emerald-800: var(--color-emerald-8);
+    --scheme-emerald-900: var(--color-emerald-9);
+    --scheme-emerald-1000: var(--color-emerald-10);
+    --scheme-emerald-1100: var(--color-emerald-11);
+    --scheme-emerald-1200: var(--color-emerald-12);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       AQUA ALIASES
+       ════════════════════════════════════════════════════════════════════════ */
+    --scheme-aqua-100: var(--color-aqua-1);
+    --scheme-aqua-200: var(--color-aqua-2);
+    --scheme-aqua-300: var(--color-aqua-3);
+    --scheme-aqua-400: var(--color-aqua-4);
+    --scheme-aqua-500: var(--color-aqua-5);
+    --scheme-aqua-600: var(--color-aqua-6);
+    --scheme-aqua-700: var(--color-aqua-7);
+    --scheme-aqua-800: var(--color-aqua-8);
+    --scheme-aqua-900: var(--color-aqua-9);
+    --scheme-aqua-1000: var(--color-aqua-10);
+    --scheme-aqua-1100: var(--color-aqua-11);
+    --scheme-aqua-1200: var(--color-aqua-12);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       CYAN ALIASES
+       ════════════════════════════════════════════════════════════════════════ */
+    --scheme-cyan-100: var(--color-cyan-1);
+    --scheme-cyan-200: var(--color-cyan-2);
+    --scheme-cyan-300: var(--color-cyan-3);
+    --scheme-cyan-400: var(--color-cyan-4);
+    --scheme-cyan-500: var(--color-cyan-5);
+    --scheme-cyan-600: var(--color-cyan-6);
+    --scheme-cyan-700: var(--color-cyan-7);
+    --scheme-cyan-800: var(--color-cyan-8);
+    --scheme-cyan-900: var(--color-cyan-9);
+    --scheme-cyan-1000: var(--color-cyan-10);
+    --scheme-cyan-1100: var(--color-cyan-11);
+    --scheme-cyan-1200: var(--color-cyan-12);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       BLUE ALIASES
+       ════════════════════════════════════════════════════════════════════════ */
+    --scheme-blue-100: var(--color-blue-1);
+    --scheme-blue-200: var(--color-blue-2);
+    --scheme-blue-300: var(--color-blue-3);
+    --scheme-blue-400: var(--color-blue-4);
+    --scheme-blue-500: var(--color-blue-5);
+    --scheme-blue-600: var(--color-blue-6);
+    --scheme-blue-700: var(--color-blue-7);
+    --scheme-blue-800: var(--color-blue-8);
+    --scheme-blue-900: var(--color-blue-9);
+    --scheme-blue-1000: var(--color-blue-10);
+    --scheme-blue-1100: var(--color-blue-11);
+    --scheme-blue-1200: var(--color-blue-12);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       INDIGO ALIASES
+       ════════════════════════════════════════════════════════════════════════ */
+    --scheme-indigo-100: var(--color-indigo-1);
+    --scheme-indigo-200: var(--color-indigo-2);
+    --scheme-indigo-300: var(--color-indigo-3);
+    --scheme-indigo-400: var(--color-indigo-4);
+    --scheme-indigo-500: var(--color-indigo-5);
+    --scheme-indigo-600: var(--color-indigo-6);
+    --scheme-indigo-700: var(--color-indigo-7);
+    --scheme-indigo-800: var(--color-indigo-8);
+    --scheme-indigo-900: var(--color-indigo-9);
+    --scheme-indigo-1000: var(--color-indigo-10);
+    --scheme-indigo-1100: var(--color-indigo-11);
+    --scheme-indigo-1200: var(--color-indigo-12);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       VIOLET ALIASES
+       ════════════════════════════════════════════════════════════════════════ */
+    --scheme-violet-100: var(--color-violet-1);
+    --scheme-violet-200: var(--color-violet-2);
+    --scheme-violet-300: var(--color-violet-3);
+    --scheme-violet-400: var(--color-violet-4);
+    --scheme-violet-500: var(--color-violet-5);
+    --scheme-violet-600: var(--color-violet-6);
+    --scheme-violet-700: var(--color-violet-7);
+    --scheme-violet-800: var(--color-violet-8);
+    --scheme-violet-900: var(--color-violet-9);
+    --scheme-violet-1000: var(--color-violet-10);
+    --scheme-violet-1100: var(--color-violet-11);
+    --scheme-violet-1200: var(--color-violet-12);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       PURPLE ALIASES
+       ════════════════════════════════════════════════════════════════════════ */
+    --scheme-purple-100: var(--color-purple-1);
+    --scheme-purple-200: var(--color-purple-2);
+    --scheme-purple-300: var(--color-purple-3);
+    --scheme-purple-400: var(--color-purple-4);
+    --scheme-purple-500: var(--color-purple-5);
+    --scheme-purple-600: var(--color-purple-6);
+    --scheme-purple-700: var(--color-purple-7);
+    --scheme-purple-800: var(--color-purple-8);
+    --scheme-purple-900: var(--color-purple-9);
+    --scheme-purple-1000: var(--color-purple-10);
+    --scheme-purple-1100: var(--color-purple-11);
+    --scheme-purple-1200: var(--color-purple-12);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       MAGENTA ALIASES
+       ════════════════════════════════════════════════════════════════════════ */
+    --scheme-magenta-100: var(--color-magenta-1);
+    --scheme-magenta-200: var(--color-magenta-2);
+    --scheme-magenta-300: var(--color-magenta-3);
+    --scheme-magenta-400: var(--color-magenta-4);
+    --scheme-magenta-500: var(--color-magenta-5);
+    --scheme-magenta-600: var(--color-magenta-6);
+    --scheme-magenta-700: var(--color-magenta-7);
+    --scheme-magenta-800: var(--color-magenta-8);
+    --scheme-magenta-900: var(--color-magenta-9);
+    --scheme-magenta-1000: var(--color-magenta-10);
+    --scheme-magenta-1100: var(--color-magenta-11);
+    --scheme-magenta-1200: var(--color-magenta-12);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       PINK ALIASES
+       ════════════════════════════════════════════════════════════════════════ */
+    --scheme-pink-100: var(--color-pink-1);
+    --scheme-pink-200: var(--color-pink-2);
+    --scheme-pink-300: var(--color-pink-3);
+    --scheme-pink-400: var(--color-pink-4);
+    --scheme-pink-500: var(--color-pink-5);
+    --scheme-pink-600: var(--color-pink-6);
+    --scheme-pink-700: var(--color-pink-7);
+    --scheme-pink-800: var(--color-pink-8);
+    --scheme-pink-900: var(--color-pink-9);
+    --scheme-pink-1000: var(--color-pink-10);
+    --scheme-pink-1100: var(--color-pink-11);
+    --scheme-pink-1200: var(--color-pink-12);
+  }
+}

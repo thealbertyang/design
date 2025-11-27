@@ -1,0 +1,314 @@
+/*
+ * CSS @property Registrations
+ *
+ * Registers typed, animatable custom properties for the design system.
+ * This enables smooth color transitions on theme change.
+ *
+ * Browser support: 89% (Chrome 85+, Safari 16.4+, Firefox 128+)
+ */
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   CASCADE LAYERS - Define specificity order (lowest to highest)
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+@layer properties, primitives, semantic, theme, layout, variants, utilities, overrides;
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   HUE CHANNELS - Define color identity (0-360 on color wheel)
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+@property --hue-gray {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --hue-slate {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 273;
+}
+
+@property --hue-red {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 17;
+}
+
+@property --hue-tomato {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 28;
+}
+
+@property --hue-orange {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 55;
+}
+
+@property --hue-amber {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 40;
+}
+
+@property --hue-yellow {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 91;
+}
+
+@property --hue-lime {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 120;
+}
+
+@property --hue-green {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 146;
+}
+
+@property --hue-mint {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 165;
+}
+
+@property --hue-teal {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 180;
+}
+
+@property --hue-cyan {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 210;
+}
+
+@property --hue-blue {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 262;
+}
+
+@property --hue-indigo {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 275;
+}
+
+@property --hue-purple {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 301;
+}
+
+@property --hue-pink {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 343;
+}
+
+@property --hue-magenta {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 320;
+}
+
+@property --hue-violet {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 285;
+}
+
+@property --hue-moss {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 130;
+}
+
+@property --hue-emerald {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 155;
+}
+
+@property --hue-aqua {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 190;
+}
+
+@property --hue-sand {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 50;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   CHROMA CHANNELS - Color saturation/intensity
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+@property --chroma-vivid {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.18;
+}
+
+@property --chroma-muted {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.08;
+}
+
+@property --chroma-subtle {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.04;
+}
+
+@property --chroma-neutral {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.02;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   THEME LIGHTNESS VALUES - Controls light/dark appearance
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+/* Background lightness */
+@property --theme-l-bg-strong {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.25;
+}
+
+@property --theme-l-bg-medium {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.18;
+}
+
+@property --theme-l-bg-weak {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.12;
+}
+
+/* Text/foreground lightness */
+@property --theme-l-text-strong {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.95;
+}
+
+@property --theme-l-text-medium {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.85;
+}
+
+@property --theme-l-text-weak {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.65;
+}
+
+/* Solid/button lightness */
+@property --theme-l-solid-strong {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.55;
+}
+
+@property --theme-l-solid-medium {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.45;
+}
+
+@property --theme-l-solid-weak {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.35;
+}
+
+/* Border lightness */
+@property --theme-l-border-strong {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.4;
+}
+
+@property --theme-l-border-medium {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.3;
+}
+
+@property --theme-l-border-weak {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.22;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   SEMANTIC HUE ASSIGNMENTS - Map intent to color
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+@property --hue-brand {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 252; /* blue */
+}
+
+@property --hue-accent {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 295; /* purple */
+}
+
+@property --hue-neutral {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 264; /* slate */
+}
+
+@property --hue-danger {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 25; /* tomato */
+}
+
+@property --hue-warning {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 75; /* amber */
+}
+
+@property --hue-success {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 145; /* green */
+}
+
+@property --hue-info {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0; /* gray - neutral info */
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   PAGE BACKGROUND
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+@property --page-l {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.1;
+}

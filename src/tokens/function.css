@@ -1,685 +1,543 @@
-:root {
-  /* FUNCTION */
-  /* info */
-  --function-info-100: var(--scheme-gray-100);
-  --function-info-200: var(--scheme-gray-200);
-  --function-info-300: var(--scheme-gray-300);
-  --function-info-400: var(--scheme-gray-400);
-  --function-info-500: var(--scheme-gray-500);
-  --function-info-600: var(--scheme-gray-600);
-  --function-info-700: var(--scheme-gray-700);
-  --function-info-800: var(--scheme-gray-800);
-  --function-info-900: var(--scheme-gray-900);
-  --function-info-1000: var(--scheme-gray-1000);
-  --function-info-1100: var(--scheme-gray-1100);
-  --function-info-1200: var(--scheme-gray-1200);
-
-  --function-info-600-15: var(--scheme-gray-600-15);
-  --function-info-600-30: var(--scheme-gray-600-30);
-  --function-info-600-50: var(--scheme-gray-600-50);
-
-  /* warning */
-  --function-warning-100: var(--scheme-yellow-100);
-  --function-warning-200: var(--scheme-yellow-200);
-  --function-warning-300: var(--scheme-yellow-300);
-  --function-warning-400: var(--scheme-yellow-400);
-  --function-warning-500: var(--scheme-yellow-500);
-  --function-warning-600: var(--scheme-yellow-600);
-  --function-warning-700: var(--scheme-yellow-700);
-  --function-warning-800: var(--scheme-yellow-800);
-  --function-warning-900: var(--scheme-yellow-900);
-  --function-warning-1000: var(--scheme-yellow-1000);
-  --function-warning-1100: var(--scheme-yellow-1100);
-  --function-warning-1200: var(--scheme-yellow-1200);
-
-  --function-warning-600-15: var(--scheme-yellow-600-15);
-  --function-warning-600-30: var(--scheme-yellow-600-30);
-  --function-warning-600-50: var(--scheme-yellow-600-50);
-
-  /* danger */
-  --function-danger-100: var(--scheme-red-100);
-  --function-danger-200: var(--scheme-red-200);
-  --function-danger-300: var(--scheme-red-300);
-  --function-danger-400: var(--scheme-red-400);
-  --function-danger-500: var(--scheme-red-500);
-  --function-danger-600: var(--scheme-red-600);
-  --function-danger-700: var(--scheme-red-700);
-  --function-danger-800: var(--scheme-red-800);
-  --function-danger-900: var(--scheme-red-900);
-  --function-danger-1000: var(--scheme-red-1000);
-  --function-danger-1100: var(--scheme-red-1100);
-  --function-danger-1200: var(--scheme-red-1200);
-
-  --function-danger-600-15: var(--scheme-red-600-15);
-  --function-danger-600-30: var(--scheme-red-600-30);
-  --function-danger-600-50: var(--scheme-red-600-50);
-
-  /* success */
-  --function-success-100: var(--scheme-green-100);
-  --function-success-200: var(--scheme-green-200);
-  --function-success-300: var(--scheme-green-300);
-  --function-success-400: var(--scheme-green-400);
-  --function-success-500: var(--scheme-green-500);
-  --function-success-600: var(--scheme-green-600);
-  --function-success-700: var(--scheme-green-700);
-  --function-success-800: var(--scheme-green-800);
-  --function-success-900: var(--scheme-green-900);
-  --function-success-1000: var(--scheme-green-1000);
-  --function-success-1100: var(--scheme-green-1100);
-  --function-success-1200: var(--scheme-green-1200);
-
-  --function-success-600-15: var(--scheme-green-600-15);
-  --function-success-600-30: var(--scheme-green-600-30);
-  --function-success-600-50: var(--scheme-green-600-50);
-}
-
-/* brand */
-[data-brand="custom"] {
-  --function-brand-100: var(--scheme-brand-100);
-  --function-brand-200: var(--scheme-brand-200);
-  --function-brand-300: var(--scheme-brand-300);
-  --function-brand-400: var(--scheme-brand-400);
-  --function-brand-500: var(--scheme-brand-500);
-  --function-brand-600: var(--scheme-brand-600);
-  --function-brand-700: var(--scheme-brand-700);
-  --function-brand-800: var(--scheme-brand-800);
-  --function-brand-900: var(--scheme-brand-900);
-  --function-brand-1000: var(--scheme-brand-1000);
-  --function-brand-1100: var(--scheme-brand-1100);
-  --function-brand-1200: var(--scheme-brand-1200);
-
-  --function-brand-600-15: var(--scheme-brand-600-15);
-  --function-brand-600-30: var(--scheme-brand-600-30);
-  --function-brand-600-50: var(--scheme-brand-600-50);
-}
-
-[data-brand="red"] {
-  --function-brand-100: var(--scheme-red-100);
-  --function-brand-200: var(--scheme-red-200);
-  --function-brand-300: var(--scheme-red-300);
-  --function-brand-400: var(--scheme-red-400);
-  --function-brand-500: var(--scheme-red-500);
-  --function-brand-600: var(--scheme-red-600);
-  --function-brand-700: var(--scheme-red-700);
-  --function-brand-800: var(--scheme-red-800);
-  --function-brand-900: var(--scheme-red-900);
-  --function-brand-1000: var(--scheme-red-1000);
-  --function-brand-1100: var(--scheme-red-1100);
-  --function-brand-1200: var(--scheme-red-1200);
-
-  --function-brand-600-15: var(--scheme-red-600-15);
-  --function-brand-600-30: var(--scheme-red-600-30);
-  --function-brand-600-50: var(--scheme-red-600-50);
-}
-
-[data-brand="orange"] {
-  --function-brand-100: var(--scheme-orange-100);
-  --function-brand-200: var(--scheme-orange-200);
-  --function-brand-300: var(--scheme-orange-300);
-  --function-brand-400: var(--scheme-orange-400);
-  --function-brand-500: var(--scheme-orange-500);
-  --function-brand-600: var(--scheme-orange-600);
-  --function-brand-700: var(--scheme-orange-700);
-  --function-brand-800: var(--scheme-orange-800);
-  --function-brand-900: var(--scheme-orange-900);
-  --function-brand-1000: var(--scheme-orange-1000);
-  --function-brand-1100: var(--scheme-orange-1100);
-  --function-brand-1200: var(--scheme-orange-1200);
-
-  --function-brand-600-15: var(--scheme-orange-600-15);
-  --function-brand-600-30: var(--scheme-orange-600-30);
-  --function-brand-600-50: var(--scheme-orange-600-50);
-}
-
-[data-brand="yellow"] {
-  --function-brand-100: var(--scheme-yellow-100);
-  --function-brand-200: var(--scheme-yellow-200);
-  --function-brand-300: var(--scheme-yellow-300);
-  --function-brand-400: var(--scheme-yellow-400);
-  --function-brand-500: var(--scheme-yellow-500);
-  --function-brand-600: var(--scheme-yellow-600);
-  --function-brand-700: var(--scheme-yellow-700);
-  --function-brand-800: var(--scheme-yellow-800);
-  --function-brand-900: var(--scheme-yellow-900);
-  --function-brand-1000: var(--scheme-yellow-1000);
-  --function-brand-1100: var(--scheme-yellow-1100);
-  --function-brand-1200: var(--scheme-yellow-1200);
-
-  --function-brand-600-15: var(--scheme-yellow-600-15);
-  --function-brand-600-30: var(--scheme-yellow-600-30);
-  --function-brand-600-50: var(--scheme-yellow-600-50);
-}
-
-[data-brand="moss"] {
-  --function-brand-100: var(--scheme-moss-100);
-  --function-brand-200: var(--scheme-moss-200);
-  --function-brand-300: var(--scheme-moss-300);
-  --function-brand-400: var(--scheme-moss-400);
-  --function-brand-500: var(--scheme-moss-500);
-  --function-brand-600: var(--scheme-moss-600);
-  --function-brand-700: var(--scheme-moss-700);
-  --function-brand-800: var(--scheme-moss-800);
-  --function-brand-900: var(--scheme-moss-900);
-  --function-brand-1000: var(--scheme-moss-1000);
-  --function-brand-1100: var(--scheme-moss-1100);
-  --function-brand-1200: var(--scheme-moss-1200);
-
-  --function-brand-600-15: var(--scheme-moss-600-15);
-  --function-brand-600-30: var(--scheme-moss-600-30);
-  --function-brand-600-50: var(--scheme-moss-600-50);
-}
-
-[data-brand="green"] {
-  --function-brand-100: var(--scheme-green-100);
-  --function-brand-200: var(--scheme-green-200);
-  --function-brand-300: var(--scheme-green-300);
-  --function-brand-400: var(--scheme-green-400);
-  --function-brand-500: var(--scheme-green-500);
-  --function-brand-600: var(--scheme-green-600);
-  --function-brand-700: var(--scheme-green-700);
-  --function-brand-800: var(--scheme-green-800);
-  --function-brand-900: var(--scheme-green-900);
-  --function-brand-1000: var(--scheme-green-1000);
-  --function-brand-1100: var(--scheme-green-1100);
-  --function-brand-1200: var(--scheme-green-1200);
-
-  --function-brand-600-15: var(--scheme-green-600-15);
-  --function-brand-600-30: var(--scheme-green-600-30);
-  --function-brand-600-50: var(--scheme-green-600-50);
-}
-
-[data-brand="emerald"] {
-  --function-brand-100: var(--scheme-emerald-100);
-  --function-brand-200: var(--scheme-emerald-200);
-  --function-brand-300: var(--scheme-emerald-300);
-  --function-brand-400: var(--scheme-emerald-400);
-  --function-brand-500: var(--scheme-emerald-500);
-  --function-brand-600: var(--scheme-emerald-600);
-  --function-brand-700: var(--scheme-emerald-700);
-  --function-brand-800: var(--scheme-emerald-800);
-  --function-brand-900: var(--scheme-emerald-900);
-  --function-brand-1000: var(--scheme-emerald-1000);
-  --function-brand-1100: var(--scheme-emerald-1100);
-  --function-brand-1200: var(--scheme-emerald-1200);
-
-  --function-brand-600-15: var(--scheme-emerald-600-15);
-  --function-brand-600-30: var(--scheme-emerald-600-30);
-  --function-brand-600-50: var(--scheme-emerald-600-50);
-}
-
-[data-brand="aqua"] {
-  --function-brand-100: var(--scheme-aqua-100);
-  --function-brand-200: var(--scheme-aqua-200);
-  --function-brand-300: var(--scheme-aqua-300);
-  --function-brand-400: var(--scheme-aqua-400);
-  --function-brand-500: var(--scheme-aqua-500);
-  --function-brand-600: var(--scheme-aqua-600);
-  --function-brand-700: var(--scheme-aqua-700);
-  --function-brand-800: var(--scheme-aqua-800);
-  --function-brand-900: var(--scheme-aqua-900);
-  --function-brand-1000: var(--scheme-aqua-1000);
-  --function-brand-1100: var(--scheme-aqua-1100);
-  --function-brand-1200: var(--scheme-aqua-1200);
-
-  --function-brand-600-15: var(--scheme-aqua-600-15);
-  --function-brand-600-30: var(--scheme-aqua-600-30);
-  --function-brand-600-50: var(--scheme-aqua-600-50);
-}
-
-[data-brand="cyan"] {
-  --function-brand-100: var(--scheme-cyan-100);
-  --function-brand-200: var(--scheme-cyan-200);
-  --function-brand-300: var(--scheme-cyan-300);
-  --function-brand-400: var(--scheme-cyan-400);
-  --function-brand-500: var(--scheme-cyan-500);
-  --function-brand-600: var(--scheme-cyan-600);
-  --function-brand-700: var(--scheme-cyan-700);
-  --function-brand-800: var(--scheme-cyan-800);
-  --function-brand-900: var(--scheme-cyan-900);
-  --function-brand-1000: var(--scheme-cyan-1000);
-  --function-brand-1100: var(--scheme-cyan-1100);
-  --function-brand-1200: var(--scheme-cyan-1200);
-
-  --function-brand-600-15: var(--scheme-cyan-600-15);
-  --function-brand-600-30: var(--scheme-cyan-600-30);
-  --function-brand-600-50: var(--scheme-cyan-600-50);
-}
-
-[data-brand="blue"] {
-  --function-brand-100: var(--scheme-blue-100);
-  --function-brand-200: var(--scheme-blue-200);
-  --function-brand-300: var(--scheme-blue-300);
-  --function-brand-400: var(--scheme-blue-400);
-  --function-brand-500: var(--scheme-blue-500);
-  --function-brand-600: var(--scheme-blue-600);
-  --function-brand-700: var(--scheme-blue-700);
-  --function-brand-800: var(--scheme-blue-800);
-  --function-brand-900: var(--scheme-blue-900);
-  --function-brand-1000: var(--scheme-blue-1000);
-  --function-brand-1100: var(--scheme-blue-1100);
-  --function-brand-1200: var(--scheme-blue-1200);
-
-  --function-brand-600-15: var(--scheme-blue-600-15);
-  --function-brand-600-30: var(--scheme-blue-600-30);
-  --function-brand-600-50: var(--scheme-blue-600-50);
-}
-
-[data-brand="indigo"] {
-  --function-brand-100: var(--scheme-indigo-100);
-  --function-brand-200: var(--scheme-indigo-200);
-  --function-brand-300: var(--scheme-indigo-300);
-  --function-brand-400: var(--scheme-indigo-400);
-  --function-brand-500: var(--scheme-indigo-500);
-  --function-brand-600: var(--scheme-indigo-600);
-  --function-brand-700: var(--scheme-indigo-700);
-  --function-brand-800: var(--scheme-indigo-800);
-  --function-brand-900: var(--scheme-indigo-900);
-  --function-brand-1000: var(--scheme-indigo-1000);
-  --function-brand-1100: var(--scheme-indigo-1100);
-  --function-brand-1200: var(--scheme-indigo-1200);
-
-  --function-brand-600-15: var(--scheme-indigo-600-15);
-  --function-brand-600-30: var(--scheme-indigo-600-30);
-  --function-brand-600-50: var(--scheme-indigo-600-50);
-}
-
-[data-brand="violet"] {
-  --function-brand-100: var(--scheme-violet-100);
-  --function-brand-200: var(--scheme-violet-200);
-  --function-brand-300: var(--scheme-violet-300);
-  --function-brand-400: var(--scheme-violet-400);
-  --function-brand-500: var(--scheme-violet-500);
-  --function-brand-600: var(--scheme-violet-600);
-  --function-brand-700: var(--scheme-violet-700);
-  --function-brand-800: var(--scheme-violet-800);
-  --function-brand-900: var(--scheme-violet-900);
-  --function-brand-1000: var(--scheme-violet-1000);
-  --function-brand-1100: var(--scheme-violet-1100);
-  --function-brand-1200: var(--scheme-violet-1200);
-
-  --function-brand-600-15: var(--scheme-violet-600-15);
-  --function-brand-600-30: var(--scheme-violet-600-30);
-  --function-brand-600-50: var(--scheme-violet-600-50);
-}
-
-[data-brand="magenta"] {
-  --function-brand-100: var(--scheme-magenta-100);
-  --function-brand-200: var(--scheme-magenta-200);
-  --function-brand-300: var(--scheme-magenta-300);
-  --function-brand-400: var(--scheme-magenta-400);
-  --function-brand-500: var(--scheme-magenta-500);
-  --function-brand-600: var(--scheme-magenta-600);
-  --function-brand-700: var(--scheme-magenta-700);
-  --function-brand-800: var(--scheme-magenta-800);
-  --function-brand-900: var(--scheme-magenta-900);
-  --function-brand-1000: var(--scheme-magenta-1000);
-  --function-brand-1100: var(--scheme-magenta-1100);
-  --function-brand-1200: var(--scheme-magenta-1200);
-
-  --function-brand-600-15: var(--scheme-magenta-600-15);
-  --function-brand-600-30: var(--scheme-magenta-600-30);
-  --function-brand-600-50: var(--scheme-magenta-600-50);
-}
-
-[data-brand="pink"] {
-  --function-brand-100: var(--scheme-pink-100);
-  --function-brand-200: var(--scheme-pink-200);
-  --function-brand-300: var(--scheme-pink-300);
-  --function-brand-400: var(--scheme-pink-400);
-  --function-brand-500: var(--scheme-pink-500);
-  --function-brand-600: var(--scheme-pink-600);
-  --function-brand-700: var(--scheme-pink-700);
-  --function-brand-800: var(--scheme-pink-800);
-  --function-brand-900: var(--scheme-pink-900);
-  --function-brand-1000: var(--scheme-pink-1000);
-  --function-brand-1100: var(--scheme-pink-1100);
-  --function-brand-1200: var(--scheme-pink-1200);
-
-  --function-brand-600-15: var(--scheme-pink-600-15);
-  --function-brand-600-30: var(--scheme-pink-600-30);
-  --function-brand-600-50: var(--scheme-pink-600-50);
-}
-
-/* accent */
-[data-accent="custom"] {
-  --function-accent-100: var(--scheme-accent-100);
-  --function-accent-200: var(--scheme-accent-200);
-  --function-accent-300: var(--scheme-accent-300);
-  --function-accent-400: var(--scheme-accent-400);
-  --function-accent-500: var(--scheme-accent-500);
-  --function-accent-600: var(--scheme-accent-600);
-  --function-accent-700: var(--scheme-accent-700);
-  --function-accent-800: var(--scheme-accent-800);
-  --function-accent-900: var(--scheme-accent-900);
-  --function-accent-1000: var(--scheme-accent-1000);
-  --function-accent-1100: var(--scheme-accent-1100);
-  --function-accent-1200: var(--scheme-accent-1200);
-
-  --function-accent-600-15: var(--scheme-accent-600-15);
-  --function-accent-600-30: var(--scheme-accent-600-30);
-  --function-accent-600-50: var(--scheme-accent-600-50);
-}
-
-[data-accent="red"] {
-  --function-accent-100: var(--scheme-red-100);
-  --function-accent-200: var(--scheme-red-200);
-  --function-accent-300: var(--scheme-red-300);
-  --function-accent-400: var(--scheme-red-400);
-  --function-accent-500: var(--scheme-red-500);
-  --function-accent-600: var(--scheme-red-600);
-  --function-accent-700: var(--scheme-red-700);
-  --function-accent-800: var(--scheme-red-800);
-  --function-accent-900: var(--scheme-red-900);
-  --function-accent-1000: var(--scheme-red-1000);
-  --function-accent-1100: var(--scheme-red-1100);
-  --function-accent-1200: var(--scheme-red-1200);
-
-  --function-accent-600-15: var(--scheme-red-600-15);
-  --function-accent-600-30: var(--scheme-red-600-30);
-  --function-accent-600-50: var(--scheme-red-600-50);
-}
-
-[data-accent="orange"] {
-  --function-accent-100: var(--scheme-orange-100);
-  --function-accent-200: var(--scheme-orange-200);
-  --function-accent-300: var(--scheme-orange-300);
-  --function-accent-400: var(--scheme-orange-400);
-  --function-accent-500: var(--scheme-orange-500);
-  --function-accent-600: var(--scheme-orange-600);
-  --function-accent-700: var(--scheme-orange-700);
-  --function-accent-800: var(--scheme-orange-800);
-  --function-accent-900: var(--scheme-orange-900);
-  --function-accent-1000: var(--scheme-orange-1000);
-  --function-accent-1100: var(--scheme-orange-1100);
-  --function-accent-1200: var(--scheme-orange-1200);
-
-  --function-accent-600-15: var(--scheme-orange-600-15);
-  --function-accent-600-30: var(--scheme-orange-600-30);
-  --function-accent-600-50: var(--scheme-orange-600-50);
-}
-
-[data-accent="yellow"] {
-  --function-accent-100: var(--scheme-yellow-100);
-  --function-accent-200: var(--scheme-yellow-200);
-  --function-accent-300: var(--scheme-yellow-300);
-  --function-accent-400: var(--scheme-yellow-400);
-  --function-accent-500: var(--scheme-yellow-500);
-  --function-accent-600: var(--scheme-yellow-600);
-  --function-accent-700: var(--scheme-yellow-700);
-  --function-accent-800: var(--scheme-yellow-800);
-  --function-accent-900: var(--scheme-yellow-900);
-  --function-accent-1000: var(--scheme-yellow-1000);
-  --function-accent-1100: var(--scheme-yellow-1100);
-  --function-accent-1200: var(--scheme-yellow-1200);
-
-  --function-accent-600-15: var(--scheme-yellow-600-15);
-  --function-accent-600-30: var(--scheme-yellow-600-30);
-  --function-accent-600-50: var(--scheme-yellow-600-50);
-}
-
-[data-accent="moss"] {
-  --function-accent-100: var(--scheme-moss-100);
-  --function-accent-200: var(--scheme-moss-200);
-  --function-accent-300: var(--scheme-moss-300);
-  --function-accent-400: var(--scheme-moss-400);
-  --function-accent-500: var(--scheme-moss-500);
-  --function-accent-600: var(--scheme-moss-600);
-  --function-accent-700: var(--scheme-moss-700);
-  --function-accent-800: var(--scheme-moss-800);
-  --function-accent-900: var(--scheme-moss-900);
-  --function-accent-1000: var(--scheme-moss-1000);
-  --function-accent-1100: var(--scheme-moss-1100);
-  --function-accent-1200: var(--scheme-moss-1200);
-
-  --function-accent-600-15: var(--scheme-moss-600-15);
-  --function-accent-600-30: var(--scheme-moss-600-30);
-  --function-accent-600-50: var(--scheme-moss-600-50);
-}
-
-[data-accent="green"] {
-  --function-accent-100: var(--scheme-green-100);
-  --function-accent-200: var(--scheme-green-200);
-  --function-accent-300: var(--scheme-green-300);
-  --function-accent-400: var(--scheme-green-400);
-  --function-accent-500: var(--scheme-green-500);
-  --function-accent-600: var(--scheme-green-600);
-  --function-accent-700: var(--scheme-green-700);
-  --function-accent-800: var(--scheme-green-800);
-  --function-accent-900: var(--scheme-green-900);
-  --function-accent-1000: var(--scheme-green-1000);
-  --function-accent-1100: var(--scheme-green-1100);
-  --function-accent-1200: var(--scheme-green-1200);
-
-  --function-accent-600-15: var(--scheme-green-600-15);
-  --function-accent-600-30: var(--scheme-green-600-30);
-  --function-accent-600-50: var(--scheme-green-600-50);
-}
-
-[data-accent="emerald"] {
-  --function-accent-100: var(--scheme-emerald-100);
-  --function-accent-200: var(--scheme-emerald-200);
-  --function-accent-300: var(--scheme-emerald-300);
-  --function-accent-400: var(--scheme-emerald-400);
-  --function-accent-500: var(--scheme-emerald-500);
-  --function-accent-600: var(--scheme-emerald-600);
-  --function-accent-700: var(--scheme-emerald-700);
-  --function-accent-800: var(--scheme-emerald-800);
-  --function-accent-900: var(--scheme-emerald-900);
-  --function-accent-1000: var(--scheme-emerald-1000);
-  --function-accent-1100: var(--scheme-emerald-1100);
-  --function-accent-1200: var(--scheme-emerald-1200);
-
-  --function-accent-600-15: var(--scheme-emerald-600-15);
-  --function-accent-600-30: var(--scheme-emerald-600-30);
-  --function-accent-600-50: var(--scheme-emerald-600-50);
-}
-
-[data-accent="aqua"] {
-  --function-accent-100: var(--scheme-aqua-100);
-  --function-accent-200: var(--scheme-aqua-200);
-  --function-accent-300: var(--scheme-aqua-300);
-  --function-accent-400: var(--scheme-aqua-400);
-  --function-accent-500: var(--scheme-aqua-500);
-  --function-accent-600: var(--scheme-aqua-600);
-  --function-accent-700: var(--scheme-aqua-700);
-  --function-accent-800: var(--scheme-aqua-800);
-  --function-accent-900: var(--scheme-aqua-900);
-  --function-accent-1000: var(--scheme-aqua-1000);
-  --function-accent-1100: var(--scheme-aqua-1100);
-  --function-accent-1200: var(--scheme-aqua-1200);
-
-  --function-accent-600-15: var(--scheme-aqua-600-15);
-  --function-accent-600-30: var(--scheme-aqua-600-30);
-  --function-accent-600-50: var(--scheme-aqua-600-50);
-}
-
-[data-accent="cyan"] {
-  --function-accent-100: var(--scheme-cyan-100);
-  --function-accent-200: var(--scheme-cyan-200);
-  --function-accent-300: var(--scheme-cyan-300);
-  --function-accent-400: var(--scheme-cyan-400);
-  --function-accent-500: var(--scheme-cyan-500);
-  --function-accent-600: var(--scheme-cyan-600);
-  --function-accent-700: var(--scheme-cyan-700);
-  --function-accent-800: var(--scheme-cyan-800);
-  --function-accent-900: var(--scheme-cyan-900);
-  --function-accent-1000: var(--scheme-cyan-1000);
-  --function-accent-1100: var(--scheme-cyan-1100);
-  --function-accent-1200: var(--scheme-cyan-1200);
-
-  --function-accent-600-15: var(--scheme-cyan-600-15);
-  --function-accent-600-30: var(--scheme-cyan-600-30);
-  --function-accent-600-50: var(--scheme-cyan-600-50);
-}
-
-[data-accent="blue"] {
-  --function-accent-100: var(--scheme-blue-100);
-  --function-accent-200: var(--scheme-blue-200);
-  --function-accent-300: var(--scheme-blue-300);
-  --function-accent-400: var(--scheme-blue-400);
-  --function-accent-500: var(--scheme-blue-500);
-  --function-accent-600: var(--scheme-blue-600);
-  --function-accent-700: var(--scheme-blue-700);
-  --function-accent-800: var(--scheme-blue-800);
-  --function-accent-900: var(--scheme-blue-900);
-  --function-accent-1000: var(--scheme-blue-1000);
-  --function-accent-1100: var(--scheme-blue-1100);
-  --function-accent-1200: var(--scheme-blue-1200);
-
-  --function-accent-600-15: var(--scheme-blue-600-15);
-  --function-accent-600-30: var(--scheme-blue-600-30);
-  --function-accent-600-50: var(--scheme-blue-600-50);
-}
-
-[data-accent="indigo"] {
-  --function-accent-100: var(--scheme-indigo-100);
-  --function-accent-200: var(--scheme-indigo-200);
-  --function-accent-300: var(--scheme-indigo-300);
-  --function-accent-400: var(--scheme-indigo-400);
-  --function-accent-500: var(--scheme-indigo-500);
-  --function-accent-600: var(--scheme-indigo-600);
-  --function-accent-700: var(--scheme-indigo-700);
-  --function-accent-800: var(--scheme-indigo-800);
-  --function-accent-900: var(--scheme-indigo-900);
-  --function-accent-1000: var(--scheme-indigo-1000);
-  --function-accent-1100: var(--scheme-indigo-1100);
-  --function-accent-1200: var(--scheme-indigo-1200);
-
-  --function-accent-600-15: var(--scheme-indigo-600-15);
-  --function-accent-600-30: var(--scheme-indigo-600-30);
-  --function-accent-600-50: var(--scheme-indigo-600-50);
-}
-
-[data-accent="violet"] {
-  --function-accent-100: var(--scheme-violet-100);
-  --function-accent-200: var(--scheme-violet-200);
-  --function-accent-300: var(--scheme-violet-300);
-  --function-accent-400: var(--scheme-violet-400);
-  --function-accent-500: var(--scheme-violet-500);
-  --function-accent-600: var(--scheme-violet-600);
-  --function-accent-700: var(--scheme-violet-700);
-  --function-accent-800: var(--scheme-violet-800);
-  --function-accent-900: var(--scheme-violet-900);
-  --function-accent-1000: var(--scheme-violet-1000);
-  --function-accent-1100: var(--scheme-violet-1100);
-  --function-accent-1200: var(--scheme-violet-1200);
-
-  --function-accent-600-15: var(--scheme-violet-600-15);
-  --function-accent-600-30: var(--scheme-violet-600-30);
-  --function-accent-600-50: var(--scheme-violet-600-50);
-}
-
-[data-accent="magenta"] {
-  --function-accent-100: var(--scheme-magenta-100);
-  --function-accent-200: var(--scheme-magenta-200);
-  --function-accent-300: var(--scheme-magenta-300);
-  --function-accent-400: var(--scheme-magenta-400);
-  --function-accent-500: var(--scheme-magenta-500);
-  --function-accent-600: var(--scheme-magenta-600);
-  --function-accent-700: var(--scheme-magenta-700);
-  --function-accent-800: var(--scheme-magenta-800);
-  --function-accent-900: var(--scheme-magenta-900);
-  --function-accent-1000: var(--scheme-magenta-1000);
-  --function-accent-1100: var(--scheme-magenta-1100);
-  --function-accent-1200: var(--scheme-magenta-1200);
-
-  --function-accent-600-15: var(--scheme-magenta-600-15);
-  --function-accent-600-30: var(--scheme-magenta-600-30);
-  --function-accent-600-50: var(--scheme-magenta-600-50);
-}
-
-[data-accent="pink"] {
-  --function-accent-100: var(--scheme-pink-100);
-  --function-accent-200: var(--scheme-pink-200);
-  --function-accent-300: var(--scheme-pink-300);
-  --function-accent-400: var(--scheme-pink-400);
-  --function-accent-500: var(--scheme-pink-500);
-  --function-accent-600: var(--scheme-pink-600);
-  --function-accent-700: var(--scheme-pink-700);
-  --function-accent-800: var(--scheme-pink-800);
-  --function-accent-900: var(--scheme-pink-900);
-  --function-accent-1000: var(--scheme-pink-1000);
-  --function-accent-1100: var(--scheme-pink-1100);
-  --function-accent-1200: var(--scheme-pink-1200);
-
-  --function-accent-600-15: var(--scheme-pink-600-15);
-  --function-accent-600-30: var(--scheme-pink-600-30);
-  --function-accent-600-50: var(--scheme-pink-600-50);
-}
-
-/* neutral */
-[data-neutral="custom"] {
-  --function-neutral-100: var(--scheme-neutral-100);
-  --function-neutral-200: var(--scheme-neutral-200);
-  --function-neutral-300: var(--scheme-neutral-300);
-  --function-neutral-400: var(--scheme-neutral-400);
-  --function-neutral-500: var(--scheme-neutral-500);
-  --function-neutral-600: var(--scheme-neutral-600);
-  --function-neutral-700: var(--scheme-neutral-700);
-  --function-neutral-800: var(--scheme-neutral-800);
-  --function-neutral-900: var(--scheme-neutral-900);
-  --function-neutral-1000: var(--scheme-neutral-1000);
-  --function-neutral-1100: var(--scheme-neutral-1100);
-  --function-neutral-1200: var(--scheme-neutral-1200);
-
-  --function-neutral-600-15: var(--scheme-neutral-600-15);
-  --function-neutral-600-30: var(--scheme-neutral-600-30);
-  --function-neutral-600-50: var(--scheme-neutral-600-50);
-}
-
-[data-neutral="slate"] {
-  --function-neutral-100: var(--scheme-slate-100);
-  --function-neutral-200: var(--scheme-slate-200);
-  --function-neutral-300: var(--scheme-slate-300);
-  --function-neutral-400: var(--scheme-slate-400);
-  --function-neutral-500: var(--scheme-slate-500);
-  --function-neutral-600: var(--scheme-slate-600);
-  --function-neutral-700: var(--scheme-slate-700);
-  --function-neutral-800: var(--scheme-slate-800);
-  --function-neutral-900: var(--scheme-slate-900);
-  --function-neutral-1000: var(--scheme-slate-1000);
-  --function-neutral-1100: var(--scheme-slate-1100);
-  --function-neutral-1200: var(--scheme-slate-1200);
-
-  --function-neutral-600-15: var(--scheme-slate-600-15);
-  --function-neutral-600-30: var(--scheme-slate-600-30);
-  --function-neutral-600-50: var(--scheme-slate-600-50);
-}
-
-[data-neutral="gray"] {
-  --function-neutral-100: var(--scheme-gray-100);
-  --function-neutral-200: var(--scheme-gray-200);
-  --function-neutral-300: var(--scheme-gray-300);
-  --function-neutral-400: var(--scheme-gray-400);
-  --function-neutral-500: var(--scheme-gray-500);
-  --function-neutral-600: var(--scheme-gray-600);
-  --function-neutral-700: var(--scheme-gray-700);
-  --function-neutral-800: var(--scheme-gray-800);
-  --function-neutral-900: var(--scheme-gray-900);
-  --function-neutral-1000: var(--scheme-gray-1000);
-  --function-neutral-1100: var(--scheme-gray-1100);
-  --function-neutral-1200: var(--scheme-gray-1200);
-
-  --function-neutral-600-15: var(--scheme-gray-600-15);
-  --function-neutral-600-30: var(--scheme-gray-600-30);
-  --function-neutral-600-50: var(--scheme-gray-600-50);
-}
-
-[data-neutral="sand"] {
-  --function-neutral-100: var(--scheme-sand-100);
-  --function-neutral-200: var(--scheme-sand-200);
-  --function-neutral-300: var(--scheme-sand-300);
-  --function-neutral-400: var(--scheme-sand-400);
-  --function-neutral-500: var(--scheme-sand-500);
-  --function-neutral-600: var(--scheme-sand-600);
-  --function-neutral-700: var(--scheme-sand-700);
-  --function-neutral-800: var(--scheme-sand-800);
-  --function-neutral-900: var(--scheme-sand-900);
-  --function-neutral-1000: var(--scheme-sand-1000);
-  --function-neutral-1100: var(--scheme-sand-1100);
-  --function-neutral-1200: var(--scheme-sand-1200);
-
-  --function-neutral-600-15: var(--scheme-sand-600-15);
-  --function-neutral-600-30: var(--scheme-sand-600-30);
-  --function-neutral-600-50: var(--scheme-sand-600-50);
+/*
+ * Function Colors - Intent to Color Mapping
+ *
+ * Maps semantic intents to color scales via data attributes.
+ * Uses the new OKLCH color system with --color-* variables (1-12 scale).
+ *
+ * Scale: 1 (darkest) → 12 (lightest)
+ */
+
+@layer semantic {
+  :root {
+    /* ════════════════════════════════════════════════════════════════════════
+       FIXED FUNCTION COLORS
+       ════════════════════════════════════════════════════════════════════════ */
+
+    /* INFO - Gray */
+    --function-info-1: var(--color-gray-1);
+    --function-info-2: var(--color-gray-2);
+    --function-info-3: var(--color-gray-3);
+    --function-info-4: var(--color-gray-4);
+    --function-info-5: var(--color-gray-5);
+    --function-info-6: var(--color-gray-6);
+    --function-info-7: var(--color-gray-7);
+    --function-info-8: var(--color-gray-8);
+    --function-info-9: var(--color-gray-9);
+    --function-info-10: var(--color-gray-10);
+    --function-info-11: var(--color-gray-11);
+    --function-info-12: var(--color-gray-12);
+    --function-info-6-15: var(--color-gray-6-15);
+    --function-info-6-30: var(--color-gray-6-30);
+    --function-info-6-50: var(--color-gray-6-50);
+
+    /* WARNING - Amber */
+    --function-warning-1: var(--color-amber-1);
+    --function-warning-2: var(--color-amber-2);
+    --function-warning-3: var(--color-amber-3);
+    --function-warning-4: var(--color-amber-4);
+    --function-warning-5: var(--color-amber-5);
+    --function-warning-6: var(--color-amber-6);
+    --function-warning-7: var(--color-amber-7);
+    --function-warning-8: var(--color-amber-8);
+    --function-warning-9: var(--color-amber-9);
+    --function-warning-10: var(--color-amber-10);
+    --function-warning-11: var(--color-amber-11);
+    --function-warning-12: var(--color-amber-12);
+    --function-warning-6-15: var(--color-amber-6-15);
+    --function-warning-6-30: var(--color-amber-6-30);
+    --function-warning-6-50: var(--color-amber-6-50);
+
+    /* DANGER - Red (true red, not orange-tomato) */
+    --function-danger-1: var(--color-red-1);
+    --function-danger-2: var(--color-red-2);
+    --function-danger-3: var(--color-red-3);
+    --function-danger-4: var(--color-red-4);
+    --function-danger-5: var(--color-red-5);
+    --function-danger-6: var(--color-red-6);
+    --function-danger-7: var(--color-red-7);
+    --function-danger-8: var(--color-red-8);
+    --function-danger-9: var(--color-red-9);
+    --function-danger-10: var(--color-red-10);
+    --function-danger-11: var(--color-red-11);
+    --function-danger-12: var(--color-red-12);
+    --function-danger-6-15: var(--color-red-6-15);
+    --function-danger-6-30: var(--color-red-6-30);
+    --function-danger-6-50: var(--color-red-6-50);
+
+    /* SUCCESS - Green */
+    --function-success-1: var(--color-green-1);
+    --function-success-2: var(--color-green-2);
+    --function-success-3: var(--color-green-3);
+    --function-success-4: var(--color-green-4);
+    --function-success-5: var(--color-green-5);
+    --function-success-6: var(--color-green-6);
+    --function-success-7: var(--color-green-7);
+    --function-success-8: var(--color-green-8);
+    --function-success-9: var(--color-green-9);
+    --function-success-10: var(--color-green-10);
+    --function-success-11: var(--color-green-11);
+    --function-success-12: var(--color-green-12);
+    --function-success-6-15: var(--color-green-6-15);
+    --function-success-6-30: var(--color-green-6-30);
+    --function-success-6-50: var(--color-green-6-50);
+  }
+
+  /* ════════════════════════════════════════════════════════════════════════════
+     BRAND COLOR - Configurable via [data-brand]
+     ════════════════════════════════════════════════════════════════════════════ */
+
+  :root,
+  [data-brand="blue"] {
+    --function-brand-1: var(--color-blue-1);
+    --function-brand-2: var(--color-blue-2);
+    --function-brand-3: var(--color-blue-3);
+    --function-brand-4: var(--color-blue-4);
+    --function-brand-5: var(--color-blue-5);
+    --function-brand-6: var(--color-blue-6);
+    --function-brand-7: var(--color-blue-7);
+    --function-brand-8: var(--color-blue-8);
+    --function-brand-9: var(--color-blue-9);
+    --function-brand-10: var(--color-blue-10);
+    --function-brand-11: var(--color-blue-11);
+    --function-brand-12: var(--color-blue-12);
+    --function-brand-6-15: var(--color-blue-6-15);
+    --function-brand-6-30: var(--color-blue-6-30);
+    --function-brand-6-50: var(--color-blue-6-50);
+  }
+
+  [data-brand="red"] {
+    --function-brand-1: var(--color-red-1);
+    --function-brand-2: var(--color-red-2);
+    --function-brand-3: var(--color-red-3);
+    --function-brand-4: var(--color-red-4);
+    --function-brand-5: var(--color-red-5);
+    --function-brand-6: var(--color-red-6);
+    --function-brand-7: var(--color-red-7);
+    --function-brand-8: var(--color-red-8);
+    --function-brand-9: var(--color-red-9);
+    --function-brand-10: var(--color-red-10);
+    --function-brand-11: var(--color-red-11);
+    --function-brand-12: var(--color-red-12);
+    --function-brand-6-15: var(--color-red-6-15);
+    --function-brand-6-30: var(--color-red-6-30);
+    --function-brand-6-50: var(--color-red-6-50);
+  }
+
+  [data-brand="orange"] {
+    --function-brand-1: var(--color-orange-1);
+    --function-brand-2: var(--color-orange-2);
+    --function-brand-3: var(--color-orange-3);
+    --function-brand-4: var(--color-orange-4);
+    --function-brand-5: var(--color-orange-5);
+    --function-brand-6: var(--color-orange-6);
+    --function-brand-7: var(--color-orange-7);
+    --function-brand-8: var(--color-orange-8);
+    --function-brand-9: var(--color-orange-9);
+    --function-brand-10: var(--color-orange-10);
+    --function-brand-11: var(--color-orange-11);
+    --function-brand-12: var(--color-orange-12);
+    --function-brand-6-15: var(--color-orange-6-15);
+    --function-brand-6-30: var(--color-orange-6-30);
+    --function-brand-6-50: var(--color-orange-6-50);
+  }
+
+  [data-brand="amber"],
+  [data-brand="yellow"] {
+    --function-brand-1: var(--color-amber-1);
+    --function-brand-2: var(--color-amber-2);
+    --function-brand-3: var(--color-amber-3);
+    --function-brand-4: var(--color-amber-4);
+    --function-brand-5: var(--color-amber-5);
+    --function-brand-6: var(--color-amber-6);
+    --function-brand-7: var(--color-amber-7);
+    --function-brand-8: var(--color-amber-8);
+    --function-brand-9: var(--color-amber-9);
+    --function-brand-10: var(--color-amber-10);
+    --function-brand-11: var(--color-amber-11);
+    --function-brand-12: var(--color-amber-12);
+    --function-brand-6-15: var(--color-amber-6-15);
+    --function-brand-6-30: var(--color-amber-6-30);
+    --function-brand-6-50: var(--color-amber-6-50);
+  }
+
+  [data-brand="lime"],
+  [data-brand="moss"] {
+    --function-brand-1: var(--color-lime-1);
+    --function-brand-2: var(--color-lime-2);
+    --function-brand-3: var(--color-lime-3);
+    --function-brand-4: var(--color-lime-4);
+    --function-brand-5: var(--color-lime-5);
+    --function-brand-6: var(--color-lime-6);
+    --function-brand-7: var(--color-lime-7);
+    --function-brand-8: var(--color-lime-8);
+    --function-brand-9: var(--color-lime-9);
+    --function-brand-10: var(--color-lime-10);
+    --function-brand-11: var(--color-lime-11);
+    --function-brand-12: var(--color-lime-12);
+    --function-brand-6-15: var(--color-lime-6-15);
+    --function-brand-6-30: var(--color-lime-6-30);
+    --function-brand-6-50: var(--color-lime-6-50);
+  }
+
+  [data-brand="green"],
+  [data-brand="emerald"] {
+    --function-brand-1: var(--color-green-1);
+    --function-brand-2: var(--color-green-2);
+    --function-brand-3: var(--color-green-3);
+    --function-brand-4: var(--color-green-4);
+    --function-brand-5: var(--color-green-5);
+    --function-brand-6: var(--color-green-6);
+    --function-brand-7: var(--color-green-7);
+    --function-brand-8: var(--color-green-8);
+    --function-brand-9: var(--color-green-9);
+    --function-brand-10: var(--color-green-10);
+    --function-brand-11: var(--color-green-11);
+    --function-brand-12: var(--color-green-12);
+    --function-brand-6-15: var(--color-green-6-15);
+    --function-brand-6-30: var(--color-green-6-30);
+    --function-brand-6-50: var(--color-green-6-50);
+  }
+
+  [data-brand="teal"],
+  [data-brand="aqua"] {
+    --function-brand-1: var(--color-teal-1);
+    --function-brand-2: var(--color-teal-2);
+    --function-brand-3: var(--color-teal-3);
+    --function-brand-4: var(--color-teal-4);
+    --function-brand-5: var(--color-teal-5);
+    --function-brand-6: var(--color-teal-6);
+    --function-brand-7: var(--color-teal-7);
+    --function-brand-8: var(--color-teal-8);
+    --function-brand-9: var(--color-teal-9);
+    --function-brand-10: var(--color-teal-10);
+    --function-brand-11: var(--color-teal-11);
+    --function-brand-12: var(--color-teal-12);
+    --function-brand-6-15: var(--color-teal-6-15);
+    --function-brand-6-30: var(--color-teal-6-30);
+    --function-brand-6-50: var(--color-teal-6-50);
+  }
+
+  [data-brand="cyan"] {
+    --function-brand-1: var(--color-cyan-1);
+    --function-brand-2: var(--color-cyan-2);
+    --function-brand-3: var(--color-cyan-3);
+    --function-brand-4: var(--color-cyan-4);
+    --function-brand-5: var(--color-cyan-5);
+    --function-brand-6: var(--color-cyan-6);
+    --function-brand-7: var(--color-cyan-7);
+    --function-brand-8: var(--color-cyan-8);
+    --function-brand-9: var(--color-cyan-9);
+    --function-brand-10: var(--color-cyan-10);
+    --function-brand-11: var(--color-cyan-11);
+    --function-brand-12: var(--color-cyan-12);
+    --function-brand-6-15: var(--color-cyan-6-15);
+    --function-brand-6-30: var(--color-cyan-6-30);
+    --function-brand-6-50: var(--color-cyan-6-50);
+  }
+
+  [data-brand="indigo"] {
+    --function-brand-1: var(--color-indigo-1);
+    --function-brand-2: var(--color-indigo-2);
+    --function-brand-3: var(--color-indigo-3);
+    --function-brand-4: var(--color-indigo-4);
+    --function-brand-5: var(--color-indigo-5);
+    --function-brand-6: var(--color-indigo-6);
+    --function-brand-7: var(--color-indigo-7);
+    --function-brand-8: var(--color-indigo-8);
+    --function-brand-9: var(--color-indigo-9);
+    --function-brand-10: var(--color-indigo-10);
+    --function-brand-11: var(--color-indigo-11);
+    --function-brand-12: var(--color-indigo-12);
+    --function-brand-6-15: var(--color-indigo-6-15);
+    --function-brand-6-30: var(--color-indigo-6-30);
+    --function-brand-6-50: var(--color-indigo-6-50);
+  }
+
+  [data-brand="purple"],
+  [data-brand="violet"] {
+    --function-brand-1: var(--color-purple-1);
+    --function-brand-2: var(--color-purple-2);
+    --function-brand-3: var(--color-purple-3);
+    --function-brand-4: var(--color-purple-4);
+    --function-brand-5: var(--color-purple-5);
+    --function-brand-6: var(--color-purple-6);
+    --function-brand-7: var(--color-purple-7);
+    --function-brand-8: var(--color-purple-8);
+    --function-brand-9: var(--color-purple-9);
+    --function-brand-10: var(--color-purple-10);
+    --function-brand-11: var(--color-purple-11);
+    --function-brand-12: var(--color-purple-12);
+    --function-brand-6-15: var(--color-purple-6-15);
+    --function-brand-6-30: var(--color-purple-6-30);
+    --function-brand-6-50: var(--color-purple-6-50);
+  }
+
+  [data-brand="pink"],
+  [data-brand="magenta"] {
+    --function-brand-1: var(--color-pink-1);
+    --function-brand-2: var(--color-pink-2);
+    --function-brand-3: var(--color-pink-3);
+    --function-brand-4: var(--color-pink-4);
+    --function-brand-5: var(--color-pink-5);
+    --function-brand-6: var(--color-pink-6);
+    --function-brand-7: var(--color-pink-7);
+    --function-brand-8: var(--color-pink-8);
+    --function-brand-9: var(--color-pink-9);
+    --function-brand-10: var(--color-pink-10);
+    --function-brand-11: var(--color-pink-11);
+    --function-brand-12: var(--color-pink-12);
+    --function-brand-6-15: var(--color-pink-6-15);
+    --function-brand-6-30: var(--color-pink-6-30);
+    --function-brand-6-50: var(--color-pink-6-50);
+  }
+
+  /* ════════════════════════════════════════════════════════════════════════════
+     ACCENT COLOR - Configurable via [data-accent]
+     ════════════════════════════════════════════════════════════════════════════ */
+
+  :root,
+  [data-accent="purple"],
+  [data-accent="violet"] {
+    --function-accent-1: var(--color-purple-1);
+    --function-accent-2: var(--color-purple-2);
+    --function-accent-3: var(--color-purple-3);
+    --function-accent-4: var(--color-purple-4);
+    --function-accent-5: var(--color-purple-5);
+    --function-accent-6: var(--color-purple-6);
+    --function-accent-7: var(--color-purple-7);
+    --function-accent-8: var(--color-purple-8);
+    --function-accent-9: var(--color-purple-9);
+    --function-accent-10: var(--color-purple-10);
+    --function-accent-11: var(--color-purple-11);
+    --function-accent-12: var(--color-purple-12);
+    --function-accent-6-15: var(--color-purple-6-15);
+    --function-accent-6-30: var(--color-purple-6-30);
+    --function-accent-6-50: var(--color-purple-6-50);
+  }
+
+  [data-accent="red"] {
+    --function-accent-1: var(--color-red-1);
+    --function-accent-2: var(--color-red-2);
+    --function-accent-3: var(--color-red-3);
+    --function-accent-4: var(--color-red-4);
+    --function-accent-5: var(--color-red-5);
+    --function-accent-6: var(--color-red-6);
+    --function-accent-7: var(--color-red-7);
+    --function-accent-8: var(--color-red-8);
+    --function-accent-9: var(--color-red-9);
+    --function-accent-10: var(--color-red-10);
+    --function-accent-11: var(--color-red-11);
+    --function-accent-12: var(--color-red-12);
+    --function-accent-6-15: var(--color-red-6-15);
+    --function-accent-6-30: var(--color-red-6-30);
+    --function-accent-6-50: var(--color-red-6-50);
+  }
+
+  [data-accent="orange"] {
+    --function-accent-1: var(--color-orange-1);
+    --function-accent-2: var(--color-orange-2);
+    --function-accent-3: var(--color-orange-3);
+    --function-accent-4: var(--color-orange-4);
+    --function-accent-5: var(--color-orange-5);
+    --function-accent-6: var(--color-orange-6);
+    --function-accent-7: var(--color-orange-7);
+    --function-accent-8: var(--color-orange-8);
+    --function-accent-9: var(--color-orange-9);
+    --function-accent-10: var(--color-orange-10);
+    --function-accent-11: var(--color-orange-11);
+    --function-accent-12: var(--color-orange-12);
+    --function-accent-6-15: var(--color-orange-6-15);
+    --function-accent-6-30: var(--color-orange-6-30);
+    --function-accent-6-50: var(--color-orange-6-50);
+  }
+
+  [data-accent="amber"],
+  [data-accent="yellow"] {
+    --function-accent-1: var(--color-amber-1);
+    --function-accent-2: var(--color-amber-2);
+    --function-accent-3: var(--color-amber-3);
+    --function-accent-4: var(--color-amber-4);
+    --function-accent-5: var(--color-amber-5);
+    --function-accent-6: var(--color-amber-6);
+    --function-accent-7: var(--color-amber-7);
+    --function-accent-8: var(--color-amber-8);
+    --function-accent-9: var(--color-amber-9);
+    --function-accent-10: var(--color-amber-10);
+    --function-accent-11: var(--color-amber-11);
+    --function-accent-12: var(--color-amber-12);
+    --function-accent-6-15: var(--color-amber-6-15);
+    --function-accent-6-30: var(--color-amber-6-30);
+    --function-accent-6-50: var(--color-amber-6-50);
+  }
+
+  [data-accent="lime"],
+  [data-accent="moss"] {
+    --function-accent-1: var(--color-lime-1);
+    --function-accent-2: var(--color-lime-2);
+    --function-accent-3: var(--color-lime-3);
+    --function-accent-4: var(--color-lime-4);
+    --function-accent-5: var(--color-lime-5);
+    --function-accent-6: var(--color-lime-6);
+    --function-accent-7: var(--color-lime-7);
+    --function-accent-8: var(--color-lime-8);
+    --function-accent-9: var(--color-lime-9);
+    --function-accent-10: var(--color-lime-10);
+    --function-accent-11: var(--color-lime-11);
+    --function-accent-12: var(--color-lime-12);
+    --function-accent-6-15: var(--color-lime-6-15);
+    --function-accent-6-30: var(--color-lime-6-30);
+    --function-accent-6-50: var(--color-lime-6-50);
+  }
+
+  [data-accent="green"],
+  [data-accent="emerald"] {
+    --function-accent-1: var(--color-green-1);
+    --function-accent-2: var(--color-green-2);
+    --function-accent-3: var(--color-green-3);
+    --function-accent-4: var(--color-green-4);
+    --function-accent-5: var(--color-green-5);
+    --function-accent-6: var(--color-green-6);
+    --function-accent-7: var(--color-green-7);
+    --function-accent-8: var(--color-green-8);
+    --function-accent-9: var(--color-green-9);
+    --function-accent-10: var(--color-green-10);
+    --function-accent-11: var(--color-green-11);
+    --function-accent-12: var(--color-green-12);
+    --function-accent-6-15: var(--color-green-6-15);
+    --function-accent-6-30: var(--color-green-6-30);
+    --function-accent-6-50: var(--color-green-6-50);
+  }
+
+  [data-accent="teal"],
+  [data-accent="aqua"] {
+    --function-accent-1: var(--color-teal-1);
+    --function-accent-2: var(--color-teal-2);
+    --function-accent-3: var(--color-teal-3);
+    --function-accent-4: var(--color-teal-4);
+    --function-accent-5: var(--color-teal-5);
+    --function-accent-6: var(--color-teal-6);
+    --function-accent-7: var(--color-teal-7);
+    --function-accent-8: var(--color-teal-8);
+    --function-accent-9: var(--color-teal-9);
+    --function-accent-10: var(--color-teal-10);
+    --function-accent-11: var(--color-teal-11);
+    --function-accent-12: var(--color-teal-12);
+    --function-accent-6-15: var(--color-teal-6-15);
+    --function-accent-6-30: var(--color-teal-6-30);
+    --function-accent-6-50: var(--color-teal-6-50);
+  }
+
+  [data-accent="cyan"] {
+    --function-accent-1: var(--color-cyan-1);
+    --function-accent-2: var(--color-cyan-2);
+    --function-accent-3: var(--color-cyan-3);
+    --function-accent-4: var(--color-cyan-4);
+    --function-accent-5: var(--color-cyan-5);
+    --function-accent-6: var(--color-cyan-6);
+    --function-accent-7: var(--color-cyan-7);
+    --function-accent-8: var(--color-cyan-8);
+    --function-accent-9: var(--color-cyan-9);
+    --function-accent-10: var(--color-cyan-10);
+    --function-accent-11: var(--color-cyan-11);
+    --function-accent-12: var(--color-cyan-12);
+    --function-accent-6-15: var(--color-cyan-6-15);
+    --function-accent-6-30: var(--color-cyan-6-30);
+    --function-accent-6-50: var(--color-cyan-6-50);
+  }
+
+  [data-accent="blue"] {
+    --function-accent-1: var(--color-blue-1);
+    --function-accent-2: var(--color-blue-2);
+    --function-accent-3: var(--color-blue-3);
+    --function-accent-4: var(--color-blue-4);
+    --function-accent-5: var(--color-blue-5);
+    --function-accent-6: var(--color-blue-6);
+    --function-accent-7: var(--color-blue-7);
+    --function-accent-8: var(--color-blue-8);
+    --function-accent-9: var(--color-blue-9);
+    --function-accent-10: var(--color-blue-10);
+    --function-accent-11: var(--color-blue-11);
+    --function-accent-12: var(--color-blue-12);
+    --function-accent-6-15: var(--color-blue-6-15);
+    --function-accent-6-30: var(--color-blue-6-30);
+    --function-accent-6-50: var(--color-blue-6-50);
+  }
+
+  [data-accent="indigo"] {
+    --function-accent-1: var(--color-indigo-1);
+    --function-accent-2: var(--color-indigo-2);
+    --function-accent-3: var(--color-indigo-3);
+    --function-accent-4: var(--color-indigo-4);
+    --function-accent-5: var(--color-indigo-5);
+    --function-accent-6: var(--color-indigo-6);
+    --function-accent-7: var(--color-indigo-7);
+    --function-accent-8: var(--color-indigo-8);
+    --function-accent-9: var(--color-indigo-9);
+    --function-accent-10: var(--color-indigo-10);
+    --function-accent-11: var(--color-indigo-11);
+    --function-accent-12: var(--color-indigo-12);
+    --function-accent-6-15: var(--color-indigo-6-15);
+    --function-accent-6-30: var(--color-indigo-6-30);
+    --function-accent-6-50: var(--color-indigo-6-50);
+  }
+
+  [data-accent="pink"],
+  [data-accent="magenta"] {
+    --function-accent-1: var(--color-pink-1);
+    --function-accent-2: var(--color-pink-2);
+    --function-accent-3: var(--color-pink-3);
+    --function-accent-4: var(--color-pink-4);
+    --function-accent-5: var(--color-pink-5);
+    --function-accent-6: var(--color-pink-6);
+    --function-accent-7: var(--color-pink-7);
+    --function-accent-8: var(--color-pink-8);
+    --function-accent-9: var(--color-pink-9);
+    --function-accent-10: var(--color-pink-10);
+    --function-accent-11: var(--color-pink-11);
+    --function-accent-12: var(--color-pink-12);
+    --function-accent-6-15: var(--color-pink-6-15);
+    --function-accent-6-30: var(--color-pink-6-30);
+    --function-accent-6-50: var(--color-pink-6-50);
+  }
+
+  /* ════════════════════════════════════════════════════════════════════════════
+     NEUTRAL COLOR - Configurable via [data-neutral]
+     ════════════════════════════════════════════════════════════════════════════ */
+
+  :root,
+  [data-neutral="slate"] {
+    --function-neutral-1: var(--color-slate-1);
+    --function-neutral-2: var(--color-slate-2);
+    --function-neutral-3: var(--color-slate-3);
+    --function-neutral-4: var(--color-slate-4);
+    --function-neutral-5: var(--color-slate-5);
+    --function-neutral-6: var(--color-slate-6);
+    --function-neutral-7: var(--color-slate-7);
+    --function-neutral-8: var(--color-slate-8);
+    --function-neutral-9: var(--color-slate-9);
+    --function-neutral-10: var(--color-slate-10);
+    --function-neutral-11: var(--color-slate-11);
+    --function-neutral-12: var(--color-slate-12);
+    --function-neutral-6-15: var(--color-slate-6-15);
+    --function-neutral-6-30: var(--color-slate-6-30);
+    --function-neutral-6-50: var(--color-slate-6-50);
+  }
+
+  [data-neutral="gray"] {
+    --function-neutral-1: var(--color-gray-1);
+    --function-neutral-2: var(--color-gray-2);
+    --function-neutral-3: var(--color-gray-3);
+    --function-neutral-4: var(--color-gray-4);
+    --function-neutral-5: var(--color-gray-5);
+    --function-neutral-6: var(--color-gray-6);
+    --function-neutral-7: var(--color-gray-7);
+    --function-neutral-8: var(--color-gray-8);
+    --function-neutral-9: var(--color-gray-9);
+    --function-neutral-10: var(--color-gray-10);
+    --function-neutral-11: var(--color-gray-11);
+    --function-neutral-12: var(--color-gray-12);
+    --function-neutral-6-15: var(--color-gray-6-15);
+    --function-neutral-6-30: var(--color-gray-6-30);
+    --function-neutral-6-50: var(--color-gray-6-50);
+  }
 }

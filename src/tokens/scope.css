@@ -1,0 +1,80 @@
+/*
+ * @scope Component Isolation Utilities
+ * Enables scoped styling for component encapsulation
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/@scope
+ *
+ * Browser support: ~75% (Chrome 118+, Edge 118+, Safari 17.4+)
+ *
+ * Usage:
+ * @scope (.card) to (.card-content) {
+ *   :scope { border: 1px solid var(--neutral-border-weak); }
+ *   h2 { color: var(--neutral-on-background-strong); }
+ * }
+ */
+
+@layer utilities {
+  /* Example scoped card component */
+  @scope (.scoped-card) to (.scoped-card-content) {
+    :scope {
+      background: var(--surface-background);
+      border: var(--static-space-1) solid var(--surface-border);
+      border-radius: var(--radius-l);
+      padding: var(--static-space-16);
+    }
+
+    h2,
+    h3 {
+      color: var(--neutral-on-background-strong);
+      margin: 0;
+    }
+
+    p {
+      color: var(--neutral-on-background-medium);
+      margin: var(--static-space-8) 0 0;
+    }
+  }
+
+  /* Example scoped stat component */
+  @scope (.scoped-stat) {
+    :scope {
+      display: flex;
+      flex-direction: column;
+      gap: var(--static-space-4);
+    }
+
+    .label {
+      font-size: var(--font-size-body-s);
+      color: var(--neutral-on-background-weak);
+    }
+
+    .value {
+      font-size: var(--font-size-heading-m);
+      font-weight: var(--font-weight-strong);
+      color: var(--neutral-on-background-strong);
+    }
+
+    .trend {
+      font-size: var(--font-size-body-s);
+    }
+
+    .trend.positive {
+      color: var(--success-on-background-weak);
+    }
+
+    .trend.negative {
+      color: var(--danger-on-background-weak);
+    }
+  }
+
+  /* Example scoped button group */
+  @scope (.scoped-button-group) {
+    :scope {
+      display: flex;
+      gap: var(--static-space-8);
+    }
+
+    button {
+      flex: 1;
+    }
+  }
+}

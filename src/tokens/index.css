@@ -1,9 +1,54 @@
-@import "./scheme.css";
-@import "./oklch.css";
+/*
+ * Design System Tokens - Entry Point
+ *
+ * Import order matters:
+ * 1. Properties: @layer declaration + @property registrations
+ * 2. Functions: @function definitions for color generation
+ * 3. Colors: Base colors + derived scales via color-mix()
+ * 4. Semantic: Theme-aware tokens via light-dark()
+ * 5. Function: Brand/accent/neutral switching via data attributes
+ * 6. Layout/Typography/etc: Spacing, sizing, fonts
+ * 7. Data: Data visualization colors
+ */
+
+/* Layer declaration + registered properties (must be first) */
+@import "./properties.css";
+
+/* Custom CSS functions for color generation */
+@import "./functions.css";
+
+/* Color primitives: base colors + 12-step scales */
+@import "./colors.css";
+
+/* Backwards compatibility: --scheme-* aliases to --color-* */
+@import "./scheme-aliases.css";
+
+/* Semantic tokens: theme-aware via light-dark() */
+@import "./semantic.css";
+
+/* Brand/accent/neutral color switching */
 @import "./function.css";
+
+/* Layout tokens */
 @import "./layout.css";
+
+/* Border tokens */
 @import "./border.css";
+
+/* Shadow tokens */
 @import "./shadow.css";
+
+/* Typography tokens */
 @import "./typography.css";
-@import "./theme.css";
+
+/* Transition tokens */
+@import "./transition.css";
+
+/* Data visualization colors */
 @import "./data.css";
+
+/* Container query utilities */
+@import "./container.css";
+
+/* Scoped styling utilities */
+@import "./scope.css";

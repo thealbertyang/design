@@ -12,8 +12,16 @@
   color: var(--neutral-on-background-weak);
 }
 
+.neutral-on-background-soft {
+  color: var(--neutral-on-background-soft);
+}
+
 .neutral-on-background-medium {
   color: var(--neutral-on-background-medium);
+}
+
+.neutral-on-background-bold {
+  color: var(--neutral-on-background-bold);
 }
 
 .neutral-on-background-strong {
@@ -24,8 +32,16 @@
   color: var(--neutral-on-solid-weak);
 }
 
+.neutral-on-solid-soft {
+  color: var(--neutral-on-solid-soft);
+}
+
 .neutral-on-solid-medium {
   color: var(--neutral-on-solid-medium);
+}
+
+.neutral-on-solid-bold {
+  color: var(--neutral-on-solid-bold);
 }
 
 .neutral-on-solid-strong {
@@ -37,8 +53,16 @@
   color: var(--brand-on-background-weak);
 }
 
+.brand-on-background-soft {
+  color: var(--brand-on-background-soft);
+}
+
 .brand-on-background-medium {
   color: var(--brand-on-background-medium);
+}
+
+.brand-on-background-bold {
+  color: var(--brand-on-background-bold);
 }
 
 .brand-on-background-strong {
@@ -49,8 +73,16 @@
   color: var(--brand-on-solid-weak);
 }
 
+.brand-on-solid-soft {
+  color: var(--brand-on-solid-soft);
+}
+
 .brand-on-solid-medium {
   color: var(--brand-on-solid-medium);
+}
+
+.brand-on-solid-bold {
+  color: var(--brand-on-solid-bold);
 }
 
 .brand-on-solid-strong {
@@ -62,8 +94,16 @@
   color: var(--accent-on-background-weak);
 }
 
+.accent-on-background-soft {
+  color: var(--accent-on-background-soft);
+}
+
 .accent-on-background-medium {
   color: var(--accent-on-background-medium);
+}
+
+.accent-on-background-bold {
+  color: var(--accent-on-background-bold);
 }
 
 .accent-on-background-strong {
@@ -74,8 +114,16 @@
   color: var(--accent-on-solid-weak);
 }
 
+.accent-on-solid-soft {
+  color: var(--accent-on-solid-soft);
+}
+
 .accent-on-solid-medium {
   color: var(--accent-on-solid-medium);
+}
+
+.accent-on-solid-bold {
+  color: var(--accent-on-solid-bold);
 }
 
 .accent-on-solid-strong {
@@ -87,8 +135,16 @@
   color: var(--info-on-background-weak);
 }
 
+.info-on-background-soft {
+  color: var(--info-on-background-soft);
+}
+
 .info-on-background-medium {
   color: var(--info-on-background-medium);
+}
+
+.info-on-background-bold {
+  color: var(--info-on-background-bold);
 }
 
 .info-on-background-strong {
@@ -99,8 +155,16 @@
   color: var(--info-on-solid-weak);
 }
 
+.info-on-solid-soft {
+  color: var(--info-on-solid-soft);
+}
+
 .info-on-solid-medium {
   color: var(--info-on-solid-medium);
+}
+
+.info-on-solid-bold {
+  color: var(--info-on-solid-bold);
 }
 
 .info-on-solid-strong {
@@ -112,8 +176,16 @@
   color: var(--danger-on-background-weak);
 }
 
+.danger-on-background-soft {
+  color: var(--danger-on-background-soft);
+}
+
 .danger-on-background-medium {
   color: var(--danger-on-background-medium);
+}
+
+.danger-on-background-bold {
+  color: var(--danger-on-background-bold);
 }
 
 .danger-on-background-strong {
@@ -124,8 +196,16 @@
   color: var(--danger-on-solid-weak);
 }
 
+.danger-on-solid-soft {
+  color: var(--danger-on-solid-soft);
+}
+
 .danger-on-solid-medium {
   color: var(--danger-on-solid-medium);
+}
+
+.danger-on-solid-bold {
+  color: var(--danger-on-solid-bold);
 }
 
 .danger-on-solid-strong {
@@ -137,8 +217,16 @@
   color: var(--warning-on-background-weak);
 }
 
+.warning-on-background-soft {
+  color: var(--warning-on-background-soft);
+}
+
 .warning-on-background-medium {
   color: var(--warning-on-background-medium);
+}
+
+.warning-on-background-bold {
+  color: var(--warning-on-background-bold);
 }
 
 .warning-on-background-strong {
@@ -149,8 +237,16 @@
   color: var(--warning-on-solid-weak);
 }
 
+.warning-on-solid-soft {
+  color: var(--warning-on-solid-soft);
+}
+
 .warning-on-solid-medium {
   color: var(--warning-on-solid-medium);
+}
+
+.warning-on-solid-bold {
+  color: var(--warning-on-solid-bold);
 }
 
 .warning-on-solid-strong {
@@ -162,8 +258,16 @@
   color: var(--success-on-background-weak);
 }
 
+.success-on-background-soft {
+  color: var(--success-on-background-soft);
+}
+
 .success-on-background-medium {
   color: var(--success-on-background-medium);
+}
+
+.success-on-background-bold {
+  color: var(--success-on-background-bold);
 }
 
 .success-on-background-strong {
@@ -174,10 +278,106 @@
   color: var(--success-on-solid-weak);
 }
 
+.success-on-solid-soft {
+  color: var(--success-on-solid-soft);
+}
+
 .success-on-solid-medium {
   color: var(--success-on-solid-medium);
 }
 
+.success-on-solid-bold {
+  color: var(--success-on-solid-bold);
+}
+
 .success-on-solid-strong {
   color: var(--success-on-solid-strong);
+}
+
+/* ============================================================================
+   DEPTH-BASED TEXT COLORS (on-background tokens)
+
+   Automatically adjusts color intensity based on data-level attribute.
+   Level 0 = weak (least vibrant), Level 3/4 = strong (most vibrant)
+
+   Intensity scale: weak → soft → medium → bold → strong
+
+   Uses on-background tokens for text on page/card/table backgrounds.
+
+   Usage: Add .text-success, .text-danger, .text-warning, .text-neutral
+   to any element inside a [data-level] container.
+   ============================================================================ */
+
+/* Base styles (default when no data-level context) */
+.text-success {
+  color: var(--success-on-background-medium);
+}
+.text-danger {
+  color: var(--danger-on-background-medium);
+}
+.text-warning {
+  color: var(--warning-on-background-medium);
+}
+.text-neutral {
+  color: var(--neutral-on-background-medium);
+}
+
+/* Success - weak → medium → bold → strong */
+[data-level="0"] .text-success {
+  color: var(--success-on-background-weak);
+}
+[data-level="1"] .text-success {
+  color: var(--success-on-background-medium);
+}
+[data-level="2"] .text-success {
+  color: var(--success-on-background-bold);
+}
+[data-level="3"] .text-success,
+[data-level="4"] .text-success {
+  color: var(--success-on-background-strong);
+}
+
+/* Danger - weak → medium → bold → strong */
+[data-level="0"] .text-danger {
+  color: var(--danger-on-background-weak);
+}
+[data-level="1"] .text-danger {
+  color: var(--danger-on-background-medium);
+}
+[data-level="2"] .text-danger {
+  color: var(--danger-on-background-bold);
+}
+[data-level="3"] .text-danger,
+[data-level="4"] .text-danger {
+  color: var(--danger-on-background-strong);
+}
+
+/* Warning - weak → medium → bold → strong */
+[data-level="0"] .text-warning {
+  color: var(--warning-on-background-weak);
+}
+[data-level="1"] .text-warning {
+  color: var(--warning-on-background-medium);
+}
+[data-level="2"] .text-warning {
+  color: var(--warning-on-background-bold);
+}
+[data-level="3"] .text-warning,
+[data-level="4"] .text-warning {
+  color: var(--warning-on-background-strong);
+}
+
+/* Neutral - weak → medium → bold → strong */
+[data-level="0"] .text-neutral {
+  color: var(--neutral-on-background-weak);
+}
+[data-level="1"] .text-neutral {
+  color: var(--neutral-on-background-medium);
+}
+[data-level="2"] .text-neutral {
+  color: var(--neutral-on-background-bold);
+}
+[data-level="3"] .text-neutral,
+[data-level="4"] .text-neutral {
+  color: var(--neutral-on-background-strong);
 }

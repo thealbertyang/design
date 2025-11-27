@@ -1,0 +1,523 @@
+/*
+ * OKLCH Color System with color-mix() Derivation
+ *
+ * All color scales are derived from base colors using color-mix().
+ * This reduces 192+ hardcoded values to ~16 base definitions.
+ *
+ * Scale reference (Radix-inspired 1-12):
+ *   1-2:   Dark backgrounds
+ *   3-5:   UI element backgrounds
+ *   6-7:   Borders, muted text
+ *   8-10:  Solid backgrounds & text
+ *   11-12: High contrast text
+ */
+
+@layer primitives {
+  :root {
+    /* ════════════════════════════════════════════════════════════════════════
+       STATIC COLORS
+       ════════════════════════════════════════════════════════════════════════ */
+
+    --static-transparent: transparent;
+    --static-white: oklch(1 0 0);
+    --static-black: oklch(0 0 0);
+    --static-white-medium: oklch(1 0 0 / 0.3);
+    --static-black-medium: oklch(0 0 0 / 0.3);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       BASE COLORS - Single source of truth per hue
+       Each base is the "middle" of the scale (roughly step 6)
+       ════════════════════════════════════════════════════════════════════════ */
+
+    /*
+     * Base colors: Matched to original once-ui hex values (step 600)
+     * Values derived via hex-to-oklch conversion from upstream/main scheme.scss
+     * L=0.65-0.69 (lighter mid-tone), C=0.17-0.20 (moderate saturation)
+     */
+    --gray-base: oklch(0.67 0 var(--hue-gray));
+    --slate-base: oklch(0.67 0.03 var(--hue-slate));
+    --red-base: oklch(0.69 0.2 var(--hue-red));
+    --tomato-base: oklch(0.69 0.2 var(--hue-tomato));
+    --orange-base: oklch(0.69 0.2 var(--hue-orange));
+    --amber-base: oklch(0.69 0.2 var(--hue-amber));
+    --yellow-base: oklch(0.72 0.18 var(--hue-yellow));
+    --lime-base: oklch(0.7 0.2 var(--hue-lime));
+    --green-base: oklch(0.65 0.2 var(--hue-green));
+    --mint-base: oklch(0.67 0.18 var(--hue-mint));
+    --teal-base: oklch(0.67 0.18 var(--hue-teal));
+    --cyan-base: oklch(0.67 0.18 var(--hue-cyan));
+    --blue-base: oklch(0.67 0.17 var(--hue-blue));
+    --indigo-base: oklch(0.67 0.18 var(--hue-indigo));
+    --purple-base: oklch(0.69 0.19 var(--hue-purple));
+    --pink-base: oklch(0.69 0.18 var(--hue-pink));
+    --magenta-base: oklch(0.69 0.19 var(--hue-magenta));
+    --violet-base: oklch(0.69 0.19 var(--hue-violet));
+    --moss-base: oklch(0.65 0.18 var(--hue-moss));
+    --emerald-base: oklch(0.65 0.18 var(--hue-emerald));
+    --aqua-base: oklch(0.67 0.18 var(--hue-aqua));
+    --sand-base: oklch(0.67 0.08 var(--hue-sand));
+
+    /* ════════════════════════════════════════════════════════════════════════
+       GRAY SCALE - Derived via color-mix
+       ════════════════════════════════════════════════════════════════════════ */
+
+    --color-gray-1: color-mix(in oklch, var(--gray-base) 20%, black);
+    --color-gray-2: color-mix(in oklch, var(--gray-base) 30%, black);
+    --color-gray-3: color-mix(in oklch, var(--gray-base) 45%, black);
+    --color-gray-4: color-mix(in oklch, var(--gray-base) 58%, black);
+    --color-gray-5: color-mix(in oklch, var(--gray-base) 72%, black);
+    --color-gray-6: var(--gray-base);
+    --color-gray-7: color-mix(in oklch, var(--gray-base) 80%, white);
+    --color-gray-8: color-mix(in oklch, var(--gray-base) 60%, white);
+    --color-gray-9: color-mix(in oklch, var(--gray-base) 42%, white);
+    --color-gray-10: color-mix(in oklch, var(--gray-base) 30%, white);
+    --color-gray-11: color-mix(in oklch, var(--gray-base) 15%, white);
+    --color-gray-12: color-mix(in oklch, var(--gray-base) 8%, white);
+
+    /* Alpha variants */
+    --color-gray-6-50: color-mix(in oklch, var(--color-gray-6) 50%, transparent);
+    --color-gray-6-30: color-mix(in oklch, var(--color-gray-6) 30%, transparent);
+    --color-gray-6-15: color-mix(in oklch, var(--color-gray-6) 15%, transparent);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       SLATE SCALE
+       ════════════════════════════════════════════════════════════════════════ */
+
+    --color-slate-1: color-mix(in oklch, var(--slate-base) 20%, black);
+    --color-slate-2: color-mix(in oklch, var(--slate-base) 30%, black);
+    --color-slate-3: color-mix(in oklch, var(--slate-base) 45%, black);
+    --color-slate-4: color-mix(in oklch, var(--slate-base) 58%, black);
+    --color-slate-5: color-mix(in oklch, var(--slate-base) 72%, black);
+    --color-slate-6: var(--slate-base);
+    --color-slate-7: color-mix(in oklch, var(--slate-base) 80%, white);
+    --color-slate-8: color-mix(in oklch, var(--slate-base) 60%, white);
+    --color-slate-9: color-mix(in oklch, var(--slate-base) 42%, white);
+    --color-slate-10: color-mix(in oklch, var(--slate-base) 30%, white);
+    --color-slate-11: color-mix(in oklch, var(--slate-base) 15%, white);
+    --color-slate-12: color-mix(in oklch, var(--slate-base) 8%, white);
+
+    --color-slate-6-50: color-mix(in oklch, var(--color-slate-6) 50%, transparent);
+    --color-slate-6-30: color-mix(in oklch, var(--color-slate-6) 30%, transparent);
+    --color-slate-6-15: color-mix(in oklch, var(--color-slate-6) 15%, transparent);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       RED SCALE
+       ════════════════════════════════════════════════════════════════════════ */
+
+    --color-red-1: color-mix(in oklch, var(--red-base) 20%, black);
+    --color-red-2: color-mix(in oklch, var(--red-base) 30%, black);
+    --color-red-3: color-mix(in oklch, var(--red-base) 45%, black);
+    --color-red-4: color-mix(in oklch, var(--red-base) 58%, black);
+    --color-red-5: color-mix(in oklch, var(--red-base) 72%, black);
+    --color-red-6: var(--red-base);
+    --color-red-7: color-mix(in oklch, var(--red-base) 80%, white);
+    --color-red-8: color-mix(in oklch, var(--red-base) 60%, white);
+    --color-red-9: color-mix(in oklch, var(--red-base) 42%, white);
+    --color-red-10: color-mix(in oklch, var(--red-base) 30%, white);
+    --color-red-11: color-mix(in oklch, var(--red-base) 15%, white);
+    --color-red-12: color-mix(in oklch, var(--red-base) 8%, white);
+
+    --color-red-6-50: color-mix(in oklch, var(--color-red-6) 50%, transparent);
+    --color-red-6-30: color-mix(in oklch, var(--color-red-6) 30%, transparent);
+    --color-red-6-15: color-mix(in oklch, var(--color-red-6) 15%, transparent);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       TOMATO SCALE (Danger)
+       ════════════════════════════════════════════════════════════════════════ */
+
+    --color-tomato-1: color-mix(in oklch, var(--tomato-base) 20%, black);
+    --color-tomato-2: color-mix(in oklch, var(--tomato-base) 30%, black);
+    --color-tomato-3: color-mix(in oklch, var(--tomato-base) 45%, black);
+    --color-tomato-4: color-mix(in oklch, var(--tomato-base) 58%, black);
+    --color-tomato-5: color-mix(in oklch, var(--tomato-base) 72%, black);
+    --color-tomato-6: var(--tomato-base);
+    --color-tomato-7: color-mix(in oklch, var(--tomato-base) 80%, white);
+    --color-tomato-8: color-mix(in oklch, var(--tomato-base) 60%, white);
+    --color-tomato-9: color-mix(in oklch, var(--tomato-base) 42%, white);
+    --color-tomato-10: color-mix(in oklch, var(--tomato-base) 30%, white);
+    --color-tomato-11: color-mix(in oklch, var(--tomato-base) 15%, white);
+    --color-tomato-12: color-mix(in oklch, var(--tomato-base) 8%, white);
+
+    --color-tomato-6-50: color-mix(in oklch, var(--color-tomato-6) 50%, transparent);
+    --color-tomato-6-30: color-mix(in oklch, var(--color-tomato-6) 30%, transparent);
+    --color-tomato-6-15: color-mix(in oklch, var(--color-tomato-6) 15%, transparent);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       ORANGE SCALE
+       ════════════════════════════════════════════════════════════════════════ */
+
+    --color-orange-1: color-mix(in oklch, var(--orange-base) 20%, black);
+    --color-orange-2: color-mix(in oklch, var(--orange-base) 30%, black);
+    --color-orange-3: color-mix(in oklch, var(--orange-base) 45%, black);
+    --color-orange-4: color-mix(in oklch, var(--orange-base) 58%, black);
+    --color-orange-5: color-mix(in oklch, var(--orange-base) 72%, black);
+    --color-orange-6: var(--orange-base);
+    --color-orange-7: color-mix(in oklch, var(--orange-base) 80%, white);
+    --color-orange-8: color-mix(in oklch, var(--orange-base) 60%, white);
+    --color-orange-9: color-mix(in oklch, var(--orange-base) 42%, white);
+    --color-orange-10: color-mix(in oklch, var(--orange-base) 30%, white);
+    --color-orange-11: color-mix(in oklch, var(--orange-base) 15%, white);
+    --color-orange-12: color-mix(in oklch, var(--orange-base) 8%, white);
+
+    --color-orange-6-50: color-mix(in oklch, var(--color-orange-6) 50%, transparent);
+    --color-orange-6-30: color-mix(in oklch, var(--color-orange-6) 30%, transparent);
+    --color-orange-6-15: color-mix(in oklch, var(--color-orange-6) 15%, transparent);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       AMBER SCALE (Warning)
+       ════════════════════════════════════════════════════════════════════════ */
+
+    --color-amber-1: color-mix(in oklch, var(--amber-base) 20%, black);
+    --color-amber-2: color-mix(in oklch, var(--amber-base) 30%, black);
+    --color-amber-3: color-mix(in oklch, var(--amber-base) 45%, black);
+    --color-amber-4: color-mix(in oklch, var(--amber-base) 58%, black);
+    --color-amber-5: color-mix(in oklch, var(--amber-base) 72%, black);
+    --color-amber-6: var(--amber-base);
+    --color-amber-7: color-mix(in oklch, var(--amber-base) 80%, white);
+    --color-amber-8: color-mix(in oklch, var(--amber-base) 60%, white);
+    --color-amber-9: color-mix(in oklch, var(--amber-base) 42%, white);
+    --color-amber-10: color-mix(in oklch, var(--amber-base) 30%, white);
+    --color-amber-11: color-mix(in oklch, var(--amber-base) 15%, white);
+    --color-amber-12: color-mix(in oklch, var(--amber-base) 8%, white);
+
+    --color-amber-6-50: color-mix(in oklch, var(--color-amber-6) 50%, transparent);
+    --color-amber-6-30: color-mix(in oklch, var(--color-amber-6) 30%, transparent);
+    --color-amber-6-15: color-mix(in oklch, var(--color-amber-6) 15%, transparent);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       YELLOW SCALE
+       ════════════════════════════════════════════════════════════════════════ */
+
+    --color-yellow-1: color-mix(in oklch, var(--yellow-base) 20%, black);
+    --color-yellow-2: color-mix(in oklch, var(--yellow-base) 30%, black);
+    --color-yellow-3: color-mix(in oklch, var(--yellow-base) 45%, black);
+    --color-yellow-4: color-mix(in oklch, var(--yellow-base) 58%, black);
+    --color-yellow-5: color-mix(in oklch, var(--yellow-base) 72%, black);
+    --color-yellow-6: var(--yellow-base);
+    --color-yellow-7: color-mix(in oklch, var(--yellow-base) 80%, white);
+    --color-yellow-8: color-mix(in oklch, var(--yellow-base) 60%, white);
+    --color-yellow-9: color-mix(in oklch, var(--yellow-base) 42%, white);
+    --color-yellow-10: color-mix(in oklch, var(--yellow-base) 30%, white);
+    --color-yellow-11: color-mix(in oklch, var(--yellow-base) 15%, white);
+    --color-yellow-12: color-mix(in oklch, var(--yellow-base) 8%, white);
+
+    --color-yellow-6-50: color-mix(in oklch, var(--color-yellow-6) 50%, transparent);
+    --color-yellow-6-30: color-mix(in oklch, var(--color-yellow-6) 30%, transparent);
+    --color-yellow-6-15: color-mix(in oklch, var(--color-yellow-6) 15%, transparent);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       LIME SCALE
+       ════════════════════════════════════════════════════════════════════════ */
+
+    --color-lime-1: color-mix(in oklch, var(--lime-base) 20%, black);
+    --color-lime-2: color-mix(in oklch, var(--lime-base) 30%, black);
+    --color-lime-3: color-mix(in oklch, var(--lime-base) 45%, black);
+    --color-lime-4: color-mix(in oklch, var(--lime-base) 58%, black);
+    --color-lime-5: color-mix(in oklch, var(--lime-base) 72%, black);
+    --color-lime-6: var(--lime-base);
+    --color-lime-7: color-mix(in oklch, var(--lime-base) 80%, white);
+    --color-lime-8: color-mix(in oklch, var(--lime-base) 60%, white);
+    --color-lime-9: color-mix(in oklch, var(--lime-base) 42%, white);
+    --color-lime-10: color-mix(in oklch, var(--lime-base) 30%, white);
+    --color-lime-11: color-mix(in oklch, var(--lime-base) 15%, white);
+    --color-lime-12: color-mix(in oklch, var(--lime-base) 8%, white);
+
+    --color-lime-6-50: color-mix(in oklch, var(--color-lime-6) 50%, transparent);
+    --color-lime-6-30: color-mix(in oklch, var(--color-lime-6) 30%, transparent);
+    --color-lime-6-15: color-mix(in oklch, var(--color-lime-6) 15%, transparent);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       GREEN SCALE (Success)
+       ════════════════════════════════════════════════════════════════════════ */
+
+    --color-green-1: color-mix(in oklch, var(--green-base) 20%, black);
+    --color-green-2: color-mix(in oklch, var(--green-base) 30%, black);
+    --color-green-3: color-mix(in oklch, var(--green-base) 45%, black);
+    --color-green-4: color-mix(in oklch, var(--green-base) 58%, black);
+    --color-green-5: color-mix(in oklch, var(--green-base) 72%, black);
+    --color-green-6: var(--green-base);
+    --color-green-7: color-mix(in oklch, var(--green-base) 80%, white);
+    --color-green-8: color-mix(in oklch, var(--green-base) 60%, white);
+    --color-green-9: color-mix(in oklch, var(--green-base) 42%, white);
+    --color-green-10: color-mix(in oklch, var(--green-base) 30%, white);
+    --color-green-11: color-mix(in oklch, var(--green-base) 15%, white);
+    --color-green-12: color-mix(in oklch, var(--green-base) 8%, white);
+
+    --color-green-6-50: color-mix(in oklch, var(--color-green-6) 50%, transparent);
+    --color-green-6-30: color-mix(in oklch, var(--color-green-6) 30%, transparent);
+    --color-green-6-15: color-mix(in oklch, var(--color-green-6) 15%, transparent);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       MINT SCALE
+       ════════════════════════════════════════════════════════════════════════ */
+
+    --color-mint-1: color-mix(in oklch, var(--mint-base) 20%, black);
+    --color-mint-2: color-mix(in oklch, var(--mint-base) 30%, black);
+    --color-mint-3: color-mix(in oklch, var(--mint-base) 45%, black);
+    --color-mint-4: color-mix(in oklch, var(--mint-base) 58%, black);
+    --color-mint-5: color-mix(in oklch, var(--mint-base) 72%, black);
+    --color-mint-6: var(--mint-base);
+    --color-mint-7: color-mix(in oklch, var(--mint-base) 80%, white);
+    --color-mint-8: color-mix(in oklch, var(--mint-base) 60%, white);
+    --color-mint-9: color-mix(in oklch, var(--mint-base) 42%, white);
+    --color-mint-10: color-mix(in oklch, var(--mint-base) 30%, white);
+    --color-mint-11: color-mix(in oklch, var(--mint-base) 15%, white);
+    --color-mint-12: color-mix(in oklch, var(--mint-base) 8%, white);
+
+    --color-mint-6-50: color-mix(in oklch, var(--color-mint-6) 50%, transparent);
+    --color-mint-6-30: color-mix(in oklch, var(--color-mint-6) 30%, transparent);
+    --color-mint-6-15: color-mix(in oklch, var(--color-mint-6) 15%, transparent);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       TEAL SCALE
+       ════════════════════════════════════════════════════════════════════════ */
+
+    --color-teal-1: color-mix(in oklch, var(--teal-base) 20%, black);
+    --color-teal-2: color-mix(in oklch, var(--teal-base) 30%, black);
+    --color-teal-3: color-mix(in oklch, var(--teal-base) 45%, black);
+    --color-teal-4: color-mix(in oklch, var(--teal-base) 58%, black);
+    --color-teal-5: color-mix(in oklch, var(--teal-base) 72%, black);
+    --color-teal-6: var(--teal-base);
+    --color-teal-7: color-mix(in oklch, var(--teal-base) 80%, white);
+    --color-teal-8: color-mix(in oklch, var(--teal-base) 60%, white);
+    --color-teal-9: color-mix(in oklch, var(--teal-base) 42%, white);
+    --color-teal-10: color-mix(in oklch, var(--teal-base) 30%, white);
+    --color-teal-11: color-mix(in oklch, var(--teal-base) 15%, white);
+    --color-teal-12: color-mix(in oklch, var(--teal-base) 8%, white);
+
+    --color-teal-6-50: color-mix(in oklch, var(--color-teal-6) 50%, transparent);
+    --color-teal-6-30: color-mix(in oklch, var(--color-teal-6) 30%, transparent);
+    --color-teal-6-15: color-mix(in oklch, var(--color-teal-6) 15%, transparent);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       CYAN SCALE
+       ════════════════════════════════════════════════════════════════════════ */
+
+    --color-cyan-1: color-mix(in oklch, var(--cyan-base) 20%, black);
+    --color-cyan-2: color-mix(in oklch, var(--cyan-base) 30%, black);
+    --color-cyan-3: color-mix(in oklch, var(--cyan-base) 45%, black);
+    --color-cyan-4: color-mix(in oklch, var(--cyan-base) 58%, black);
+    --color-cyan-5: color-mix(in oklch, var(--cyan-base) 72%, black);
+    --color-cyan-6: var(--cyan-base);
+    --color-cyan-7: color-mix(in oklch, var(--cyan-base) 80%, white);
+    --color-cyan-8: color-mix(in oklch, var(--cyan-base) 60%, white);
+    --color-cyan-9: color-mix(in oklch, var(--cyan-base) 42%, white);
+    --color-cyan-10: color-mix(in oklch, var(--cyan-base) 30%, white);
+    --color-cyan-11: color-mix(in oklch, var(--cyan-base) 15%, white);
+    --color-cyan-12: color-mix(in oklch, var(--cyan-base) 8%, white);
+
+    --color-cyan-6-50: color-mix(in oklch, var(--color-cyan-6) 50%, transparent);
+    --color-cyan-6-30: color-mix(in oklch, var(--color-cyan-6) 30%, transparent);
+    --color-cyan-6-15: color-mix(in oklch, var(--color-cyan-6) 15%, transparent);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       BLUE SCALE (Brand/Info)
+       ════════════════════════════════════════════════════════════════════════ */
+
+    --color-blue-1: color-mix(in oklch, var(--blue-base) 20%, black);
+    --color-blue-2: color-mix(in oklch, var(--blue-base) 30%, black);
+    --color-blue-3: color-mix(in oklch, var(--blue-base) 45%, black);
+    --color-blue-4: color-mix(in oklch, var(--blue-base) 58%, black);
+    --color-blue-5: color-mix(in oklch, var(--blue-base) 72%, black);
+    --color-blue-6: var(--blue-base);
+    --color-blue-7: color-mix(in oklch, var(--blue-base) 80%, white);
+    --color-blue-8: color-mix(in oklch, var(--blue-base) 60%, white);
+    --color-blue-9: color-mix(in oklch, var(--blue-base) 42%, white);
+    --color-blue-10: color-mix(in oklch, var(--blue-base) 30%, white);
+    --color-blue-11: color-mix(in oklch, var(--blue-base) 15%, white);
+    --color-blue-12: color-mix(in oklch, var(--blue-base) 8%, white);
+
+    --color-blue-6-50: color-mix(in oklch, var(--color-blue-6) 50%, transparent);
+    --color-blue-6-30: color-mix(in oklch, var(--color-blue-6) 30%, transparent);
+    --color-blue-6-15: color-mix(in oklch, var(--color-blue-6) 15%, transparent);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       INDIGO SCALE
+       ════════════════════════════════════════════════════════════════════════ */
+
+    --color-indigo-1: color-mix(in oklch, var(--indigo-base) 20%, black);
+    --color-indigo-2: color-mix(in oklch, var(--indigo-base) 30%, black);
+    --color-indigo-3: color-mix(in oklch, var(--indigo-base) 45%, black);
+    --color-indigo-4: color-mix(in oklch, var(--indigo-base) 58%, black);
+    --color-indigo-5: color-mix(in oklch, var(--indigo-base) 72%, black);
+    --color-indigo-6: var(--indigo-base);
+    --color-indigo-7: color-mix(in oklch, var(--indigo-base) 80%, white);
+    --color-indigo-8: color-mix(in oklch, var(--indigo-base) 60%, white);
+    --color-indigo-9: color-mix(in oklch, var(--indigo-base) 42%, white);
+    --color-indigo-10: color-mix(in oklch, var(--indigo-base) 30%, white);
+    --color-indigo-11: color-mix(in oklch, var(--indigo-base) 15%, white);
+    --color-indigo-12: color-mix(in oklch, var(--indigo-base) 8%, white);
+
+    --color-indigo-6-50: color-mix(in oklch, var(--color-indigo-6) 50%, transparent);
+    --color-indigo-6-30: color-mix(in oklch, var(--color-indigo-6) 30%, transparent);
+    --color-indigo-6-15: color-mix(in oklch, var(--color-indigo-6) 15%, transparent);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       PURPLE SCALE (Accent)
+       ════════════════════════════════════════════════════════════════════════ */
+
+    --color-purple-1: color-mix(in oklch, var(--purple-base) 20%, black);
+    --color-purple-2: color-mix(in oklch, var(--purple-base) 30%, black);
+    --color-purple-3: color-mix(in oklch, var(--purple-base) 45%, black);
+    --color-purple-4: color-mix(in oklch, var(--purple-base) 58%, black);
+    --color-purple-5: color-mix(in oklch, var(--purple-base) 72%, black);
+    --color-purple-6: var(--purple-base);
+    --color-purple-7: color-mix(in oklch, var(--purple-base) 80%, white);
+    --color-purple-8: color-mix(in oklch, var(--purple-base) 60%, white);
+    --color-purple-9: color-mix(in oklch, var(--purple-base) 42%, white);
+    --color-purple-10: color-mix(in oklch, var(--purple-base) 30%, white);
+    --color-purple-11: color-mix(in oklch, var(--purple-base) 15%, white);
+    --color-purple-12: color-mix(in oklch, var(--purple-base) 8%, white);
+
+    --color-purple-6-50: color-mix(in oklch, var(--color-purple-6) 50%, transparent);
+    --color-purple-6-30: color-mix(in oklch, var(--color-purple-6) 30%, transparent);
+    --color-purple-6-15: color-mix(in oklch, var(--color-purple-6) 15%, transparent);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       PINK SCALE
+       ════════════════════════════════════════════════════════════════════════ */
+
+    --color-pink-1: color-mix(in oklch, var(--pink-base) 20%, black);
+    --color-pink-2: color-mix(in oklch, var(--pink-base) 30%, black);
+    --color-pink-3: color-mix(in oklch, var(--pink-base) 45%, black);
+    --color-pink-4: color-mix(in oklch, var(--pink-base) 58%, black);
+    --color-pink-5: color-mix(in oklch, var(--pink-base) 72%, black);
+    --color-pink-6: var(--pink-base);
+    --color-pink-7: color-mix(in oklch, var(--pink-base) 80%, white);
+    --color-pink-8: color-mix(in oklch, var(--pink-base) 60%, white);
+    --color-pink-9: color-mix(in oklch, var(--pink-base) 42%, white);
+    --color-pink-10: color-mix(in oklch, var(--pink-base) 30%, white);
+    --color-pink-11: color-mix(in oklch, var(--pink-base) 15%, white);
+    --color-pink-12: color-mix(in oklch, var(--pink-base) 8%, white);
+
+    --color-pink-6-50: color-mix(in oklch, var(--color-pink-6) 50%, transparent);
+    --color-pink-6-30: color-mix(in oklch, var(--color-pink-6) 30%, transparent);
+    --color-pink-6-15: color-mix(in oklch, var(--color-pink-6) 15%, transparent);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       MAGENTA SCALE
+       ════════════════════════════════════════════════════════════════════════ */
+
+    --color-magenta-1: color-mix(in oklch, var(--magenta-base) 20%, black);
+    --color-magenta-2: color-mix(in oklch, var(--magenta-base) 30%, black);
+    --color-magenta-3: color-mix(in oklch, var(--magenta-base) 45%, black);
+    --color-magenta-4: color-mix(in oklch, var(--magenta-base) 58%, black);
+    --color-magenta-5: color-mix(in oklch, var(--magenta-base) 72%, black);
+    --color-magenta-6: var(--magenta-base);
+    --color-magenta-7: color-mix(in oklch, var(--magenta-base) 80%, white);
+    --color-magenta-8: color-mix(in oklch, var(--magenta-base) 60%, white);
+    --color-magenta-9: color-mix(in oklch, var(--magenta-base) 42%, white);
+    --color-magenta-10: color-mix(in oklch, var(--magenta-base) 30%, white);
+    --color-magenta-11: color-mix(in oklch, var(--magenta-base) 15%, white);
+    --color-magenta-12: color-mix(in oklch, var(--magenta-base) 8%, white);
+
+    --color-magenta-6-50: color-mix(in oklch, var(--color-magenta-6) 50%, transparent);
+    --color-magenta-6-30: color-mix(in oklch, var(--color-magenta-6) 30%, transparent);
+    --color-magenta-6-15: color-mix(in oklch, var(--color-magenta-6) 15%, transparent);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       VIOLET SCALE
+       ════════════════════════════════════════════════════════════════════════ */
+
+    --color-violet-1: color-mix(in oklch, var(--violet-base) 20%, black);
+    --color-violet-2: color-mix(in oklch, var(--violet-base) 30%, black);
+    --color-violet-3: color-mix(in oklch, var(--violet-base) 45%, black);
+    --color-violet-4: color-mix(in oklch, var(--violet-base) 58%, black);
+    --color-violet-5: color-mix(in oklch, var(--violet-base) 72%, black);
+    --color-violet-6: var(--violet-base);
+    --color-violet-7: color-mix(in oklch, var(--violet-base) 80%, white);
+    --color-violet-8: color-mix(in oklch, var(--violet-base) 60%, white);
+    --color-violet-9: color-mix(in oklch, var(--violet-base) 42%, white);
+    --color-violet-10: color-mix(in oklch, var(--violet-base) 30%, white);
+    --color-violet-11: color-mix(in oklch, var(--violet-base) 15%, white);
+    --color-violet-12: color-mix(in oklch, var(--violet-base) 8%, white);
+
+    --color-violet-6-50: color-mix(in oklch, var(--color-violet-6) 50%, transparent);
+    --color-violet-6-30: color-mix(in oklch, var(--color-violet-6) 30%, transparent);
+    --color-violet-6-15: color-mix(in oklch, var(--color-violet-6) 15%, transparent);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       MOSS SCALE
+       ════════════════════════════════════════════════════════════════════════ */
+
+    --color-moss-1: color-mix(in oklch, var(--moss-base) 20%, black);
+    --color-moss-2: color-mix(in oklch, var(--moss-base) 30%, black);
+    --color-moss-3: color-mix(in oklch, var(--moss-base) 45%, black);
+    --color-moss-4: color-mix(in oklch, var(--moss-base) 58%, black);
+    --color-moss-5: color-mix(in oklch, var(--moss-base) 72%, black);
+    --color-moss-6: var(--moss-base);
+    --color-moss-7: color-mix(in oklch, var(--moss-base) 80%, white);
+    --color-moss-8: color-mix(in oklch, var(--moss-base) 60%, white);
+    --color-moss-9: color-mix(in oklch, var(--moss-base) 42%, white);
+    --color-moss-10: color-mix(in oklch, var(--moss-base) 30%, white);
+    --color-moss-11: color-mix(in oklch, var(--moss-base) 15%, white);
+    --color-moss-12: color-mix(in oklch, var(--moss-base) 8%, white);
+
+    --color-moss-6-50: color-mix(in oklch, var(--color-moss-6) 50%, transparent);
+    --color-moss-6-30: color-mix(in oklch, var(--color-moss-6) 30%, transparent);
+    --color-moss-6-15: color-mix(in oklch, var(--color-moss-6) 15%, transparent);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       EMERALD SCALE
+       ════════════════════════════════════════════════════════════════════════ */
+
+    --color-emerald-1: color-mix(in oklch, var(--emerald-base) 20%, black);
+    --color-emerald-2: color-mix(in oklch, var(--emerald-base) 30%, black);
+    --color-emerald-3: color-mix(in oklch, var(--emerald-base) 45%, black);
+    --color-emerald-4: color-mix(in oklch, var(--emerald-base) 58%, black);
+    --color-emerald-5: color-mix(in oklch, var(--emerald-base) 72%, black);
+    --color-emerald-6: var(--emerald-base);
+    --color-emerald-7: color-mix(in oklch, var(--emerald-base) 80%, white);
+    --color-emerald-8: color-mix(in oklch, var(--emerald-base) 60%, white);
+    --color-emerald-9: color-mix(in oklch, var(--emerald-base) 42%, white);
+    --color-emerald-10: color-mix(in oklch, var(--emerald-base) 30%, white);
+    --color-emerald-11: color-mix(in oklch, var(--emerald-base) 15%, white);
+    --color-emerald-12: color-mix(in oklch, var(--emerald-base) 8%, white);
+
+    --color-emerald-6-50: color-mix(in oklch, var(--color-emerald-6) 50%, transparent);
+    --color-emerald-6-30: color-mix(in oklch, var(--color-emerald-6) 30%, transparent);
+    --color-emerald-6-15: color-mix(in oklch, var(--color-emerald-6) 15%, transparent);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       AQUA SCALE
+       ════════════════════════════════════════════════════════════════════════ */
+
+    --color-aqua-1: color-mix(in oklch, var(--aqua-base) 20%, black);
+    --color-aqua-2: color-mix(in oklch, var(--aqua-base) 30%, black);
+    --color-aqua-3: color-mix(in oklch, var(--aqua-base) 45%, black);
+    --color-aqua-4: color-mix(in oklch, var(--aqua-base) 58%, black);
+    --color-aqua-5: color-mix(in oklch, var(--aqua-base) 72%, black);
+    --color-aqua-6: var(--aqua-base);
+    --color-aqua-7: color-mix(in oklch, var(--aqua-base) 80%, white);
+    --color-aqua-8: color-mix(in oklch, var(--aqua-base) 60%, white);
+    --color-aqua-9: color-mix(in oklch, var(--aqua-base) 42%, white);
+    --color-aqua-10: color-mix(in oklch, var(--aqua-base) 30%, white);
+    --color-aqua-11: color-mix(in oklch, var(--aqua-base) 15%, white);
+    --color-aqua-12: color-mix(in oklch, var(--aqua-base) 8%, white);
+
+    --color-aqua-6-50: color-mix(in oklch, var(--color-aqua-6) 50%, transparent);
+    --color-aqua-6-30: color-mix(in oklch, var(--color-aqua-6) 30%, transparent);
+    --color-aqua-6-15: color-mix(in oklch, var(--color-aqua-6) 15%, transparent);
+
+    /* ════════════════════════════════════════════════════════════════════════
+       SAND SCALE (warm neutral)
+       ════════════════════════════════════════════════════════════════════════ */
+
+    --color-sand-1: color-mix(in oklch, var(--sand-base) 20%, black);
+    --color-sand-2: color-mix(in oklch, var(--sand-base) 30%, black);
+    --color-sand-3: color-mix(in oklch, var(--sand-base) 45%, black);
+    --color-sand-4: color-mix(in oklch, var(--sand-base) 58%, black);
+    --color-sand-5: color-mix(in oklch, var(--sand-base) 72%, black);
+    --color-sand-6: var(--sand-base);
+    --color-sand-7: color-mix(in oklch, var(--sand-base) 80%, white);
+    --color-sand-8: color-mix(in oklch, var(--sand-base) 60%, white);
+    --color-sand-9: color-mix(in oklch, var(--sand-base) 42%, white);
+    --color-sand-10: color-mix(in oklch, var(--sand-base) 30%, white);
+    --color-sand-11: color-mix(in oklch, var(--sand-base) 15%, white);
+    --color-sand-12: color-mix(in oklch, var(--sand-base) 8%, white);
+
+    --color-sand-6-50: color-mix(in oklch, var(--color-sand-6) 50%, transparent);
+    --color-sand-6-30: color-mix(in oklch, var(--color-sand-6) 30%, transparent);
+    --color-sand-6-15: color-mix(in oklch, var(--color-sand-6) 15%, transparent);
+  }
+}

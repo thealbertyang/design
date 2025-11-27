@@ -1,3 +1,10 @@
+/*
+ * Data Visualization Colors
+ *
+ * Provides themed color palettes for charts and data visualizations.
+ * Supports categorical, divergent, and sequential color schemes.
+ */
+
 [data-theme="dark"] {
   --data-blue: var(--scheme-blue-400);
   --data-aqua: var(--scheme-aqua-400);
@@ -35,19 +42,19 @@
 }
 
 [data-theme="dark"] [data-viz-style="sequential"] {
-  --data-blue: var(--function-brand-200);
-  --data-aqua: var(--function-brand-300);
-  --data-magenta: var(--function-brand-400);
-  --data-pink: var(--function-brand-500);
-  --data-yellow: var(--function-brand-600);
-  --data-orange: var(--function-brand-700);
-  --data-red: var(--function-brand-800);
-  --data-moss: var(--function-brand-900);
-  --data-green: var(--function-brand-1000);
-  --data-emerald: var(--function-brand-1100);
-  --data-cyan: var(--function-brand-1200);
-  --data-violet: var(--function-brand-1200);
-  --data-indigo: var(--function-brand-1200);
+  --data-blue: var(--function-brand-2);
+  --data-aqua: var(--function-brand-3);
+  --data-magenta: var(--function-brand-4);
+  --data-pink: var(--function-brand-5);
+  --data-yellow: var(--function-brand-6);
+  --data-orange: var(--function-brand-7);
+  --data-red: var(--function-brand-8);
+  --data-moss: var(--function-brand-9);
+  --data-green: var(--function-brand-10);
+  --data-emerald: var(--function-brand-11);
+  --data-cyan: var(--function-brand-12);
+  --data-violet: var(--function-brand-12);
+  --data-indigo: var(--function-brand-12);
   --data-gray: var(--scheme-gray-400);
   --data-contrast: var(--static-white);
 }
@@ -89,19 +96,19 @@
 }
 
 [data-theme="light"] [data-viz-style="sequential"] {
-  --data-blue: var(--function-brand-200);
-  --data-aqua: var(--function-brand-200);
-  --data-magenta: var(--function-brand-200);
-  --data-pink: var(--function-brand-300);
-  --data-yellow: var(--function-brand-400);
-  --data-orange: var(--function-brand-500);
-  --data-red: var(--function-brand-600);
-  --data-moss: var(--function-brand-700);
-  --data-green: var(--function-brand-800);
-  --data-emerald: var(--function-brand-900);
-  --data-cyan: var(--function-brand-1000);
-  --data-violet: var(--function-brand-1100);
-  --data-indigo: var(--function-brand-1100);
+  --data-blue: var(--function-brand-2);
+  --data-aqua: var(--function-brand-2);
+  --data-magenta: var(--function-brand-2);
+  --data-pink: var(--function-brand-3);
+  --data-yellow: var(--function-brand-4);
+  --data-orange: var(--function-brand-5);
+  --data-red: var(--function-brand-6);
+  --data-moss: var(--function-brand-7);
+  --data-green: var(--function-brand-8);
+  --data-emerald: var(--function-brand-9);
+  --data-cyan: var(--function-brand-10);
+  --data-violet: var(--function-brand-11);
+  --data-indigo: var(--function-brand-11);
   --data-gray: var(--scheme-gray-400);
   --data-contrast: var(--static-black);
 }
