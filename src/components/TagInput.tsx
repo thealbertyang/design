@@ -3,7 +3,6 @@
 import React, {
   type ChangeEventHandler,
   type FocusEventHandler,
-  forwardRef,
   type KeyboardEventHandler,
   useState,
 } from "react";
@@ -13,78 +12,77 @@ import { Chip, Flex, Input, type InputProps } from ".";
 interface TagInputProps extends Omit<InputProps, "onChange" | "value"> {
   value: string[];
   onChange: (value: string[]) => void;
+  ref?: React.Ref<HTMLInputElement>;
 }
 
-const TagInput = forwardRef<HTMLInputElement, TagInputProps>(
-  ({ value, onChange, label, placeholder, ...inputProps }, ref) => {
-    const [inputValue, setInputValue] = useState("");
-    const [isFocused, setIsFocused] = useState(false);
+function TagInput({ value, onChange, label, placeholder, ref, ...inputProps }: TagInputProps) {
+  const [inputValue, setInputValue] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
 
-    const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-      setInputValue(e.target.value);
-    };
+  const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setInputValue(e.target.value);
+  };
 
-    const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
-      if (e.key === "Enter" || e.key === ",") {
-        e.preventDefault();
-        if (inputValue.trim()) {
-          onChange([...value, inputValue.trim()]);
-          setInputValue("");
-        }
+  const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
+    if (e.key === "Enter" || e.key === ",") {
+      e.preventDefault();
+      if (inputValue.trim()) {
+        onChange([...value, inputValue.trim()]);
+        setInputValue("");
       }
-    };
+    }
+  };
 
-    const handleRemoveTag = (index: number) => {
-      const newValue = value.filter((_, i) => i !== index);
-      onChange(newValue);
-    };
+  const handleRemoveTag = (index: number) => {
+    const newValue = value.filter((_, i) => i !== index);
+    onChange(newValue);
+  };
 
-    const handleFocus: FocusEventHandler<HTMLInputElement> = () => {
-      setIsFocused(true);
-    };
+  const handleFocus: FocusEventHandler<HTMLInputElement> = () => {
+    setIsFocused(true);
+  };
 
-    const handleBlur: FocusEventHandler<HTMLInputElement> = (e) => {
-      setIsFocused(false);
-    };
+  const handleBlur: FocusEventHandler<HTMLInputElement> = (_e) => {
+    setIsFocused(false);
+  };
 
-    return (
-      <Input
-        ref={ref}
-        label={label}
-        placeholder={placeholder}
-        value={inputValue}
-        onChange={handleInputChange}
-        onKeyDown={handleKeyDown}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        aria-haspopup="listbox"
-        aria-expanded={isFocused}
-        {...inputProps}
-      >
-        {value.length > 0 && (
-          <Flex
-            style={{
-              margin: "calc(-1 * var(--static-space-8)) var(--static-space-8)",
-            }}
-            gap="4"
-            vertical="center"
-            wrap
-            paddingY="16"
-          >
-            {value.map((tag, index) => (
-              <Chip
-                key={index}
-                label={tag}
-                onRemove={() => handleRemoveTag(index)}
-                aria-label={`Remove tag ${tag}`}
-              />
-            ))}
-          </Flex>
-        )}
-      </Input>
-    );
-  },
-);
+  return (
+    <Input
+      ref={ref}
+      label={label}
+      placeholder={placeholder}
+      value={inputValue}
+      onChange={handleInputChange}
+      onKeyDown={handleKeyDown}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      aria-haspopup="listbox"
+      aria-expanded={isFocused}
+      {...inputProps}
+    >
+      {value.length > 0 && (
+        <Flex
+          style={{
+            margin: "calc(-1 * var(--static-space-8)) var(--static-space-8)",
+          }}
+          gap="4"
+          vertical="center"
+          wrap
+          paddingY="16"
+        >
+          {value.map((tag, index) => (
+            <Chip
+              key={index}
+              label={tag}
+              onRemove={() => handleRemoveTag(index)}
+              aria-label={`Remove tag ${tag}`}
+            />
+          ))}
+        </Flex>
+      )}
+    </Input>
+  );
+}
 
 TagInput.displayName = "TagInput";
 

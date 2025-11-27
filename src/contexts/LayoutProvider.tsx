@@ -1,7 +1,16 @@
 "use client";
 
 import type React from "react";
-import { createContext, type ReactNode, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  type ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 // Default breakpoints
 export const DEFAULT_BREAKPOINTS = {
@@ -36,66 +45,65 @@ const LayoutProvider: React.FC<LayoutProviderProps> = ({
   children,
   breakpoints: customBreakpoints,
 }) => {
-  // Merge custom breakpoints with defaults
-  const breakpoints: Breakpoints = {
-    ...DEFAULT_BREAKPOINTS,
-    ...customBreakpoints,
-  };
+  // Memoize merged breakpoints to prevent recreation on every render
+  const breakpoints = useMemo<Breakpoints>(
+    () => ({
+      ...DEFAULT_BREAKPOINTS,
+      ...customBreakpoints,
+    }),
+    [customBreakpoints],
+  );
 
   const [width, setWidth] = useState<number>(0);
   const [currentBreakpoint, setCurrentBreakpoint] = useState<BreakpointKey>("l");
 
+  // Use ref to track breakpoints for useEffect without causing re-runs
+  const breakpointsRef = useRef(breakpoints);
+  breakpointsRef.current = breakpoints;
+
   // Determine current breakpoint based on width
-  const getCurrentBreakpoint = (width: number): BreakpointKey => {
-    if (width <= breakpoints.xs) return "xs";
-    if (width <= breakpoints.s) return "s";
-    if (width <= breakpoints.m) return "m";
-    if (width <= breakpoints.l) return "l";
+  const getCurrentBreakpoint = useCallback((w: number): BreakpointKey => {
+    const bp = breakpointsRef.current;
+    if (w <= bp.xs) return "xs";
+    if (w <= bp.s) return "s";
+    if (w <= bp.m) return "m";
+    if (w <= bp.l) return "l";
     return "xl";
-  };
+  }, []);
 
-  // Check if current breakpoint matches the given key
-  const isBreakpoint = (key: BreakpointKey): boolean => {
-    return currentBreakpoint === key;
-  };
+  // Memoized callback: Check if current breakpoint matches the given key
+  const isBreakpoint = useCallback(
+    (key: BreakpointKey): boolean => currentBreakpoint === key,
+    [currentBreakpoint],
+  );
 
-  // Check if current width is at or below the given breakpoint (max-width)
-  const maxWidth = (key: BreakpointKey): boolean => {
-    return width <= breakpoints[key];
-  };
+  // Memoized callback: Check if current width is at or below the given breakpoint (max-width)
+  const maxWidth = useCallback(
+    (key: BreakpointKey): boolean => width <= breakpoints[key],
+    [width, breakpoints],
+  );
 
-  // Check if current width is above the given breakpoint (min-width)
-  const minWidth = (key: BreakpointKey): boolean => {
-    return width > breakpoints[key];
-  };
+  // Memoized callback: Check if current width is above the given breakpoint (min-width)
+  const minWidth = useCallback(
+    (key: BreakpointKey): boolean => width > breakpoints[key],
+    [width, breakpoints],
+  );
 
-  const isDefaultBreakpoints = (): boolean => {
-    return JSON.stringify(breakpoints) === JSON.stringify(DEFAULT_BREAKPOINTS);
-  };
+  // Memoized callback: Check if using default breakpoints
+  const isDefaultBreakpoints = useCallback(
+    (): boolean => JSON.stringify(breakpoints) === JSON.stringify(DEFAULT_BREAKPOINTS),
+    [breakpoints],
+  );
 
   useEffect(() => {
-    // Update CSS custom properties (Not usable because of media queries)
-    // This part is commented out because CSS custom properties cannot be used with media queries in this
-    //const root = document.documentElement;
-    //Object.entries(breakpoints).forEach(([key, value]) => {
-    //    if (value !== Infinity) {
-    //        root.style.setProperty(`--breakpoint-${key}`, `${value}px`);
-    //    }
-    //});
-
-    // Initialize width
+    // Initialize width and handle resize
     const updateWidth = () => {
       const newWidth = window.innerWidth;
       const newBreakpoint = getCurrentBreakpoint(newWidth);
 
-      // Only update state if breakpoint actually changed
-      setWidth(newWidth);
-      setCurrentBreakpoint((prev) => {
-        if (prev !== newBreakpoint) {
-          return newBreakpoint;
-        }
-        return prev;
-      });
+      // Batch state updates - only update if values changed
+      setWidth((prevWidth) => (prevWidth !== newWidth ? newWidth : prevWidth));
+      setCurrentBreakpoint((prev) => (prev !== newBreakpoint ? newBreakpoint : prev));
     };
 
     // Debounce resize handler
@@ -115,17 +123,21 @@ const LayoutProvider: React.FC<LayoutProviderProps> = ({
       clearTimeout(timeoutId);
       window.removeEventListener("resize", debouncedUpdateWidth);
     };
-  }, [breakpoints]);
+  }, [getCurrentBreakpoint]);
 
-  const value: LayoutContextType = {
-    currentBreakpoint,
-    width,
-    breakpoints,
-    isDefaultBreakpoints,
-    isBreakpoint,
-    maxWidth,
-    minWidth,
-  };
+  // Memoize context value to prevent unnecessary re-renders of consumers
+  const value = useMemo<LayoutContextType>(
+    () => ({
+      currentBreakpoint,
+      width,
+      breakpoints,
+      isDefaultBreakpoints,
+      isBreakpoint,
+      maxWidth,
+      minWidth,
+    }),
+    [currentBreakpoint, width, breakpoints, isDefaultBreakpoints, isBreakpoint, maxWidth, minWidth],
+  );
 
   return <LayoutContext.Provider value={value}>{children}</LayoutContext.Provider>;
 };

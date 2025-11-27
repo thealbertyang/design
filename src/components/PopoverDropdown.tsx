@@ -1,7 +1,8 @@
 "use client";
 
 import type React from "react";
-import { forwardRef, type ReactNode, useId } from "react";
+import type { ReactNode } from "react";
+import { useId } from "react";
 import { Dropdown } from ".";
 import styles from "./PopoverDropdown.module.css";
 
@@ -46,6 +47,8 @@ export interface PopoverDropdownProps {
   dropdownId?: string;
   /** Disable trigger click (for manual control) */
   disableTriggerClick?: boolean;
+  /** Ref to the container element */
+  ref?: React.Ref<HTMLDivElement>;
 }
 
 /**
@@ -62,73 +65,69 @@ export interface PopoverDropdownProps {
  * Use this for simple dropdowns. For complex dropdowns with keyboard navigation,
  * focus trapping, and accessibility features, use DropdownWrapper instead.
  */
-const PopoverDropdown = forwardRef<HTMLDivElement, PopoverDropdownProps>(
-  (
-    {
-      trigger,
-      dropdown,
-      selectedOption,
-      minHeight,
-      onSelect,
-      minWidth,
-      maxWidth,
-      fillWidth = false,
-      placement = "bottom-start",
-      className,
-      style,
-      dropdownId,
-      disableTriggerClick = false,
-    },
-    ref,
-  ) => {
-    const id = useId();
-    const popoverId = dropdownId || id;
-    const anchorId = `anchor-${id}`;
+function PopoverDropdown({
+  trigger,
+  dropdown,
+  selectedOption,
+  minHeight,
+  onSelect,
+  minWidth,
+  maxWidth,
+  fillWidth = false,
+  placement = "bottom-start",
+  className,
+  style,
+  dropdownId,
+  disableTriggerClick = false,
+  ref,
+}: PopoverDropdownProps) {
+  const id = useId();
+  const popoverId = dropdownId || id;
+  const anchorId = `anchor-${id}`;
 
-    const containerStyle = {
-      ...style,
-      anchorName: `--${anchorId}`,
-      display: fillWidth ? "block" : "inline-block",
-      width: fillWidth ? "100%" : "auto",
-    } as React.CSSProperties;
+  const containerStyle = {
+    ...style,
+    anchorName: `--${anchorId}`,
+    display: fillWidth ? "block" : "inline-block",
+    width: fillWidth ? "100%" : "auto",
+  } as React.CSSProperties;
 
-    const popoverStyle = {
-      ...(minWidth && { "--min-width": `${minWidth}rem` }),
-      ...(maxWidth && { "--max-width": `${maxWidth}rem` }),
-      ...(minHeight && { "--min-height": `${minHeight}px` }),
-      positionAnchor: `--${anchorId}`,
-    } as React.CSSProperties;
+  const popoverStyle = {
+    ...(minWidth && { "--min-width": `${minWidth}rem` }),
+    ...(maxWidth && { "--max-width": `${maxWidth}rem` }),
+    ...(minHeight && { "--min-height": `${minHeight}px` }),
+    positionAnchor: `--${anchorId}`,
+  } as React.CSSProperties;
 
-    const handleSelect = (value: string) => {
-      onSelect?.(value);
-      document.getElementById(popoverId)?.hidePopover?.();
-    };
+  const handleSelect = (value: string) => {
+    onSelect?.(value);
+    document.getElementById(popoverId)?.hidePopover?.();
+  };
 
-    return (
-      <div ref={ref} id={anchorId} style={containerStyle} className={className}>
-        <button
-          type="button"
-          popoverTarget={disableTriggerClick ? undefined : popoverId}
-          style={{ all: "unset", display: "contents" }}
-          disabled={disableTriggerClick}
-        >
-          {trigger}
-        </button>
+  return (
+    <div ref={ref} id={anchorId} style={containerStyle} className={className}>
+      <button
+        type="button"
+        popoverTarget={disableTriggerClick ? undefined : popoverId}
+        style={{ all: "unset", display: "contents" }}
+        disabled={disableTriggerClick}
+      >
+        {trigger}
+      </button>
 
-        <div
-          popover="auto"
-          id={popoverId}
-          className={`${styles.popover} ${styles[placement]}`}
-          style={popoverStyle}
-        >
-          <Dropdown radius="l" padding="0" selectedOption={selectedOption} onSelect={handleSelect}>
-            {dropdown}
-          </Dropdown>
-        </div>
+      <div
+        popover="auto"
+        id={popoverId}
+        className={`${styles.popover} ${styles[placement]}`}
+        style={popoverStyle}
+      >
+        <Dropdown radius="l" padding="0" selectedOption={selectedOption} onSelect={handleSelect}>
+          {dropdown}
+        </Dropdown>
       </div>
-    );
-  },
-);
+    </div>
+  );
+}
 
 PopoverDropdown.displayName = "PopoverDropdown";
 export { PopoverDropdown };

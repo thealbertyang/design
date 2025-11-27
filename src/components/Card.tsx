@@ -2,7 +2,6 @@
 
 import classNames from "classnames";
 import type React from "react";
-import { forwardRef } from "react";
 import { Flex } from ".";
 import styles from "./Card.module.css";
 import { ElementType } from "./ElementType";
@@ -14,45 +13,44 @@ interface CardProps extends React.ComponentProps<typeof Flex> {
   fillHeight?: boolean;
   style?: React.CSSProperties;
   className?: string;
+  ref?: React.Ref<HTMLDivElement>;
 }
 
-const Card = forwardRef<HTMLDivElement, CardProps>(
-  ({ children, href, onClick, style, className, fillHeight, ...flex }, ref) => {
-    return (
-      <ElementType
-        tabIndex={onClick || href ? 0 : undefined}
-        className={classNames(
-          "reset-button-styles",
-          "display-flex",
-          "fill-width",
-          fillHeight ? "fill-height" : undefined,
-          "min-width-0",
-          (onClick || href) && "focus-ring",
-          (onClick || href) && (`radius-${flex.radius}` || "radius-l"),
-        )}
-        href={href}
+function Card({ children, href, onClick, style, className, fillHeight, ref, ...flex }: CardProps) {
+  return (
+    <ElementType
+      tabIndex={onClick || href ? 0 : undefined}
+      className={classNames(
+        "reset-button-styles",
+        "display-flex",
+        "fill-width",
+        fillHeight ? "fill-height" : undefined,
+        "min-width-0",
+        (onClick || href) && "focus-ring",
+        (onClick || href) && (`radius-${flex.radius}` || "radius-l"),
+      )}
+      href={href}
+      onClick={onClick && onClick}
+      role={onClick ? "button" : href ? "link" : "none"}
+      ref={ref}
+    >
+      <Flex
+        background="surface"
+        onBackground="neutral-strong"
+        transition="macro-medium"
+        border="neutral-medium"
+        cursor="interactive"
+        align="left"
         onClick={onClick && onClick}
-        role={onClick ? "button" : href ? "link" : "none"}
-        ref={ref}
+        className={classNames(styles.card, className)}
+        style={{ ...style }}
+        {...flex}
       >
-        <Flex
-          background="surface"
-          onBackground="neutral-strong"
-          transition="macro-medium"
-          border="neutral-medium"
-          cursor="interactive"
-          align="left"
-          onClick={onClick && onClick}
-          className={classNames(styles.card, className)}
-          style={{ ...style }}
-          {...flex}
-        >
-          {children}
-        </Flex>
-      </ElementType>
-    );
-  },
-);
+        {children}
+      </Flex>
+    </ElementType>
+  );
+}
 
 Card.displayName = "Card";
 export { Card };

@@ -84,7 +84,7 @@ function Table({ data, onRowClick, ...flex }: TableProps) {
     <tr
       key={index}
       onClick={onRowClick ? () => onRowClick(index) : undefined}
-      className={onRowClick ? "cursor-interactive " + styles.hover : ""}
+      className={onRowClick ? `cursor-interactive ${styles.hover}` : ""}
       style={onRowClick ? { transition: "background-color 0.2s ease" } : undefined}
     >
       {row.map((cell, cellIndex) => (

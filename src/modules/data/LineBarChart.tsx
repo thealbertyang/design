@@ -115,7 +115,7 @@ const LineBarChart: React.FC<LineBarChartProps> = ({
               start: startDate,
               end: endDate,
             });
-          } catch (error) {
+          } catch (_error) {
             return false;
           }
         });

@@ -145,7 +145,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({ menuGroups, className, ...re
   // Close dropdown when pathname changes (navigation occurs)
   useEffect(() => {
     setActiveDropdown(null);
-  }, [pathname]);
+  }, []);
 
   // Check if a menu item should be selected based on the current path
   const isSelected = useCallback(

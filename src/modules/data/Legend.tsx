@@ -105,7 +105,7 @@ const Legend: React.FC<LegendProps> = ({
       style={positionStyle}
     >
       {payload.map((entry: any, index: number) => {
-        const color = colors && colors[index] ? colors[index] : entry.stroke || entry.color;
+        const color = colors?.[index] ? colors[index] : entry.stroke || entry.color;
         return (
           <Row key={index} vertical="center" gap="8">
             <Swatch color={color} size="m" variant={variant as ChartVariant} />

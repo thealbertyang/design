@@ -2,8 +2,8 @@
 
 import classNames from "classnames";
 import type React from "react";
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useState } from "react";
-import { Column, type Flex, Grid, Icon, Row, Text } from ".";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Column, type Flex, Grid, Icon, Row } from ".";
 import styles from "./Accordion.module.css";
 
 export interface AccordionHandle extends HTMLDivElement {
@@ -23,117 +23,124 @@ interface AccordionProps extends Omit<React.ComponentProps<typeof Flex>, "title"
   onToggle?: () => void;
   className?: string;
   style?: React.CSSProperties;
+  ref?: React.Ref<AccordionHandle>;
 }
 
-const Accordion = forwardRef<AccordionHandle, AccordionProps>(
-  (
-    {
-      title,
-      children,
-      open = false,
-      onToggle,
-      iconRotation = 180,
-      radius = "m",
-      icon = "chevronDown",
-      size = "m",
-      className,
-      style,
-      ...rest
-    },
-    ref,
-  ) => {
-    const [isOpen, setIsOpen] = useState(open);
+function Accordion({
+  title,
+  children,
+  open = false,
+  onToggle,
+  iconRotation = 180,
+  radius = "m",
+  icon = "chevronDown",
+  size = "m",
+  className,
+  style,
+  ref,
+  ...rest
+}: AccordionProps) {
+  const [isOpen, setIsOpen] = useState(open);
+  const internalRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-      setIsOpen(open);
-    }, [open]);
+  useEffect(() => {
+    setIsOpen(open);
+  }, [open]);
 
-    // Use controlled state when onToggle is provided, otherwise use internal state
-    const isAccordionOpen = onToggle ? open : isOpen;
+  // Use controlled state when onToggle is provided, otherwise use internal state
+  const isAccordionOpen = onToggle ? open : isOpen;
 
-    const toggleAccordion = useCallback(() => {
-      if (onToggle) {
-        // If onToggle is provided, let the parent control the state
-        onToggle();
-      } else {
-        // Otherwise, manage state internally
-        setIsOpen((prev) => !prev);
-      }
-    }, [onToggle]);
+  const toggleAccordion = useCallback(() => {
+    if (onToggle) {
+      // If onToggle is provided, let the parent control the state
+      onToggle();
+    } else {
+      // Otherwise, manage state internally
+      setIsOpen((prev) => !prev);
+    }
+  }, [onToggle]);
 
-    useImperativeHandle(ref, () => {
+  // Handle ref with imperative methods
+  useEffect(() => {
+    if (ref && internalRef.current) {
       const methods = {
         toggle: toggleAccordion,
         open: () => setIsOpen(true),
         close: () => setIsOpen(false),
       };
 
-      return Object.assign(document.createElement("div"), methods) as unknown as AccordionHandle;
-    }, [toggleAccordion]);
+      const handle = Object.assign(internalRef.current, methods) as AccordionHandle;
 
-    return (
-      <Column fillWidth>
-        <Row
-          tabIndex={0}
-          className={classNames(styles.accordion, className)}
-          style={style}
-          cursor="interactive"
-          transition="macro-medium"
-          paddingY={size === "s" ? "8" : size === "m" ? "12" : "16"}
-          paddingX={size === "s" ? "12" : size === "m" ? "16" : "20"}
-          vertical="center"
-          horizontal="between"
-          onClick={toggleAccordion}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              toggleAccordion();
-            }
-          }}
-          aria-expanded={isAccordionOpen}
-          aria-controls="accordion-content"
-          radius={radius}
-          role="button"
-        >
-          <Row fillWidth textVariant="heading-strong-s">
-            {title}
-          </Row>
-          <Icon
-            name={icon}
-            size={size === "s" ? "xs" : "s"}
-            onBackground={isAccordionOpen ? "neutral-strong" : "neutral-weak"}
-            style={{
-              display: "flex",
-              transform: isAccordionOpen ? `rotate(${iconRotation}deg)` : "rotate(0deg)",
-              transition: "var(--transition-micro-medium)",
-            }}
-          />
+      if (typeof ref === "function") {
+        ref(handle);
+      } else {
+        ref.current = handle;
+      }
+    }
+  }, [ref, toggleAccordion]);
+
+  return (
+    <Column fillWidth ref={internalRef}>
+      <Row
+        tabIndex={0}
+        className={classNames(styles.accordion, className)}
+        style={style}
+        cursor="interactive"
+        transition="macro-medium"
+        paddingY={size === "s" ? "8" : size === "m" ? "12" : "16"}
+        paddingX={size === "s" ? "12" : size === "m" ? "16" : "20"}
+        vertical="center"
+        horizontal="between"
+        onClick={toggleAccordion}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            toggleAccordion();
+          }
+        }}
+        aria-expanded={isAccordionOpen}
+        aria-controls="accordion-content"
+        radius={radius}
+        role="button"
+      >
+        <Row fillWidth textVariant="heading-strong-s">
+          {title}
         </Row>
-        <Grid
-          id="accordion-content"
-          fillWidth
-          transition="macro-medium"
+        <Icon
+          name={icon}
+          size={size === "s" ? "xs" : "s"}
+          onBackground={isAccordionOpen ? "neutral-strong" : "neutral-weak"}
           style={{
-            gridTemplateRows: isAccordionOpen ? "1fr" : "0fr",
+            display: "flex",
+            transform: isAccordionOpen ? `rotate(${iconRotation}deg)` : "rotate(0deg)",
+            transition: "var(--transition-micro-medium)",
           }}
-          aria-hidden={!isAccordionOpen}
-        >
-          <Row fillWidth minHeight={0} overflow="hidden">
-            <Column
-              fillWidth
-              paddingX={size === "s" ? "12" : size === "m" ? "16" : "20"}
-              paddingTop="8"
-              paddingBottom="16"
-              {...rest}
-            >
-              {children}
-            </Column>
-          </Row>
-        </Grid>
-      </Column>
-    );
-  },
-);
+        />
+      </Row>
+      <Grid
+        id="accordion-content"
+        fillWidth
+        transition="macro-medium"
+        style={{
+          gridTemplateRows: isAccordionOpen ? "1fr" : "0fr",
+        }}
+        aria-hidden={!isAccordionOpen}
+      >
+        <Row fillWidth minHeight={0} overflow="hidden">
+          <Column
+            fillWidth
+            paddingX={size === "s" ? "12" : size === "m" ? "16" : "20"}
+            paddingTop="8"
+            paddingBottom="16"
+            {...rest}
+          >
+            {children}
+          </Column>
+        </Row>
+      </Grid>
+    </Column>
+  );
+}
 
 Accordion.displayName = "Accordion";
 export { Accordion };

@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { type ComponentPropsWithoutRef, type ElementType } from "react";
+import type { ComponentPropsWithoutRef, ElementType } from "react";
 
 import type { CommonProps, SpacingProps, TextProps } from "../interfaces";
 import type { ColorScheme, ColorWeight, SpacingToken, TextVariant } from "../types";

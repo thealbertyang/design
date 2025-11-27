@@ -60,8 +60,8 @@ const CountFx: React.FC<CountFxProps> = ({
     const maxLength = Math.max(currentStr.length, targetStr.length);
 
     return Array.from({ length: maxLength }, (_, index) => {
-      const currentDigit = Number.parseInt(currentStr[maxLength - 1 - index] || "0");
-      const targetDigit = Number.parseInt(targetStr[maxLength - 1 - index] || "0");
+      const currentDigit = Number.parseInt(currentStr[maxLength - 1 - index] || "0", 10);
+      const targetDigit = Number.parseInt(targetStr[maxLength - 1 - index] || "0", 10);
 
       // Calculate progress for this specific digit
       const digitDifference = targetDigit - currentDigit;
@@ -136,8 +136,8 @@ const CountFx: React.FC<CountFxProps> = ({
     const maxLength = Math.max(startStr.length, targetStr.length);
 
     return Array.from({ length: maxLength }, (_, index) => {
-      const startDigit = Number.parseInt(startStr[maxLength - 1 - index] || "0");
-      const targetDigit = Number.parseInt(targetStr[maxLength - 1 - index] || "0");
+      const startDigit = Number.parseInt(startStr[maxLength - 1 - index] || "0", 10);
+      const targetDigit = Number.parseInt(targetStr[maxLength - 1 - index] || "0", 10);
 
       // Calculate the shortest path between digits (handles wrapping around 0-9)
       let digitDifference = targetDigit - startDigit;
@@ -269,7 +269,7 @@ const CountFx: React.FC<CountFxProps> = ({
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [value, speed, easing, effect]);
+  }, [value, speed, effect, getEasing]);
 
   // Cleanup on unmount
   useEffect(() => {

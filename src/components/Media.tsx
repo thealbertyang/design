@@ -68,7 +68,7 @@ const Media: React.FC<MediaProps> = ({
       }
     };
 
-    const handleWheel = (event: WheelEvent) => {
+    const handleWheel = (_event: WheelEvent) => {
       if (isEnlarged) {
         setIsEnlarged(false);
       }
@@ -156,103 +156,102 @@ const Media: React.FC<MediaProps> = ({
           }}
         />
       )}
-      <>
-        <Column
-          as={caption ? "figure" : undefined}
-          ref={imageRef}
-          fillWidth
-          overflow="hidden"
-          zIndex={0}
-          margin="0"
-          style={{
-            outline: "none",
-            isolation: "isolate",
-            height:
-              aspectRatio === "original"
-                ? undefined
-                : aspectRatio
-                  ? ""
-                  : height
-                    ? `${height}rem`
-                    : "100%",
-            aspectRatio: aspectRatio === "original" ? undefined : aspectRatio,
-            borderRadius: isEnlarged ? "0" : undefined,
-            ...calculateTransform(),
-            ...style,
-          }}
-          onClick={handleImageClick}
-          className={classNames(
-            enlarge && !isEnlarged
-              ? "cursor-zoom-in"
-              : enlarge && isEnlarged
-                ? "cursor-zoom-out"
-                : undefined,
-            className,
-          )}
-          {...rest}
-        >
-          {loading && <Skeleton shape="block" radius={rest.radius} />}
-          {!loading && isVideo && (
-            <video
-              src={src}
-              autoPlay
-              loop
-              muted
-              playsInline
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: objectFit,
-              }}
-            />
-          )}
-          {!loading && isYouTube && (
-            <iframe
-              width="100%"
-              height="100%"
-              src={getYouTubeEmbedUrl(src)}
-              frameBorder="0"
-              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              style={{
-                objectFit: objectFit,
-              }}
-            />
-          )}
-          {!loading && !isVideo && !isYouTube && (
-            <Image
-              src={src}
-              alt={alt}
-              sizes={isEnlarged ? "100vw" : sizes}
-              priority={priority}
-              unoptimized={unoptimized}
-              fill={fill || !aspectRatio}
-              width={fill ? undefined : 0}
-              height={fill ? undefined : 0}
-              style={{
-                objectFit: objectFit,
-                aspectRatio: fill ? undefined : aspectRatio,
-                width: aspectRatio ? "100%" : undefined,
-                height: aspectRatio ? "100%" : undefined,
-              }}
-            />
-          )}
-        </Column>
-        {caption && (
-          <Row
-            as="figcaption"
-            fillWidth
-            textVariant="label-default-s"
-            onBackground="neutral-weak"
-            paddingY="12"
-            paddingX="24"
-            horizontal="center"
-            align="center"
-          >
-            {caption}
-          </Row>
+
+      <Column
+        as={caption ? "figure" : undefined}
+        ref={imageRef}
+        fillWidth
+        overflow="hidden"
+        zIndex={0}
+        margin="0"
+        style={{
+          outline: "none",
+          isolation: "isolate",
+          height:
+            aspectRatio === "original"
+              ? undefined
+              : aspectRatio
+                ? ""
+                : height
+                  ? `${height}rem`
+                  : "100%",
+          aspectRatio: aspectRatio === "original" ? undefined : aspectRatio,
+          borderRadius: isEnlarged ? "0" : undefined,
+          ...calculateTransform(),
+          ...style,
+        }}
+        onClick={handleImageClick}
+        className={classNames(
+          enlarge && !isEnlarged
+            ? "cursor-zoom-in"
+            : enlarge && isEnlarged
+              ? "cursor-zoom-out"
+              : undefined,
+          className,
         )}
-      </>
+        {...rest}
+      >
+        {loading && <Skeleton shape="block" radius={rest.radius} />}
+        {!loading && isVideo && (
+          <video
+            src={src}
+            autoPlay
+            loop
+            muted
+            playsInline
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: objectFit,
+            }}
+          />
+        )}
+        {!loading && isYouTube && (
+          <iframe
+            width="100%"
+            height="100%"
+            src={getYouTubeEmbedUrl(src)}
+            frameBorder="0"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            style={{
+              objectFit: objectFit,
+            }}
+          />
+        )}
+        {!loading && !isVideo && !isYouTube && (
+          <Image
+            src={src}
+            alt={alt}
+            sizes={isEnlarged ? "100vw" : sizes}
+            priority={priority}
+            unoptimized={unoptimized}
+            fill={fill || !aspectRatio}
+            width={fill ? undefined : 0}
+            height={fill ? undefined : 0}
+            style={{
+              objectFit: objectFit,
+              aspectRatio: fill ? undefined : aspectRatio,
+              width: aspectRatio ? "100%" : undefined,
+              height: aspectRatio ? "100%" : undefined,
+            }}
+          />
+        )}
+      </Column>
+      {caption && (
+        <Row
+          as="figcaption"
+          fillWidth
+          textVariant="label-default-s"
+          onBackground="neutral-weak"
+          paddingY="12"
+          paddingX="24"
+          horizontal="center"
+          align="center"
+        >
+          {caption}
+        </Row>
+      )}
     </>
   );
 };

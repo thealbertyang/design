@@ -182,16 +182,15 @@ export const useResponsiveClasses = (
   elementRef: React.RefObject<HTMLDivElement | null>,
   responsiveProps: { xl?: any; l?: any; m?: any; s?: any; xs?: any },
   currentBreakpoint: string,
+  enabled = true,
 ) => {
-  if (!elementRef) {
-    return;
-  }
+  // All hooks must be called unconditionally - check enabled in effects/callbacks
   const appliedClasses = useRef<Set<string>>(new Set());
   const originalClasses = useRef<string[]>([]);
   const isInitialized = useRef(false);
 
   const applyResponsiveClasses = useCallback(() => {
-    if (!elementRef.current) return;
+    if (!enabled || !elementRef || !elementRef.current) return;
 
     const element = elementRef.current;
 
@@ -372,7 +371,7 @@ export const useResponsiveClasses = (
         });
       }
     });
-  }, [responsiveProps, currentBreakpoint]);
+  }, [enabled, elementRef, responsiveProps, currentBreakpoint]);
 
   useEffect(() => {
     applyResponsiveClasses();
@@ -387,5 +386,5 @@ export const useResponsiveClasses = (
         });
       }
     };
-  }, []);
+  }, [elementRef.current]);
 };

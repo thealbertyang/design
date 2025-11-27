@@ -1,7 +1,7 @@
 "use client";
 
 import classNames from "classnames";
-import { forwardRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type { ChartMode } from "@/modules/data";
 import { useDataTheme } from "../contexts/DataThemeProvider";
 import {
@@ -19,6 +19,7 @@ import { Column, Flex, IconButton, Scroller, SegmentedControl, Text, ThemeSwitch
 import styles from "./StylePanel.module.css";
 
 interface StylePanelProps extends React.ComponentProps<typeof Flex> {
+  ref?: React.Ref<HTMLDivElement>;
   style?: React.CSSProperties;
   className?: string;
 }
@@ -31,7 +32,7 @@ const colorOptions = {
   neutral: ["sand", "gray", "slate"],
 };
 
-const StylePanel = forwardRef<HTMLDivElement, StylePanelProps>(({ ...rest }, ref) => {
+function StylePanel({ ref, ...rest }: StylePanelProps) {
   const styleContext = useStyle();
   const { mode: chartMode, setChartOptions } = useDataTheme();
 
@@ -139,7 +140,7 @@ const StylePanel = forwardRef<HTMLDivElement, StylePanelProps>(({ ...rest }, ref
             Brand
           </Flex>
           <Scroller minWidth={0} fitWidth>
-            {colorOptions.brand.map((color, index) => (
+            {colorOptions.brand.map((color, _index) => (
               <Flex
                 marginRight="2"
                 key={color}
@@ -175,7 +176,7 @@ const StylePanel = forwardRef<HTMLDivElement, StylePanelProps>(({ ...rest }, ref
             Accent
           </Flex>
           <Scroller minWidth={0} fitWidth>
-            {colorOptions.accent.map((color, index) => (
+            {colorOptions.accent.map((color, _index) => (
               <Flex
                 marginRight="2"
                 key={color}
@@ -203,7 +204,7 @@ const StylePanel = forwardRef<HTMLDivElement, StylePanelProps>(({ ...rest }, ref
             Neutral
           </Flex>
           <Scroller minWidth={0} fitWidth>
-            {colorOptions.neutral.map((color, index) => (
+            {colorOptions.neutral.map((color, _index) => (
               <Flex
                 marginRight="2"
                 key={color}
@@ -526,7 +527,7 @@ const StylePanel = forwardRef<HTMLDivElement, StylePanelProps>(({ ...rest }, ref
       </Column>
     </Column>
   );
-});
+}
 
 StylePanel.displayName = "StylePanel";
 export { StylePanel };

@@ -50,7 +50,6 @@ const getStopsByVariant = (
           { offset: "0%", opacity: 0 },
           { offset: "100%", opacity: 0 },
         ];
-      case "gradient":
       default:
         return [
           { offset: "0%", opacity: 0 },
@@ -70,7 +69,6 @@ const getStopsByVariant = (
           { offset: "0%", opacity: 0 },
           { offset: "100%", opacity: 0 },
         ];
-      case "gradient":
       default:
         return [
           { offset: "0%", opacity: 1 },

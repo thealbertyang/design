@@ -1,11 +1,12 @@
 "use client";
 
-import { forwardRef } from "react";
 import { Animation, type AnimationProps } from ".";
 
-type HoverCardProps = Omit<AnimationProps, "triggerType" | "portal">;
+type HoverCardProps = Omit<AnimationProps, "triggerType" | "portal"> & {
+  ref?: React.Ref<HTMLDivElement>;
+};
 
-const HoverCard = forwardRef<HTMLDivElement, HoverCardProps>(({ children, ...props }, ref) => {
+function HoverCard({ children, ref, ...props }: HoverCardProps) {
   return (
     <Animation
       ref={ref}
@@ -21,7 +22,7 @@ const HoverCard = forwardRef<HTMLDivElement, HoverCardProps>(({ children, ...pro
       {children}
     </Animation>
   );
-});
+}
 
 HoverCard.displayName = "HoverCard";
 export { HoverCard };

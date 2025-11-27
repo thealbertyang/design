@@ -117,7 +117,7 @@ const TypeFx: React.FC<TypeFxProps> = ({
       onTrigger(typeText);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Only run on mount - typeText is stable via useCallback
+  }, [onTrigger, trigger, typeText]); // Only run on mount - typeText is stable via useCallback
 
   // Reset when words actually change
   useEffect(() => {

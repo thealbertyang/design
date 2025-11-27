@@ -26,7 +26,7 @@ export const ScrollToTop = ({ children, offset = 300, className, ...rest }: Scro
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [handleScroll]);
 
   return (
     <Flex

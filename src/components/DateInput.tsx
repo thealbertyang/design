@@ -68,7 +68,7 @@ export const DateInput: React.FC<DateInputProps> = ({
     [onChange, timePicker],
   );
 
-  const handleInputClick = useCallback(() => {
+  const _handleInputClick = useCallback(() => {
     setIsOpen(true);
   }, []);
 

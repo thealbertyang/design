@@ -125,7 +125,7 @@ const BarChart: React.FC<BarChartProps> = ({
   const barColors = autoSeries.map((s) => `var(--data-${s.color})`);
 
   const legendContent = useCallback(
-    (props: any) => {
+    (_props: any) => {
       const customPayload = autoSeries.map((series, index) => ({
         value: series.key,
         color: barColors[index],
@@ -200,7 +200,7 @@ const BarChart: React.FC<BarChartProps> = ({
             : (item[xAxisKey] as Date);
 
         return itemDate >= selectedDateRange.startDate && itemDate <= selectedDateRange.endDate;
-      } catch (e) {
+      } catch (_e) {
         return true;
       }
     });

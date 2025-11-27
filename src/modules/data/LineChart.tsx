@@ -134,7 +134,7 @@ const LineChart: React.FC<LineChartProps> = ({
               start: startDate,
               end: endDate,
             });
-          } catch (error) {
+          } catch (_error) {
             return false;
           }
         });
@@ -154,7 +154,7 @@ const LineChart: React.FC<LineChartProps> = ({
   );
 
   const legendContent = useCallback(
-    (props: any) => {
+    (_props: any) => {
       const customPayload = autoSeries.map(({ key, color }, index) => ({
         value: key,
         color: `var(--data-${color || schemes[index % schemes.length]})`,

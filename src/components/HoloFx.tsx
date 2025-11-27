@@ -115,7 +115,7 @@ const HoloFx: React.FC<HoloFxProps> = ({ children, shine, burn, texture, ...rest
         pointerEvents="none"
         className={classNames(styles.overlay, styles.burn)}
         style={{
-          ["--burn-opacity" as any]: burnDefaults.opacity + "%",
+          ["--burn-opacity" as any]: `${burnDefaults.opacity}%`,
           filter: burnDefaults.filter,
           mixBlendMode: burnDefaults.blending,
           maskImage: burnDefaults.mask as string,
@@ -130,7 +130,7 @@ const HoloFx: React.FC<HoloFxProps> = ({ children, shine, burn, texture, ...rest
         pointerEvents="none"
         className={classNames(styles.overlay, styles.shine)}
         style={{
-          ["--shine-opacity" as any]: shineDefaults.opacity + "%",
+          ["--shine-opacity" as any]: `${shineDefaults.opacity}%`,
           filter: shineDefaults.filter,
           mixBlendMode: shineDefaults.blending,
           maskImage: shineDefaults.mask as string,
@@ -145,7 +145,7 @@ const HoloFx: React.FC<HoloFxProps> = ({ children, shine, burn, texture, ...rest
         pointerEvents="none"
         className={classNames(styles.overlay, styles.texture)}
         style={{
-          ["--texture-opacity" as any]: textureDefaults.opacity + "%",
+          ["--texture-opacity" as any]: `${textureDefaults.opacity}%`,
           backgroundImage: textureDefaults.image,
           filter: textureDefaults.filter,
           mixBlendMode: textureDefaults.blending,

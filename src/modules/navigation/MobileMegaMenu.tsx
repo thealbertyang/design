@@ -31,7 +31,7 @@ interface MobileMegaMenuProps extends React.ComponentProps<typeof Flex> {
 }
 
 const MobileMegaMenu: React.FC<MobileMegaMenuProps> = ({ menuGroups, onClose, ...flex }) => {
-  const handleLinkClick = (href: string) => {
+  const handleLinkClick = (_href: string) => {
     onClose?.();
   };
 

@@ -1,10 +1,14 @@
 "use client";
 
-import React, { forwardRef } from "react";
+import React from "react";
 import { useTheme } from "../contexts";
 import { IconButton, Row } from ".";
 
-const ThemeSwitcher = forwardRef<HTMLDivElement, React.ComponentProps<typeof Row>>((flex, ref) => {
+interface ThemeSwitcherProps extends React.ComponentProps<typeof Row> {
+  ref?: React.Ref<HTMLDivElement>;
+}
+
+function ThemeSwitcher({ ref, ...flex }: ThemeSwitcherProps) {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
 
@@ -50,7 +54,7 @@ const ThemeSwitcher = forwardRef<HTMLDivElement, React.ComponentProps<typeof Row
       />
     </Row>
   );
-});
+}
 
 ThemeSwitcher.displayName = "ThemeSwitcher";
 export { ThemeSwitcher };

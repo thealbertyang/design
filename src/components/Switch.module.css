@@ -76,7 +76,7 @@
   }
 
   .element::before {
-    display: none !important;
+    display: none;
   }
 }
 

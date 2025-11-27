@@ -65,7 +65,7 @@ const Scroller: React.FC<ScrollerProps> = ({
       scroller.addEventListener("scroll", updateScrollButtonsVisibility);
       return () => scroller.removeEventListener("scroll", updateScrollButtonsVisibility);
     }
-  }, [direction]);
+  }, [updateScrollButtonsVisibility]);
 
   // Re-check when children change
   useEffect(() => {
@@ -75,7 +75,7 @@ const Scroller: React.FC<ScrollerProps> = ({
     }, 100);
 
     return () => clearTimeout(timer);
-  }, [children]);
+  }, [updateScrollButtonsVisibility]);
 
   const handleScrollNext = () => {
     const scroller = scrollerRef.current;

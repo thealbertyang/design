@@ -117,9 +117,9 @@
 
   &:autofill,
   &:-webkit-autofill {
-    background-color: var(--static-transparent) !important;
-    -webkit-box-shadow: 0 0 0 var(--static-space-32) var(--neutral-background-medium) inset !important;
-    -webkit-text-fill-color: var(--neutral-on-background-strong) !important;
+    background-color: var(--static-transparent);
+    -webkit-box-shadow: 0 0 0 var(--static-space-32) var(--neutral-background-medium) inset;
+    -webkit-text-fill-color: var(--neutral-on-background-strong);
   }
 }
 

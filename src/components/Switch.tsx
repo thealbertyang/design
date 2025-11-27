@@ -2,7 +2,6 @@
 
 import classNames from "classnames";
 import type React from "react";
-import { forwardRef } from "react";
 
 import { Flex, InteractiveDetails, type InteractiveDetailsProps, Spinner } from ".";
 import commonStyles from "./SharedInteractiveStyles.module.css";
@@ -21,87 +20,84 @@ interface SwitchProps
   reverse?: boolean;
   ariaLabel?: string;
   onToggle: () => void;
+  ref?: React.Ref<HTMLInputElement>;
 }
 
-const Switch: React.FC<SwitchProps> = forwardRef<HTMLInputElement, SwitchProps>(
-  (
-    {
-      className,
-      isChecked,
-      reverse = false,
-      loading = false,
-      onToggle,
-      ariaLabel = "Toggle switch",
-      disabled,
-      name,
-      value,
-      ...props
-    },
-    ref,
-  ) => {
-    const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (!disabled && (event.key === "Enter" || event.key === " ")) {
-        event.preventDefault();
-        onToggle();
-      }
-    };
+function Switch({
+  className,
+  isChecked,
+  reverse = false,
+  loading = false,
+  onToggle,
+  ariaLabel = "Toggle switch",
+  disabled,
+  name,
+  value,
+  ref,
+  ...props
+}: SwitchProps) {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (!disabled && (event.key === "Enter" || event.key === " ")) {
+      event.preventDefault();
+      onToggle();
+    }
+  };
 
-    const handleClick = () => {
-      if (!disabled) {
-        onToggle();
-      }
-    };
+  const handleClick = () => {
+    if (!disabled) {
+      onToggle();
+    }
+  };
 
-    return (
+  return (
+    <Flex
+      gap="16"
+      vertical="center"
+      horizontal={reverse ? "between" : undefined}
+      fillWidth={reverse}
+      className={classNames(styles.container, className, {
+        [styles.reverse]: reverse,
+        [styles.disabled]: disabled,
+      })}
+      onClick={handleClick}
+      role="switch"
+      aria-checked={isChecked}
+      aria-label={ariaLabel}
+      aria-disabled={disabled}
+      tabIndex={-1}
+    >
+      <input
+        ref={ref}
+        type="checkbox"
+        name={name}
+        value={value}
+        checked={isChecked}
+        onChange={onToggle}
+        className={commonStyles.hidden}
+        tabIndex={-1}
+      />
       <Flex
-        gap="16"
-        vertical="center"
-        horizontal={reverse ? "between" : undefined}
-        fillWidth={reverse}
-        className={classNames(styles.container, className, {
-          [styles.reverse]: reverse,
+        cursor={disabled ? "not-allowed" : undefined}
+        className={classNames(styles.switch, {
+          [styles.checked]: isChecked,
           [styles.disabled]: disabled,
         })}
-        onClick={handleClick}
-        role="switch"
-        aria-checked={isChecked}
-        aria-label={ariaLabel}
-        aria-disabled={disabled}
-        tabIndex={-1}
       >
-        <input
-          ref={ref}
-          type="checkbox"
-          name={name}
-          value={value}
-          checked={isChecked}
-          onChange={onToggle}
-          className={commonStyles.hidden}
-          tabIndex={-1}
-        />
-        <Flex
-          cursor={disabled ? "not-allowed" : undefined}
-          className={classNames(styles.switch, {
+        <div
+          onKeyDown={handleKeyDown}
+          tabIndex={disabled ? -1 : 0}
+          className={classNames(styles.element, {
             [styles.checked]: isChecked,
             [styles.disabled]: disabled,
           })}
         >
-          <div
-            onKeyDown={handleKeyDown}
-            tabIndex={disabled ? -1 : 0}
-            className={classNames(styles.element, {
-              [styles.checked]: isChecked,
-              [styles.disabled]: disabled,
-            })}
-          >
-            {loading && <Spinner size="xs" />}
-          </div>
-        </Flex>
-        {props.label && <InteractiveDetails disabled={disabled} {...props} onClick={() => {}} />}
+          {loading && <Spinner size="xs" />}
+        </div>
       </Flex>
-    );
-  },
-);
+      {props.label && <InteractiveDetails disabled={disabled} {...props} onClick={() => {}} />}
+    </Flex>
+  );
+}
 
 Switch.displayName = "Switch";
 

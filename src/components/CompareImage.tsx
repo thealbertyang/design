@@ -81,7 +81,7 @@ const CompareImage = ({ leftContent, rightContent, aspectRatio, ...rest }: Compa
       document.removeEventListener("touchmove", handleTouchMove);
       document.removeEventListener("touchend", handleMouseUp);
     };
-  }, []);
+  }, [handleMouseMove, handleMouseUp, handleTouchMove]);
 
   return (
     <Flex

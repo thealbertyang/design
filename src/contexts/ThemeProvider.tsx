@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import type { Schemes } from "../types";
 import { dev } from "../utils";
 
@@ -179,7 +179,7 @@ export function ThemeProvider({
   const [theme, setTheme] = useState<Theme>(initialThemeValue);
   const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">(initialResolvedValue);
 
-  const getResolvedTheme = useCallback((t: Theme): "light" | "dark" => {
+  const _getResolvedTheme = useCallback((t: Theme): "light" | "dark" => {
     if (t === "system") {
       return typeof window !== "undefined" &&
         window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -338,7 +338,7 @@ export function ThemeProvider({
         }
       });
     }
-  }, [style, propTheme]);
+  }, [style, propTheme, camelToKebab]);
 
   return (
     <ThemeProviderContext.Provider value={themeValue}>

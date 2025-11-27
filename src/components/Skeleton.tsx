@@ -2,7 +2,6 @@
 
 import classNames from "classnames";
 import type React from "react";
-import { forwardRef } from "react";
 
 import { Flex } from ".";
 import styles from "./Skeleton.module.css";
@@ -14,29 +13,37 @@ interface SkeletonProps extends React.ComponentProps<typeof Flex> {
   delay?: "1" | "2" | "3" | "4" | "5" | "6";
   style?: React.CSSProperties;
   className?: string;
+  ref?: React.Ref<HTMLDivElement>;
 }
 
-const Skeleton: React.FC<SkeletonProps> = forwardRef<HTMLDivElement, SkeletonProps>(
-  ({ shape = "line", width = "m", height = "m", delay, style, className, ...props }, ref) => {
-    return (
-      <Flex
-        {...props}
-        ref={ref}
-        style={style}
-        radius={shape === "line" || shape === "circle" ? "full" : undefined}
-        inline
-        className={classNames(
-          styles.skeleton,
-          styles[shape],
-          width && styles["w-" + width],
-          height && styles["h-" + height],
-          delay && styles["delay-" + delay],
-          className,
-        )}
-      />
-    );
-  },
-);
+function Skeleton({
+  shape = "line",
+  width = "m",
+  height = "m",
+  delay,
+  style,
+  className,
+  ref,
+  ...props
+}: SkeletonProps) {
+  return (
+    <Flex
+      {...props}
+      ref={ref}
+      style={style}
+      radius={shape === "line" || shape === "circle" ? "full" : undefined}
+      inline
+      className={classNames(
+        styles.skeleton,
+        styles[shape],
+        width && styles[`w-${width}`],
+        height && styles[`h-${height}`],
+        delay && styles[`delay-${delay}`],
+        className,
+      )}
+    />
+  );
+}
 
 Skeleton.displayName = "Skeleton";
 

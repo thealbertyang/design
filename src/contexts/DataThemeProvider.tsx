@@ -70,7 +70,7 @@ export function DataThemeProvider({
   tick,
   ...rest
 }: DataThemeProviderProps) {
-  const camelToKebab = (str: string): string => {
+  const _camelToKebab = (str: string): string => {
     return str.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2").toLowerCase();
   };
 
@@ -117,7 +117,7 @@ export function DataThemeProvider({
     if (mounted) {
       applyDataVizAttribute(chartOptions.mode, false);
     }
-  }, [chartOptions.mode, mounted]);
+  }, [chartOptions.mode, mounted, applyDataVizAttribute]);
 
   const handleSetChartOptions = (newOptions: Partial<ChartOptions>) => {
     setChartOptionsState((prevOptions) => {

@@ -1,9 +1,13 @@
 "use client";
 
-import React, { forwardRef, useState } from "react";
+import type React from "react";
+import { useState } from "react";
 import { IconButton, Input, type InputProps } from ".";
 
-export const PasswordInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
+export function PasswordInput({
+  ref,
+  ...props
+}: InputProps & { ref?: React.Ref<HTMLInputElement> }) {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -24,6 +28,6 @@ export const PasswordInput = forwardRef<HTMLInputElement, InputProps>((props, re
       }
     />
   );
-});
+}
 
 PasswordInput.displayName = "PasswordInput";

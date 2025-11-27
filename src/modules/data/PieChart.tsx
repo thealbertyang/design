@@ -111,7 +111,7 @@ export const PieChart: React.FC<PieChartProps> = ({
         const itemDate = typeof item.date === "string" ? new Date(item.date) : item.date;
 
         return itemDate >= selectedDateRange.startDate && itemDate <= selectedDateRange.endDate;
-      } catch (e) {
+      } catch (_e) {
         return true;
       }
     });
@@ -249,11 +249,11 @@ export const PieChart: React.FC<PieChartProps> = ({
               )}
               <RechartsPie
                 data={filteredData}
-                cx={origo.x + "%"}
-                cy={origo.y + "%"}
+                cx={`${origo.x}%`}
+                cy={`${origo.y}%`}
                 labelLine={false}
-                innerRadius={ring.inner + "%"}
-                outerRadius={ring.outer + "%"}
+                innerRadius={`${ring.inner}%`}
+                outerRadius={`${ring.outer}%`}
                 dataKey={dataKey}
                 nameKey={nameKey}
                 stroke={variant === "outline" ? undefined : "none"}

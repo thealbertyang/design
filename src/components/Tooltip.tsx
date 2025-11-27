@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import type React from "react";
-import { forwardRef, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import type { IconName } from "../icons";
 import { Icon, Row } from ".";
 import styles from "./Tooltip.module.css";
@@ -11,45 +11,44 @@ interface TooltipProps extends React.ComponentProps<typeof Row> {
   suffixIcon?: IconName;
   className?: string;
   style?: React.CSSProperties;
+  ref?: React.Ref<HTMLDivElement>;
 }
 
-const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
-  ({ label, prefixIcon, suffixIcon, className, style, ...flex }, ref) => {
-    return (
+function Tooltip({ label, prefixIcon, suffixIcon, className, style, ref, ...flex }: TooltipProps) {
+  return (
+    <Row
+      m={{ hide: true }}
+      ref={ref}
+      style={{
+        whiteSpace: "nowrap",
+        userSelect: "none",
+        ...style,
+      }}
+      vertical="center"
+      gap="4"
+      zIndex={1}
+      background="surface"
+      paddingY="4"
+      paddingX="8"
+      radius="s"
+      border="neutral-medium"
+      role="tooltip"
+      className={classNames(styles.fadeIn, className)}
+      {...flex}
+    >
+      {prefixIcon && <Icon name={prefixIcon} size="xs" />}
       <Row
-        m={{ hide: true }}
-        ref={ref}
-        style={{
-          whiteSpace: "nowrap",
-          userSelect: "none",
-          ...style,
-        }}
+        paddingX="2"
         vertical="center"
-        gap="4"
-        zIndex={1}
-        background="surface"
-        paddingY="4"
-        paddingX="8"
-        radius="s"
-        border="neutral-medium"
-        role="tooltip"
-        className={classNames(styles.fadeIn, className)}
-        {...flex}
+        textVariant="body-default-xs"
+        onBackground="neutral-strong"
       >
-        {prefixIcon && <Icon name={prefixIcon} size="xs" />}
-        <Row
-          paddingX="2"
-          vertical="center"
-          textVariant="body-default-xs"
-          onBackground="neutral-strong"
-        >
-          {label}
-        </Row>
-        {suffixIcon && <Icon name={suffixIcon} size="xs" />}
+        {label}
       </Row>
-    );
-  },
-);
+      {suffixIcon && <Icon name={suffixIcon} size="xs" />}
+    </Row>
+  );
+}
 
 Tooltip.displayName = "Tooltip";
 

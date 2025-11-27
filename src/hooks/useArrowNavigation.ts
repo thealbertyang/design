@@ -237,7 +237,17 @@ export const useArrowNavigation = ({
         setFocusedIndex(newIndex);
       }
     },
-    [layout, itemCount, focusedIndex, columns, wrap, onSelect, disabled],
+    [
+      layout,
+      itemCount,
+      focusedIndex,
+      columns,
+      wrap,
+      onSelect,
+      disabled,
+      findEnabledItemFromIndex,
+      findNextEnabledItem,
+    ],
   );
 
   /**
@@ -268,7 +278,7 @@ export const useArrowNavigation = ({
   // Apply highlighted state when focusedIndex changes
   useEffect(() => {
     applyHighlightedState();
-  }, [focusedIndex, applyHighlightedState]);
+  }, [applyHighlightedState]);
 
   return {
     focusedIndex,

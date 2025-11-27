@@ -325,7 +325,7 @@ export const KbarContent: React.FC<KbarContentProps> = ({
             radius="l"
             border="neutral-alpha-weak"
           >
-            {groupedItems.map((option, index) => {
+            {groupedItems.map((option, _index) => {
               if (option.isCustom) {
                 return <React.Fragment key={option.value}>{option.label}</React.Fragment>;
               }
@@ -400,8 +400,8 @@ export interface KbarProps {
 
 export const Kbar: React.FC<KbarProps> = ({ items, children, ...rest }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const router = useRouter();
-  const pathname = usePathname();
+  const _router = useRouter();
+  const _pathname = usePathname();
 
   const handleOpen = () => {
     setIsOpen(true);
@@ -416,7 +416,7 @@ export const Kbar: React.FC<KbarProps> = ({ items, children, ...rest }) => {
     if (isOpen) {
       handleClose();
     }
-  }, [pathname]);
+  }, [handleClose, isOpen]);
 
   // Add keyboard shortcut listener
   useEffect(() => {

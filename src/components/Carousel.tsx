@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { SpacingToken } from "@/types";
-import { Column, Fade, Flex, IconButton, Media, ProgressBar, RevealFx, Row, Scroller } from ".";
+import { Column, Fade, Flex, IconButton, Media, RevealFx, Row, Scroller } from ".";
 import styles from "./Carousel.module.css";
 
 interface CarouselItem {
@@ -134,7 +134,7 @@ const Carousel: React.FC<CarouselProps> = ({
         clearInterval(progressTimer);
       }
     };
-  }, [isPlaying, activeIndex, play.interval, play.progress, items.length]);
+  }, [isPlaying, play.interval, play.progress, items.length]);
 
   // Handle auto-play functionality
   useEffect(() => {
@@ -381,76 +381,74 @@ const Carousel: React.FC<CarouselProps> = ({
           </Row>
         )}
       </RevealFx>
-      {items.length > 1 && indicator !== false && (
-        <>
-          {indicator === "line" ? (
-            <Flex gap="4" paddingX="s" fillWidth horizontal="center">
-              {items.map((_, index) => (
-                <Flex
-                  radius="full"
-                  key={index}
-                  onClick={() => handleControlClick(index)}
-                  style={{
-                    background:
-                      activeIndex === index
-                        ? "var(--neutral-on-background-strong)"
-                        : "var(--neutral-alpha-medium)",
-                    transition: "background 0.3s ease",
-                  }}
-                  cursor="interactive"
-                  fillWidth
-                  height="2"
-                />
-              ))}
-            </Flex>
-          ) : (
-            <Scroller gap="4" onItemClick={handleControlClick}>
-              {items.map((item, index) => (
-                <Flex
-                  key={index}
-                  style={{
-                    border:
-                      activeIndex === index
-                        ? "2px solid var(--brand-solid-strong)"
-                        : "2px solid var(--static-transparent)",
-                  }}
-                  radius="m-8"
-                  padding="4"
-                  aspectRatio={aspectRatio}
-                  cursor="interactive"
-                  minHeight={thumbnail.height}
-                  maxHeight={thumbnail.height}
-                >
-                  {typeof item.slide === "string" ? (
-                    <Media
-                      alt={item.alt || ""}
-                      aspectRatio={aspectRatio}
-                      sizes={thumbnail.sizes}
-                      src={item.slide}
-                      cursor="interactive"
-                      radius="m"
-                      transition="macro-medium"
-                    />
-                  ) : (
-                    <Flex
-                      aspectRatio={aspectRatio}
-                      cursor="interactive"
-                      radius="m"
-                      transition="macro-medium"
-                      overflow="hidden"
-                      fill
-                    >
-                      <Flex fill style={{ transform: `scale(${thumbnail.scaling})` }}>
-                        {item.slide}
-                      </Flex>
+      {items.length > 1 &&
+        indicator !== false &&
+        (indicator === "line" ? (
+          <Flex gap="4" paddingX="s" fillWidth horizontal="center">
+            {items.map((_, index) => (
+              <Flex
+                radius="full"
+                key={index}
+                onClick={() => handleControlClick(index)}
+                style={{
+                  background:
+                    activeIndex === index
+                      ? "var(--neutral-on-background-strong)"
+                      : "var(--neutral-alpha-medium)",
+                  transition: "background 0.3s ease",
+                }}
+                cursor="interactive"
+                fillWidth
+                height="2"
+              />
+            ))}
+          </Flex>
+        ) : (
+          <Scroller gap="4" onItemClick={handleControlClick}>
+            {items.map((item, index) => (
+              <Flex
+                key={index}
+                style={{
+                  border:
+                    activeIndex === index
+                      ? "2px solid var(--brand-solid-strong)"
+                      : "2px solid var(--static-transparent)",
+                }}
+                radius="m-8"
+                padding="4"
+                aspectRatio={aspectRatio}
+                cursor="interactive"
+                minHeight={thumbnail.height}
+                maxHeight={thumbnail.height}
+              >
+                {typeof item.slide === "string" ? (
+                  <Media
+                    alt={item.alt || ""}
+                    aspectRatio={aspectRatio}
+                    sizes={thumbnail.sizes}
+                    src={item.slide}
+                    cursor="interactive"
+                    radius="m"
+                    transition="macro-medium"
+                  />
+                ) : (
+                  <Flex
+                    aspectRatio={aspectRatio}
+                    cursor="interactive"
+                    radius="m"
+                    transition="macro-medium"
+                    overflow="hidden"
+                    fill
+                  >
+                    <Flex fill style={{ transform: `scale(${thumbnail.scaling})` }}>
+                      {item.slide}
                     </Flex>
-                  )}
-                </Flex>
-              ))}
-            </Scroller>
-          )}
-        </>
-      )}
+                  </Flex>
+                )}
+              </Flex>
+            ))}
+          </Scroller>
+        ))}
     </Column>
   );
 };

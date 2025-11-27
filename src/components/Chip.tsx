@@ -2,7 +2,7 @@
 
 import classNames from "classnames";
 import type React from "react";
-import { forwardRef, type MouseEventHandler, type ReactNode } from "react";
+import type { MouseEventHandler, ReactNode } from "react";
 import type { IconName } from "../icons";
 import { Flex, Icon, IconButton, type IconButtonProps, Text } from ".";
 import styles from "./Chip.module.css";
@@ -17,86 +17,83 @@ interface ChipProps extends React.ComponentProps<typeof Flex> {
   iconButtonProps?: Partial<IconButtonProps>;
   style?: React.CSSProperties;
   className?: string;
+  ref?: React.Ref<HTMLDivElement>;
 }
 
-const Chip: React.FC<ChipProps> = forwardRef<HTMLDivElement, ChipProps>(
-  (
-    {
-      label,
-      selected = true,
-      prefixIcon,
-      onRemove,
-      onClick,
-      children,
-      iconButtonProps = {},
-      ...rest
+function Chip({
+  label,
+  selected = true,
+  prefixIcon,
+  onRemove,
+  onClick,
+  children,
+  iconButtonProps = {},
+  ref,
+  ...rest
+}: ChipProps) {
+  const defaultIconButtonProps: IconButtonProps = {
+    icon: "close",
+    variant: "ghost",
+    size: "s",
+    tooltip: "Remove",
+    onClick: (e) => {
+      e.stopPropagation();
+      if (onRemove) onRemove();
     },
-    ref,
-  ) => {
-    const defaultIconButtonProps: IconButtonProps = {
-      icon: "close",
-      variant: "ghost",
-      size: "s",
-      tooltip: "Remove",
-      onClick: (e) => {
-        e.stopPropagation();
-        if (onRemove) onRemove();
-      },
-    };
+  };
 
-    const combinedIconButtonProps = {
-      ...defaultIconButtonProps,
-      ...iconButtonProps,
-      onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
-        defaultIconButtonProps.onClick?.(e);
-        iconButtonProps.onClick?.(e);
-      },
-    };
+  const combinedIconButtonProps = {
+    ...defaultIconButtonProps,
+    ...iconButtonProps,
+    onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
+      defaultIconButtonProps.onClick?.(e);
+      iconButtonProps.onClick?.(e);
+    },
+  };
 
-    const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        if (onClick) onClick(e as unknown as React.MouseEvent<HTMLDivElement>);
-      }
-    };
+  const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      if (onClick) onClick(e as unknown as React.MouseEvent<HTMLDivElement>);
+    }
+  };
 
-    return (
-      <Flex
-        ref={ref}
-        fit
-        vertical="center"
-        radius="full"
-        paddingX="8"
-        paddingY="4"
-        role="button"
-        tabIndex={0}
-        onClick={onClick}
-        onKeyDown={handleKeyDown}
-        aria-pressed={selected}
-        cursor="interactive"
-        transition="micro-medium"
-        className={classNames(styles.chip, {
-          [styles.selected]: selected,
-          [styles.unselected]: !selected,
-        })}
-        {...rest}
-      >
-        {prefixIcon && <Icon name={prefixIcon} size="s" />}
-        <Flex paddingX="8" paddingY="2">
-          <Text variant="body-default-s">{label || children}</Text>
-        </Flex>
-        {onRemove && (
-          <IconButton
-            style={{
-              color: "inherit",
-            }}
-            {...combinedIconButtonProps}
-          />
-        )}
+  return (
+    <Flex
+      ref={ref}
+      fit
+      vertical="center"
+      radius="full"
+      paddingX="8"
+      paddingY="4"
+      role="button"
+      tabIndex={0}
+      onClick={onClick}
+      onKeyDown={handleKeyDown}
+      aria-pressed={selected}
+      cursor="interactive"
+      transition="micro-medium"
+      className={classNames(styles.chip, {
+        [styles.selected]: selected,
+        [styles.unselected]: !selected,
+      })}
+      {...rest}
+    >
+      {prefixIcon && <Icon name={prefixIcon} size="s" />}
+      <Flex paddingX="8" paddingY="2">
+        <Text variant="body-default-s">{label || children}</Text>
       </Flex>
-    );
-  },
-);
+      {onRemove && (
+        <IconButton
+          style={{
+            color: "inherit",
+          }}
+          {...combinedIconButtonProps}
+        />
+      )}
+    </Flex>
+  );
+}
 
 Chip.displayName = "Chip";
 

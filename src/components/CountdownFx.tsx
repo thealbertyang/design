@@ -29,7 +29,7 @@ const CountdownFx: React.FC<CountdownFxProps> = ({
 
   useEffect(() => {
     const calculateTimeRemaining = () => {
-      const now = new Date().getTime();
+      const now = Date.now();
       const target =
         typeof targetDate === "string" ? new Date(targetDate).getTime() : targetDate.getTime();
       const difference = target - now;
@@ -67,7 +67,7 @@ const CountdownFx: React.FC<CountdownFxProps> = ({
         {digits.map((digit, index) => (
           <CountFx
             key={`${key}-${index}`}
-            value={Number.parseInt(digit)}
+            value={Number.parseInt(digit, 10)}
             effect={effect}
             speed={400}
             {...countFxProps}

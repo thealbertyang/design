@@ -1,5 +1,5 @@
 import type React from "react";
-import { forwardRef, type ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { Flex, Text } from ".";
 
@@ -8,10 +8,11 @@ interface KbdProps extends React.ComponentProps<typeof Flex> {
   children?: ReactNode;
   className?: string;
   style?: React.CSSProperties;
+  ref?: React.Ref<HTMLDivElement>;
 }
 
-const Kbd = forwardRef<HTMLDivElement, KbdProps>(
-  ({ label, children, className, style, ...rest }, ref) => (
+function Kbd({ label, children, className, style, ref, ...rest }: KbdProps) {
+  return (
     <Flex
       as="kbd"
       ref={ref}
@@ -31,8 +32,8 @@ const Kbd = forwardRef<HTMLDivElement, KbdProps>(
         {label || children}
       </Text>
     </Flex>
-  ),
-);
+  );
+}
 
 Kbd.displayName = "Kbd";
 

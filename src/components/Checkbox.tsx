@@ -2,7 +2,7 @@
 
 import classNames from "classnames";
 import type React from "react";
-import { forwardRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Flex, Icon, InteractiveDetails, type InteractiveDetailsProps } from ".";
 import styles from "./SharedInteractiveStyles.module.css";
 
@@ -12,121 +12,116 @@ interface CheckboxProps
   isChecked?: boolean;
   isIndeterminate?: boolean;
   onToggle?: () => void;
+  ref?: React.Ref<HTMLInputElement>;
 }
 
 const generateId = () => `checkbox-${Math.random().toString(36).substring(2, 9)}`;
 
-const Checkbox: React.FC<CheckboxProps> = forwardRef<HTMLInputElement, CheckboxProps>(
-  (
-    {
-      style,
-      className,
-      isChecked: controlledIsChecked,
-      isIndeterminate = false,
-      onToggle,
-      disabled,
-      ...props
-    },
-    ref,
-  ) => {
-    const [isChecked, setIsChecked] = useState(controlledIsChecked || false);
-    const [checkboxId] = useState(generateId());
+function Checkbox({
+  style,
+  className,
+  isChecked: controlledIsChecked,
+  isIndeterminate = false,
+  onToggle,
+  disabled,
+  ref,
+  ...props
+}: CheckboxProps) {
+  const [isChecked, setIsChecked] = useState(controlledIsChecked || false);
+  const [checkboxId] = useState(generateId());
 
-    useEffect(() => {
-      if (controlledIsChecked !== undefined) {
-        setIsChecked(controlledIsChecked);
-      }
-    }, [controlledIsChecked]);
+  useEffect(() => {
+    if (controlledIsChecked !== undefined) {
+      setIsChecked(controlledIsChecked);
+    }
+  }, [controlledIsChecked]);
 
-    const toggleItem = () => {
-      if (disabled) return;
-      if (onToggle) {
-        onToggle();
-      } else {
-        setIsChecked(!isChecked);
-      }
-    };
+  const toggleItem = () => {
+    if (disabled) return;
+    if (onToggle) {
+      onToggle();
+    } else {
+      setIsChecked(!isChecked);
+    }
+  };
 
-    const handleKeyDown = (event: React.KeyboardEvent) => {
-      if (disabled) return;
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        toggleItem();
-      }
-    };
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (disabled) return;
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      toggleItem();
+    }
+  };
 
-    return (
+  return (
+    <Flex
+      vertical="center"
+      gap="16"
+      className={classNames(styles.container, className, {
+        [styles.disabled]: disabled,
+      })}
+      style={style}
+    >
+      <input
+        type="checkbox"
+        ref={ref}
+        aria-checked={
+          isIndeterminate
+            ? "mixed"
+            : controlledIsChecked !== undefined
+              ? controlledIsChecked
+              : isChecked
+        }
+        checked={controlledIsChecked !== undefined ? controlledIsChecked : isChecked}
+        onChange={toggleItem}
+        disabled={disabled}
+        className={styles.hidden}
+        tabIndex={-1}
+      />
       <Flex
+        style={{
+          borderRadius: "min(var(--static-space-4), var(--radius-xs))",
+        }}
+        role="checkbox"
+        tabIndex={0}
+        cursor={disabled ? "not-allowed" : undefined}
+        horizontal="center"
         vertical="center"
-        gap="16"
-        className={classNames(styles.container, className, {
+        radius="xs"
+        aria-checked={
+          isIndeterminate
+            ? "mixed"
+            : controlledIsChecked !== undefined
+              ? controlledIsChecked
+              : isChecked
+        }
+        aria-labelledby={checkboxId}
+        onClick={toggleItem}
+        onKeyDown={handleKeyDown}
+        className={classNames(styles.element, {
+          [styles.checked]:
+            controlledIsChecked !== undefined ? controlledIsChecked || isIndeterminate : isChecked,
           [styles.disabled]: disabled,
         })}
-        style={style}
       >
-        <input
-          type="checkbox"
-          ref={ref}
-          aria-checked={
-            isIndeterminate
-              ? "mixed"
-              : controlledIsChecked !== undefined
-                ? controlledIsChecked
-                : isChecked
-          }
-          checked={controlledIsChecked !== undefined ? controlledIsChecked : isChecked}
-          onChange={toggleItem}
-          disabled={disabled}
-          className={styles.hidden}
-          tabIndex={-1}
-        />
-        <Flex
-          style={{
-            borderRadius: "min(var(--static-space-4), var(--radius-xs))",
-          }}
-          role="checkbox"
-          tabIndex={0}
-          cursor={disabled ? "not-allowed" : undefined}
-          horizontal="center"
-          vertical="center"
-          radius="xs"
-          aria-checked={
-            isIndeterminate
-              ? "mixed"
-              : controlledIsChecked !== undefined
-                ? controlledIsChecked
-                : isChecked
-          }
-          aria-labelledby={checkboxId}
-          onClick={toggleItem}
-          onKeyDown={handleKeyDown}
-          className={classNames(styles.element, {
-            [styles.checked]:
-              controlledIsChecked !== undefined
-                ? controlledIsChecked || isIndeterminate
-                : isChecked,
-            [styles.disabled]: disabled,
-          })}
-        >
-          {(controlledIsChecked !== undefined ? controlledIsChecked : isChecked) &&
-            !isIndeterminate && (
-              <Flex className={styles.icon}>
-                <Icon onSolid="brand-strong" name="checkbox" size="xs" />
-              </Flex>
-            )}
-          {isIndeterminate && (
+        {(controlledIsChecked !== undefined ? controlledIsChecked : isChecked) &&
+          !isIndeterminate && (
             <Flex className={styles.icon}>
-              <Icon onSolid="brand-strong" name="minus" size="xs" />
+              <Icon onSolid="brand-strong" name="checkbox" size="xs" />
             </Flex>
           )}
-        </Flex>
-        {props.label && (
-          <InteractiveDetails disabled={disabled} id={checkboxId} {...props} onClick={toggleItem} />
+        {isIndeterminate && (
+          <Flex className={styles.icon}>
+            <Icon onSolid="brand-strong" name="minus" size="xs" />
+          </Flex>
         )}
       </Flex>
-    );
-  },
-);
+      {props.label && (
+        <InteractiveDetails disabled={disabled} id={checkboxId} {...props} onClick={toggleItem} />
+      )}
+    </Flex>
+  );
+}
 
 Checkbox.displayName = "Checkbox";
 

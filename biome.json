@@ -25,12 +25,69 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "correctness": {
+        "noUnknownProperty": "off",
+        "useExhaustiveDependencies": "off",
+        "useHookAtTopLevel": "off",
+        "noUnusedFunctionParameters": "off"
+      },
+      "suspicious": {
+        "noUnknownAtRules": {
+          "level": "error",
+          "options": {
+            "ignore": [
+              "layer",
+              "container",
+              "scope",
+              "property",
+              "starting-style",
+              "view-transition",
+              "position-try",
+              "function"
+            ]
+          }
+        },
+        "noExplicitAny": "off",
+        "noArrayIndexKey": "off",
+        "noDuplicateProperties": "off",
+        "noShorthandPropertyOverrides": "off"
+      },
+      "style": {
+        "noDescendingSpecificity": "off",
+        "noNonNullAssertion": "off"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "off"
+      },
+      "performance": {
+        "noImgElement": "off"
+      },
+      "a11y": {
+        "noStaticElementInteractions": "off",
+        "useKeyWithMouseEvents": "off",
+        "useIframeTitle": "off",
+        "noSvgWithoutTitle": "off"
+      }
     }
   },
   "javascript": {
     "formatter": {
       "quoteStyle": "double"
+    },
+    "jsxRuntime": "reactClassic"
+  },
+  "css": {
+    "linter": {
+      "enabled": true
+    },
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "indentWidth": 2
+    },
+    "parser": {
+      "cssModules": true
     }
   }
 }

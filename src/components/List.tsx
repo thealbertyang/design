@@ -1,7 +1,6 @@
 "use client";
 
 import type React from "react";
-import { forwardRef } from "react";
 import { Column } from ".";
 
 interface ListProps extends React.ComponentProps<typeof Column> {
@@ -9,32 +8,14 @@ interface ListProps extends React.ComponentProps<typeof Column> {
   children?: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
+  ref?: React.Ref<HTMLDivElement>;
 }
 
-const List = forwardRef<HTMLDivElement, ListProps>(
-  ({ as = "ul", className, children, style, ...props }, ref) => {
-    if (as === "ol") {
-      return (
-        <Column
-          as="ol"
-          fillWidth
-          margin="0"
-          paddingY="0"
-          paddingRight="0"
-          paddingLeft="20"
-          ref={ref}
-          className={className}
-          style={style}
-          {...props}
-        >
-          {children}
-        </Column>
-      );
-    }
-
+function List({ as = "ul", className, children, style, ref, ...props }: ListProps) {
+  if (as === "ol") {
     return (
       <Column
-        as="ul"
+        as="ol"
         fillWidth
         margin="0"
         paddingY="0"
@@ -48,8 +29,25 @@ const List = forwardRef<HTMLDivElement, ListProps>(
         {children}
       </Column>
     );
-  },
-);
+  }
+
+  return (
+    <Column
+      as="ul"
+      fillWidth
+      margin="0"
+      paddingY="0"
+      paddingRight="0"
+      paddingLeft="20"
+      ref={ref}
+      className={className}
+      style={style}
+      {...props}
+    >
+      {children}
+    </Column>
+  );
+}
 
 List.displayName = "List";
 export { List };

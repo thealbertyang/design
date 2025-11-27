@@ -2,7 +2,6 @@
 
 import {
   type KeyboardEvent,
-  memo,
   useCallback,
   useEffect,
   useId,
@@ -106,7 +105,7 @@ export interface EmojiPickerProps extends Omit<React.ComponentProps<typeof Flex>
   style?: React.CSSProperties;
 }
 
-// Memoized emoji button to prevent unnecessary re-renders
+// Emoji button component
 interface EmojiButtonProps {
   emoji: EmojiItem;
   index: number;
@@ -115,7 +114,7 @@ interface EmojiButtonProps {
   onFocus: (index: number) => void;
 }
 
-const EmojiButton = memo(({ emoji, index, isFocused, onSelect, onFocus }: EmojiButtonProps) => {
+function EmojiButton({ emoji, index, isFocused, onSelect, onFocus }: EmojiButtonProps) {
   return (
     <IconButton
       key={index}
@@ -133,11 +132,11 @@ const EmojiButton = memo(({ emoji, index, isFocused, onSelect, onFocus }: EmojiB
       <Text variant="heading-default-xl">{emoji.char}</Text>
     </IconButton>
   );
-});
+}
 
 EmojiButton.displayName = "EmojiButton";
 
-const EmojiPicker = ({
+function EmojiPicker({
   onSelect,
   onClose,
   className,
@@ -145,7 +144,7 @@ const EmojiPicker = ({
   columns = "8",
   style,
   ...flex
-}: EmojiPickerProps) => {
+}: EmojiPickerProps) {
   const searchInputId = useId();
   const [inputValue, setInputValue] = useState("");
   const searchQuery = useDebounce(inputValue, 300);
@@ -208,7 +207,7 @@ const EmojiPicker = ({
   // Reset focused index when filtered emojis change
   useEffect(() => {
     setFocusedEmojiIndex(-1);
-  }, [filteredEmojis]);
+  }, []);
 
   // Memoize the onFocus handler to prevent re-creating on every render
   const handleFocus = useCallback((index: number) => {
@@ -331,7 +330,7 @@ const EmojiPicker = ({
       )}
     </Column>
   );
-};
+}
 
 EmojiPicker.displayName = "EmojiPicker";
 

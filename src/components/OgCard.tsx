@@ -45,7 +45,7 @@ const formatDisplayUrl = (url: string | undefined): string => {
     domain = domain.replace(/^www\./, "");
 
     return domain;
-  } catch (error) {
+  } catch (_error) {
     let formattedUrl = url.replace(/^https?:\/\//, "");
     formattedUrl = formattedUrl.replace(/^www\./, "");
 
@@ -66,7 +66,7 @@ const getFaviconUrl = (url: string | undefined, proxyFn?: (url: string) => strin
 
     // Use the provided proxy function or return the favicon URL directly
     return proxyFn ? proxyFn(faviconSourceUrl) : faviconSourceUrl;
-  } catch (error) {
+  } catch (_error) {
     return "";
   }
 };

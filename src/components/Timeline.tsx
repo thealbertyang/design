@@ -242,25 +242,23 @@ const Timeline: React.FC<TimelineProps> = ({ items, alignment = "left", size = "
               }
               gap="2"
             >
-              <>
-                {item.label && (
-                  <Text
-                    variant="label-default-m"
-                    onBackground={state === "danger" ? "danger-weak" : undefined}
-                  >
-                    {item.label}
-                  </Text>
-                )}
-                {item.description && (
-                  <Text
-                    variant="body-default-s"
-                    onBackground={state === "danger" ? "danger-weak" : "neutral-weak"}
-                  >
-                    {item.description}
-                  </Text>
-                )}
-                {item.children}
-              </>
+              {item.label && (
+                <Text
+                  variant="label-default-m"
+                  onBackground={state === "danger" ? "danger-weak" : undefined}
+                >
+                  {item.label}
+                </Text>
+              )}
+              {item.description && (
+                <Text
+                  variant="body-default-s"
+                  onBackground={state === "danger" ? "danger-weak" : "neutral-weak"}
+                >
+                  {item.description}
+                </Text>
+              )}
+              {item.children}
             </Column>
           </Flex>
         );

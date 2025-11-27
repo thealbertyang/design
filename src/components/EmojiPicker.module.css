@@ -9,6 +9,6 @@
   }
 
   &:focus-visible {
-    background: var(--neutral-alpha-weak) !important;
+    background: var(--neutral-alpha-weak);
   }
 }
