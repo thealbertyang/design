@@ -1,0 +1,43 @@
+---
+status: pending
+priority: medium
+category: feature
+created: 2025-11-27
+---
+
+# Add textColor prop to Text/Heading components for @scope-based auto-styling
+
+Add a `textColor` prop to Text and Heading components that maps to the new `.text-*` utility classes. This enables ergonomic usage of the @scope-based auto text color system without requiring manual className usage.
+
+## Criteria
+
+- [ ] Add `textColor` prop type to Text component with values: 'auto' | 'primary' | 'secondary' | 'tertiary' | 'scheme' | 'success' | 'danger' | 'warning' | 'info' | 'neutral' | 'brand' | 'accent'
+- [ ] Implement className mapping in Text component to add `.text-{value}` class
+- [ ] Add same `textColor` prop to Heading component
+- [ ] Ensure `textColor` prop works alongside existing `onBackground`/`onSolid` props (textColor takes precedence when both specified)
+- [ ] Add TypeScript types and JSDoc documentation
+- [ ] Test with nested containers to verify @scope proximity works correctly
+
+## Files
+
+- `packages/once-ui/src/components/Text.tsx`
+- `packages/once-ui/src/components/Heading.tsx`
+- `packages/once-ui/src/styles/color.css` (already implemented @scope rules)
+
+## Notes
+
+The @scope CSS rules are already implemented in color.css. This todo adds the React component props to make usage more ergonomic:
+
+```tsx
+// Current usage (works but verbose)
+<Text className="text-auto">Auto-colored</Text>
+
+// Proposed usage (ergonomic)
+<Text textColor="auto">Auto-colored</Text>
+<Text textColor="scheme">Matches container scheme</Text>
+```
+
+The `textColor` prop should:
+1. Map to `.text-{value}` class
+2. Work with @scope auto-detection (no need to know if parent is background vs solid)
+3. Be optional - existing onBackground/onSolid props still work
