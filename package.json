@@ -1,107 +1,107 @@
 {
-  "name": "@once-ui-system/core",
-  "version": "1.5.4",
-  "description": "Once UI for Next.js NPM package",
-  "keywords": [
-    "once-ui",
-    "react",
-    "nextjs",
-    "css",
-    "design system",
-    "design framework",
-    "nextjs design system"
-  ],
-  "author": "Once UI",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/thealbertyang/design.git"
-  },
-  "bugs": {
-    "url": "https://github.com/thealbertyang/design/issues"
-  },
-  "homepage": "https://github.com/thealbertyang/design",
-  "main": "dist/index.js",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
-    },
-    "./components": {
-      "import": "./dist/components/index.js",
-      "require": "./dist/components/index.js"
-    },
-    "./components/*": {
-      "import": "./dist/components/*.js",
-      "require": "./dist/components/*.js"
-    },
-    "./contexts": {
-      "import": "./dist/contexts/index.js",
-      "require": "./dist/contexts/index.js"
-    },
-    "./modules": {
-      "import": "./dist/modules/index.js",
-      "require": "./dist/modules/index.js"
-    },
-    "./icons": {
-      "import": "./dist/icons/index.js",
-      "require": "./dist/icons/index.js"
-    },
-    "./types": {
-      "import": "./dist/types/index.js",
-      "require": "./dist/types/index.js"
-    },
-    "./interfaces": {
-      "import": "./dist/interfaces/index.js",
-      "require": "./dist/interfaces/index.js"
-    },
-    "./css/styles.css": "./dist/css/styles.css",
-    "./css/tokens.css": "./dist/css/tokens.css",
-    "./utils": {
-      "import": "./dist/utils/index.js",
-      "require": "./dist/utils/index.js"
-    },
-    "./hooks": {
-      "import": "./dist/hooks/index.js",
-      "require": "./dist/hooks/index.js"
-    }
-  },
-  "scripts": {
-    "build": "bun run clean && bun run icons:generate && bun run generate-emoji-data && tsc --project tsconfig.build.json && bun run copy-files && bun run build:css",
-    "build:css": "node scripts/build-css.js",
-    "copy-files": "node scripts/copy-files.js",
-    "clean": "rm -rf dist",
-    "clean:node": "rm -rf node_modules",
-    "kill": "pkill -15 -f 'tsc --watch' || true",
-    "lint": "biome check .",
-    "format": "biome format --write",
-    "typecheck": "tsc --noEmit",
-    "dev": "tsc --watch --preserveWatchOutput",
-    "generate-emoji-data": "node scripts/generate-emoji-data.js",
-    "icons:generate": "node ../../scripts/generate-icons.js --package once-ui && bunx @biomejs/biome check --write src/icons/",
-    "icons:generate:force": "node ../../scripts/generate-icons.js --package once-ui --force && bunx @biomejs/biome check --write src/icons/"
-  },
-  "dependencies": {
-    "@floating-ui/react-dom": "catalog:ui",
-    "classnames": "catalog:frontend",
-    "compressorjs": "catalog:ui",
-    "date-fns": "catalog:ui",
-    "prismjs": "catalog:ui",
-    "recharts": "catalog:ui"
-  },
-  "peerDependencies": {
-    "next": ">=13.4",
-    "react": ">=18",
-    "react-dom": ">=18",
-    "sharp": "^0.33.4"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "catalog:linting",
-    "@types/node": "catalog:runtime",
-    "@types/react": "catalog:frontend",
-    "@types/react-dom": "catalog:frontend",
-    "react-icons": "catalog:frontend",
-    "rimraf": "catalog:ui",
-    "typescript": "catalog:types"
-  }
+	"name": "@once-ui-system/core",
+	"version": "1.5.4",
+	"description": "Once UI for Next.js NPM package",
+	"keywords": [
+		"once-ui",
+		"react",
+		"nextjs",
+		"css",
+		"design system",
+		"design framework",
+		"nextjs design system"
+	],
+	"author": "Once UI",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/thealbertyang/design.git"
+	},
+	"bugs": {
+		"url": "https://github.com/thealbertyang/design/issues"
+	},
+	"homepage": "https://github.com/thealbertyang/design",
+	"main": "dist/index.js",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"require": "./dist/index.js"
+		},
+		"./components": {
+			"import": "./dist/components/index.js",
+			"require": "./dist/components/index.js"
+		},
+		"./components/*": {
+			"import": "./dist/components/*.js",
+			"require": "./dist/components/*.js"
+		},
+		"./contexts": {
+			"import": "./dist/contexts/index.js",
+			"require": "./dist/contexts/index.js"
+		},
+		"./modules": {
+			"import": "./dist/modules/index.js",
+			"require": "./dist/modules/index.js"
+		},
+		"./icons": {
+			"import": "./dist/icons/index.js",
+			"require": "./dist/icons/index.js"
+		},
+		"./types": {
+			"import": "./dist/types/index.js",
+			"require": "./dist/types/index.js"
+		},
+		"./interfaces": {
+			"import": "./dist/interfaces/index.js",
+			"require": "./dist/interfaces/index.js"
+		},
+		"./css/styles.css": "./dist/css/styles.css",
+		"./css/tokens.css": "./dist/css/tokens.css",
+		"./utils": {
+			"import": "./dist/utils/index.js",
+			"require": "./dist/utils/index.js"
+		},
+		"./hooks": {
+			"import": "./dist/hooks/index.js",
+			"require": "./dist/hooks/index.js"
+		}
+	},
+	"scripts": {
+		"build": "bun run clean && bun run icons:generate && bun run generate-emoji-data && tsc --project tsconfig.build.json && bun run copy-files && bun run build:css",
+		"build:css": "node scripts/build-css.js",
+		"copy-files": "node scripts/copy-files.js",
+		"clean": "rm -rf dist",
+		"clean:node": "rm -rf node_modules",
+		"kill": "pkill -15 -f 'tsc --watch' || true",
+		"lint": "biome check .",
+		"format": "biome format --write",
+		"typecheck": "tsc --noEmit",
+		"dev": "tsc --watch --preserveWatchOutput",
+		"generate-emoji-data": "node scripts/generate-emoji-data.js",
+		"icons:generate": "node ../../scripts/generate-icons.js --package once-ui && bunx @biomejs/biome check --write src/icons/",
+		"icons:generate:force": "node ../../scripts/generate-icons.js --package once-ui --force && bunx @biomejs/biome check --write src/icons/"
+	},
+	"dependencies": {
+		"@floating-ui/react-dom": "catalog:ui",
+		"classnames": "catalog:frontend",
+		"compressorjs": "catalog:ui",
+		"date-fns": "catalog:ui",
+		"prismjs": "catalog:ui",
+		"recharts": "catalog:ui"
+	},
+	"peerDependencies": {
+		"next": "catalog:frontend",
+		"react": "catalog:frontend",
+		"react-dom": "catalog:frontend",
+		"sharp": "catalog:ui"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "catalog:linting",
+		"@types/node": "catalog:runtime",
+		"@types/react": "catalog:frontend",
+		"@types/react-dom": "catalog:frontend",
+		"react-icons": "catalog:frontend",
+		"rimraf": "catalog:ui",
+		"typescript": "catalog:types"
+	}
 }
