@@ -30,7 +30,7 @@ function copyDir(src, dest) {
 
 // Copy all style files and other assets
 const srcDir = path.resolve(__dirname, "../src");
-const destDir = path.resolve(__dirname, "../dist");
+const destDir = path.resolve(__dirname, "../dist/src");
 
 // Copy package.json with modifications
 const packageJson = require("../package.json");
@@ -62,12 +62,13 @@ Object.keys(peerDeps).forEach((dep) => {
   delete packageJson.dependencies[dep];
 });
 
-// Write the modified package.json to dist
-fs.writeFileSync(path.resolve(destDir, "package.json"), JSON.stringify(packageJson, null, 2));
+// Write the modified package.json to dist root (not dist/src)
+const distRoot = path.resolve(__dirname, "../dist");
+fs.writeFileSync(path.resolve(distRoot, "package.json"), JSON.stringify(packageJson, null, 2));
 
-// Copy README
+// Copy README to dist root
 if (fs.existsSync(path.resolve(__dirname, "../README.md"))) {
-  fs.copyFileSync(path.resolve(__dirname, "../README.md"), path.resolve(destDir, "README.md"));
+  fs.copyFileSync(path.resolve(__dirname, "../README.md"), path.resolve(distRoot, "README.md"));
 }
 
 // Copy style files

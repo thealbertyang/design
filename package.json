@@ -21,49 +21,59 @@
 		"url": "https://github.com/thealbertyang/design/issues"
 	},
 	"homepage": "https://github.com/thealbertyang/design",
-	"main": "dist/index.js",
+	"main": "dist/src/index.js",
+	"types": "dist/types/src/index.d.ts",
 	"exports": {
 		".": {
-			"import": "./dist/index.js",
-			"require": "./dist/index.js"
+			"types": "./dist/types/src/index.d.ts",
+			"import": "./dist/src/index.js",
+			"require": "./dist/src/index.js"
 		},
 		"./components": {
-			"import": "./dist/components/index.js",
-			"require": "./dist/components/index.js"
+			"types": "./dist/types/src/components/index.d.ts",
+			"import": "./dist/src/components/index.js",
+			"require": "./dist/src/components/index.js"
 		},
 		"./components/*": {
-			"import": "./dist/components/*.js",
-			"require": "./dist/components/*.js"
+			"import": "./dist/src/components/*.js",
+			"require": "./dist/src/components/*.js"
 		},
 		"./contexts": {
-			"import": "./dist/contexts/index.js",
-			"require": "./dist/contexts/index.js"
+			"types": "./dist/types/src/contexts/index.d.ts",
+			"import": "./dist/src/contexts/index.js",
+			"require": "./dist/src/contexts/index.js"
 		},
 		"./modules": {
-			"import": "./dist/modules/index.js",
-			"require": "./dist/modules/index.js"
+			"types": "./dist/types/src/modules/index.d.ts",
+			"import": "./dist/src/modules/index.js",
+			"require": "./dist/src/modules/index.js"
 		},
 		"./icons": {
-			"import": "./dist/icons/index.js",
-			"require": "./dist/icons/index.js"
+			"types": "./dist/types/src/icons/index.d.ts",
+			"import": "./dist/src/icons/index.js",
+			"require": "./dist/src/icons/index.js"
 		},
 		"./types": {
-			"import": "./dist/types/index.js",
-			"require": "./dist/types/index.js"
+			"types": "./dist/types/src/types.d.ts",
+			"import": "./dist/src/types.js",
+			"require": "./dist/src/types.js"
 		},
 		"./interfaces": {
-			"import": "./dist/interfaces/index.js",
-			"require": "./dist/interfaces/index.js"
+			"types": "./dist/types/src/interfaces.d.ts",
+			"import": "./dist/src/interfaces.js",
+			"require": "./dist/src/interfaces.js"
 		},
 		"./css/styles.css": "./dist/css/styles.css",
 		"./css/tokens.css": "./dist/css/tokens.css",
 		"./utils": {
-			"import": "./dist/utils/index.js",
-			"require": "./dist/utils/index.js"
+			"types": "./dist/types/src/utils/index.d.ts",
+			"import": "./dist/src/utils/index.js",
+			"require": "./dist/src/utils/index.js"
 		},
 		"./hooks": {
-			"import": "./dist/hooks/index.js",
-			"require": "./dist/hooks/index.js"
+			"types": "./dist/types/src/hooks/index.d.ts",
+			"import": "./dist/src/hooks/index.js",
+			"require": "./dist/src/hooks/index.js"
 		}
 	},
 	"scripts": {
