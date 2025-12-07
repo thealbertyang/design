@@ -354,21 +354,86 @@
   [data-theme="light"] {
     color-scheme: only light;
   }
+}
 
-  /* Theme-conditional display classes */
-  .dark-flex {
-    display: light-dark(none, flex);
-  }
+/* ══════════════════════════════════════════════════════════════════════════════
+   THEME-CONDITIONAL DISPLAY CLASSES
+   ══════════════════════════════════════════════════════════════════════════════
+   IMPORTANT: These MUST be outside @layer to override utility classes like
+   .display-flex (unlayered styles beat layered styles in CSS cascade).
 
-  .dark-grid {
-    display: light-dark(none, grid);
-  }
+   Uses standard media queries for broad browser support + data-theme overrides.
+   ══════════════════════════════════════════════════════════════════════════════ */
 
+/* Base state: Light mode (default) */
+.light-flex {
+  display: flex;
+}
+.light-grid {
+  display: grid;
+}
+.light-block {
+  display: block;
+}
+.dark-flex {
+  display: none;
+}
+.dark-grid {
+  display: none;
+}
+.dark-block {
+  display: none;
+}
+
+/* OS dark mode preference */
+@media (prefers-color-scheme: dark) {
   .light-flex {
-    display: light-dark(flex, none);
+    display: none;
   }
-
   .light-grid {
-    display: light-dark(grid, none);
+    display: none;
   }
+  .light-block {
+    display: none;
+  }
+  .dark-flex {
+    display: flex;
+  }
+  .dark-grid {
+    display: grid;
+  }
+  .dark-block {
+    display: block;
+  }
+}
+
+/* Manual data-theme overrides (use !important to ensure they always win) */
+[data-theme="dark"] .light-flex,
+[data-theme="dark"] .light-grid,
+[data-theme="dark"] .light-block {
+  display: none;
+}
+[data-theme="dark"] .dark-flex {
+  display: flex;
+}
+[data-theme="dark"] .dark-grid {
+  display: grid;
+}
+[data-theme="dark"] .dark-block {
+  display: block;
+}
+
+[data-theme="light"] .dark-flex,
+[data-theme="light"] .dark-grid,
+[data-theme="light"] .dark-block {
+  display: none;
+}
+[data-theme="light"] .light-flex {
+  display: flex;
+}
+[data-theme="light"] .light-grid {
+  display: grid;
+}
+[data-theme="light"] .light-block {
+  display: block;
 }
