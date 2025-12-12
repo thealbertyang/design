@@ -1,93 +1,94 @@
 {
-  "$schema": "https://biomejs.dev/schemas/latest/schema.json",
-  "vcs": {
-    "enabled": true,
-    "clientKind": "git",
-    "useIgnoreFile": true
-  },
-  "files": {
-    "ignoreUnknown": false,
-    "includes": ["**"]
-  },
-  "formatter": {
-    "enabled": true,
-    "indentStyle": "space",
-    "indentWidth": 2,
-    "lineWidth": 100
-  },
-  "assist": {
-    "actions": {
-      "source": {
-        "organizeImports": "on"
-      }
-    }
-  },
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "recommended": true,
-      "correctness": {
-        "noUnknownProperty": "off",
-        "useExhaustiveDependencies": "off",
-        "useHookAtTopLevel": "off",
-        "noUnusedFunctionParameters": "off"
-      },
-      "suspicious": {
-        "noUnknownAtRules": {
-          "level": "error",
-          "options": {
-            "ignore": [
-              "layer",
-              "container",
-              "scope",
-              "property",
-              "starting-style",
-              "view-transition",
-              "position-try",
-              "function"
-            ]
-          }
-        },
-        "noExplicitAny": "off",
-        "noArrayIndexKey": "off",
-        "noDuplicateProperties": "off",
-        "noShorthandPropertyOverrides": "off"
-      },
-      "style": {
-        "noDescendingSpecificity": "off",
-        "noNonNullAssertion": "off"
-      },
-      "security": {
-        "noDangerouslySetInnerHtml": "off"
-      },
-      "performance": {
-        "noImgElement": "off"
-      },
-      "a11y": {
-        "noStaticElementInteractions": "off",
-        "useKeyWithMouseEvents": "off",
-        "useIframeTitle": "off",
-        "noSvgWithoutTitle": "off"
-      }
-    }
-  },
-  "javascript": {
-    "formatter": {
-      "quoteStyle": "double"
-    },
-    "jsxRuntime": "reactClassic"
-  },
-  "css": {
-    "linter": {
-      "enabled": true
-    },
-    "formatter": {
-      "enabled": true,
-      "indentStyle": "space",
-      "indentWidth": 2
-    },
-    "parser": {
-      "cssModules": true
-    }
-  }
+	"root": false,
+	"$schema": "https://biomejs.dev/schemas/2.3.8/schema.json",
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
+	},
+	"files": {
+		"ignoreUnknown": false,
+		"includes": ["**"]
+	},
+	"formatter": {
+		"enabled": true,
+		"indentStyle": "space",
+		"indentWidth": 2,
+		"lineWidth": 100
+	},
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": "on"
+			}
+		}
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"correctness": {
+				"noUnknownProperty": "off",
+				"useExhaustiveDependencies": "off",
+				"useHookAtTopLevel": "off",
+				"noUnusedFunctionParameters": "off"
+			},
+			"suspicious": {
+				"noUnknownAtRules": {
+					"level": "error",
+					"options": {
+						"ignore": [
+							"layer",
+							"container",
+							"scope",
+							"property",
+							"starting-style",
+							"view-transition",
+							"position-try",
+							"function"
+						]
+					}
+				},
+				"noExplicitAny": "off",
+				"noArrayIndexKey": "off",
+				"noDuplicateProperties": "off",
+				"noShorthandPropertyOverrides": "off"
+			},
+			"style": {
+				"noDescendingSpecificity": "off",
+				"noNonNullAssertion": "off"
+			},
+			"security": {
+				"noDangerouslySetInnerHtml": "off"
+			},
+			"performance": {
+				"noImgElement": "off"
+			},
+			"a11y": {
+				"noStaticElementInteractions": "off",
+				"useKeyWithMouseEvents": "off",
+				"useIframeTitle": "off",
+				"noSvgWithoutTitle": "off"
+			}
+		}
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "double"
+		},
+		"jsxRuntime": "reactClassic"
+	},
+	"css": {
+		"linter": {
+			"enabled": true
+		},
+		"formatter": {
+			"enabled": true,
+			"indentStyle": "space",
+			"indentWidth": 2
+		},
+		"parser": {
+			"cssModules": true
+		}
+	}
 }
