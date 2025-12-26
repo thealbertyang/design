@@ -12,12 +12,7 @@ import type {
 import type { ColorScheme, ColorWeight, SpacingToken } from "../types";
 
 interface ComponentProps
-  extends GridProps,
-    SpacingProps,
-    SizeProps,
-    StyleProps,
-    CommonProps,
-    DisplayProps {
+  extends GridProps, SpacingProps, SizeProps, StyleProps, CommonProps, DisplayProps {
   isDefaultBreakpoints?: boolean;
   ref?: Ref<HTMLDivElement>;
 }

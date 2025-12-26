@@ -7,8 +7,7 @@ import { Flex, Icon, InteractiveDetails, type InteractiveDetailsProps } from "."
 import styles from "./SharedInteractiveStyles.module.css";
 
 interface CheckboxProps
-  extends Omit<InteractiveDetailsProps, "onClick">,
-    React.InputHTMLAttributes<HTMLInputElement> {
+  extends Omit<InteractiveDetailsProps, "onClick">, React.InputHTMLAttributes<HTMLInputElement> {
   isChecked?: boolean;
   isIndeterminate?: boolean;
   onToggle?: () => void;

@@ -7,23 +7,29 @@ assignees: ''
 ---
 
 ## Your Question
+
 A clear and concise description of what you're trying to achieve or understand.
 
 ## What I've tried
+
 Describe what you've already attempted:
+
 - [ ] Checked the [documentation](https://docs.once-ui.com)
 - [ ] Searched existing issues
 - [ ] Asked in Discord
 
 ## Code Example
+
 ```tsx
 // Share relevant code if applicable
 ```
 
 ## Expected outcome
+
 What are you trying to accomplish?
 
 ## Additional context
+
 Add any other context, screenshots, or links that might help us understand your question.
 
 ---

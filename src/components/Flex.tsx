@@ -11,12 +11,7 @@ import { ClientFlex } from "./ClientFlex";
 import { ServerFlex } from "./ServerFlex";
 
 interface SmartFlexProps
-  extends FlexProps,
-    StyleProps,
-    SpacingProps,
-    SizeProps,
-    CommonProps,
-    DisplayProps {
+  extends FlexProps, StyleProps, SpacingProps, SizeProps, CommonProps, DisplayProps {
   xl?: any;
   l?: any;
   m?: any;

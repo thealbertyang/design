@@ -11,12 +11,7 @@ import { ClientGrid } from "./ClientGrid";
 import { ServerGrid } from "./ServerGrid";
 
 interface SmartGridProps
-  extends GridProps,
-    StyleProps,
-    SpacingProps,
-    SizeProps,
-    CommonProps,
-    DisplayProps {
+  extends GridProps, StyleProps, SpacingProps, SizeProps, CommonProps, DisplayProps {
   xl?: any;
   l?: any;
   m?: any;

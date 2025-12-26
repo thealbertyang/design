@@ -38,12 +38,14 @@ We prioritize improvements that serve real use cases or improve design/dev workf
 ### Pull requests
 
 We welcome PRs for:
+
 - UI component fixes or improvements
 - Accessibility enhancements
 - Performance tweaks
 - New utilities or design patterns that fit the system
 
 Before submitting a PR:
+
 - Make sure your changes pass linting: `pnpm lint`
 - Format your code: `pnpm format`
 - Test your changes in `apps/dev`

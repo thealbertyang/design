@@ -23,7 +23,8 @@ import inputStyles from "./Input.module.css";
 type SelectOptionType = Omit<OptionProps, "selected">;
 
 interface SelectProps
-  extends Omit<InputProps, "onSelect" | "value" | "ref">,
+  extends
+    Omit<InputProps, "onSelect" | "value" | "ref">,
     Pick<DropdownWrapperProps, "minHeight" | "minWidth" | "maxWidth"> {
   options: SelectOptionType[];
   value?: string | string[];

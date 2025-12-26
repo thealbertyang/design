@@ -68,12 +68,7 @@ const parseDimension = (
 };
 
 interface ComponentProps
-  extends FlexProps,
-    SpacingProps,
-    SizeProps,
-    StyleProps,
-    CommonProps,
-    DisplayProps {
+  extends FlexProps, SpacingProps, SizeProps, StyleProps, CommonProps, DisplayProps {
   isDefaultBreakpoints?: boolean;
   ref?: Ref<HTMLDivElement>;
 }

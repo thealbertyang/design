@@ -4,8 +4,10 @@ import type React from "react";
 import { useEffect, useState } from "react";
 import { CountFx, type CountFxProps, Row, Text } from ".";
 
-export interface CountdownFxProps
-  extends Omit<CountFxProps, "value" | "format" | "separator" | "effect"> {
+export interface CountdownFxProps extends Omit<
+  CountFxProps,
+  "value" | "format" | "separator" | "effect"
+> {
   targetDate: Date | string;
   format?: "HH:MM:SS" | "DD:HH:MM:SS" | "MM:SS";
   effect?: CountFxProps["effect"];

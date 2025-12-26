@@ -26,8 +26,10 @@ import {
 } from "../../components";
 import type { DateConfig, PresetsConfig } from "./interfaces";
 
-interface ChartHeaderProps
-  extends Omit<React.ComponentProps<typeof Column>, "title" | "description"> {
+interface ChartHeaderProps extends Omit<
+  React.ComponentProps<typeof Column>,
+  "title" | "description"
+> {
   title?: React.ReactNode;
   description?: React.ReactNode;
   dateRange?: DateRange;

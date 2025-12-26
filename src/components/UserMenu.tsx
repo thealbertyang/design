@@ -7,8 +7,7 @@ import { Column, DropdownWrapper, type DropdownWrapperProps, User, type UserProp
 import styles from "./UserMenu.module.css";
 
 interface UserMenuProps
-  extends UserProps,
-    Pick<DropdownWrapperProps, "minHeight" | "minWidth" | "maxWidth"> {
+  extends UserProps, Pick<DropdownWrapperProps, "minHeight" | "minWidth" | "maxWidth"> {
   selected?: boolean;
   placement?: Placement;
   dropdown?: React.ReactNode;

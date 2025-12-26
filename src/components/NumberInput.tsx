@@ -6,8 +6,10 @@ import { useState } from "react";
 import { Column, Flex, IconButton, Input } from ".";
 import styles from "./NumberInput.module.css";
 
-interface NumberInputProps
-  extends Omit<React.ComponentProps<typeof Input>, "type" | "value" | "onChange"> {
+interface NumberInputProps extends Omit<
+  React.ComponentProps<typeof Input>,
+  "type" | "value" | "onChange"
+> {
   value?: number;
   onChange?: (value: number) => void;
   min?: number;
