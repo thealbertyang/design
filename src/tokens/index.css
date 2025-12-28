@@ -12,43 +12,43 @@
  */
 
 /* Layer declaration + registered properties (must be first) */
-@import "./properties.css";
+@import './properties.css';
 
 /* Custom CSS functions for color generation */
-@import "./functions.css";
+@import './functions.css';
 
 /* Color primitives: base colors + 12-step scales */
-@import "./colors.css";
+@import './colors.css';
 
 /* Backwards compatibility: --scheme-* aliases to --color-* */
-@import "./scheme-aliases.css";
+@import './scheme-aliases.css';
 
 /* Semantic tokens: theme-aware via light-dark() */
-@import "./semantic.css";
+@import './semantic.css';
 
 /* Brand/accent/neutral color switching */
-@import "./function.css";
+@import './function.css';
 
 /* Layout tokens */
-@import "./layout.css";
+@import './layout.css';
 
 /* Border tokens */
-@import "./border.css";
+@import './border.css';
 
 /* Shadow tokens */
-@import "./shadow.css";
+@import './shadow.css';
 
 /* Typography tokens */
-@import "./typography.css";
+@import './typography.css';
 
 /* Transition tokens */
-@import "./transition.css";
+@import './transition.css';
 
 /* Data visualization colors */
-@import "./data.css";
+@import './data.css';
 
 /* Container query utilities */
-@import "./container.css";
+@import './container.css';
 
 /* Scoped styling utilities */
-@import "./scope.css";
+@import './scope.css';

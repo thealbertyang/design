@@ -1,42 +1,53 @@
-"use client";
+'use client'
 
-import type React from "react";
-import { Column, Spinner, Text } from "../../components";
+import { Column, Spinner, Text } from '../../components'
+import type React from 'react'
 
 export interface ChartStatusProps {
-  loading?: boolean;
-  empty?: boolean;
-  error?: boolean;
-  emptyState?: React.ReactNode;
-  errorState?: React.ReactNode;
+	loading?: boolean
+	empty?: boolean
+	error?: boolean
+	emptyState?: React.ReactNode
+	errorState?: React.ReactNode
 }
 
 export const ChartStatus: React.FC<ChartStatusProps> = ({
-  loading = false,
-  empty = false,
-  error = false,
-  emptyState = "No data available for the selected period",
-  errorState = "An error occurred while fetching data",
+	loading = false,
+	empty = false,
+	error = false,
+	emptyState = 'No data available for the selected period',
+	errorState = 'An error occurred while fetching data',
 }) => {
-  if (!loading && !empty && !error) {
-    return null;
-  }
+	if (!loading && !empty && !error) {
+		return null
+	}
 
-  return (
-    <Column fill center>
-      {loading ? (
-        <Spinner size="m" />
-      ) : empty ? (
-        <Text align="center" variant="label-default-s" onBackground="neutral-weak">
-          {emptyState}
-        </Text>
-      ) : (
-        error && (
-          <Text align="center" variant="label-default-s" onBackground="danger-weak">
-            {errorState}
-          </Text>
-        )
-      )}
-    </Column>
-  );
-};
+	return (
+		<Column
+			fill
+			center
+		>
+			{loading ? (
+				<Spinner size="m" />
+			) : empty ? (
+				<Text
+					align="center"
+					variant="label-default-s"
+					onBackground="neutral-weak"
+				>
+					{emptyState}
+				</Text>
+			) : (
+				error && (
+					<Text
+						align="center"
+						variant="label-default-s"
+						onBackground="danger-weak"
+					>
+						{errorState}
+					</Text>
+				)
+			)}
+		</Column>
+	)
+}

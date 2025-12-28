@@ -1,28 +1,28 @@
-"use client";
+'use client'
 
-import { Animation, type AnimationProps } from ".";
+import { Animation, type AnimationProps } from '.'
 
-type HoverCardProps = Omit<AnimationProps, "triggerType" | "portal"> & {
-  ref?: React.Ref<HTMLDivElement>;
-};
-
-function HoverCard({ children, ref, ...props }: HoverCardProps) {
-  return (
-    <Animation
-      ref={ref}
-      fade={0}
-      slideUp={0.5}
-      scale={0.9}
-      duration={200}
-      triggerType="hover"
-      placement="top"
-      portal
-      {...props}
-    >
-      {children}
-    </Animation>
-  );
+type HoverCardProps = Omit<AnimationProps, 'triggerType' | 'portal'> & {
+	ref?: React.Ref<HTMLDivElement>
 }
 
-HoverCard.displayName = "HoverCard";
-export { HoverCard };
+function HoverCard({ children, ref, ...props }: HoverCardProps) {
+	return (
+		<Animation
+			ref={ref}
+			fade={0}
+			slideUp={0.5}
+			scale={0.9}
+			duration={200}
+			triggerType="hover"
+			placement="top"
+			portal
+			{...props}
+		>
+			{children}
+		</Animation>
+	)
+}
+
+HoverCard.displayName = 'HoverCard'
+export { HoverCard }

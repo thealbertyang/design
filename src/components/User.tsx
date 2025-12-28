@@ -1,80 +1,113 @@
-"use client";
+'use client'
 
-import classNames from "classnames";
-import type React from "react";
-
-import { Avatar, type AvatarProps, Column, Flex, Skeleton, Tag, type TagProps, Text } from ".";
+import { Avatar, type AvatarProps, Column, Flex, Skeleton, Tag, type TagProps, Text } from '.'
+import classNames from 'classnames'
+import type React from 'react'
 
 interface UserProps {
-  name?: string;
-  children?: React.ReactNode;
-  subline?: React.ReactNode;
-  tag?: string;
-  tagProps?: TagProps;
-  loading?: boolean;
-  avatarProps?: AvatarProps;
-  className?: string;
-  ref?: React.Ref<HTMLDivElement>;
+	name?: string
+	children?: React.ReactNode
+	subline?: React.ReactNode
+	tag?: string
+	tagProps?: TagProps
+	loading?: boolean
+	avatarProps?: AvatarProps
+	className?: string
+	ref?: React.Ref<HTMLDivElement>
 }
 
 function User({
-  name,
-  children,
-  subline,
-  tagProps = {},
-  loading = false,
-  avatarProps = {},
-  className,
-  ref,
+	name,
+	children,
+	subline,
+	tagProps = {},
+	loading = false,
+	avatarProps = {},
+	className,
+	ref,
 }: UserProps) {
-  const { src, value, empty, ...restAvatarProps } = avatarProps;
-  const isEmpty = empty || (!src && !value);
+	const { src, value, empty, ...restAvatarProps } = avatarProps
+	const isEmpty = empty || (!src && !value)
 
-  return (
-    <Flex ref={ref} vertical="center" gap="8" className={classNames(className)}>
-      <Avatar
-        size="m"
-        src={src}
-        value={value}
-        empty={isEmpty}
-        loading={loading}
-        {...restAvatarProps}
-      />
-      {children}
-      {name && (
-        <Column paddingLeft="4" paddingRight="12">
-          {loading ? (
-            <Flex minWidth={6} paddingY="4">
-              <Skeleton width="xl" height="m" shape="line" aria-label="Loading name" />
-            </Flex>
-          ) : (
-            <Flex gap="8" vertical="center">
-              <Text variant="label-default-m" onBackground="neutral-strong">
-                {name}
-              </Text>
-              {tagProps.label && (
-                <Tag size="s" {...tagProps}>
-                  {tagProps.label}
-                </Tag>
-              )}
-            </Flex>
-          )}
-          {loading ? (
-            <Flex paddingY="2">
-              <Skeleton width="l" height="xs" shape="line" aria-label="Loading subline" />
-            </Flex>
-          ) : (
-            <Text wrap="nowrap" variant="body-default-xs" onBackground="neutral-weak">
-              {subline}
-            </Text>
-          )}
-        </Column>
-      )}
-    </Flex>
-  );
+	return (
+		<Flex
+			ref={ref}
+			vertical="center"
+			gap="8"
+			className={classNames(className)}
+		>
+			<Avatar
+				size="m"
+				src={src}
+				value={value}
+				empty={isEmpty}
+				loading={loading}
+				{...restAvatarProps}
+			/>
+			{children}
+			{name && (
+				<Column
+					paddingLeft="4"
+					paddingRight="12"
+				>
+					{loading ? (
+						<Flex
+							minWidth={6}
+							paddingY="4"
+						>
+							<Skeleton
+								width="xl"
+								height="m"
+								shape="line"
+								aria-label="Loading name"
+							/>
+						</Flex>
+					) : (
+						<Flex
+							gap="8"
+							vertical="center"
+						>
+							<Text
+								variant="label-default-m"
+								onBackground="neutral-strong"
+							>
+								{name}
+							</Text>
+							{tagProps.label && (
+								<Tag
+									size="s"
+									{...tagProps}
+								>
+									{tagProps.label}
+								</Tag>
+							)}
+						</Flex>
+					)}
+					{loading ? (
+						<Flex paddingY="2">
+							<Skeleton
+								width="l"
+								height="xs"
+								shape="line"
+								aria-label="Loading subline"
+							/>
+						</Flex>
+					) : (
+						<Text
+							wrap="nowrap"
+							variant="body-default-xs"
+							onBackground="neutral-weak"
+						>
+							{subline}
+						</Text>
+					)}
+				</Column>
+			)}
+		</Flex>
+	)
 }
 
-User.displayName = "User";
+User.displayName = 'User'
 
-export { User };
-export type { UserProps };
+export { User }
+export type { UserProps }

@@ -1,39 +1,39 @@
-import classNames from "classnames";
-import type React from "react";
-import type { ReactNode } from "react";
-import { Flex } from ".";
-import styles from "./InlineCode.module.css";
+import { Flex } from '.'
+import styles from './InlineCode.module.css'
+import classNames from 'classnames'
+import type React from 'react'
+import type { ReactNode } from 'react'
 
 interface InlineCodeProps extends React.ComponentProps<typeof Flex> {
-  children: ReactNode;
-  className?: string;
-  style?: React.CSSProperties;
-  ref?: React.Ref<HTMLDivElement>;
+	children: ReactNode
+	className?: string
+	style?: React.CSSProperties
+	ref?: React.Ref<HTMLDivElement>
 }
 
 function InlineCode({ children, className, style, ref, ...flex }: InlineCodeProps) {
-  return (
-    <Flex
-      as="span"
-      inline
-      fit
-      ref={ref}
-      radius="s"
-      vertical="center"
-      paddingX="4"
-      paddingY="1"
-      textType="code"
-      background="neutral-alpha-weak"
-      border="neutral-alpha-medium"
-      className={classNames(styles.inlineCode, className)}
-      style={style}
-      {...flex}
-    >
-      {children}
-    </Flex>
-  );
+	return (
+		<Flex
+			as="span"
+			inline
+			fit
+			ref={ref}
+			radius="s"
+			vertical="center"
+			paddingX="4"
+			paddingY="1"
+			textType="code"
+			background="neutral-alpha-weak"
+			border="neutral-alpha-medium"
+			className={classNames(styles.inlineCode, className)}
+			style={style}
+			{...flex}
+		>
+			{children}
+		</Flex>
+	)
 }
 
-InlineCode.displayName = "InlineCode";
+InlineCode.displayName = 'InlineCode'
 
-export { InlineCode };
+export { InlineCode }

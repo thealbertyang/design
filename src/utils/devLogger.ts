@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 /**
  * Logger utility that only logs in development mode
@@ -6,33 +6,33 @@
  * should not appear in production
  */
 export const dev = {
-  log: (...args: unknown[]) => {
-    if (process.env.NODE_ENV === "development") {
-      console.log(...args);
-    }
-  },
+	log: (...args: unknown[]) => {
+		if (process.env.NODE_ENV === 'development') {
+			console.log(...args)
+		}
+	},
 
-  warn: (...args: unknown[]) => {
-    if (process.env.NODE_ENV === "development") {
-      console.warn(...args);
-    }
-  },
+	warn: (...args: unknown[]) => {
+		if (process.env.NODE_ENV === 'development') {
+			console.warn(...args)
+		}
+	},
 
-  error: (...args: unknown[]) => {
-    if (process.env.NODE_ENV === "development") {
-      console.error(...args);
-    }
-  },
+	error: (...args: unknown[]) => {
+		if (process.env.NODE_ENV === 'development') {
+			console.error(...args)
+		}
+	},
 
-  info: (...args: unknown[]) => {
-    if (process.env.NODE_ENV === "development") {
-      console.info(...args);
-    }
-  },
+	info: (...args: unknown[]) => {
+		if (process.env.NODE_ENV === 'development') {
+			console.info(...args)
+		}
+	},
 
-  debug: (...args: unknown[]) => {
-    if (process.env.NODE_ENV === "development") {
-      console.debug(...args);
-    }
-  },
-};
+	debug: (...args: unknown[]) => {
+		if (process.env.NODE_ENV === 'development') {
+			console.debug(...args)
+		}
+	},
+}

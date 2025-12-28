@@ -1,90 +1,94 @@
-"use client";
+'use client'
 
-import classNames from "classnames";
-import type React from "react";
-import type { ReactNode } from "react";
-import { useIcons } from "../contexts/IconProvider";
-import type { IconComponent, IconName } from "../icons";
-import type { ColorScheme, ColorWeight } from "../types";
-import { Flex, HoverCard, Tooltip } from ".";
-import styles from "./Icon.module.css";
+import { Flex, HoverCard, Tooltip } from '.'
+import { useIcons } from '../contexts/IconProvider'
+import type { IconComponent, IconName } from '../icons'
+import type { ColorScheme, ColorWeight } from '../types'
+import styles from './Icon.module.css'
+import classNames from 'classnames'
+import type React from 'react'
+import type { ReactNode } from 'react'
 
 interface IconProps extends React.ComponentProps<typeof Flex> {
-  name: IconName;
-  onBackground?: `${ColorScheme}-${ColorWeight}`;
-  onSolid?: `${ColorScheme}-${ColorWeight}`;
-  size?: "xs" | "s" | "m" | "l" | "xl";
-  decorative?: boolean;
-  tooltip?: ReactNode;
-  tooltipPosition?: "top" | "bottom" | "left" | "right";
-  className?: string;
-  style?: React.CSSProperties;
-  ref?: React.Ref<HTMLDivElement>;
+	name: IconName
+	onBackground?: `${ColorScheme}-${ColorWeight}`
+	onSolid?: `${ColorScheme}-${ColorWeight}`
+	size?: 'xs' | 's' | 'm' | 'l' | 'xl'
+	decorative?: boolean
+	tooltip?: ReactNode
+	tooltipPosition?: 'top' | 'bottom' | 'left' | 'right'
+	className?: string
+	style?: React.CSSProperties
+	ref?: React.Ref<HTMLDivElement>
 }
 
 function Icon({
-  name,
-  onBackground,
-  onSolid,
-  size = "m",
-  decorative = true,
-  tooltip,
-  tooltipPosition = "top",
-  className,
-  style,
-  ref,
-  ...rest
+	name,
+	onBackground,
+	onSolid,
+	size = 'm',
+	decorative = true,
+	tooltip,
+	tooltipPosition = 'top',
+	className,
+	style,
+	ref,
+	...rest
 }: IconProps) {
-  const { icons } = useIcons();
-  const IconSvg: IconComponent | undefined = icons[name];
+	const { icons } = useIcons()
+	const IconSvg: IconComponent | undefined = icons[name]
 
-  if (!IconSvg) {
-    console.warn(`Icon "${name}" does not exist in the library.`);
-    return null;
-  }
+	if (!IconSvg) {
+		console.warn(`Icon "${name}" does not exist in the library.`)
+		return null
+	}
 
-  if (onBackground && onSolid) {
-    console.warn(
-      "You cannot use both 'onBackground' and 'onSolid' props simultaneously. Only one will be applied.",
-    );
-  }
+	if (onBackground && onSolid) {
+		console.warn(
+			"You cannot use both 'onBackground' and 'onSolid' props simultaneously. Only one will be applied."
+		)
+	}
 
-  let colorClass = "color-inherit";
-  if (onBackground) {
-    const [scheme, weight] = onBackground.split("-") as [ColorScheme, ColorWeight];
-    colorClass = `${scheme}-on-background-${weight}`;
-  } else if (onSolid) {
-    const [scheme, weight] = onSolid.split("-") as [ColorScheme, ColorWeight];
-    colorClass = `${scheme}-on-solid-${weight}`;
-  }
+	let colorClass = 'color-inherit'
+	if (onBackground) {
+		const [scheme, weight] = onBackground.split('-') as [ColorScheme, ColorWeight]
+		colorClass = `${scheme}-on-background-${weight}`
+	} else if (onSolid) {
+		const [scheme, weight] = onSolid.split('-') as [ColorScheme, ColorWeight]
+		colorClass = `${scheme}-on-solid-${weight}`
+	}
 
-  const icon = (
-    <Flex
-      inline
-      fit
-      as="span"
-      ref={ref}
-      className={classNames(colorClass, styles.icon, styles[size], className)}
-      aria-hidden={decorative ? "true" : undefined}
-      aria-label={decorative ? undefined : name}
-      style={style}
-      {...rest}
-    >
-      <IconSvg />
-    </Flex>
-  );
+	const icon = (
+		<Flex
+			inline
+			fit
+			as="span"
+			ref={ref}
+			className={classNames(colorClass, styles.icon, styles[size], className)}
+			aria-hidden={decorative ? 'true' : undefined}
+			aria-label={decorative ? undefined : name}
+			style={style}
+			{...rest}
+		>
+			<IconSvg />
+		</Flex>
+	)
 
-  if (tooltip) {
-    return (
-      <HoverCard trigger={icon} placement={tooltipPosition} offsetDistance="4">
-        <Tooltip label={tooltip} />
-      </HoverCard>
-    );
-  }
+	if (tooltip) {
+		return (
+			<HoverCard
+				trigger={icon}
+				placement={tooltipPosition}
+				offsetDistance="4"
+			>
+				<Tooltip label={tooltip} />
+			</HoverCard>
+		)
+	}
 
-  return icon;
+	return icon
 }
 
-Icon.displayName = "Icon";
+Icon.displayName = 'Icon'
 
-export { Icon };
+export { Icon }

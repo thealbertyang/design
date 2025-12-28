@@ -15,17 +15,17 @@
 
 /* Dark steps (1-5): Mix base with black */
 @function --scale-dark(--base <color>, --amount <percentage>) returns <color> {
-  result: color-mix(in oklch, var(--base) var(--amount), black);
+	result: color-mix(in oklch, var(--base) var(--amount), black);
 }
 
 /* Light steps (7-12): Mix base with white */
 @function --scale-light(--base <color>, --amount <percentage>) returns <color> {
-  result: color-mix(in oklch, var(--base) var(--amount), white);
+	result: color-mix(in oklch, var(--base) var(--amount), white);
 }
 
 /* Alpha variant: Mix with transparent */
 @function --alpha(--color <color>, --opacity <percentage>) returns <color> {
-  result: color-mix(in oklch, var(--color) var(--opacity), transparent);
+	result: color-mix(in oklch, var(--color) var(--opacity), transparent);
 }
 
 /* ══════════════════════════════════════════════════════════════════════════════
@@ -34,7 +34,7 @@
    ══════════════════════════════════════════════════════════════════════════════ */
 
 @function --themed(--light <color>, --dark <color>) returns <color> {
-  result: light-dark(var(--light), var(--dark));
+	result: light-dark(var(--light), var(--dark));
 }
 
 /* ══════════════════════════════════════════════════════════════════════════════
@@ -44,62 +44,62 @@
 
 /* Step 1: Darkest */
 @function --step-1(--base <color>) returns <color> {
-  result: color-mix(in oklch, var(--base) 20%, black);
+	result: color-mix(in oklch, var(--base) 20%, black);
 }
 
 /* Step 2 */
 @function --step-2(--base <color>) returns <color> {
-  result: color-mix(in oklch, var(--base) 30%, black);
+	result: color-mix(in oklch, var(--base) 30%, black);
 }
 
 /* Step 3 */
 @function --step-3(--base <color>) returns <color> {
-  result: color-mix(in oklch, var(--base) 45%, black);
+	result: color-mix(in oklch, var(--base) 45%, black);
 }
 
 /* Step 4 */
 @function --step-4(--base <color>) returns <color> {
-  result: color-mix(in oklch, var(--base) 58%, black);
+	result: color-mix(in oklch, var(--base) 58%, black);
 }
 
 /* Step 5 */
 @function --step-5(--base <color>) returns <color> {
-  result: color-mix(in oklch, var(--base) 72%, black);
+	result: color-mix(in oklch, var(--base) 72%, black);
 }
 
 /* Step 6: Base (middle) */
 @function --step-6(--base <color>) returns <color> {
-  result: var(--base);
+	result: var(--base);
 }
 
 /* Step 7 */
 @function --step-7(--base <color>) returns <color> {
-  result: color-mix(in oklch, var(--base) 80%, white);
+	result: color-mix(in oklch, var(--base) 80%, white);
 }
 
 /* Step 8 */
 @function --step-8(--base <color>) returns <color> {
-  result: color-mix(in oklch, var(--base) 60%, white);
+	result: color-mix(in oklch, var(--base) 60%, white);
 }
 
 /* Step 9 */
 @function --step-9(--base <color>) returns <color> {
-  result: color-mix(in oklch, var(--base) 42%, white);
+	result: color-mix(in oklch, var(--base) 42%, white);
 }
 
 /* Step 10 */
 @function --step-10(--base <color>) returns <color> {
-  result: color-mix(in oklch, var(--base) 30%, white);
+	result: color-mix(in oklch, var(--base) 30%, white);
 }
 
 /* Step 11 */
 @function --step-11(--base <color>) returns <color> {
-  result: color-mix(in oklch, var(--base) 15%, white);
+	result: color-mix(in oklch, var(--base) 15%, white);
 }
 
 /* Step 12: Lightest */
 @function --step-12(--base <color>) returns <color> {
-  result: color-mix(in oklch, var(--base) 8%, white);
+	result: color-mix(in oklch, var(--base) 8%, white);
 }
 
 /* ══════════════════════════════════════════════════════════════════════════════
@@ -109,62 +109,62 @@
 
 /* Background - strong */
 @function --bg-strong(--base <color>) returns <color> {
-  result: light-dark(--step-8(var(--base)), --step-3(var(--base)));
+	result: light-dark(--step-8(var(--base)), --step-3(var(--base)));
 }
 
 /* Background - medium */
 @function --bg-medium(--base <color>) returns <color> {
-  result: light-dark(--step-10(var(--base)), --step-2(var(--base)));
+	result: light-dark(--step-10(var(--base)), --step-2(var(--base)));
 }
 
 /* Background - weak */
 @function --bg-weak(--base <color>) returns <color> {
-  result: light-dark(oklch(1 0 0), --step-1(var(--base)));
+	result: light-dark(oklch(1 0 0), --step-1(var(--base)));
 }
 
 /* Text on background - strong */
 @function --text-strong(--base <color>) returns <color> {
-  result: light-dark(--step-1(var(--base)), oklch(1 0 0));
+	result: light-dark(--step-1(var(--base)), oklch(1 0 0));
 }
 
 /* Text on background - medium */
 @function --text-medium(--base <color>) returns <color> {
-  result: light-dark(--step-4(var(--base)), --step-9(var(--base)));
+	result: light-dark(--step-4(var(--base)), --step-9(var(--base)));
 }
 
 /* Text on background - weak */
 @function --text-weak(--base <color>) returns <color> {
-  result: light-dark(--step-5(var(--base)), --step-7(var(--base)));
+	result: light-dark(--step-5(var(--base)), --step-7(var(--base)));
 }
 
 /* Solid - strong */
 @function --solid-strong(--base <color>) returns <color> {
-  result: light-dark(--step-6(var(--base)), --step-5(var(--base)));
+	result: light-dark(--step-6(var(--base)), --step-5(var(--base)));
 }
 
 /* Solid - medium */
 @function --solid-medium(--base <color>) returns <color> {
-  result: light-dark(--step-5(var(--base)), --step-4(var(--base)));
+	result: light-dark(--step-5(var(--base)), --step-4(var(--base)));
 }
 
 /* Solid - weak */
 @function --solid-weak(--base <color>) returns <color> {
-  result: light-dark(--step-4(var(--base)), --step-3(var(--base)));
+	result: light-dark(--step-4(var(--base)), --step-3(var(--base)));
 }
 
 /* Border - strong */
 @function --border-strong(--base <color>) returns <color> {
-  result: light-dark(--step-8(var(--base)), --step-4(var(--base)));
+	result: light-dark(--step-8(var(--base)), --step-4(var(--base)));
 }
 
 /* Border - medium */
 @function --border-medium(--base <color>) returns <color> {
-  result: light-dark(--step-9(var(--base)), --step-3(var(--base)));
+	result: light-dark(--step-9(var(--base)), --step-3(var(--base)));
 }
 
 /* Border - weak */
 @function --border-weak(--base <color>) returns <color> {
-  result: light-dark(--step-10(var(--base)), --step-2(var(--base)));
+	result: light-dark(--step-10(var(--base)), --step-2(var(--base)));
 }
 
 /* ══════════════════════════════════════════════════════════════════════════════
@@ -174,25 +174,25 @@
 
 /* Create OKLCH color from components */
 @function --oklch(--l <number>, --c <number>, --h <number>) returns <color> {
-  result: oklch(var(--l) var(--c) var(--h));
+	result: oklch(var(--l) var(--c) var(--h));
 }
 
 /* Create OKLCH with alpha */
 @function --oklcha(--l <number>, --c <number>, --h <number>, --a <number>) returns <color> {
-  result: oklch(var(--l) var(--c) var(--h) / var(--a));
+	result: oklch(var(--l) var(--c) var(--h) / var(--a));
 }
 
 /* Create base color from hue (using standard chroma/lightness) */
 @function --from-hue(--hue <number>) returns <color> {
-  result: oklch(0.55 0.18 var(--hue));
+	result: oklch(0.55 0.18 var(--hue));
 }
 
 /* Create muted base from hue */
 @function --from-hue-muted(--hue <number>) returns <color> {
-  result: oklch(0.55 0.08 var(--hue));
+	result: oklch(0.55 0.08 var(--hue));
 }
 
 /* Create neutral base from hue */
 @function --from-hue-neutral(--hue <number>) returns <color> {
-  result: oklch(0.45 0.02 var(--hue));
+	result: oklch(0.45 0.02 var(--hue));
 }

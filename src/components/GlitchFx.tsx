@@ -1,107 +1,111 @@
-"use client";
+'use client'
 
-import classNames from "classnames";
-import type React from "react";
-import { useCallback, useEffect, useState } from "react";
-import { Flex } from ".";
-import styles from "./GlitchFx.module.css";
+import { Flex } from '.'
+import styles from './GlitchFx.module.css'
+import classNames from 'classnames'
+import type React from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 interface GlitchFxProps extends React.ComponentProps<typeof Flex> {
-  children: React.ReactNode;
-  speed?: "slow" | "medium" | "fast";
-  interval?: number;
-  trigger?: "instant" | "hover" | "custom";
-  continuous?: boolean;
-  ref?: React.Ref<HTMLDivElement>;
+	children: React.ReactNode
+	speed?: 'slow' | 'medium' | 'fast'
+	interval?: number
+	trigger?: 'instant' | 'hover' | 'custom'
+	continuous?: boolean
+	ref?: React.Ref<HTMLDivElement>
 }
 
 const GlitchFx: React.FC<GlitchFxProps> = ({
-  children,
-  speed = "medium",
-  interval = 2500,
-  trigger = "instant",
-  continuous = true,
-  ref,
-  ...rest
+	children,
+	speed = 'medium',
+	interval = 2500,
+	trigger = 'instant',
+	continuous = true,
+	ref,
+	...rest
 }) => {
-  const [isGlitching, setIsGlitching] = useState(continuous || trigger === "instant");
+	const [isGlitching, setIsGlitching] = useState(continuous || trigger === 'instant')
 
-  useEffect(() => {
-    if (continuous || trigger === "instant") {
-      setIsGlitching(true);
-    }
-  }, [continuous, trigger]);
+	useEffect(() => {
+		if (continuous || trigger === 'instant') {
+			setIsGlitching(true)
+		}
+	}, [continuous, trigger])
 
-  const handleMouseEnter = () => {
-    if (trigger === "hover") {
-      setIsGlitching(true);
-    }
-  };
+	const handleMouseEnter = () => {
+		if (trigger === 'hover') {
+			setIsGlitching(true)
+		}
+	}
 
-  const handleMouseLeave = () => {
-    if (trigger === "hover") {
-      setIsGlitching(false);
-    }
-  };
+	const handleMouseLeave = () => {
+		if (trigger === 'hover') {
+			setIsGlitching(false)
+		}
+	}
 
-  const triggerGlitch = useCallback(() => {
-    if (trigger === "custom") {
-      setIsGlitching(true);
-      setTimeout(() => setIsGlitching(false), 500);
-    }
-  }, [trigger]);
+	const triggerGlitch = useCallback(() => {
+		if (trigger === 'custom') {
+			setIsGlitching(true)
+			setTimeout(() => setIsGlitching(false), 500)
+		}
+	}, [trigger])
 
-  useEffect(() => {
-    if (trigger === "custom") {
-      const glitchInterval = setInterval(triggerGlitch, interval);
-      return () => clearInterval(glitchInterval);
-    }
-  }, [trigger, interval, triggerGlitch]);
+	useEffect(() => {
+		if (trigger === 'custom') {
+			const glitchInterval = setInterval(triggerGlitch, interval)
+			return () => clearInterval(glitchInterval)
+		}
+	}, [trigger, interval, triggerGlitch])
 
-  const speedClass = styles[speed];
+	const speedClass = styles[speed]
 
-  return (
-    <Flex
-      ref={ref}
-      inline
-      zIndex={0}
-      className={classNames(speedClass, isGlitching && styles.active)}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      {...rest}
-    >
-      <Flex fillWidth inline zIndex={1}>
-        {children}
-      </Flex>
+	return (
+		<Flex
+			ref={ref}
+			inline
+			zIndex={0}
+			className={classNames(speedClass, isGlitching && styles.active)}
+			onMouseEnter={handleMouseEnter}
+			onMouseLeave={handleMouseLeave}
+			{...rest}
+		>
+			<Flex
+				fillWidth
+				inline
+				zIndex={1}
+			>
+				{children}
+			</Flex>
 
-      <Flex
-        inline
-        position="absolute"
-        top="0"
-        left="0"
-        fill
-        zIndex={0}
-        opacity={50}
-        className={classNames(styles.glitchLayer, styles.blueShift)}
-      >
-        {children}
-      </Flex>
+			<Flex
+				inline
+				position="absolute"
+				top="0"
+				left="0"
+				fill
+				zIndex={0}
+				opacity={50}
+				className={classNames(styles.glitchLayer, styles.blueShift)}
+			>
+				{children}
+			</Flex>
 
-      <Flex
-        inline
-        position="absolute"
-        top="0"
-        left="0"
-        fill
-        zIndex={0}
-        opacity={50}
-        className={classNames(styles.glitchLayer, styles.redShift)}
-      >
-        {children}
-      </Flex>
-    </Flex>
-  );
-};
+			<Flex
+				inline
+				position="absolute"
+				top="0"
+				left="0"
+				fill
+				zIndex={0}
+				opacity={50}
+				className={classNames(styles.glitchLayer, styles.redShift)}
+			>
+				{children}
+			</Flex>
+		</Flex>
+	)
+}
 
-GlitchFx.displayName = "GlitchFx";
-export { GlitchFx };
+GlitchFx.displayName = 'GlitchFx'
+export { GlitchFx }

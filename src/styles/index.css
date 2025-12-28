@@ -1,16 +1,16 @@
 /* once-ui styles - Pure CSS (no SCSS preprocessing required) */
 /* Breakpoint values: xs=480px, s=768px, m=1024px, l=1440px */
 
-@import "./spacing.css";
-@import "./border.css";
-@import "./color.css";
-@import "./background.css";
-@import "./typography.css";
-@import "./global.css";
-@import "./shadow.css";
-@import "./size.css";
-@import "./display.css";
-@import "./position.css";
-@import "./grid.css";
-@import "./flex.css";
-@import "./utilities.css";
+@import './spacing.css';
+@import './border.css';
+@import './color.css';
+@import './background.css';
+@import './typography.css';
+@import './global.css';
+@import './shadow.css';
+@import './size.css';
+@import './display.css';
+@import './position.css';
+@import './grid.css';
+@import './flex.css';
+@import './utilities.css';

@@ -1,123 +1,138 @@
-"use client";
+'use client'
 
-import classNames from "classnames";
-import type React from "react";
-import type { ReactNode } from "react";
-import type { IconName } from "../icons";
-
-import { Arrow, Flex, Icon, Spinner } from ".";
-import styles from "./Button.module.css";
-import { ElementType } from "./ElementType";
+import { Arrow, Flex, Icon, Spinner } from '.'
+import type { IconName } from '../icons'
+import styles from './Button.module.css'
+import { ElementType } from './ElementType'
+import classNames from 'classnames'
+import type React from 'react'
+import type { ReactNode } from 'react'
 
 interface CommonProps {
-  variant?: "primary" | "secondary" | "tertiary" | "danger";
-  size?: "s" | "m" | "l";
-  radius?:
-    | "none"
-    | "top"
-    | "right"
-    | "bottom"
-    | "left"
-    | "top-left"
-    | "top-right"
-    | "bottom-right"
-    | "bottom-left";
-  label?: string;
-  weight?: "default" | "strong";
-  rounded?: boolean;
-  prefixIcon?: IconName;
-  suffixIcon?: IconName;
-  loading?: boolean;
-  disabled?: boolean;
-  fillWidth?: boolean;
-  horizontal?: "start" | "center" | "end" | "between";
-  children?: ReactNode;
-  href?: string;
-  className?: string;
-  style?: React.CSSProperties;
-  id?: string;
-  arrowIcon?: boolean;
-  ref?: React.Ref<HTMLButtonElement>;
+	variant?: 'primary' | 'secondary' | 'tertiary' | 'danger'
+	size?: 's' | 'm' | 'l'
+	radius?:
+		| 'none'
+		| 'top'
+		| 'right'
+		| 'bottom'
+		| 'left'
+		| 'top-left'
+		| 'top-right'
+		| 'bottom-right'
+		| 'bottom-left'
+	label?: string
+	weight?: 'default' | 'strong'
+	rounded?: boolean
+	prefixIcon?: IconName
+	suffixIcon?: IconName
+	loading?: boolean
+	disabled?: boolean
+	fillWidth?: boolean
+	horizontal?: 'start' | 'center' | 'end' | 'between'
+	children?: ReactNode
+	href?: string
+	className?: string
+	style?: React.CSSProperties
+	id?: string
+	arrowIcon?: boolean
+	ref?: React.Ref<HTMLButtonElement>
 }
 
-export type ButtonProps = CommonProps & React.ButtonHTMLAttributes<HTMLButtonElement>;
-export type AnchorProps = CommonProps & React.AnchorHTMLAttributes<HTMLAnchorElement>;
+export type ButtonProps = CommonProps & React.ButtonHTMLAttributes<HTMLButtonElement>
+export type AnchorProps = CommonProps & React.AnchorHTMLAttributes<HTMLAnchorElement>
 
 function Button({
-  variant = "primary",
-  size = "m",
-  radius,
-  rounded,
-  label,
-  weight = "strong",
-  children,
-  prefixIcon,
-  suffixIcon,
-  loading = false,
-  disabled = false,
-  fillWidth = false,
-  horizontal = "center",
-  href,
-  id,
-  arrowIcon = false,
-  className,
-  style,
-  ref,
-  ...props
+	variant = 'primary',
+	size = 'm',
+	radius,
+	rounded,
+	label,
+	weight = 'strong',
+	children,
+	prefixIcon,
+	suffixIcon,
+	loading = false,
+	disabled = false,
+	fillWidth = false,
+	horizontal = 'center',
+	href,
+	id,
+	arrowIcon = false,
+	className,
+	style,
+	ref,
+	...props
 }: ButtonProps | AnchorProps) {
-  const iconSize = size === "l" ? "s" : size === "m" ? "s" : "xs";
-  const radiusSize = size === "s" || size === "m" ? "m" : "l";
+	const iconSize = size === 'l' ? 's' : size === 'm' ? 's' : 'xs'
+	const radiusSize = size === 's' || size === 'm' ? 'm' : 'l'
 
-  return (
-    <ElementType
-      id={id}
-      href={href}
-      ref={ref}
-      disabled={disabled}
-      data-border={rounded ? "rounded" : undefined}
-      className={classNames(
-        styles.button,
-        styles[variant],
-        styles[size],
-        radius === "none"
-          ? "radius-none"
-          : radius
-            ? `radius-${radiusSize}-${radius}`
-            : `radius-${radiusSize}`,
-        "text-decoration-none",
-        "button",
-        disabled ? "cursor-not-allowed" : "cursor-interactive",
-        {
-          "fill-width": fillWidth,
-          "fit-width": !fillWidth,
-          [`justify-${horizontal}`]: horizontal,
-        },
-        className,
-      )}
-      style={style}
-      {...props}
-    >
-      {prefixIcon && !loading && <Icon name={prefixIcon} size={iconSize} />}
-      {loading && <Spinner size={size} />}
-      {(label || children) && (
-        <Flex paddingX="4" paddingY="0" textWeight={weight} textSize={size} className="font-label">
-          {label || children}
-        </Flex>
-      )}
-      {arrowIcon && (
-        <Arrow
-          style={{
-            marginLeft: "calc(-1 * var(--static-space-4))",
-          }}
-          trigger={`#${id}`}
-          scale={size === "s" ? 0.8 : size === "m" ? 0.9 : 1}
-          color={variant === "primary" ? "onSolid" : "onBackground"}
-        />
-      )}
-      {suffixIcon && <Icon name={suffixIcon} size={iconSize} />}
-    </ElementType>
-  );
+	return (
+		<ElementType
+			id={id}
+			href={href}
+			ref={ref}
+			disabled={disabled}
+			data-border={rounded ? 'rounded' : undefined}
+			className={classNames(
+				styles.button,
+				styles[variant],
+				styles[size],
+				radius === 'none'
+					? 'radius-none'
+					: radius
+						? `radius-${radiusSize}-${radius}`
+						: `radius-${radiusSize}`,
+				'text-decoration-none',
+				'button',
+				disabled ? 'cursor-not-allowed' : 'cursor-interactive',
+				{
+					'fill-width': fillWidth,
+					'fit-width': !fillWidth,
+					[`justify-${horizontal}`]: horizontal,
+				},
+				className
+			)}
+			style={style}
+			{...props}
+		>
+			{prefixIcon && !loading && (
+				<Icon
+					name={prefixIcon}
+					size={iconSize}
+				/>
+			)}
+			{loading && <Spinner size={size} />}
+			{(label || children) && (
+				<Flex
+					paddingX="4"
+					paddingY="0"
+					textWeight={weight}
+					textSize={size}
+					className="font-label"
+				>
+					{label || children}
+				</Flex>
+			)}
+			{arrowIcon && (
+				<Arrow
+					style={{
+						marginLeft: 'calc(-1 * var(--static-space-4))',
+					}}
+					trigger={`#${id}`}
+					scale={size === 's' ? 0.8 : size === 'm' ? 0.9 : 1}
+					color={variant === 'primary' ? 'onSolid' : 'onBackground'}
+				/>
+			)}
+			{suffixIcon && (
+				<Icon
+					name={suffixIcon}
+					size={iconSize}
+				/>
+			)}
+		</ElementType>
+	)
 }
 
-Button.displayName = "Button";
-export { Button };
+Button.displayName = 'Button'
+export { Button }

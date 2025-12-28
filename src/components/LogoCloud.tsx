@@ -1,92 +1,97 @@
-"use client";
+'use client'
 
-import classNames from "classnames";
-import type React from "react";
-import type { ComponentProps } from "react";
-import { useEffect, useState } from "react";
-import { Flex, Grid, Logo } from ".";
-import styles from "./LogoCloud.module.css";
+import { Flex, Grid, Logo } from '.'
+import styles from './LogoCloud.module.css'
+import classNames from 'classnames'
+import type React from 'react'
+import type { ComponentProps } from 'react'
+import { useEffect, useState } from 'react'
 
-type LogoProps = ComponentProps<typeof Logo>;
+type LogoProps = ComponentProps<typeof Logo>
 
 interface LogoCloudProps extends React.ComponentProps<typeof Grid> {
-  ref?: React.Ref<HTMLDivElement>;
-  logos: LogoProps[];
-  className?: string;
-  style?: React.CSSProperties;
-  limit?: number;
-  rotationInterval?: number;
+	ref?: React.Ref<HTMLDivElement>
+	logos: LogoProps[]
+	className?: string
+	style?: React.CSSProperties
+	limit?: number
+	rotationInterval?: number
 }
 
-const ANIMATION_DURATION = 5000;
-const STAGGER_DELAY = 25;
+const ANIMATION_DURATION = 5000
+const STAGGER_DELAY = 25
 
 function LogoCloud({
-  ref,
-  logos,
-  className,
-  style,
-  limit = 6,
-  rotationInterval = ANIMATION_DURATION,
-  ...rest
+	ref,
+	logos,
+	className,
+	style,
+	limit = 6,
+	rotationInterval = ANIMATION_DURATION,
+	...rest
 }: LogoCloudProps) {
-  const [visibleLogos, setVisibleLogos] = useState<LogoProps[]>(() => logos.slice(0, limit));
-  const [key, setKey] = useState(0);
-  const shouldRotate = logos.length > limit;
+	const [visibleLogos, setVisibleLogos] = useState<LogoProps[]>(() => logos.slice(0, limit))
+	const [key, setKey] = useState(0)
+	const shouldRotate = logos.length > limit
 
-  useEffect(() => {
-    if (!shouldRotate) {
-      setVisibleLogos(logos);
-      return;
-    }
+	useEffect(() => {
+		if (!shouldRotate) {
+			setVisibleLogos(logos)
+			return
+		}
 
-    const interval = setInterval(
-      () => {
-        setVisibleLogos((currentLogos) => {
-          const currentIndices = currentLogos.map((logo) => logos.indexOf(logo));
+		const interval = setInterval(
+			() => {
+				setVisibleLogos((currentLogos) => {
+					const currentIndices = currentLogos.map((logo) => logos.indexOf(logo))
 
-          const nextIndices = currentIndices
-            .map((index) => (index + 1) % logos.length)
-            .sort((a, b) => a - b);
+					const nextIndices = currentIndices
+						.map((index) => (index + 1) % logos.length)
+						.toSorted((a, b) => a - b)
 
-          const nextLogos = nextIndices.map((index) => logos[index]);
-          setKey((k) => k + 1);
-          return nextLogos;
-        });
-      },
-      rotationInterval + STAGGER_DELAY * limit,
-    );
+					const nextLogos = nextIndices.map((index) => logos[index])
+					setKey((k) => k + 1)
+					return nextLogos
+				})
+			},
+			rotationInterval + STAGGER_DELAY * limit
+		)
 
-    return () => clearInterval(interval);
-  }, [logos, limit, rotationInterval, shouldRotate]);
+		return () => clearInterval(interval)
+	}, [logos, limit, rotationInterval, shouldRotate])
 
-  return (
-    <Grid ref={ref} className={classNames(styles.container, className)} style={style} {...rest}>
-      {visibleLogos.map((logo, index) => {
-        const logoKey = logo.wordmark || logo.icon || logo.href || `logo-${index}`;
-        return (
-          <Flex
-            key={`${key}-${logoKey}`}
-            vertical="center"
-            horizontal="center"
-            paddingX="24"
-            paddingY="20"
-            radius="l"
-          >
-            <Logo
-              className={shouldRotate ? styles.logo : styles.staticLogo}
-              style={{
-                ...logo.style,
-                animationDelay: `${index * STAGGER_DELAY}ms`,
-              }}
-              {...logo}
-            />
-          </Flex>
-        );
-      })}
-    </Grid>
-  );
+	return (
+		<Grid
+			ref={ref}
+			className={classNames(styles.container, className)}
+			style={style}
+			{...rest}
+		>
+			{visibleLogos.map((logo, index) => {
+				const logoKey = logo.wordmark || logo.icon || logo.href || `logo-${index}`
+				return (
+					<Flex
+						key={`${key}-${logoKey}`}
+						vertical="center"
+						horizontal="center"
+						paddingX="24"
+						paddingY="20"
+						radius="l"
+					>
+						<Logo
+							className={shouldRotate ? styles.logo : styles.staticLogo}
+							style={{
+								...logo.style,
+								animationDelay: `${index * STAGGER_DELAY}ms`,
+							}}
+							{...logo}
+						/>
+					</Flex>
+				)
+			})}
+		</Grid>
+	)
 }
 
-LogoCloud.displayName = "LogoCloud";
-export { LogoCloud };
+LogoCloud.displayName = 'LogoCloud'
+export { LogoCloud }

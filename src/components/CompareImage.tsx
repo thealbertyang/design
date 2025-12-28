@@ -1,134 +1,143 @@
-"use client";
+'use client'
 
-import { useEffect, useRef, useState } from "react";
-import { Flex, IconButton, Media } from ".";
-import styles from "./CompareImage.module.css";
+import { Flex, IconButton, Media } from '.'
+import styles from './CompareImage.module.css'
+import { useEffect, useRef, useState } from 'react'
 
 interface SideContent {
-  src: string | React.ReactNode;
-  alt?: string;
+	src: string | React.ReactNode
+	alt?: string
 }
 
 interface CompareImageProps extends React.ComponentProps<typeof Flex> {
-  leftContent: SideContent;
-  rightContent: SideContent;
-  aspectRatio?: string;
+	leftContent: SideContent
+	rightContent: SideContent
+	aspectRatio?: string
 }
 
 const renderContent = (content: SideContent, clipPath: string, aspectRatio?: string) => {
-  if (typeof content.src === "string") {
-    return (
-      <Media
-        src={content.src}
-        alt={content.alt || ""}
-        fill
-        aspectRatio={aspectRatio || "16/9"}
-        position="absolute"
-        style={{ clipPath }}
-      />
-    );
-  }
+	if (typeof content.src === 'string') {
+		return (
+			<Media
+				src={content.src}
+				alt={content.alt || ''}
+				fill
+				aspectRatio={aspectRatio || '16/9'}
+				position="absolute"
+				style={{ clipPath }}
+			/>
+		)
+	}
 
-  return (
-    <Flex fill position="absolute" style={{ clipPath }}>
-      {content.src}
-    </Flex>
-  );
-};
+	return (
+		<Flex
+			fill
+			position="absolute"
+			style={{ clipPath }}
+		>
+			{content.src}
+		</Flex>
+	)
+}
 
 const CompareImage = ({ leftContent, rightContent, aspectRatio, ...rest }: CompareImageProps) => {
-  const [position, setPosition] = useState(50);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const isDragging = useRef(false);
+	const [position, setPosition] = useState(50)
+	const containerRef = useRef<HTMLDivElement>(null)
+	const isDragging = useRef(false)
 
-  const handleMouseDown = () => {
-    isDragging.current = true;
-  };
+	const handleMouseDown = () => {
+		isDragging.current = true
+	}
 
-  const handleMouseUp = () => {
-    isDragging.current = false;
-  };
+	const handleMouseUp = () => {
+		isDragging.current = false
+	}
 
-  const updatePosition = (clientX: number) => {
-    if (!isDragging.current || !containerRef.current) return;
+	const updatePosition = (clientX: number) => {
+		if (!isDragging.current || !containerRef.current) return
 
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = clientX - rect.left;
-    const containerWidth = rect.width;
+		const rect = containerRef.current.getBoundingClientRect()
+		const x = clientX - rect.left
+		const containerWidth = rect.width
 
-    // Calculate percentage (constrained between 0 and 100)
-    const newPosition = Math.max(0, Math.min(100, (x / containerWidth) * 100));
-    setPosition(newPosition);
-  };
+		// Calculate percentage (constrained between 0 and 100)
+		const newPosition = Math.max(0, Math.min(100, (x / containerWidth) * 100))
+		setPosition(newPosition)
+	}
 
-  const handleMouseMove = (e: MouseEvent) => {
-    updatePosition(e.clientX);
-  };
+	const handleMouseMove = (e: MouseEvent) => {
+		updatePosition(e.clientX)
+	}
 
-  const handleTouchMove = (e: TouchEvent) => {
-    updatePosition(e.touches[0].clientX);
-  };
+	const handleTouchMove = (e: TouchEvent) => {
+		updatePosition(e.touches[0].clientX)
+	}
 
-  useEffect(() => {
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", handleMouseUp);
-    document.addEventListener("touchmove", handleTouchMove);
-    document.addEventListener("touchend", handleMouseUp);
+	useEffect(() => {
+		document.addEventListener('mousemove', handleMouseMove)
+		document.addEventListener('mouseup', handleMouseUp)
+		document.addEventListener('touchmove', handleTouchMove)
+		document.addEventListener('touchend', handleMouseUp)
 
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
-      document.removeEventListener("touchmove", handleTouchMove);
-      document.removeEventListener("touchend", handleMouseUp);
-    };
-  }, [handleMouseMove, handleMouseUp, handleTouchMove]);
+		return () => {
+			document.removeEventListener('mousemove', handleMouseMove)
+			document.removeEventListener('mouseup', handleMouseUp)
+			document.removeEventListener('touchmove', handleTouchMove)
+			document.removeEventListener('touchend', handleMouseUp)
+		}
+	}, [handleMouseMove, handleMouseUp, handleTouchMove])
 
-  return (
-    <Flex
-      ref={containerRef}
-      aspectRatio={aspectRatio || "16/9"}
-      fillWidth
-      style={{ touchAction: "none" }}
-      {...rest}
-    >
-      {renderContent(leftContent, `inset(0 ${100 - position}% 0 0)`, aspectRatio)}
-      {renderContent(rightContent, `inset(0 0 0 ${position}%)`, aspectRatio)}
+	return (
+		<Flex
+			ref={containerRef}
+			aspectRatio={aspectRatio || '16/9'}
+			fillWidth
+			style={{ touchAction: 'none' }}
+			{...rest}
+		>
+			{renderContent(leftContent, `inset(0 ${100 - position}% 0 0)`, aspectRatio)}
+			{renderContent(rightContent, `inset(0 0 0 ${position}%)`, aspectRatio)}
 
-      {/* Hit area and visible line */}
-      <Flex
-        position="absolute"
-        horizontal="center"
-        width={3}
-        className={styles.hitArea}
-        top="0"
-        bottom="0"
-        style={{
-          left: `${position}%`,
-        }}
-        onMouseDown={handleMouseDown}
-        onTouchStart={handleMouseDown}
-      >
-        <Flex width="1" fillHeight background="neutral-strong" zIndex={2} />
-      </Flex>
-      <Flex
-        radius="l"
-        background="surface"
-        fitHeight
-        className={styles.dragIcon}
-        style={{
-          left: `${position}%`,
-        }}
-      >
-        <IconButton
-          icon="chevronsLeftRight"
-          variant="secondary"
-          onMouseDown={handleMouseDown}
-          onTouchStart={handleMouseDown}
-        />
-      </Flex>
-    </Flex>
-  );
-};
+			{/* Hit area and visible line */}
+			<Flex
+				position="absolute"
+				horizontal="center"
+				width={3}
+				className={styles.hitArea}
+				top="0"
+				bottom="0"
+				style={{
+					left: `${position}%`,
+				}}
+				onMouseDown={handleMouseDown}
+				onTouchStart={handleMouseDown}
+			>
+				<Flex
+					width="1"
+					fillHeight
+					background="neutral-strong"
+					zIndex={2}
+				/>
+			</Flex>
+			<Flex
+				radius="l"
+				background="surface"
+				fitHeight
+				className={styles.dragIcon}
+				style={{
+					left: `${position}%`,
+				}}
+			>
+				<IconButton
+					icon="chevronsLeftRight"
+					variant="secondary"
+					onMouseDown={handleMouseDown}
+					onTouchStart={handleMouseDown}
+				/>
+			</Flex>
+		</Flex>
+	)
+}
 
-CompareImage.displayName = "CompareImage";
-export { CompareImage };
+CompareImage.displayName = 'CompareImage'
+export { CompareImage }

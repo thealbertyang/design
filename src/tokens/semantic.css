@@ -11,349 +11,415 @@
  */
 
 @layer semantic {
-  :root {
-    /* Enable automatic theme detection */
-    color-scheme: light dark;
+	:root {
+		/* Enable automatic theme detection */
+		color-scheme: light dark;
 
-    /* ════════════════════════════════════════════════════════════════════════
+		/* ════════════════════════════════════════════════════════════════════════
        PAGE & BACKDROP
        ════════════════════════════════════════════════════════════════════════ */
 
-    --page-background: light-dark(var(--static-white), var(--function-neutral-1));
-    --backdrop: light-dark(var(--static-white-medium), var(--static-black-medium));
+		--page-background: light-dark(var(--static-white), var(--function-neutral-1));
+		--backdrop: light-dark(var(--static-white-medium), var(--static-black-medium));
 
-    /* ════════════════════════════════════════════════════════════════════════
+		/* ════════════════════════════════════════════════════════════════════════
        SURFACE TOKENS (Card backgrounds)
        Light mode: white background with subtle border
        Dark mode: slightly elevated neutral background
        Note: Use function tokens directly to avoid nested light-dark() issues
        ════════════════════════════════════════════════════════════════════════ */
 
-    --surface-background: light-dark(var(--static-white), var(--function-neutral-2));
-    --surface-border: light-dark(var(--function-neutral-10), var(--static-transparent));
+		--surface-background: light-dark(var(--static-white), var(--function-neutral-2));
+		--surface-border: light-dark(var(--function-neutral-10), var(--static-transparent));
 
-    /* ════════════════════════════════════════════════════════════════════════
+		/* ════════════════════════════════════════════════════════════════════════
        BRAND TOKENS (uses function-brand, respects data-brand attribute)
        ════════════════════════════════════════════════════════════════════════ */
 
-    /* Background - light surfaces in light mode, dark surfaces in dark mode */
-    --brand-background-strong: light-dark(var(--function-brand-8), var(--function-brand-3));
-    --brand-background-medium: light-dark(var(--function-brand-10), var(--function-brand-2));
-    --brand-background-weak: light-dark(var(--static-white), var(--function-brand-1));
+		/* Background - light surfaces in light mode, dark surfaces in dark mode */
+		--brand-background-strong: light-dark(var(--function-brand-8), var(--function-brand-3));
+		--brand-background-medium: light-dark(var(--function-brand-10), var(--function-brand-2));
+		--brand-background-weak: light-dark(var(--static-white), var(--function-brand-1));
 
-    /* Text on background - DARK text in light mode, LIGHT text in dark mode */
-    --brand-on-background-weak: light-dark(var(--function-brand-5), var(--function-brand-7));
-    --brand-on-background-soft: light-dark(var(--function-brand-4), var(--function-brand-8));
-    --brand-on-background-medium: light-dark(var(--function-brand-3), var(--function-brand-9));
-    --brand-on-background-bold: light-dark(var(--function-brand-2), var(--function-brand-10));
-    --brand-on-background-strong: light-dark(var(--function-brand-1), var(--static-white));
+		/* Text on background - DARK text in light mode, LIGHT text in dark mode */
+		--brand-on-background-weak: light-dark(var(--function-brand-5), var(--function-brand-7));
+		--brand-on-background-soft: light-dark(var(--function-brand-4), var(--function-brand-8));
+		--brand-on-background-medium: light-dark(var(--function-brand-3), var(--function-brand-9));
+		--brand-on-background-bold: light-dark(var(--function-brand-2), var(--function-brand-10));
+		--brand-on-background-strong: light-dark(var(--function-brand-1), var(--static-white));
 
-    /* Solid (buttons) - mid-range for interactive elements */
-    --brand-solid-strong: light-dark(var(--function-brand-6), var(--function-brand-5));
-    --brand-solid-medium: light-dark(var(--function-brand-5), var(--function-brand-4));
-    --brand-solid-weak: light-dark(var(--function-brand-4), var(--function-brand-3));
+		/* Solid (buttons) - mid-range for interactive elements */
+		--brand-solid-strong: light-dark(var(--function-brand-6), var(--function-brand-5));
+		--brand-solid-medium: light-dark(var(--function-brand-5), var(--function-brand-4));
+		--brand-solid-weak: light-dark(var(--function-brand-4), var(--function-brand-3));
 
-    /* Text on solid - high contrast for button text */
-    --brand-on-solid-weak: light-dark(var(--function-brand-11), var(--function-brand-9));
-    --brand-on-solid-soft: light-dark(var(--function-brand-10), var(--function-brand-10));
-    --brand-on-solid-medium: light-dark(var(--function-brand-12), var(--function-brand-11));
-    --brand-on-solid-bold: light-dark(var(--static-white), var(--function-brand-12));
-    --brand-on-solid-strong: light-dark(var(--static-white), var(--static-white));
+		/* Text on solid - high contrast for button text */
+		--brand-on-solid-weak: light-dark(var(--function-brand-11), var(--function-brand-9));
+		--brand-on-solid-soft: light-dark(var(--function-brand-10), var(--function-brand-10));
+		--brand-on-solid-medium: light-dark(var(--function-brand-12), var(--function-brand-11));
+		--brand-on-solid-bold: light-dark(var(--static-white), var(--function-brand-12));
+		--brand-on-solid-strong: light-dark(var(--static-white), var(--static-white));
 
-    /* Border - subtle in both modes */
-    --brand-border-weak: light-dark(var(--function-brand-10), var(--function-brand-2));
-    --brand-border-soft: light-dark(var(--function-brand-9), var(--function-brand-3));
-    --brand-border-medium: light-dark(var(--function-brand-8), var(--function-brand-4));
-    --brand-border-bold: light-dark(var(--function-brand-7), var(--function-brand-5));
-    --brand-border-strong: light-dark(var(--function-brand-6), var(--function-brand-6));
+		/* Border - subtle in both modes */
+		--brand-border-weak: light-dark(var(--function-brand-10), var(--function-brand-2));
+		--brand-border-soft: light-dark(var(--function-brand-9), var(--function-brand-3));
+		--brand-border-medium: light-dark(var(--function-brand-8), var(--function-brand-4));
+		--brand-border-bold: light-dark(var(--function-brand-7), var(--function-brand-5));
+		--brand-border-strong: light-dark(var(--function-brand-6), var(--function-brand-6));
 
-    /* Alpha */
-    --brand-alpha-strong: var(--function-brand-6-50);
-    --brand-alpha-medium: var(--function-brand-6-30);
-    --brand-alpha-weak: var(--function-brand-6-15);
+		/* Alpha */
+		--brand-alpha-strong: var(--function-brand-6-50);
+		--brand-alpha-medium: var(--function-brand-6-30);
+		--brand-alpha-weak: var(--function-brand-6-15);
 
-    /* ════════════════════════════════════════════════════════════════════════
+		/* ════════════════════════════════════════════════════════════════════════
        ACCENT TOKENS (uses function-accent, respects data-accent attribute)
        ════════════════════════════════════════════════════════════════════════ */
 
-    --accent-background-strong: light-dark(var(--function-accent-8), var(--function-accent-3));
-    --accent-background-medium: light-dark(var(--function-accent-10), var(--function-accent-2));
-    --accent-background-weak: light-dark(var(--static-white), var(--function-accent-1));
+		--accent-background-strong: light-dark(var(--function-accent-8), var(--function-accent-3));
+		--accent-background-medium: light-dark(var(--function-accent-10), var(--function-accent-2));
+		--accent-background-weak: light-dark(var(--static-white), var(--function-accent-1));
 
-    --accent-on-background-weak: light-dark(var(--function-accent-5), var(--function-accent-7));
-    --accent-on-background-soft: light-dark(var(--function-accent-4), var(--function-accent-8));
-    --accent-on-background-medium: light-dark(var(--function-accent-3), var(--function-accent-9));
-    --accent-on-background-bold: light-dark(var(--function-accent-2), var(--function-accent-10));
-    --accent-on-background-strong: light-dark(var(--function-accent-1), var(--static-white));
+		--accent-on-background-weak: light-dark(var(--function-accent-5), var(--function-accent-7));
+		--accent-on-background-soft: light-dark(var(--function-accent-4), var(--function-accent-8));
+		--accent-on-background-medium: light-dark(
+			var(--function-accent-3),
+			var(--function-accent-9)
+		);
+		--accent-on-background-bold: light-dark(
+			var(--function-accent-2),
+			var(--function-accent-10)
+		);
+		--accent-on-background-strong: light-dark(var(--function-accent-1), var(--static-white));
 
-    --accent-solid-strong: light-dark(var(--function-accent-6), var(--function-accent-5));
-    --accent-solid-medium: light-dark(var(--function-accent-5), var(--function-accent-4));
-    --accent-solid-weak: light-dark(var(--function-accent-4), var(--function-accent-3));
+		--accent-solid-strong: light-dark(var(--function-accent-6), var(--function-accent-5));
+		--accent-solid-medium: light-dark(var(--function-accent-5), var(--function-accent-4));
+		--accent-solid-weak: light-dark(var(--function-accent-4), var(--function-accent-3));
 
-    --accent-on-solid-weak: light-dark(var(--function-accent-11), var(--function-accent-9));
-    --accent-on-solid-soft: light-dark(var(--function-accent-10), var(--function-accent-10));
-    --accent-on-solid-medium: light-dark(var(--function-accent-12), var(--function-accent-11));
-    --accent-on-solid-bold: light-dark(var(--static-white), var(--function-accent-12));
-    --accent-on-solid-strong: light-dark(var(--static-white), var(--static-white));
+		--accent-on-solid-weak: light-dark(var(--function-accent-11), var(--function-accent-9));
+		--accent-on-solid-soft: light-dark(var(--function-accent-10), var(--function-accent-10));
+		--accent-on-solid-medium: light-dark(var(--function-accent-12), var(--function-accent-11));
+		--accent-on-solid-bold: light-dark(var(--static-white), var(--function-accent-12));
+		--accent-on-solid-strong: light-dark(var(--static-white), var(--static-white));
 
-    --accent-border-weak: light-dark(var(--function-accent-10), var(--function-accent-2));
-    --accent-border-soft: light-dark(var(--function-accent-9), var(--function-accent-3));
-    --accent-border-medium: light-dark(var(--function-accent-8), var(--function-accent-4));
-    --accent-border-bold: light-dark(var(--function-accent-7), var(--function-accent-5));
-    --accent-border-strong: light-dark(var(--function-accent-6), var(--function-accent-6));
+		--accent-border-weak: light-dark(var(--function-accent-10), var(--function-accent-2));
+		--accent-border-soft: light-dark(var(--function-accent-9), var(--function-accent-3));
+		--accent-border-medium: light-dark(var(--function-accent-8), var(--function-accent-4));
+		--accent-border-bold: light-dark(var(--function-accent-7), var(--function-accent-5));
+		--accent-border-strong: light-dark(var(--function-accent-6), var(--function-accent-6));
 
-    --accent-alpha-strong: var(--function-accent-6-50);
-    --accent-alpha-medium: var(--function-accent-6-30);
-    --accent-alpha-weak: var(--function-accent-6-15);
+		--accent-alpha-strong: var(--function-accent-6-50);
+		--accent-alpha-medium: var(--function-accent-6-30);
+		--accent-alpha-weak: var(--function-accent-6-15);
 
-    /* ════════════════════════════════════════════════════════════════════════
+		/* ════════════════════════════════════════════════════════════════════════
        NEUTRAL TOKENS (uses function-neutral, respects data-neutral attribute)
        ════════════════════════════════════════════════════════════════════════ */
 
-    --neutral-background-strong: light-dark(var(--function-neutral-8), var(--function-neutral-3));
-    --neutral-background-medium: light-dark(var(--function-neutral-10), var(--function-neutral-2));
-    --neutral-background-weak: light-dark(var(--static-white), var(--function-neutral-1));
+		--neutral-background-strong: light-dark(
+			var(--function-neutral-8),
+			var(--function-neutral-3)
+		);
+		--neutral-background-medium: light-dark(
+			var(--function-neutral-10),
+			var(--function-neutral-2)
+		);
+		--neutral-background-weak: light-dark(var(--static-white), var(--function-neutral-1));
 
-    --neutral-on-background-weak: light-dark(var(--function-neutral-5), var(--function-neutral-7));
-    --neutral-on-background-soft: light-dark(var(--function-neutral-4), var(--function-neutral-8));
-    --neutral-on-background-medium: light-dark(
-      var(--function-neutral-3),
-      var(--function-neutral-9)
-    );
-    --neutral-on-background-bold: light-dark(var(--function-neutral-2), var(--function-neutral-10));
-    --neutral-on-background-strong: light-dark(var(--function-neutral-1), var(--static-white));
+		--neutral-on-background-weak: light-dark(
+			var(--function-neutral-5),
+			var(--function-neutral-7)
+		);
+		--neutral-on-background-soft: light-dark(
+			var(--function-neutral-4),
+			var(--function-neutral-8)
+		);
+		--neutral-on-background-medium: light-dark(
+			var(--function-neutral-3),
+			var(--function-neutral-9)
+		);
+		--neutral-on-background-bold: light-dark(
+			var(--function-neutral-2),
+			var(--function-neutral-10)
+		);
+		--neutral-on-background-strong: light-dark(var(--function-neutral-1), var(--static-white));
 
-    --neutral-solid-strong: light-dark(var(--function-neutral-6), var(--function-neutral-5));
-    --neutral-solid-medium: light-dark(var(--function-neutral-5), var(--function-neutral-4));
-    --neutral-solid-weak: light-dark(var(--function-neutral-4), var(--function-neutral-3));
+		--neutral-solid-strong: light-dark(var(--function-neutral-6), var(--function-neutral-5));
+		--neutral-solid-medium: light-dark(var(--function-neutral-5), var(--function-neutral-4));
+		--neutral-solid-weak: light-dark(var(--function-neutral-4), var(--function-neutral-3));
 
-    --neutral-on-solid-weak: light-dark(var(--function-neutral-11), var(--function-neutral-9));
-    --neutral-on-solid-soft: light-dark(var(--function-neutral-10), var(--function-neutral-10));
-    --neutral-on-solid-medium: light-dark(var(--function-neutral-12), var(--function-neutral-11));
-    --neutral-on-solid-bold: light-dark(var(--static-white), var(--function-neutral-12));
-    --neutral-on-solid-strong: light-dark(var(--static-white), var(--static-white));
+		--neutral-on-solid-weak: light-dark(var(--function-neutral-11), var(--function-neutral-9));
+		--neutral-on-solid-soft: light-dark(var(--function-neutral-10), var(--function-neutral-10));
+		--neutral-on-solid-medium: light-dark(
+			var(--function-neutral-12),
+			var(--function-neutral-11)
+		);
+		--neutral-on-solid-bold: light-dark(var(--static-white), var(--function-neutral-12));
+		--neutral-on-solid-strong: light-dark(var(--static-white), var(--static-white));
 
-    --neutral-border-weak: light-dark(var(--function-neutral-10), var(--function-neutral-2));
-    --neutral-border-soft: light-dark(var(--function-neutral-9), var(--function-neutral-3));
-    --neutral-border-medium: light-dark(var(--function-neutral-8), var(--function-neutral-4));
-    --neutral-border-bold: light-dark(var(--function-neutral-7), var(--function-neutral-5));
-    --neutral-border-strong: light-dark(var(--function-neutral-6), var(--function-neutral-6));
+		--neutral-border-weak: light-dark(var(--function-neutral-10), var(--function-neutral-2));
+		--neutral-border-soft: light-dark(var(--function-neutral-9), var(--function-neutral-3));
+		--neutral-border-medium: light-dark(var(--function-neutral-8), var(--function-neutral-4));
+		--neutral-border-bold: light-dark(var(--function-neutral-7), var(--function-neutral-5));
+		--neutral-border-strong: light-dark(var(--function-neutral-6), var(--function-neutral-6));
 
-    --neutral-alpha-strong: var(--function-neutral-6-50);
-    --neutral-alpha-medium: var(--function-neutral-6-30);
-    --neutral-alpha-weak: var(--function-neutral-6-15);
+		--neutral-alpha-strong: var(--function-neutral-6-50);
+		--neutral-alpha-medium: var(--function-neutral-6-30);
+		--neutral-alpha-weak: var(--function-neutral-6-15);
 
-    /* ════════════════════════════════════════════════════════════════════════
+		/* ════════════════════════════════════════════════════════════════════════
        INFO TOKENS (uses function-info)
        ════════════════════════════════════════════════════════════════════════ */
 
-    --info-background-strong: light-dark(var(--function-info-8), var(--function-info-3));
-    --info-background-medium: light-dark(var(--function-info-10), var(--function-info-2));
-    --info-background-weak: light-dark(var(--static-white), var(--function-info-1));
+		--info-background-strong: light-dark(var(--function-info-8), var(--function-info-3));
+		--info-background-medium: light-dark(var(--function-info-10), var(--function-info-2));
+		--info-background-weak: light-dark(var(--static-white), var(--function-info-1));
 
-    /* Colored text: follows brand pattern - light mode darker=prominent, dark mode lighter=prominent */
-    --info-on-background-weak: light-dark(var(--function-info-5), var(--function-info-7));
-    --info-on-background-soft: light-dark(var(--function-info-4), var(--function-info-8));
-    --info-on-background-medium: light-dark(var(--function-info-3), var(--function-info-9));
-    --info-on-background-bold: light-dark(var(--function-info-2), var(--function-info-10));
-    --info-on-background-strong: light-dark(var(--function-info-1), var(--static-white));
+		/* Colored text: follows brand pattern - light mode darker=prominent, dark mode lighter=prominent */
+		--info-on-background-weak: light-dark(var(--function-info-5), var(--function-info-7));
+		--info-on-background-soft: light-dark(var(--function-info-4), var(--function-info-8));
+		--info-on-background-medium: light-dark(var(--function-info-3), var(--function-info-9));
+		--info-on-background-bold: light-dark(var(--function-info-2), var(--function-info-10));
+		--info-on-background-strong: light-dark(var(--function-info-1), var(--static-white));
 
-    --info-solid-strong: light-dark(var(--function-info-6), var(--function-info-5));
-    --info-solid-medium: light-dark(var(--function-info-5), var(--function-info-4));
-    --info-solid-weak: light-dark(var(--function-info-4), var(--function-info-3));
+		--info-solid-strong: light-dark(var(--function-info-6), var(--function-info-5));
+		--info-solid-medium: light-dark(var(--function-info-5), var(--function-info-4));
+		--info-solid-weak: light-dark(var(--function-info-4), var(--function-info-3));
 
-    --info-on-solid-weak: light-dark(var(--function-info-11), var(--function-info-9));
-    --info-on-solid-soft: light-dark(var(--function-info-10), var(--function-info-10));
-    --info-on-solid-medium: light-dark(var(--function-info-12), var(--function-info-11));
-    --info-on-solid-bold: light-dark(var(--static-white), var(--function-info-12));
-    --info-on-solid-strong: light-dark(var(--static-white), var(--static-white));
+		--info-on-solid-weak: light-dark(var(--function-info-11), var(--function-info-9));
+		--info-on-solid-soft: light-dark(var(--function-info-10), var(--function-info-10));
+		--info-on-solid-medium: light-dark(var(--function-info-12), var(--function-info-11));
+		--info-on-solid-bold: light-dark(var(--static-white), var(--function-info-12));
+		--info-on-solid-strong: light-dark(var(--static-white), var(--static-white));
 
-    --info-border-weak: light-dark(var(--function-info-10), var(--function-info-2));
-    --info-border-soft: light-dark(var(--function-info-9), var(--function-info-3));
-    --info-border-medium: light-dark(var(--function-info-8), var(--function-info-4));
-    --info-border-bold: light-dark(var(--function-info-7), var(--function-info-5));
-    --info-border-strong: light-dark(var(--function-info-6), var(--function-info-6));
+		--info-border-weak: light-dark(var(--function-info-10), var(--function-info-2));
+		--info-border-soft: light-dark(var(--function-info-9), var(--function-info-3));
+		--info-border-medium: light-dark(var(--function-info-8), var(--function-info-4));
+		--info-border-bold: light-dark(var(--function-info-7), var(--function-info-5));
+		--info-border-strong: light-dark(var(--function-info-6), var(--function-info-6));
 
-    --info-alpha-strong: var(--function-info-6-50);
-    --info-alpha-medium: var(--function-info-6-30);
-    --info-alpha-weak: var(--function-info-6-15);
+		--info-alpha-strong: var(--function-info-6-50);
+		--info-alpha-medium: var(--function-info-6-30);
+		--info-alpha-weak: var(--function-info-6-15);
 
-    /* ════════════════════════════════════════════════════════════════════════
+		/* ════════════════════════════════════════════════════════════════════════
        WARNING TOKENS (uses function-warning)
        ════════════════════════════════════════════════════════════════════════ */
 
-    --warning-background-strong: light-dark(var(--function-warning-8), var(--function-warning-3));
-    --warning-background-medium: light-dark(var(--function-warning-10), var(--function-warning-2));
-    --warning-background-weak: light-dark(var(--static-white), var(--function-warning-1));
+		--warning-background-strong: light-dark(
+			var(--function-warning-8),
+			var(--function-warning-3)
+		);
+		--warning-background-medium: light-dark(
+			var(--function-warning-10),
+			var(--function-warning-2)
+		);
+		--warning-background-weak: light-dark(var(--static-white), var(--function-warning-1));
 
-    /* Colored text: follows brand pattern - light mode darker=prominent, dark mode lighter=prominent */
-    --warning-on-background-weak: light-dark(var(--function-warning-5), var(--function-warning-7));
-    --warning-on-background-soft: light-dark(var(--function-warning-4), var(--function-warning-8));
-    --warning-on-background-medium: light-dark(
-      var(--function-warning-3),
-      var(--function-warning-9)
-    );
-    --warning-on-background-bold: light-dark(var(--function-warning-2), var(--function-warning-10));
-    --warning-on-background-strong: light-dark(var(--function-warning-1), var(--static-white));
+		/* Colored text: follows brand pattern - light mode darker=prominent, dark mode lighter=prominent */
+		--warning-on-background-weak: light-dark(
+			var(--function-warning-5),
+			var(--function-warning-7)
+		);
+		--warning-on-background-soft: light-dark(
+			var(--function-warning-4),
+			var(--function-warning-8)
+		);
+		--warning-on-background-medium: light-dark(
+			var(--function-warning-3),
+			var(--function-warning-9)
+		);
+		--warning-on-background-bold: light-dark(
+			var(--function-warning-2),
+			var(--function-warning-10)
+		);
+		--warning-on-background-strong: light-dark(var(--function-warning-1), var(--static-white));
 
-    --warning-solid-strong: light-dark(var(--function-warning-6), var(--function-warning-5));
-    --warning-solid-medium: light-dark(var(--function-warning-5), var(--function-warning-4));
-    --warning-solid-weak: light-dark(var(--function-warning-4), var(--function-warning-3));
+		--warning-solid-strong: light-dark(var(--function-warning-6), var(--function-warning-5));
+		--warning-solid-medium: light-dark(var(--function-warning-5), var(--function-warning-4));
+		--warning-solid-weak: light-dark(var(--function-warning-4), var(--function-warning-3));
 
-    --warning-on-solid-weak: light-dark(var(--function-warning-11), var(--function-warning-9));
-    --warning-on-solid-soft: light-dark(var(--function-warning-10), var(--function-warning-10));
-    --warning-on-solid-medium: light-dark(var(--function-warning-12), var(--function-warning-11));
-    --warning-on-solid-bold: light-dark(var(--static-white), var(--function-warning-12));
-    --warning-on-solid-strong: light-dark(var(--static-white), var(--static-white));
+		--warning-on-solid-weak: light-dark(var(--function-warning-11), var(--function-warning-9));
+		--warning-on-solid-soft: light-dark(var(--function-warning-10), var(--function-warning-10));
+		--warning-on-solid-medium: light-dark(
+			var(--function-warning-12),
+			var(--function-warning-11)
+		);
+		--warning-on-solid-bold: light-dark(var(--static-white), var(--function-warning-12));
+		--warning-on-solid-strong: light-dark(var(--static-white), var(--static-white));
 
-    --warning-border-weak: light-dark(var(--function-warning-10), var(--function-warning-2));
-    --warning-border-soft: light-dark(var(--function-warning-9), var(--function-warning-3));
-    --warning-border-medium: light-dark(var(--function-warning-8), var(--function-warning-4));
-    --warning-border-bold: light-dark(var(--function-warning-7), var(--function-warning-5));
-    --warning-border-strong: light-dark(var(--function-warning-6), var(--function-warning-6));
+		--warning-border-weak: light-dark(var(--function-warning-10), var(--function-warning-2));
+		--warning-border-soft: light-dark(var(--function-warning-9), var(--function-warning-3));
+		--warning-border-medium: light-dark(var(--function-warning-8), var(--function-warning-4));
+		--warning-border-bold: light-dark(var(--function-warning-7), var(--function-warning-5));
+		--warning-border-strong: light-dark(var(--function-warning-6), var(--function-warning-6));
 
-    --warning-alpha-strong: var(--function-warning-6-50);
-    --warning-alpha-medium: var(--function-warning-6-30);
-    --warning-alpha-weak: var(--function-warning-6-15);
+		--warning-alpha-strong: var(--function-warning-6-50);
+		--warning-alpha-medium: var(--function-warning-6-30);
+		--warning-alpha-weak: var(--function-warning-6-15);
 
-    /* ════════════════════════════════════════════════════════════════════════
+		/* ════════════════════════════════════════════════════════════════════════
        DANGER TOKENS (uses function-danger)
        ════════════════════════════════════════════════════════════════════════ */
 
-    --danger-background-strong: light-dark(var(--function-danger-8), var(--function-danger-3));
-    --danger-background-medium: light-dark(var(--function-danger-10), var(--function-danger-2));
-    --danger-background-weak: light-dark(var(--static-white), var(--function-danger-1));
+		--danger-background-strong: light-dark(var(--function-danger-8), var(--function-danger-3));
+		--danger-background-medium: light-dark(var(--function-danger-10), var(--function-danger-2));
+		--danger-background-weak: light-dark(var(--static-white), var(--function-danger-1));
 
-    /* Colored text: follows brand pattern - light mode darker=prominent, dark mode lighter=prominent */
-    --danger-on-background-weak: light-dark(var(--function-danger-5), var(--function-danger-7));
-    --danger-on-background-soft: light-dark(var(--function-danger-4), var(--function-danger-8));
-    --danger-on-background-medium: light-dark(var(--function-danger-3), var(--function-danger-9));
-    --danger-on-background-bold: light-dark(var(--function-danger-2), var(--function-danger-10));
-    --danger-on-background-strong: light-dark(var(--function-danger-1), var(--static-white));
+		/* Colored text: follows brand pattern - light mode darker=prominent, dark mode lighter=prominent */
+		--danger-on-background-weak: light-dark(var(--function-danger-5), var(--function-danger-7));
+		--danger-on-background-soft: light-dark(var(--function-danger-4), var(--function-danger-8));
+		--danger-on-background-medium: light-dark(
+			var(--function-danger-3),
+			var(--function-danger-9)
+		);
+		--danger-on-background-bold: light-dark(
+			var(--function-danger-2),
+			var(--function-danger-10)
+		);
+		--danger-on-background-strong: light-dark(var(--function-danger-1), var(--static-white));
 
-    --danger-solid-strong: light-dark(var(--function-danger-6), var(--function-danger-5));
-    --danger-solid-medium: light-dark(var(--function-danger-5), var(--function-danger-4));
-    --danger-solid-weak: light-dark(var(--function-danger-4), var(--function-danger-3));
+		--danger-solid-strong: light-dark(var(--function-danger-6), var(--function-danger-5));
+		--danger-solid-medium: light-dark(var(--function-danger-5), var(--function-danger-4));
+		--danger-solid-weak: light-dark(var(--function-danger-4), var(--function-danger-3));
 
-    --danger-on-solid-weak: light-dark(var(--function-danger-11), var(--function-danger-9));
-    --danger-on-solid-soft: light-dark(var(--function-danger-10), var(--function-danger-10));
-    --danger-on-solid-medium: light-dark(var(--function-danger-12), var(--function-danger-11));
-    --danger-on-solid-bold: light-dark(var(--static-white), var(--function-danger-12));
-    --danger-on-solid-strong: light-dark(var(--static-white), var(--static-white));
+		--danger-on-solid-weak: light-dark(var(--function-danger-11), var(--function-danger-9));
+		--danger-on-solid-soft: light-dark(var(--function-danger-10), var(--function-danger-10));
+		--danger-on-solid-medium: light-dark(var(--function-danger-12), var(--function-danger-11));
+		--danger-on-solid-bold: light-dark(var(--static-white), var(--function-danger-12));
+		--danger-on-solid-strong: light-dark(var(--static-white), var(--static-white));
 
-    --danger-border-weak: light-dark(var(--function-danger-10), var(--function-danger-2));
-    --danger-border-soft: light-dark(var(--function-danger-9), var(--function-danger-3));
-    --danger-border-medium: light-dark(var(--function-danger-8), var(--function-danger-4));
-    --danger-border-bold: light-dark(var(--function-danger-7), var(--function-danger-5));
-    --danger-border-strong: light-dark(var(--function-danger-6), var(--function-danger-6));
+		--danger-border-weak: light-dark(var(--function-danger-10), var(--function-danger-2));
+		--danger-border-soft: light-dark(var(--function-danger-9), var(--function-danger-3));
+		--danger-border-medium: light-dark(var(--function-danger-8), var(--function-danger-4));
+		--danger-border-bold: light-dark(var(--function-danger-7), var(--function-danger-5));
+		--danger-border-strong: light-dark(var(--function-danger-6), var(--function-danger-6));
 
-    --danger-alpha-strong: var(--function-danger-6-50);
-    --danger-alpha-medium: var(--function-danger-6-30);
-    --danger-alpha-weak: var(--function-danger-6-15);
+		--danger-alpha-strong: var(--function-danger-6-50);
+		--danger-alpha-medium: var(--function-danger-6-30);
+		--danger-alpha-weak: var(--function-danger-6-15);
 
-    /* ════════════════════════════════════════════════════════════════════════
+		/* ════════════════════════════════════════════════════════════════════════
        SUCCESS TOKENS (uses function-success)
        ════════════════════════════════════════════════════════════════════════ */
 
-    --success-background-strong: light-dark(var(--function-success-8), var(--function-success-3));
-    --success-background-medium: light-dark(var(--function-success-10), var(--function-success-2));
-    --success-background-weak: light-dark(var(--static-white), var(--function-success-1));
+		--success-background-strong: light-dark(
+			var(--function-success-8),
+			var(--function-success-3)
+		);
+		--success-background-medium: light-dark(
+			var(--function-success-10),
+			var(--function-success-2)
+		);
+		--success-background-weak: light-dark(var(--static-white), var(--function-success-1));
 
-    /* Colored text: follows brand pattern - light mode darker=prominent, dark mode lighter=prominent */
-    --success-on-background-weak: light-dark(var(--function-success-5), var(--function-success-7));
-    --success-on-background-soft: light-dark(var(--function-success-4), var(--function-success-8));
-    --success-on-background-medium: light-dark(
-      var(--function-success-3),
-      var(--function-success-9)
-    );
-    --success-on-background-bold: light-dark(var(--function-success-2), var(--function-success-10));
-    --success-on-background-strong: light-dark(var(--function-success-1), var(--static-white));
+		/* Colored text: follows brand pattern - light mode darker=prominent, dark mode lighter=prominent */
+		--success-on-background-weak: light-dark(
+			var(--function-success-5),
+			var(--function-success-7)
+		);
+		--success-on-background-soft: light-dark(
+			var(--function-success-4),
+			var(--function-success-8)
+		);
+		--success-on-background-medium: light-dark(
+			var(--function-success-3),
+			var(--function-success-9)
+		);
+		--success-on-background-bold: light-dark(
+			var(--function-success-2),
+			var(--function-success-10)
+		);
+		--success-on-background-strong: light-dark(var(--function-success-1), var(--static-white));
 
-    --success-solid-strong: light-dark(var(--function-success-6), var(--function-success-5));
-    --success-solid-medium: light-dark(var(--function-success-5), var(--function-success-4));
-    --success-solid-weak: light-dark(var(--function-success-4), var(--function-success-3));
+		--success-solid-strong: light-dark(var(--function-success-6), var(--function-success-5));
+		--success-solid-medium: light-dark(var(--function-success-5), var(--function-success-4));
+		--success-solid-weak: light-dark(var(--function-success-4), var(--function-success-3));
 
-    --success-on-solid-weak: light-dark(var(--function-success-11), var(--function-success-9));
-    --success-on-solid-soft: light-dark(var(--function-success-10), var(--function-success-10));
-    --success-on-solid-medium: light-dark(var(--function-success-12), var(--function-success-11));
-    --success-on-solid-bold: light-dark(var(--static-white), var(--function-success-12));
-    --success-on-solid-strong: light-dark(var(--static-white), var(--static-white));
+		--success-on-solid-weak: light-dark(var(--function-success-11), var(--function-success-9));
+		--success-on-solid-soft: light-dark(var(--function-success-10), var(--function-success-10));
+		--success-on-solid-medium: light-dark(
+			var(--function-success-12),
+			var(--function-success-11)
+		);
+		--success-on-solid-bold: light-dark(var(--static-white), var(--function-success-12));
+		--success-on-solid-strong: light-dark(var(--static-white), var(--static-white));
 
-    --success-border-weak: light-dark(var(--function-success-10), var(--function-success-2));
-    --success-border-soft: light-dark(var(--function-success-9), var(--function-success-3));
-    --success-border-medium: light-dark(var(--function-success-8), var(--function-success-4));
-    --success-border-bold: light-dark(var(--function-success-7), var(--function-success-5));
-    --success-border-strong: light-dark(var(--function-success-6), var(--function-success-6));
+		--success-border-weak: light-dark(var(--function-success-10), var(--function-success-2));
+		--success-border-soft: light-dark(var(--function-success-9), var(--function-success-3));
+		--success-border-medium: light-dark(var(--function-success-8), var(--function-success-4));
+		--success-border-bold: light-dark(var(--function-success-7), var(--function-success-5));
+		--success-border-strong: light-dark(var(--function-success-6), var(--function-success-6));
 
-    --success-alpha-strong: var(--function-success-6-50);
-    --success-alpha-medium: var(--function-success-6-30);
-    --success-alpha-weak: var(--function-success-6-15);
+		--success-alpha-strong: var(--function-success-6-50);
+		--success-alpha-medium: var(--function-success-6-30);
+		--success-alpha-weak: var(--function-success-6-15);
 
-    /* ════════════════════════════════════════════════════════════════════════
+		/* ════════════════════════════════════════════════════════════════════════
        CALM TOKENS (uses function-calm)
        ════════════════════════════════════════════════════════════════════════ */
 
-    --calm-background-strong: light-dark(var(--function-calm-8), var(--function-calm-3));
-    --calm-background-medium: light-dark(var(--function-calm-10), var(--function-calm-2));
-    --calm-background-weak: light-dark(var(--static-white), var(--function-calm-1));
+		--calm-background-strong: light-dark(var(--function-calm-8), var(--function-calm-3));
+		--calm-background-medium: light-dark(var(--function-calm-10), var(--function-calm-2));
+		--calm-background-weak: light-dark(var(--static-white), var(--function-calm-1));
 
-    /* Colored text: follows brand pattern - light mode darker=prominent, dark mode lighter=prominent */
-    --calm-on-background-weak: light-dark(var(--function-calm-5), var(--function-calm-7));
-    --calm-on-background-soft: light-dark(var(--function-calm-4), var(--function-calm-8));
-    --calm-on-background-medium: light-dark(var(--function-calm-3), var(--function-calm-9));
-    --calm-on-background-bold: light-dark(var(--function-calm-2), var(--function-calm-10));
-    --calm-on-background-strong: light-dark(var(--function-calm-1), var(--static-white));
+		/* Colored text: follows brand pattern - light mode darker=prominent, dark mode lighter=prominent */
+		--calm-on-background-weak: light-dark(var(--function-calm-5), var(--function-calm-7));
+		--calm-on-background-soft: light-dark(var(--function-calm-4), var(--function-calm-8));
+		--calm-on-background-medium: light-dark(var(--function-calm-3), var(--function-calm-9));
+		--calm-on-background-bold: light-dark(var(--function-calm-2), var(--function-calm-10));
+		--calm-on-background-strong: light-dark(var(--function-calm-1), var(--static-white));
 
-    --calm-solid-strong: light-dark(var(--function-calm-6), var(--function-calm-5));
-    --calm-solid-medium: light-dark(var(--function-calm-5), var(--function-calm-4));
-    --calm-solid-weak: light-dark(var(--function-calm-4), var(--function-calm-3));
+		--calm-solid-strong: light-dark(var(--function-calm-6), var(--function-calm-5));
+		--calm-solid-medium: light-dark(var(--function-calm-5), var(--function-calm-4));
+		--calm-solid-weak: light-dark(var(--function-calm-4), var(--function-calm-3));
 
-    --calm-on-solid-weak: light-dark(var(--function-calm-11), var(--function-calm-9));
-    --calm-on-solid-soft: light-dark(var(--function-calm-10), var(--function-calm-10));
-    --calm-on-solid-medium: light-dark(var(--function-calm-12), var(--function-calm-11));
-    --calm-on-solid-bold: light-dark(var(--static-white), var(--function-calm-12));
-    --calm-on-solid-strong: light-dark(var(--static-white), var(--static-white));
+		--calm-on-solid-weak: light-dark(var(--function-calm-11), var(--function-calm-9));
+		--calm-on-solid-soft: light-dark(var(--function-calm-10), var(--function-calm-10));
+		--calm-on-solid-medium: light-dark(var(--function-calm-12), var(--function-calm-11));
+		--calm-on-solid-bold: light-dark(var(--static-white), var(--function-calm-12));
+		--calm-on-solid-strong: light-dark(var(--static-white), var(--static-white));
 
-    --calm-border-weak: light-dark(var(--function-calm-10), var(--function-calm-2));
-    --calm-border-soft: light-dark(var(--function-calm-9), var(--function-calm-3));
-    --calm-border-medium: light-dark(var(--function-calm-8), var(--function-calm-4));
-    --calm-border-bold: light-dark(var(--function-calm-7), var(--function-calm-5));
-    --calm-border-strong: light-dark(var(--function-calm-6), var(--function-calm-6));
+		--calm-border-weak: light-dark(var(--function-calm-10), var(--function-calm-2));
+		--calm-border-soft: light-dark(var(--function-calm-9), var(--function-calm-3));
+		--calm-border-medium: light-dark(var(--function-calm-8), var(--function-calm-4));
+		--calm-border-bold: light-dark(var(--function-calm-7), var(--function-calm-5));
+		--calm-border-strong: light-dark(var(--function-calm-6), var(--function-calm-6));
 
-    --calm-alpha-strong: var(--function-calm-6-50);
-    --calm-alpha-medium: var(--function-calm-6-30);
-    --calm-alpha-weak: var(--function-calm-6-15);
+		--calm-alpha-strong: var(--function-calm-6-50);
+		--calm-alpha-medium: var(--function-calm-6-30);
+		--calm-alpha-weak: var(--function-calm-6-15);
 
-    /* ════════════════════════════════════════════════════════════════════════
+		/* ════════════════════════════════════════════════════════════════════════
        CODE SYNTAX HIGHLIGHTING
        ════════════════════════════════════════════════════════════════════════ */
 
-    --code-moss: light-dark(var(--color-lime-6), var(--color-lime-8));
-    --code-gray: light-dark(var(--color-gray-6), var(--color-gray-8));
-    --code-aqua: light-dark(var(--color-cyan-6), var(--color-cyan-8));
-    --code-green: light-dark(var(--color-green-6), var(--color-green-8));
-    --code-blue: light-dark(var(--color-blue-6), var(--color-blue-8));
-    --code-violet: light-dark(var(--color-purple-6), var(--color-purple-8));
-    --code-orange: light-dark(var(--color-orange-6), var(--color-orange-8));
+		--code-moss: light-dark(var(--color-lime-6), var(--color-lime-8));
+		--code-gray: light-dark(var(--color-gray-6), var(--color-gray-8));
+		--code-aqua: light-dark(var(--color-cyan-6), var(--color-cyan-8));
+		--code-green: light-dark(var(--color-green-6), var(--color-green-8));
+		--code-blue: light-dark(var(--color-blue-6), var(--color-blue-8));
+		--code-violet: light-dark(var(--color-purple-6), var(--color-purple-8));
+		--code-orange: light-dark(var(--color-orange-6), var(--color-orange-8));
 
-    /* ════════════════════════════════════════════════════════════════════════
+		/* ════════════════════════════════════════════════════════════════════════
        SOLID BORDER COLORS
        ════════════════════════════════════════════════════════════════════════ */
 
-    --solid-border-color-brand: var(--brand-alpha-strong);
-    --solid-border-color-neutral: var(--neutral-alpha-strong);
-    --solid-border-color-danger: var(--danger-alpha-strong);
-  }
+		--solid-border-color-brand: var(--brand-alpha-strong);
+		--solid-border-color-neutral: var(--neutral-alpha-strong);
+		--solid-border-color-danger: var(--danger-alpha-strong);
+	}
 
-  /* Theme override: Force dark mode */
-  [data-theme="dark"] {
-    color-scheme: only dark;
-  }
+	/* Theme override: Force dark mode */
+	[data-theme='dark'] {
+		color-scheme: only dark;
+	}
 
-  /* Theme override: Force light mode */
-  [data-theme="light"] {
-    color-scheme: only light;
-  }
+	/* Theme override: Force light mode */
+	[data-theme='light'] {
+		color-scheme: only light;
+	}
 }
 
 /* ══════════════════════════════════════════════════════════════════════════════
@@ -367,73 +433,73 @@
 
 /* Base state: Light mode (default) */
 .light-flex {
-  display: flex;
+	display: flex;
 }
 .light-grid {
-  display: grid;
+	display: grid;
 }
 .light-block {
-  display: block;
+	display: block;
 }
 .dark-flex {
-  display: none;
+	display: none;
 }
 .dark-grid {
-  display: none;
+	display: none;
 }
 .dark-block {
-  display: none;
+	display: none;
 }
 
 /* OS dark mode preference */
 @media (prefers-color-scheme: dark) {
-  .light-flex {
-    display: none;
-  }
-  .light-grid {
-    display: none;
-  }
-  .light-block {
-    display: none;
-  }
-  .dark-flex {
-    display: flex;
-  }
-  .dark-grid {
-    display: grid;
-  }
-  .dark-block {
-    display: block;
-  }
+	.light-flex {
+		display: none;
+	}
+	.light-grid {
+		display: none;
+	}
+	.light-block {
+		display: none;
+	}
+	.dark-flex {
+		display: flex;
+	}
+	.dark-grid {
+		display: grid;
+	}
+	.dark-block {
+		display: block;
+	}
 }
 
 /* Manual data-theme overrides (use !important to ensure they always win) */
-[data-theme="dark"] .light-flex,
-[data-theme="dark"] .light-grid,
-[data-theme="dark"] .light-block {
-  display: none;
+[data-theme='dark'] .light-flex,
+[data-theme='dark'] .light-grid,
+[data-theme='dark'] .light-block {
+	display: none;
 }
-[data-theme="dark"] .dark-flex {
-  display: flex;
+[data-theme='dark'] .dark-flex {
+	display: flex;
 }
-[data-theme="dark"] .dark-grid {
-  display: grid;
+[data-theme='dark'] .dark-grid {
+	display: grid;
 }
-[data-theme="dark"] .dark-block {
-  display: block;
+[data-theme='dark'] .dark-block {
+	display: block;
 }
 
-[data-theme="light"] .dark-flex,
-[data-theme="light"] .dark-grid,
-[data-theme="light"] .dark-block {
-  display: none;
+[data-theme='light'] .dark-flex,
+[data-theme='light'] .dark-grid,
+[data-theme='light'] .dark-block {
+	display: none;
 }
-[data-theme="light"] .light-flex {
-  display: flex;
+[data-theme='light'] .light-flex {
+	display: flex;
 }
-[data-theme="light"] .light-grid {
-  display: grid;
+[data-theme='light'] .light-grid {
+	display: grid;
 }
-[data-theme="light"] .light-block {
-  display: block;
+[data-theme='light'] .light-block {
+	display: block;
 }

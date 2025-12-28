@@ -1,41 +1,43 @@
-import type React from "react";
-import type { ReactNode } from "react";
-
-import { Flex, Text } from ".";
+import { Flex, Text } from '.'
+import type React from 'react'
+import type { ReactNode } from 'react'
 
 interface KbdProps extends React.ComponentProps<typeof Flex> {
-  label?: string;
-  children?: ReactNode;
-  className?: string;
-  style?: React.CSSProperties;
-  ref?: React.Ref<HTMLDivElement>;
+	label?: string
+	children?: ReactNode
+	className?: string
+	style?: React.CSSProperties
+	ref?: React.Ref<HTMLDivElement>
 }
 
 function Kbd({ label, children, className, style, ref, ...rest }: KbdProps) {
-  return (
-    <Flex
-      as="kbd"
-      ref={ref}
-      horizontal="center"
-      minWidth="32"
-      background="neutral-strong"
-      radius="s"
-      paddingX="4"
-      paddingY="2"
-      onBackground="neutral-medium"
-      border="neutral-strong"
-      className={className}
-      style={style}
-      {...rest}
-    >
-      <Text as="span" variant="label-default-s">
-        {label || children}
-      </Text>
-    </Flex>
-  );
+	return (
+		<Flex
+			as="kbd"
+			ref={ref}
+			horizontal="center"
+			minWidth="32"
+			background="neutral-strong"
+			radius="s"
+			paddingX="4"
+			paddingY="2"
+			onBackground="neutral-medium"
+			border="neutral-strong"
+			className={className}
+			style={style}
+			{...rest}
+		>
+			<Text
+				as="span"
+				variant="label-default-s"
+			>
+				{label || children}
+			</Text>
+		</Flex>
+	)
 }
 
-Kbd.displayName = "Kbd";
+Kbd.displayName = 'Kbd'
 
-export { Kbd };
-export type { KbdProps };
+export { Kbd }
+export type { KbdProps }

@@ -1,9 +1,9 @@
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 html {
-  scroll-behavior: smooth;
+	scroll-behavior: smooth;
 }
 
 h1,
@@ -12,30 +12,30 @@ h3,
 h4,
 h5,
 h6 {
-  scroll-margin-top: var(--static-space-80);
+	scroll-margin-top: var(--static-space-80);
 }
 
 img {
-  user-select: none;
+	user-select: none;
 }
 
 /* SELECTION */
 ::selection {
-  background: var(--neutral-on-background-medium);
-  color: var(--neutral-background-strong);
+	background: var(--neutral-on-background-medium);
+	color: var(--neutral-background-strong);
 }
 
 /* LINK */
 a:not(.button) {
-  color: var(--brand-on-background-medium);
-  text-decoration: none;
-  transition: var(--transition-micro-medium);
-  text-decoration-thickness: var(--static-space-1);
-  text-underline-offset: 0.25em;
-  text-decoration-color: var(--neutral-border-strong);
+	color: var(--brand-on-background-medium);
+	text-decoration: none;
+	transition: var(--transition-micro-medium);
+	text-decoration-thickness: var(--static-space-1);
+	text-underline-offset: 0.25em;
+	text-decoration-color: var(--neutral-border-strong);
 }
 
 a:not(.button):hover {
-  text-decoration: none;
-  color: var(--brand-on-background-strong);
+	text-decoration: none;
+	color: var(--brand-on-background-strong);
 }

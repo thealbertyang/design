@@ -1,21 +1,24 @@
-"use client";
+'use client'
 
-import type { Ref } from "react";
-import { Flex } from ".";
+import { Flex } from '.'
+import type { Ref } from 'react'
 
 export interface RowProps extends React.ComponentProps<typeof Flex> {
-  children?: React.ReactNode;
-  ref?: Ref<HTMLDivElement>;
+	children?: React.ReactNode
+	ref?: Ref<HTMLDivElement>
 }
 
 function Row({ children, ref, ...rest }: RowProps) {
-  return (
-    <Flex ref={ref} {...rest}>
-      {children}
-    </Flex>
-  );
+	return (
+		<Flex
+			ref={ref}
+			{...rest}
+		>
+			{children}
+		</Flex>
+	)
 }
 
-Row.displayName = "Row";
+Row.displayName = 'Row'
 
-export { Row };
+export { Row }

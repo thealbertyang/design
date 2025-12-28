@@ -1,118 +1,118 @@
 {
-  "name": "@once-ui-system/core",
-  "version": "1.5.4",
-  "description": "Once UI for Next.js NPM package",
-  "keywords": [
-    "css",
-    "design framework",
-    "design system",
-    "nextjs",
-    "nextjs design system",
-    "once-ui",
-    "react"
-  ],
-  "homepage": "https://github.com/thealbertyang/design",
-  "bugs": {
-    "url": "https://github.com/thealbertyang/design/issues"
-  },
-  "license": "MIT",
-  "author": "Once UI",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/thealbertyang/design.git"
-  },
-  "main": "dist/src/index.js",
-  "types": "dist/types/src/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/types/src/index.d.ts",
-      "import": "./dist/src/index.js",
-      "require": "./dist/src/index.js"
-    },
-    "./components": {
-      "types": "./dist/types/src/components/index.d.ts",
-      "import": "./dist/src/components/index.js",
-      "require": "./dist/src/components/index.js"
-    },
-    "./components/*": {
-      "import": "./dist/src/components/*.js",
-      "require": "./dist/src/components/*.js"
-    },
-    "./contexts": {
-      "types": "./dist/types/src/contexts/index.d.ts",
-      "import": "./dist/src/contexts/index.js",
-      "require": "./dist/src/contexts/index.js"
-    },
-    "./modules": {
-      "types": "./dist/types/src/modules/index.d.ts",
-      "import": "./dist/src/modules/index.js",
-      "require": "./dist/src/modules/index.js"
-    },
-    "./icons": {
-      "types": "./dist/types/src/icons/index.d.ts",
-      "import": "./dist/src/icons/index.js",
-      "require": "./dist/src/icons/index.js"
-    },
-    "./types": {
-      "types": "./dist/types/src/types.d.ts",
-      "import": "./dist/src/types.js",
-      "require": "./dist/src/types.js"
-    },
-    "./interfaces": {
-      "types": "./dist/types/src/interfaces.d.ts",
-      "import": "./dist/src/interfaces.js",
-      "require": "./dist/src/interfaces.js"
-    },
-    "./css/styles.css": "./dist/css/styles.css",
-    "./css/tokens.css": "./dist/css/tokens.css",
-    "./utils": {
-      "types": "./dist/types/src/utils/index.d.ts",
-      "import": "./dist/src/utils/index.js",
-      "require": "./dist/src/utils/index.js"
-    },
-    "./hooks": {
-      "types": "./dist/types/src/hooks/index.d.ts",
-      "import": "./dist/src/hooks/index.js",
-      "require": "./dist/src/hooks/index.js"
-    }
-  },
-  "scripts": {
-    "build": "bun run clean && bun run icons:generate && bun run generate-emoji-data && tsc --project tsconfig.build.json && bun run copy-files && bun run build:css",
-    "build:css": "node scripts/build-css.js",
-    "copy-files": "node scripts/copy-files.js",
-    "clean": "rm -rf dist",
-    "clean:node": "rm -rf node_modules",
-    "kill": "pkill -15 -f 'tsc --watch' || true",
-    "lint": "oxlint .",
-    "lint:fix": "oxlint --fix .",
-    "format": "oxfmt --write .",
-    "fix": "bun run lint:fix && bun run format",
-    "typecheck": "tsc --noEmit",
-    "dev": "tsc --watch --preserveWatchOutput",
-    "generate-emoji-data": "node scripts/generate-emoji-data.js",
-    "icons:generate": "node ../../scripts/generate-icons.js --package once-ui && bun run lint:fix && bun run format",
-    "icons:generate:force": "node ../../scripts/generate-icons.js --package once-ui --force && bun run lint:fix && bun run format"
-  },
-  "dependencies": {
-    "@floating-ui/react-dom": "catalog:ui",
-    "classnames": "catalog:frontend",
-    "compressorjs": "catalog:ui",
-    "date-fns": "catalog:ui",
-    "prismjs": "catalog:ui",
-    "recharts": "catalog:ui"
-  },
-  "devDependencies": {
-    "@types/node": "catalog:runtime",
-    "@types/react": "catalog:frontend",
-    "@types/react-dom": "catalog:frontend",
-    "react-icons": "catalog:frontend",
-    "rimraf": "catalog:ui",
-    "typescript": "catalog:types"
-  },
-  "peerDependencies": {
-    "next": "catalog:frontend",
-    "react": "catalog:frontend",
-    "react-dom": "catalog:frontend",
-    "sharp": "catalog:ui"
-  }
+	"name": "@once-ui-system/core",
+	"version": "1.5.4",
+	"description": "Once UI for Next.js NPM package",
+	"keywords": [
+		"css",
+		"design framework",
+		"design system",
+		"nextjs",
+		"nextjs design system",
+		"once-ui",
+		"react"
+	],
+	"homepage": "https://github.com/thealbertyang/design",
+	"bugs": {
+		"url": "https://github.com/thealbertyang/design/issues"
+	},
+	"license": "MIT",
+	"author": "Once UI",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/thealbertyang/design.git"
+	},
+	"main": "dist/src/index.js",
+	"types": "dist/types/src/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/types/src/index.d.ts",
+			"import": "./dist/src/index.js",
+			"require": "./dist/src/index.js"
+		},
+		"./components": {
+			"types": "./dist/types/src/components/index.d.ts",
+			"import": "./dist/src/components/index.js",
+			"require": "./dist/src/components/index.js"
+		},
+		"./components/*": {
+			"import": "./dist/src/components/*.js",
+			"require": "./dist/src/components/*.js"
+		},
+		"./contexts": {
+			"types": "./dist/types/src/contexts/index.d.ts",
+			"import": "./dist/src/contexts/index.js",
+			"require": "./dist/src/contexts/index.js"
+		},
+		"./modules": {
+			"types": "./dist/types/src/modules/index.d.ts",
+			"import": "./dist/src/modules/index.js",
+			"require": "./dist/src/modules/index.js"
+		},
+		"./icons": {
+			"types": "./dist/types/src/icons/index.d.ts",
+			"import": "./dist/src/icons/index.js",
+			"require": "./dist/src/icons/index.js"
+		},
+		"./types": {
+			"types": "./dist/types/src/types.d.ts",
+			"import": "./dist/src/types.js",
+			"require": "./dist/src/types.js"
+		},
+		"./interfaces": {
+			"types": "./dist/types/src/interfaces.d.ts",
+			"import": "./dist/src/interfaces.js",
+			"require": "./dist/src/interfaces.js"
+		},
+		"./css/styles.css": "./dist/css/styles.css",
+		"./css/tokens.css": "./dist/css/tokens.css",
+		"./utils": {
+			"types": "./dist/types/src/utils/index.d.ts",
+			"import": "./dist/src/utils/index.js",
+			"require": "./dist/src/utils/index.js"
+		},
+		"./hooks": {
+			"types": "./dist/types/src/hooks/index.d.ts",
+			"import": "./dist/src/hooks/index.js",
+			"require": "./dist/src/hooks/index.js"
+		}
+	},
+	"scripts": {
+		"build": "bun run clean && bun run icons:generate && bun run generate-emoji-data && tsc --project tsconfig.build.json && bun run copy-files && bun run build:css",
+		"build:css": "node scripts/build-css.js",
+		"copy-files": "node scripts/copy-files.js",
+		"clean": "rm -rf dist",
+		"clean:node": "rm -rf node_modules",
+		"kill": "pkill -15 -f 'tsc --watch' || true",
+		"lint": "oxlint .",
+		"lint:fix": "oxlint --fix .",
+		"format": "oxfmt --write .",
+		"fix": "bun run lint:fix && bun run format",
+		"typecheck": "tsc --noEmit",
+		"dev": "tsc --watch --preserveWatchOutput",
+		"generate-emoji-data": "node scripts/generate-emoji-data.js",
+		"icons:generate": "node ../../scripts/generate-icons.js --package once-ui && bun run lint:fix && bun run format",
+		"icons:generate:force": "node ../../scripts/generate-icons.js --package once-ui --force && bun run lint:fix && bun run format"
+	},
+	"dependencies": {
+		"@floating-ui/react-dom": "catalog:ui",
+		"classnames": "catalog:frontend",
+		"compressorjs": "catalog:ui",
+		"date-fns": "catalog:ui",
+		"prismjs": "catalog:ui",
+		"recharts": "catalog:ui"
+	},
+	"devDependencies": {
+		"@types/node": "catalog:runtime",
+		"@types/react": "catalog:frontend",
+		"@types/react-dom": "catalog:frontend",
+		"react-icons": "catalog:frontend",
+		"rimraf": "catalog:ui",
+		"typescript": "catalog:types"
+	},
+	"peerDependencies": {
+		"next": "catalog:frontend",
+		"react": "catalog:frontend",
+		"react-dom": "catalog:frontend",
+		"sharp": "catalog:ui"
+	}
 }

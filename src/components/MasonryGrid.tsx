@@ -1,106 +1,107 @@
-import classNames from "classnames";
-import type { CSSProperties, ReactNode } from "react";
-import React from "react";
-import type { SpacingToken } from "../types";
-import { Column } from "./Column";
-import { Flex } from "./Flex";
-import styles from "./MasonryGrid.module.css";
+import type { SpacingToken } from '../types'
+import { Column } from './Column'
+import { Flex } from './Flex'
+import styles from './MasonryGrid.module.css'
+import classNames from 'classnames'
+import type { CSSProperties, ReactNode } from 'react'
+import React from 'react'
 
-function parseToken(value: SpacingToken | "-1" | number | undefined, type: "width" | "height") {
-  if (value === undefined) return undefined;
-  if (typeof value === "number") return `${value}rem`;
-  if (
-    [
-      "0",
-      "1",
-      "2",
-      "4",
-      "8",
-      "12",
-      "16",
-      "20",
-      "24",
-      "32",
-      "40",
-      "48",
-      "56",
-      "64",
-      "80",
-      "104",
-      "128",
-      "160",
-    ].includes(value)
-  ) {
-    return `var(--static-space-${value})`;
-  }
-  if (["xs", "s", "m", "l", "xl"].includes(value)) {
-    return `var(--responsive-${type}-${value})`;
-  }
-  return undefined;
+function parseToken(value: SpacingToken | '-1' | number | undefined, type: 'width' | 'height') {
+	if (value === undefined) return undefined
+	if (typeof value === 'number') return `${value}rem`
+	if (
+		[
+			'0',
+			'1',
+			'2',
+			'4',
+			'8',
+			'12',
+			'16',
+			'20',
+			'24',
+			'32',
+			'40',
+			'48',
+			'56',
+			'64',
+			'80',
+			'104',
+			'128',
+			'160',
+		].includes(value)
+	) {
+		return `var(--static-space-${value})`
+	}
+	if (['xs', 's', 'm', 'l', 'xl'].includes(value)) {
+		return `var(--responsive-${type}-${value})`
+	}
+	return undefined
 }
 
 interface MasonryGridProps extends React.ComponentProps<typeof Flex> {
-  ref?: React.Ref<HTMLDivElement>;
-  children: ReactNode;
-  gap?: SpacingToken | "-1" | undefined;
-  columns?: number;
-  style?: CSSProperties;
-  className?: string;
+	ref?: React.Ref<HTMLDivElement>
+	children: ReactNode
+	gap?: SpacingToken | '-1' | undefined
+	columns?: number
+	style?: CSSProperties
+	className?: string
 }
 
 function MasonryGrid({
-  ref,
-  children,
-  gap = "8",
-  columns = 3,
-  style,
-  className,
-  l,
-  m,
-  s,
-  ...flex
+	ref,
+	children,
+	gap = '8',
+	columns = 3,
+	style,
+	className,
+	l,
+	m,
+	s,
+	...flex
 }: MasonryGridProps) {
-  const gapValue = parseToken(gap, "width") ?? "var(--static-space-8)";
+	const gapValue = parseToken(gap, 'width') ?? 'var(--static-space-8)'
 
-  const classes = classNames(
-    columns && styles[`columns-${columns}`],
-    l?.columns && styles[`l-columns-${l.columns}`],
-    m?.columns && styles[`m-columns-${m.columns}`],
-    s?.columns && styles[`s-columns-${s.columns}`],
-    className,
-  );
+	const classes = classNames(
+		columns && styles[`columns-${columns}`],
+		l?.columns && styles[`l-columns-${l.columns}`],
+		m?.columns && styles[`m-columns-${m.columns}`],
+		s?.columns && styles[`s-columns-${s.columns}`],
+		className
+	)
 
-  return (
-    <Flex
-      fillWidth
-      className={classes}
-      ref={ref}
-      {...flex}
-      style={{
-        display: "block",
-        columnGap: gapValue,
-        ...style,
-      }}
-    >
-      {React.Children.map(children, (child, idx) => {
-        const key = React.isValidElement(child) && child.key != null ? child.key : `masonry-${idx}`;
-        return (
-          <Column
-            key={key}
-            fillWidth
-            fitHeight
-            style={{
-              breakInside: "avoid",
-              marginBottom: gapValue,
-            }}
-          >
-            {child}
-          </Column>
-        );
-      })}
-    </Flex>
-  );
+	return (
+		<Flex
+			fillWidth
+			className={classes}
+			ref={ref}
+			{...flex}
+			style={{
+				display: 'block',
+				columnGap: gapValue,
+				...style,
+			}}
+		>
+			{React.Children.map(children, (child, idx) => {
+				const key =
+					React.isValidElement(child) && child.key != null ? child.key : `masonry-${idx}`
+				return (
+					<Column
+						key={key}
+						fillWidth
+						fitHeight
+						style={{
+							breakInside: 'avoid',
+							marginBottom: gapValue,
+						}}
+					>
+						{child}
+					</Column>
+				)
+			})}
+		</Flex>
+	)
 }
 
-export { MasonryGrid };
-MasonryGrid.displayName = "MasonryGrid";
+export { MasonryGrid }
+MasonryGrid.displayName = 'MasonryGrid'

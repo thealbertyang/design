@@ -1,1 +1,1 @@
-export * from "./devLogger";
+export * from './devLogger'

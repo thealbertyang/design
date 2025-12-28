@@ -1,65 +1,84 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import type { DisplayProps } from "../interfaces";
-import { Background, Flex, IconButton, StylePanel } from ".";
-import styles from "./StyleOverlay.module.css";
+import { Background, Flex, IconButton, StylePanel } from '.'
+import type { DisplayProps } from '../interfaces'
+import styles from './StyleOverlay.module.css'
+import { useState } from 'react'
 
 interface StyleOverlayProps extends React.ComponentProps<typeof Flex> {
-  ref?: React.Ref<HTMLDivElement>;
-  iconButtonProps?: Partial<React.ComponentProps<typeof IconButton>>;
-  children: React.ReactNode;
-  zIndex?: DisplayProps["zIndex"];
+	ref?: React.Ref<HTMLDivElement>
+	iconButtonProps?: Partial<React.ComponentProps<typeof IconButton>>
+	children: React.ReactNode
+	zIndex?: DisplayProps['zIndex']
 }
 
 function StyleOverlay({ ref, iconButtonProps, children, zIndex = 2, ...rest }: StyleOverlayProps) {
-  const [isOpen, setIsOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState(false)
 
-  const togglePanel = () => {
-    setIsOpen(!isOpen);
-  };
+	const togglePanel = () => {
+		setIsOpen(!isOpen)
+	}
 
-  return (
-    <Flex ref={ref} position="static" zIndex={zIndex}>
-      {!isOpen && <Flex onClick={togglePanel}>{children}</Flex>}
-      <Flex
-        as="aside"
-        zIndex={3}
-        className={`${styles.panel} ${isOpen && styles.open}`}
-        maxWidth={28}
-        style={{
-          maxHeight: "calc(100% - var(--static-space-4))",
-        }}
-        fillHeight
-        position="absolute"
-        shadow="xl"
-        top="2"
-        right="2"
-        transition="macro-medium"
-        background="page"
-        overflow="hidden"
-        radius="xl"
-        border="neutral-medium"
-        {...rest}
-      >
-        <StylePanel fill overflowY="scroll" padding="8" />
-        <Flex position="absolute" paddingTop="8" paddingRight="12" top="0" right="0">
-          <Background
-            position="absolute"
-            top="0"
-            right="8"
-            left={undefined}
-            width={8}
-            height={4}
-            mask={{ x: 100, y: 0, radius: 7 }}
-            dots={{ display: true, size: "2", color: "page-background" }}
-          />
-          <IconButton variant="secondary" onClick={togglePanel} icon="close" {...iconButtonProps} />
-        </Flex>
-      </Flex>
-    </Flex>
-  );
+	return (
+		<Flex
+			ref={ref}
+			position="static"
+			zIndex={zIndex}
+		>
+			{!isOpen && <Flex onClick={togglePanel}>{children}</Flex>}
+			<Flex
+				as="aside"
+				zIndex={3}
+				className={`${styles.panel} ${isOpen && styles.open}`}
+				maxWidth={28}
+				style={{
+					maxHeight: 'calc(100% - var(--static-space-4))',
+				}}
+				fillHeight
+				position="absolute"
+				shadow="xl"
+				top="2"
+				right="2"
+				transition="macro-medium"
+				background="page"
+				overflow="hidden"
+				radius="xl"
+				border="neutral-medium"
+				{...rest}
+			>
+				<StylePanel
+					fill
+					overflowY="scroll"
+					padding="8"
+				/>
+				<Flex
+					position="absolute"
+					paddingTop="8"
+					paddingRight="12"
+					top="0"
+					right="0"
+				>
+					<Background
+						position="absolute"
+						top="0"
+						right="8"
+						left={undefined}
+						width={8}
+						height={4}
+						mask={{ x: 100, y: 0, radius: 7 }}
+						dots={{ display: true, size: '2', color: 'page-background' }}
+					/>
+					<IconButton
+						variant="secondary"
+						onClick={togglePanel}
+						icon="close"
+						{...iconButtonProps}
+					/>
+				</Flex>
+			</Flex>
+		</Flex>
+	)
 }
 
-StyleOverlay.displayName = "StyleOverlay";
-export { StyleOverlay };
+StyleOverlay.displayName = 'StyleOverlay'
+export { StyleOverlay }

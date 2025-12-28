@@ -1,6 +1,6 @@
-"use client";
+'use client'
 
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect } from 'react'
 
 /**
  * useIsomorphicLayoutEffect
@@ -10,5 +10,4 @@ import { useEffect, useLayoutEffect } from "react";
  *
  * This is the standard pattern for Next.js/SSR compatibility.
  */
-export const useIsomorphicLayoutEffect =
-  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+export const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect

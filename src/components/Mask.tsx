@@ -1,132 +1,133 @@
-"use client";
+'use client'
 
-import classNames from "classnames";
-import type React from "react";
-import { type CSSProperties, useEffect, useRef, useState } from "react";
-import { Flex } from ".";
-import styles from "./Mask.module.css";
+import { Flex } from '.'
+import styles from './Mask.module.css'
+import classNames from 'classnames'
+import type React from 'react'
+import { type CSSProperties, useEffect, useRef, useState } from 'react'
 
-export interface MaskProps extends Omit<React.ComponentProps<typeof Flex>, "radius" | "cursor"> {
-  ref?: React.Ref<HTMLDivElement>;
-  cursor?: boolean;
-  x?: number;
-  y?: number;
-  radius?: number;
-  className?: string;
-  style?: React.CSSProperties;
-  children?: React.ReactNode;
+export interface MaskProps extends Omit<React.ComponentProps<typeof Flex>, 'radius' | 'cursor'> {
+	ref?: React.Ref<HTMLDivElement>
+	cursor?: boolean
+	x?: number
+	y?: number
+	radius?: number
+	className?: string
+	style?: React.CSSProperties
+	children?: React.ReactNode
 }
 
 function Mask({
-  ref: forwardedRef,
-  cursor = false,
-  x,
-  y,
-  radius = 50,
-  children,
-  className,
-  style,
-  ...rest
+	ref: forwardedRef,
+	cursor = false,
+	x,
+	y,
+	radius = 50,
+	children,
+	className,
+	style,
+	...rest
 }: MaskProps) {
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-  const [smoothPosition, setSmoothPosition] = useState({ x: 0, y: 0 });
-  const maskRef = useRef<HTMLDivElement>(null);
+	const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 })
+	const [smoothPosition, setSmoothPosition] = useState({ x: 0, y: 0 })
+	const maskRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    if (forwardedRef) {
-      if (typeof forwardedRef === "function") {
-        forwardedRef(maskRef.current);
-      } else if (forwardedRef && "current" in forwardedRef) {
-        (forwardedRef as React.MutableRefObject<HTMLDivElement | null>).current = maskRef.current;
-      }
-    }
-  }, [forwardedRef]);
+	useEffect(() => {
+		if (forwardedRef) {
+			if (typeof forwardedRef === 'function') {
+				forwardedRef(maskRef.current)
+			} else if (forwardedRef && 'current' in forwardedRef) {
+				;(forwardedRef as React.MutableRefObject<HTMLDivElement | null>).current =
+					maskRef.current
+			}
+		}
+	}, [forwardedRef])
 
-  useEffect(() => {
-    if (!cursor) return;
+	useEffect(() => {
+		if (!cursor) return
 
-    const handleMouseMove = (event: MouseEvent) => {
-      if (maskRef.current) {
-        const rect = maskRef.current.getBoundingClientRect();
-        setCursorPosition({
-          x: event.clientX - rect.left,
-          y: event.clientY - rect.top,
-        });
-      }
-    };
+		const handleMouseMove = (event: MouseEvent) => {
+			if (maskRef.current) {
+				const rect = maskRef.current.getBoundingClientRect()
+				setCursorPosition({
+					x: event.clientX - rect.left,
+					y: event.clientY - rect.top,
+				})
+			}
+		}
 
-    document.addEventListener("mousemove", handleMouseMove);
+		document.addEventListener('mousemove', handleMouseMove)
 
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, [cursor]);
+		return () => {
+			document.removeEventListener('mousemove', handleMouseMove)
+		}
+	}, [cursor])
 
-  useEffect(() => {
-    if (!cursor) return;
+	useEffect(() => {
+		if (!cursor) return
 
-    let animationFrameId: number;
+		let animationFrameId: number
 
-    const updateSmoothPosition = () => {
-      setSmoothPosition((prev) => {
-        const dx = cursorPosition.x - prev.x;
-        const dy = cursorPosition.y - prev.y;
-        const easingFactor = 0.05;
+		const updateSmoothPosition = () => {
+			setSmoothPosition((prev) => {
+				const dx = cursorPosition.x - prev.x
+				const dy = cursorPosition.y - prev.y
+				const easingFactor = 0.05
 
-        return {
-          x: Math.round(prev.x + dx * easingFactor),
-          y: Math.round(prev.y + dy * easingFactor),
-        };
-      });
-      animationFrameId = requestAnimationFrame(updateSmoothPosition);
-    };
+				return {
+					x: Math.round(prev.x + dx * easingFactor),
+					y: Math.round(prev.y + dy * easingFactor),
+				}
+			})
+			animationFrameId = requestAnimationFrame(updateSmoothPosition)
+		}
 
-    animationFrameId = requestAnimationFrame(updateSmoothPosition);
+		animationFrameId = requestAnimationFrame(updateSmoothPosition)
 
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, [cursorPosition, cursor]);
+		return () => {
+			cancelAnimationFrame(animationFrameId)
+		}
+	}, [cursorPosition, cursor])
 
-  const maskStyle = (): CSSProperties => {
-    if (cursor) {
-      return {
-        "--mask-position-x": `${smoothPosition.x}px`,
-        "--mask-position-y": `${smoothPosition.y}px`,
-        "--mask-radius": `${radius}vh`,
-      } as CSSProperties;
-    }
+	const maskStyle = (): CSSProperties => {
+		if (cursor) {
+			return {
+				'--mask-position-x': `${smoothPosition.x}px`,
+				'--mask-position-y': `${smoothPosition.y}px`,
+				'--mask-radius': `${radius}vh`,
+			} as CSSProperties
+		}
 
-    if (x != null && y != null) {
-      return {
-        "--mask-position-x": `${x}%`,
-        "--mask-position-y": `${y}%`,
-        "--mask-radius": `${radius}vh`,
-      } as CSSProperties;
-    }
+		if (x != null && y != null) {
+			return {
+				'--mask-position-x': `${x}%`,
+				'--mask-position-y': `${y}%`,
+				'--mask-radius': `${radius}vh`,
+			} as CSSProperties
+		}
 
-    return {};
-  };
+		return {}
+	}
 
-  return (
-    <Flex
-      ref={maskRef}
-      fill
-      className={classNames(styles.mask, className)}
-      top="0"
-      left="0"
-      zIndex={0}
-      overflow="hidden"
-      style={{
-        ...maskStyle(),
-        ...style,
-      }}
-      {...rest}
-    >
-      {children}
-    </Flex>
-  );
+	return (
+		<Flex
+			ref={maskRef}
+			fill
+			className={classNames(styles.mask, className)}
+			top="0"
+			left="0"
+			zIndex={0}
+			overflow="hidden"
+			style={{
+				...maskStyle(),
+				...style,
+			}}
+			{...rest}
+		>
+			{children}
+		</Flex>
+	)
 }
 
-Mask.displayName = "Mask";
-export { Mask };
+Mask.displayName = 'Mask'
+export { Mask }
