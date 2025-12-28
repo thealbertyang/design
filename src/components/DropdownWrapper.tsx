@@ -21,7 +21,6 @@ import {
 	useFloating,
 } from '@floating-ui/react-dom'
 import React, {
-	type FocusEvent,
 	type KeyboardEvent,
 	type ReactNode,
 	useCallback,
@@ -381,7 +380,7 @@ function DropdownWrapper({
 	)
 
 	const handleFocusOut = useCallback(
-		(event: FocusEvent) => {
+		(event: { relatedTarget: EventTarget | null }) => {
 			// Check if focus moved to the dropdown or stayed in the wrapper
 			const relatedTarget = event.relatedTarget
 			const isFocusInDropdown =

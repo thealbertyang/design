@@ -32,7 +32,7 @@ export const schemes = [
 	'cyan',
 	'violet',
 	'indigo',
-]
+] as const
 
 export type Schemes =
 	| 'blue'

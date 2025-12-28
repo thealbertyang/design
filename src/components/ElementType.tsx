@@ -3,8 +3,6 @@ import Link from 'next/link'
 import type React from 'react'
 import type { ReactNode } from 'react'
 
-type ElementRef = HTMLAnchorElement | HTMLButtonElement | HTMLDivElement
-
 interface ElementTypeProps {
 	href?: string
 	onClick?: React.MouseEventHandler<HTMLElement>
@@ -13,14 +11,14 @@ interface ElementTypeProps {
 	className?: string
 	style?: React.CSSProperties
 	type?: 'button' | 'submit' | 'reset' | (string & {})
-	ref?: React.RefCallback<ElementRef> | React.RefObject<ElementRef | null>
+	ref?: React.Ref<HTMLElement>
 	[key: string]: unknown
 }
 
-// Helper to safely assign ref using runtime type checks
-function assignRef(
-	ref: React.RefCallback<ElementRef> | React.RefObject<ElementRef | null> | undefined,
-	element: ElementRef | null
+// Helper to safely assign ref
+function assignRef<T extends HTMLElement>(
+	ref: React.Ref<T> | undefined,
+	element: T | null
 ): void {
 	if (!ref) return
 	if (typeof ref === 'function') {
@@ -83,7 +81,7 @@ function ElementType({
 				className={className}
 				onClick={onClick}
 				style={style}
-				type={type === 'button' || type === 'submit' || type === 'reset' ? type : undefined}
+				type={type === 'submit' ? 'submit' : type === 'reset' ? 'reset' : 'button'}
 				{...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
 			>
 				{children}

@@ -85,7 +85,7 @@ function ServerFlex({
 	dark,
 	light,
 	direction,
-	_xl,
+	xl: _xl,
 	l,
 	m,
 	s,

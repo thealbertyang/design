@@ -134,7 +134,7 @@ const HoloFx: React.FC<HoloFxProps> = ({ children, shine, burn, texture, ...rest
 						filter: burnDefaults.filter,
 						mixBlendMode: burnDefaults.blending,
 						maskImage: burnDefaults.mask,
-					} satisfies HoloFxStyleProperties
+					} as HoloFxStyleProperties
 				}
 			>
 				{children}
@@ -151,7 +151,7 @@ const HoloFx: React.FC<HoloFxProps> = ({ children, shine, burn, texture, ...rest
 						filter: shineDefaults.filter,
 						mixBlendMode: shineDefaults.blending,
 						maskImage: shineDefaults.mask,
-					} satisfies HoloFxStyleProperties
+					} as HoloFxStyleProperties
 				}
 			>
 				{children}
@@ -169,7 +169,7 @@ const HoloFx: React.FC<HoloFxProps> = ({ children, shine, burn, texture, ...rest
 						filter: textureDefaults.filter,
 						mixBlendMode: textureDefaults.blending,
 						maskImage: textureDefaults.mask,
-					} satisfies HoloFxStyleProperties
+					} as HoloFxStyleProperties
 				}
 			></Flex>
 		</Flex>

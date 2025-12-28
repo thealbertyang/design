@@ -63,10 +63,10 @@ interface StylePanelProps extends React.ComponentProps<typeof Flex> {
 
 const shapes: BorderStyle[] = ['sharp', 'conservative', 'playful', 'rounded']
 
-const colorOptions: { brand: Schemes[]; accent: Schemes[]; neutral: NeutralColor[] } = {
+const colorOptions = {
 	brand: [...schemes],
 	accent: [...schemes],
-	neutral: ['sand', 'gray', 'slate'],
+	neutral: ['sand', 'gray', 'slate'] as const,
 }
 
 function StylePanel({ ref, ...rest }: StylePanelProps) {

@@ -27,7 +27,7 @@ export interface MediaProps extends React.ComponentProps<typeof Flex> {
 const Media: React.FC<MediaProps> = ({
 	src,
 	alt = '',
-	_fillWidth = true,
+	fillWidth = true,
 	fill = false,
 	loading = false,
 	enlarge = false,
@@ -160,7 +160,7 @@ const Media: React.FC<MediaProps> = ({
 			<Column
 				as={caption ? 'figure' : undefined}
 				ref={imageRef}
-				fillWidth
+				fillWidth={fillWidth}
 				overflow="hidden"
 				zIndex={0}
 				margin="0"

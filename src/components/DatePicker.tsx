@@ -62,7 +62,7 @@ function DatePicker({
 	nextMonth = true,
 	minDate,
 	maxDate,
-	_defaultDate,
+	defaultDate,
 	defaultTime,
 	size = 'm',
 	isNested = false,
@@ -74,12 +74,12 @@ function DatePicker({
 	range,
 	onHover,
 	autoFocus = false,
-	_isOpen,
+	isOpen: _isOpen,
 	ref,
 	...rest
 }: DatePickerProps) {
 	const today = new Date()
-	const [selectedDate, setSelectedDate] = useState<Date | undefined>(value)
+	const [selectedDate, setSelectedDate] = useState<Date | undefined>(value ?? defaultDate)
 	const [selectedTime, setSelectedTime] = useState<
 		| {
 				hours: number
@@ -95,11 +95,12 @@ function DatePicker({
 	const [isReady, setIsReady] = useState(false)
 	const [hoveredDate, setHoveredDate] = useState<Date | null>(null)
 
+	const initialDate = value ?? defaultDate
 	const [currentMonth, setCurrentMonth] = useState<number>(
-		value ? value.getMonth() : today.getMonth()
+		initialDate ? initialDate.getMonth() : today.getMonth()
 	)
 	const [currentYear, setCurrentYear] = useState<number>(
-		value ? value.getFullYear() : today.getFullYear()
+		initialDate ? initialDate.getFullYear() : today.getFullYear()
 	)
 
 	// Calculate the initial focused index based on the selected date

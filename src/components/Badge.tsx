@@ -34,19 +34,25 @@ interface BadgeDivProps extends Omit<React.ComponentProps<typeof Flex>, 'ref'> {
 
 export type BadgeProps = BadgeLinkProps | BadgeDivProps
 
-function Badge({
-	title,
-	icon,
-	href,
-	arrow = !!href,
-	children,
-	effect = true,
-	className,
-	style,
-	id,
-	ref,
-	...rest
-}: BadgeProps) {
+// Type guard to check if props is BadgeDivProps
+function isDivBadge(props: BadgeProps): props is BadgeDivProps {
+	return props.href === undefined
+}
+
+function Badge(props: BadgeProps) {
+	const {
+		title,
+		icon,
+		href,
+		arrow = !!href,
+		children,
+		effect = true,
+		className,
+		style,
+		id,
+		ref,
+		...rest
+	} = props
 	const badgeId = id || 'badge'
 
 	const innerContent = (
@@ -98,14 +104,18 @@ function Badge({
 		)
 	}
 
-	return (
-		<Flex
-			{...flexProps}
-			ref={ref}
-		>
-			{innerContent}
-		</Flex>
-	)
+	// Use the type guard to narrow props to BadgeDivProps
+	if (isDivBadge(props)) {
+		return (
+			<Flex
+				{...flexProps}
+				ref={props.ref}
+			>
+				{innerContent}
+			</Flex>
+		)
+	}
+	return null
 }
 
 Badge.displayName = 'Badge'

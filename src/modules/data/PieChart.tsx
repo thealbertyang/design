@@ -13,6 +13,7 @@ import {
 	schemes,
 	useDataTheme,
 } from '../../'
+import type { RadiusSize } from '../../types'
 import { getDistributedColor } from './utils/colorDistribution'
 import React, { useEffect, useState } from 'react'
 import {
@@ -23,6 +24,9 @@ import {
 	ResponsiveContainer as RechartsResponsiveContainer,
 	Tooltip as RechartsTooltip,
 } from 'recharts'
+
+const isRadiusSize = (value: unknown): value is RadiusSize =>
+	typeof value === 'string' && ['xs', 's', 'm', 'l', 'xl', 'full', 'none'].includes(value)
 
 interface PieChartProps extends ChartProps {
 	'data-viz-style'?: string
@@ -144,7 +148,7 @@ export const PieChart: React.FC<PieChartProps> = ({
 						? border || 'neutral-alpha-weak'
 						: undefined
 				}
-				topRadius={flex.radius ?? 'l'}
+				topRadius={isRadiusSize(flex.radius) ? flex.radius : 'l'}
 				overflow="hidden"
 			>
 				<ChartStatus
