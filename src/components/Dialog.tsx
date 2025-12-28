@@ -96,22 +96,22 @@ function Dialog({
 				onClose()
 			}
 			if (event.key === 'Tab' && dialogRef.current) {
-				const focusableElements = dialogRef.current.querySelectorAll(
+				const focusableElements = dialogRef.current.querySelectorAll<HTMLElement>(
 					'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
 				)
 
 				if (focusableElements.length > 0) {
-					const firstElement = focusableElements[0] as HTMLElement
-					const lastElement = focusableElements[
-						focusableElements.length - 1
-					] as HTMLElement
+					const firstElement = focusableElements[0]
+					const lastElement = focusableElements[focusableElements.length - 1]
 
-					if (event.shiftKey && document.activeElement === firstElement) {
-						event.preventDefault()
-						lastElement.focus()
-					} else if (!event.shiftKey && document.activeElement === lastElement) {
-						event.preventDefault()
-						firstElement.focus()
+					if (firstElement && lastElement) {
+						if (event.shiftKey && document.activeElement === firstElement) {
+							event.preventDefault()
+							lastElement.focus()
+						} else if (!event.shiftKey && document.activeElement === lastElement) {
+							event.preventDefault()
+							firstElement.focus()
+						}
 					}
 				}
 			}
@@ -185,14 +185,16 @@ function Dialog({
 		const handleClickOutside = (event: MouseEvent) => {
 			if (event.button !== 0) return
 
-			const isInsideDropdownPortal =
-				(event.target as Element)?.closest('.dropdown-portal') !== null
+			const target = event.target
+			if (!(target instanceof Element)) return
+
+			const isInsideDropdownPortal = target.closest('.dropdown-portal') !== null
 
 			if (isInsideDropdownPortal) {
 				return
 			}
 
-			if (!dialogRef.current?.contains(event.target as Node)) {
+			if (!dialogRef.current?.contains(target)) {
 				if (stack || !base) {
 					event.preventDefault()
 					onClose()
@@ -261,17 +263,17 @@ function Dialog({
 					onKeyDown={(e) => {
 						if (e.key === 'Tab') {
 							const focusableElements = Array.from(
-								dialogRef.current?.querySelectorAll(
+								dialogRef.current?.querySelectorAll<HTMLElement>(
 									'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-								) || []
+								) ?? []
 							)
 
 							if (focusableElements.length === 0) return
 
-							const firstElement = focusableElements[0] as HTMLElement
-							const lastElement = focusableElements[
-								focusableElements.length - 1
-							] as HTMLElement
+							const firstElement = focusableElements[0]
+							const lastElement = focusableElements[focusableElements.length - 1]
+
+							if (!firstElement || !lastElement) return
 
 							if (e.shiftKey && document.activeElement === firstElement) {
 								e.preventDefault()

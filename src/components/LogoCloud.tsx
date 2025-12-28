@@ -68,10 +68,14 @@ function LogoCloud({
 			{...rest}
 		>
 			{visibleLogos.map((logo, index) => {
-				const logoKey = logo.wordmark || logo.icon || logo.href || `logo-${index}`
+				const logoIdentifier =
+					(typeof logo.wordmark === 'string' ? logo.wordmark : undefined) ||
+					(typeof logo.icon === 'string' ? logo.icon : undefined) ||
+					logo.href ||
+					`logo-${index}`
 				return (
 					<Flex
-						key={`${key}-${logoKey}`}
+						key={`${key}-${logoIdentifier}`}
 						vertical="center"
 						horizontal="center"
 						paddingX="24"

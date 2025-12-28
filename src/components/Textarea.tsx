@@ -44,7 +44,7 @@ function Textarea({
 	label,
 	placeholder,
 	lines = 3,
-	error = false,
+	error: _error = false,
 	errorMessage,
 	description,
 	radius,
@@ -69,12 +69,12 @@ function Textarea({
 	const textareaRef = React.useRef<HTMLTextAreaElement>(null)
 	const debouncedValue = useDebounce(props.value, 1000)
 
-	const adjustHeight = () => {
+	const adjustHeight = useCallback(() => {
 		if (textareaRef.current) {
 			textareaRef.current.style.height = 'auto'
 			textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px` // Set to scroll height
 		}
-	}
+	}, [])
 
 	const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
 		if (lines === 'auto') {

@@ -6,10 +6,10 @@ import { type KeyboardEvent, type ReactNode, type RefObject, useEffect, useRef }
 // Helper function to get all focusable elements within a container
 const getFocusableElements = (container: HTMLElement): HTMLElement[] => {
 	return Array.from(
-		container.querySelectorAll(
+		container.querySelectorAll<HTMLElement>(
 			'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
 		)
-	) as HTMLElement[]
+	)
 }
 
 interface FocusTrapProps {
@@ -63,8 +63,8 @@ const FocusTrap: React.FC<FocusTrapProps> = ({
 		} else if (!active && restoreFocus && previouslyFocusedElement.current) {
 			// When deactivated, return focus to the specified element or the previously focused element
 			const elementToFocus = returnFocusRef?.current || previouslyFocusedElement.current
-			if (elementToFocus && typeof (elementToFocus as HTMLElement).focus === 'function') {
-				;(elementToFocus as HTMLElement).focus({ preventScroll: true })
+			if (elementToFocus instanceof HTMLElement) {
+				elementToFocus.focus({ preventScroll: true })
 			}
 		}
 	}, [active, autoFocus, initialFocusRef, returnFocusRef, restoreFocus, containerRef])

@@ -1,7 +1,7 @@
 'use client'
 
 import type { ChartMode, ChartVariant } from '../modules/data'
-import { createContext, type ReactNode, useContext, useEffect, useState } from 'react'
+import { createContext, type ReactNode, useCallback, useContext, useEffect, useState } from 'react'
 
 interface ChartOptions {
 	variant: ChartVariant
@@ -44,6 +44,12 @@ const DataThemeContext = createContext<DataThemeState>({
 	setChartOptions: () => null,
 })
 
+const validChartModes = ['categorical', 'sequential', 'diverging'] as const
+
+function isValidChartMode(value: unknown): value is ChartMode {
+	return typeof value === 'string' && (validChartModes as readonly string[]).includes(value)
+}
+
 // Helper function to get stored chart options from localStorage
 function getStoredChartOptions() {
 	if (typeof window === 'undefined') return {}
@@ -51,8 +57,8 @@ function getStoredChartOptions() {
 	try {
 		const dataVizMode = localStorage.getItem('data-viz-style')
 
-		if (dataVizMode) {
-			return { mode: dataVizMode as ChartMode }
+		if (dataVizMode && isValidChartMode(dataVizMode)) {
+			return { mode: dataVizMode }
 		}
 		return {}
 	} catch (e) {
@@ -68,7 +74,7 @@ export function DataThemeProvider({
 	height,
 	axis,
 	tick,
-	...rest
+	..._rest
 }: DataThemeProviderProps) {
 	const _camelToKebab = (str: string): string => {
 		return str.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase()
@@ -99,7 +105,7 @@ export function DataThemeProvider({
 		setMounted(true)
 	}, [])
 
-	const applyDataVizAttribute = (mode: ChartMode, saveToLocalStorage = false) => {
+	const applyDataVizAttribute = useCallback((mode: ChartMode, saveToLocalStorage = false) => {
 		if (typeof document !== 'undefined') {
 			if (document.documentElement.hasAttribute('data-data-viz')) {
 				document.documentElement.removeAttribute('data-data-viz')
@@ -111,7 +117,7 @@ export function DataThemeProvider({
 				localStorage.setItem('data-viz-style', mode)
 			}
 		}
-	}
+	}, [])
 
 	useEffect(() => {
 		if (mounted) {

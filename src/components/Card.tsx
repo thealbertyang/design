@@ -27,7 +27,7 @@ function Card({ children, href, onClick, style, className, fillHeight, ref, ...f
 				fillHeight ? 'fill-height' : undefined,
 				'min-width-0',
 				(onClick || href) && 'focus-ring',
-				(onClick || href) && (`radius-${flex.radius}` || 'radius-l')
+				(onClick || href) && (flex.radius ? `radius-${flex.radius}` : 'radius-l')
 			)}
 			href={href}
 			onClick={onClick && onClick}

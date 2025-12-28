@@ -28,7 +28,7 @@ interface MediaUploadProps extends React.ComponentProps<typeof Flex> {
 }
 
 function MediaUpload({
-	ref,
+	ref: _ref,
 	onFileUpload,
 	compress = true,
 	aspectRatio = '16 / 9',
@@ -91,7 +91,7 @@ function MediaUpload({
 			if (compress && file.type.startsWith('image/')) {
 				compressImage(file)
 			} else {
-				uploadFile(file)
+				void uploadFile(file)
 			}
 		} else {
 			console.warn('Unsupported file type:', file.type)
@@ -99,7 +99,7 @@ function MediaUpload({
 	}
 
 	const compressImage = (file: File) => {
-		new Compressor(file, {
+		void new Compressor(file, {
 			convertTypes: convertTypes,
 			quality: quality,
 			maxWidth: resizeMaxWidth,
@@ -108,11 +108,16 @@ function MediaUpload({
 			width: resizeWidth,
 			height: resizeHeight,
 			success(compressedFile) {
-				uploadFile(compressedFile as File)
+				// compressedFile is Blob | File, convert to File if needed
+				const fileToUpload =
+					compressedFile instanceof File
+						? compressedFile
+						: new File([compressedFile], file.name, { type: compressedFile.type })
+				void uploadFile(fileToUpload)
 			},
 			error(err) {
 				console.error('Compression error:', err)
-				uploadFile(file)
+				void uploadFile(file)
 			},
 		})
 	}

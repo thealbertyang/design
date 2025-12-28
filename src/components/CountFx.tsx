@@ -2,7 +2,7 @@
 
 import { Row, Text } from '.'
 import type React from 'react'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 export interface CountFxProps extends React.ComponentProps<typeof Text> {
 	value: number
@@ -40,18 +40,21 @@ const CountFx: React.FC<CountFxProps> = ({
 	const formatValue = format || defaultFormat
 
 	// Easing functions
-	const getEasing = (progress: number): number => {
-		switch (easing) {
-			case 'linear':
-				return progress
-			case 'ease-out':
-				return 1 - (1 - progress) ** 3
-			case 'ease-in-out':
-				return progress < 0.5 ? 2 * progress * progress : 1 - (-2 * progress + 2) ** 2 / 2
-			default:
-				return 1 - (1 - progress) ** 3
-		}
-	}
+	const getEasing = useCallback(
+		(progress: number): number => {
+			switch (easing) {
+				case 'linear':
+					return progress
+				case 'ease-out':
+					return 1 - (1 - progress) ** 3
+				case 'ease-in-out':
+					return progress < 0.5 ? 2 * progress * progress : 1 - (-2 * progress + 2) ** 2 / 2
+				default:
+					return 1 - (1 - progress) ** 3
+			}
+		},
+		[easing]
+	)
 
 	// Wheel animation: create digit wheels
 	const renderWheelDigits = (currentValue: number, targetValue: number) => {

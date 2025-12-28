@@ -6,7 +6,7 @@ import type {
 	SpacingProps,
 	StyleProps,
 } from '../interfaces'
-import type { ColorScheme, ColorWeight, SpacingToken } from '../types'
+import type { SpacingToken } from '../types'
 import classNames from 'classnames'
 import type { CSSProperties, Ref } from 'react'
 
@@ -23,7 +23,7 @@ function ServerGrid({
 	columns,
 	gap,
 	position = 'relative',
-	xl,
+	_xl,
 	l,
 	m,
 	s,
@@ -32,9 +32,9 @@ function ServerGrid({
 	hide,
 	aspectRatio,
 	align,
-	textVariant,
-	textSize,
-	textWeight,
+	_textVariant,
+	_textSize,
+	_textWeight,
 	textType,
 	padding,
 	paddingLeft,
@@ -70,7 +70,7 @@ function ServerGrid({
 	fitHeight,
 	background,
 	solid,
-	opacity,
+	_opacity,
 	transition,
 	pointerEvents,
 	border,
@@ -103,7 +103,7 @@ function ServerGrid({
 	children,
 	...rest
 }: ComponentProps) {
-	const generateDynamicClass = (type: string, value: string | '-1' | undefined) => {
+	const generateDynamicClass = (type: string, value: string | undefined) => {
 		if (!value) return undefined
 
 		if (value === 'transparent') {
@@ -120,8 +120,9 @@ function ServerGrid({
 			return `${scheme}-${type}-alpha-${weight}`
 		}
 
-		const [scheme, weight] = value.split('-') as [ColorScheme, ColorWeight]
-		return `${scheme}-${type}-${weight}`
+		const scheme = parts[0]
+		const weight = parts[1]
+		return weight ? `${scheme}-${type}-${weight}` : undefined
 	}
 
 	const parseDimension = (

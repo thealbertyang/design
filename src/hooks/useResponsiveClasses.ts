@@ -385,12 +385,14 @@ export const useResponsiveClasses = (
 
 	// Cleanup on unmount
 	useEffect(() => {
+		const element = elementRef.current
+		const classesToClean = appliedClasses.current
 		return () => {
-			if (elementRef.current) {
-				appliedClasses.current.forEach((className) => {
-					elementRef.current?.classList.remove(className)
+			if (element) {
+				classesToClean.forEach((className) => {
+					element.classList.remove(className)
 				})
 			}
 		}
-	}, [])
+	}, [elementRef])
 }

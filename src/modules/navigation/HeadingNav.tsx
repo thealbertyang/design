@@ -45,7 +45,7 @@ function HeadingNav({ className, style, header = true, ref, ...rest }: HeadingNa
 
 		const headingElements = headings
 			.map((heading) => document.getElementById(heading.id))
-			.filter(Boolean) as HTMLElement[]
+			.filter((el): el is HTMLElement => el !== null)
 
 		const headingPositions = new Map<string, number>()
 

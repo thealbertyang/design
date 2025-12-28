@@ -10,7 +10,7 @@ interface ColorInputProps extends Omit<InputProps, 'onChange' | 'value'> {
 	ref?: React.Ref<HTMLInputElement>
 }
 
-function ColorInput({ label, id, value, onChange, ref, ...props }: ColorInputProps) {
+function ColorInput({ label, id, value, onChange, ref: _ref, ...props }: ColorInputProps) {
 	const colorInputRef = useRef<HTMLInputElement>(null)
 
 	const handleHexClick = () => {
@@ -20,9 +20,12 @@ function ColorInput({ label, id, value, onChange, ref, ...props }: ColorInputPro
 	}
 
 	const handleReset = () => {
-		onChange({
-			target: { value: '' },
-		} as React.ChangeEvent<HTMLInputElement>)
+		if (colorInputRef.current) {
+			// Set the value directly and dispatch a change event
+			colorInputRef.current.value = ''
+			const event = new Event('change', { bubbles: true })
+			colorInputRef.current.dispatchEvent(event)
+		}
 	}
 
 	return (

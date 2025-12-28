@@ -133,15 +133,18 @@ export const useArrowNavigationContext = () => {
 /**
  * Higher-order component to make a component navigable with arrow keys
  */
-export function withArrowNavigation<P extends object>(
+export function withArrowNavigation<P extends { children?: ReactNode }>(
 	Component: React.ComponentType<P>,
 	options: Omit<ArrowNavigationProps, 'children'>
-): React.FC<P & { children?: ReactNode }> {
-	return ({ children, ...props }) => (
-		<ArrowNavigation {...options}>
-			<Component {...(props as P)}>{children}</Component>
-		</ArrowNavigation>
-	)
+): React.FC<P> {
+	const WrappedComponent = (props: P) => {
+		return (
+			<ArrowNavigation {...options}>
+				<Component {...props} />
+			</ArrowNavigation>
+		)
+	}
+	return WrappedComponent
 }
 
 export default ArrowNavigation

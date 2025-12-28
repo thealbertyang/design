@@ -54,7 +54,8 @@ function Chip({
 	const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
 		if (e.key === 'Enter' || e.key === ' ') {
 			e.preventDefault()
-			if (onClick) onClick(e as unknown as React.MouseEvent<HTMLDivElement>)
+			// Trigger native click which generates a proper MouseEvent
+			e.currentTarget.click()
 		}
 	}
 

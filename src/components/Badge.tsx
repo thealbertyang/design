@@ -6,18 +6,33 @@ import styles from './Badge.module.css'
 import classNames from 'classnames'
 import React from 'react'
 
-export interface BadgeProps extends Omit<React.ComponentProps<typeof Flex>, 'ref'> {
+interface BadgeLinkProps extends Omit<React.ComponentProps<typeof Flex>, 'ref'> {
 	title?: string
 	icon?: IconName
 	arrow?: boolean
 	children?: React.ReactNode
-	href?: string
+	href: string
 	effect?: boolean
 	className?: string
 	style?: React.CSSProperties
 	id?: string
-	ref?: React.Ref<HTMLDivElement | HTMLAnchorElement>
+	ref?: React.Ref<HTMLAnchorElement>
 }
+
+interface BadgeDivProps extends Omit<React.ComponentProps<typeof Flex>, 'ref'> {
+	title?: string
+	icon?: IconName
+	arrow?: boolean
+	children?: React.ReactNode
+	href?: undefined
+	effect?: boolean
+	className?: string
+	style?: React.CSSProperties
+	id?: string
+	ref?: React.Ref<HTMLDivElement>
+}
+
+export type BadgeProps = BadgeLinkProps | BadgeDivProps
 
 function Badge({
 	title,
@@ -32,22 +47,10 @@ function Badge({
 	ref,
 	...rest
 }: BadgeProps) {
-	const content = (
-		<Flex
-			id={id || 'badge'}
-			paddingX="20"
-			paddingY="12"
-			fitWidth
-			className={classNames(effect ? styles.animation : undefined, className)}
-			style={style}
-			vertical="center"
-			radius="full"
-			background="neutral-weak"
-			onBackground="brand-strong"
-			border="brand-alpha-medium"
-			textVariant="label-strong-s"
-			{...rest}
-		>
+	const badgeId = id || 'badge'
+
+	const innerContent = (
+		<>
 			{icon && (
 				<Icon
 					marginRight="8"
@@ -58,9 +61,25 @@ function Badge({
 			)}
 			{title}
 			{children}
-			{arrow && <Arrow trigger={`#${id || 'badge'}`} />}
-		</Flex>
+			{arrow && <Arrow trigger={`#${badgeId}`} />}
+		</>
 	)
+
+	const flexProps = {
+		id: badgeId,
+		paddingX: '20' as const,
+		paddingY: '12' as const,
+		fitWidth: true,
+		className: classNames(effect ? styles.animation : undefined, className),
+		style,
+		vertical: 'center' as const,
+		radius: 'full' as const,
+		background: 'neutral-weak' as const,
+		onBackground: 'brand-strong' as const,
+		border: 'brand-alpha-medium' as const,
+		textVariant: 'label-strong-s' as const,
+		...rest,
+	}
 
 	if (href) {
 		return (
@@ -72,16 +91,21 @@ function Badge({
 					...style,
 				}}
 				href={href}
-				ref={ref as React.Ref<HTMLAnchorElement>}
+				ref={ref}
 			>
-				{content}
+				<Flex {...flexProps}>{innerContent}</Flex>
 			</SmartLink>
 		)
 	}
 
-	return React.cloneElement(content, {
-		ref: ref as React.Ref<HTMLDivElement>,
-	})
+	return (
+		<Flex
+			{...flexProps}
+			ref={ref}
+		>
+			{innerContent}
+		</Flex>
+	)
 }
 
 Badge.displayName = 'Badge'

@@ -127,4 +127,7 @@ async function generateEmojiData() {
 	}
 }
 
-generateEmojiData()
+generateEmojiData().catch((error) => {
+	console.error('Failed to generate emoji data:', error)
+	process.exit(1)
+})

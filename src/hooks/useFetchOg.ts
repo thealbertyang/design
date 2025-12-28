@@ -18,8 +18,8 @@ export function useOgData(url: string | null, customFetchUrl?: string, customPro
 		const fetchOgData = async () => {
 			try {
 				const fetchUrl = customFetchUrl
-					? `${customFetchUrl}?url=${encodeURIComponent(url!)}`
-					: `/api/og/fetch?url=${encodeURIComponent(url!)}`
+					? `${customFetchUrl}?url=${encodeURIComponent(url ?? '')}`
+					: `/api/og/fetch?url=${encodeURIComponent(url ?? '')}`
 
 				const response = await fetch(fetchUrl)
 
@@ -63,7 +63,7 @@ export function useOgData(url: string | null, customFetchUrl?: string, customPro
 		}
 
 		if (url) {
-			fetchOgData()
+			void fetchOgData()
 		} else {
 			setLoading(false)
 			setOgData(null)

@@ -11,6 +11,12 @@ interface MaskOptions {
 	maskPosition?: string
 }
 
+interface HoloFxStyleProperties extends React.CSSProperties {
+	'--burn-opacity'?: string
+	'--shine-opacity'?: string
+	'--texture-opacity'?: string
+}
+
 interface HoloFxProps extends React.ComponentProps<typeof Flex> {
 	children: React.ReactNode
 	shine?: {
@@ -50,26 +56,27 @@ const HoloFx: React.FC<HoloFxProps> = ({ children, shine, burn, texture, ...rest
 	const lastCallRef = useRef<number>(0)
 
 	const shineDefaults = {
-		opacity: 30,
-		blending: 'color-dodge' as CSSProperties['mixBlendMode'],
+		opacity: shine?.opacity ?? 30,
+		blending: (shine?.blending ?? 'color-dodge') as CSSProperties['mixBlendMode'],
+		filter: shine?.filter,
 		mask: getMaskStyle(shine?.mask),
-		...shine,
 	}
 
 	const burnDefaults = {
-		opacity: 30,
-		filter: 'brightness(0.2) contrast(2)',
-		blending: 'color-dodge' as CSSProperties['mixBlendMode'],
+		opacity: burn?.opacity ?? 30,
+		filter: burn?.filter ?? 'brightness(0.2) contrast(2)',
+		blending: (burn?.blending ?? 'color-dodge') as CSSProperties['mixBlendMode'],
 		mask: getMaskStyle(burn?.mask),
-		...burn,
 	}
 
 	const textureDefaults = {
-		opacity: 10,
-		blending: 'color-dodge' as CSSProperties['mixBlendMode'],
-		image: 'repeating-linear-gradient(-45deg, var(--static-white) 0, var(--static-white) 1px, transparent 3px, transparent 2px)',
+		opacity: texture?.opacity ?? 10,
+		blending: (texture?.blending ?? 'color-dodge') as CSSProperties['mixBlendMode'],
+		filter: texture?.filter,
+		image:
+			texture?.image ??
+			'repeating-linear-gradient(-45deg, var(--static-white) 0, var(--static-white) 1px, transparent 3px, transparent 2px)',
 		mask: getMaskStyle(texture?.mask),
-		...texture,
 	}
 
 	useEffect(() => {
@@ -121,12 +128,14 @@ const HoloFx: React.FC<HoloFxProps> = ({ children, shine, burn, texture, ...rest
 				fill
 				pointerEvents="none"
 				className={classNames(styles.overlay, styles.burn)}
-				style={{
-					['--burn-opacity' as any]: `${burnDefaults.opacity}%`,
-					filter: burnDefaults.filter,
-					mixBlendMode: burnDefaults.blending,
-					maskImage: burnDefaults.mask as string,
-				}}
+				style={
+					{
+						'--burn-opacity': `${burnDefaults.opacity}%`,
+						filter: burnDefaults.filter,
+						mixBlendMode: burnDefaults.blending,
+						maskImage: burnDefaults.mask,
+					} satisfies HoloFxStyleProperties
+				}
 			>
 				{children}
 			</Flex>
@@ -136,12 +145,14 @@ const HoloFx: React.FC<HoloFxProps> = ({ children, shine, burn, texture, ...rest
 				fill
 				pointerEvents="none"
 				className={classNames(styles.overlay, styles.shine)}
-				style={{
-					['--shine-opacity' as any]: `${shineDefaults.opacity}%`,
-					filter: shineDefaults.filter,
-					mixBlendMode: shineDefaults.blending,
-					maskImage: shineDefaults.mask as string,
-				}}
+				style={
+					{
+						'--shine-opacity': `${shineDefaults.opacity}%`,
+						filter: shineDefaults.filter,
+						mixBlendMode: shineDefaults.blending,
+						maskImage: shineDefaults.mask,
+					} satisfies HoloFxStyleProperties
+				}
 			>
 				{children}
 			</Flex>
@@ -151,13 +162,15 @@ const HoloFx: React.FC<HoloFxProps> = ({ children, shine, burn, texture, ...rest
 				fill
 				pointerEvents="none"
 				className={classNames(styles.overlay, styles.texture)}
-				style={{
-					['--texture-opacity' as any]: `${textureDefaults.opacity}%`,
-					backgroundImage: textureDefaults.image,
-					filter: textureDefaults.filter,
-					mixBlendMode: textureDefaults.blending,
-					maskImage: textureDefaults.mask as string,
-				}}
+				style={
+					{
+						'--texture-opacity': `${textureDefaults.opacity}%`,
+						backgroundImage: textureDefaults.image,
+						filter: textureDefaults.filter,
+						mixBlendMode: textureDefaults.blending,
+						maskImage: textureDefaults.mask,
+					} satisfies HoloFxStyleProperties
+				}
 			></Flex>
 		</Flex>
 	)

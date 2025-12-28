@@ -62,7 +62,7 @@ function DatePicker({
 	nextMonth = true,
 	minDate,
 	maxDate,
-	defaultDate,
+	_defaultDate,
 	defaultTime,
 	size = 'm',
 	isNested = false,
@@ -74,7 +74,7 @@ function DatePicker({
 	range,
 	onHover,
 	autoFocus = false,
-	isOpen,
+	_isOpen,
 	ref,
 	...rest
 }: DatePickerProps) {
@@ -237,9 +237,9 @@ function DatePicker({
 							return buttonDate.getTime() === selectedDate.getTime()
 						})
 
-						if (selectedButton) {
+						if (selectedButton instanceof HTMLElement) {
 							// Focus the button without scrolling
-							;(selectedButton as HTMLElement).focus({ preventScroll: true })
+							selectedButton.focus({ preventScroll: true })
 						}
 					}
 				}, 50)
@@ -1002,8 +1002,9 @@ function DatePicker({
 											'button[data-value]:not([disabled])'
 										)
 									)
-									if (buttons[index]) {
-										;(buttons[index] as HTMLElement).click()
+									const button = buttons[index]
+									if (button instanceof HTMLElement) {
+										button.click()
 									}
 								}
 							}}

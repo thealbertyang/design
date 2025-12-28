@@ -55,9 +55,9 @@ const SegmentedControl: React.FC<SegmentedControlProps> = ({
 	}
 
 	const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-		const focusedIndex = buttonRefs.current.indexOf(
-			document.activeElement as HTMLElement | null
-		)
+		const activeElement = document.activeElement
+		const focusedIndex =
+			activeElement instanceof HTMLElement ? buttonRefs.current.indexOf(activeElement) : -1
 
 		switch (event.key) {
 			case 'ArrowLeft':

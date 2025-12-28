@@ -119,12 +119,10 @@ function Background({
 					pointerEvents="none"
 					className={styles.dots}
 					opacity={dots.opacity}
-					style={
-						{
-							'--dots-color': `var(--${dotsColor})`,
-							'--dots-size': dotsSize,
-						} as React.CSSProperties
-					}
+					style={{
+						['--dots-color' as string]: `var(--${dotsColor})`,
+						['--dots-size' as string]: dotsSize,
+					}}
 				/>
 			)}
 			{lines.display &&

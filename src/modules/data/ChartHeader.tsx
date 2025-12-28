@@ -24,7 +24,7 @@ import {
 	subYears,
 } from 'date-fns'
 import type React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 interface ChartHeaderProps extends Omit<
 	React.ComponentProps<typeof Column>,
@@ -57,61 +57,66 @@ export const ChartHeader: React.FC<ChartHeaderProps> = ({
 		getRange: () => DateRange
 	}
 
-	type PresetName =
-		| 'This year'
-		| 'This month'
-		| 'This week'
-		| 'Last year'
-		| 'Last month'
-		| 'Last week'
+	const presetNames = [
+		'This year',
+		'This month',
+		'This week',
+		'Last year',
+		'Last month',
+		'Last week',
+	] as const
+	type PresetName = (typeof presetNames)[number]
 
-	const dateRangePresets: Record<PresetName, DateRangePreset> = {
-		'This year': {
-			getRange: () => ({
-				startDate: startOfYear(new Date()),
-				endDate: endOfYear(new Date()),
-			}),
-		},
-		'This month': {
-			getRange: () => ({
-				startDate: startOfMonth(new Date()),
-				endDate: endOfMonth(new Date()),
-			}),
-		},
-		'This week': {
-			getRange: () => ({
-				startDate: startOfWeek(new Date()),
-				endDate: endOfWeek(new Date()),
-			}),
-		},
-		'Last year': {
-			getRange: () => {
-				const lastYear = subYears(new Date(), 1)
-				return {
-					startDate: startOfYear(lastYear),
-					endDate: endOfYear(lastYear),
-				}
+	const dateRangePresets: Record<PresetName, DateRangePreset> = useMemo(
+		() => ({
+			'This year': {
+				getRange: () => ({
+					startDate: startOfYear(new Date()),
+					endDate: endOfYear(new Date()),
+				}),
 			},
-		},
-		'Last month': {
-			getRange: () => {
-				const lastMonth = subMonths(new Date(), 1)
-				return {
-					startDate: startOfMonth(lastMonth),
-					endDate: endOfMonth(lastMonth),
-				}
+			'This month': {
+				getRange: () => ({
+					startDate: startOfMonth(new Date()),
+					endDate: endOfMonth(new Date()),
+				}),
 			},
-		},
-		'Last week': {
-			getRange: () => {
-				const lastWeek = subWeeks(new Date(), 1)
-				return {
-					startDate: startOfWeek(lastWeek),
-					endDate: endOfWeek(lastWeek),
-				}
+			'This week': {
+				getRange: () => ({
+					startDate: startOfWeek(new Date()),
+					endDate: endOfWeek(new Date()),
+				}),
 			},
-		},
-	}
+			'Last year': {
+				getRange: () => {
+					const lastYear = subYears(new Date(), 1)
+					return {
+						startDate: startOfYear(lastYear),
+						endDate: endOfYear(lastYear),
+					}
+				},
+			},
+			'Last month': {
+				getRange: () => {
+					const lastMonth = subMonths(new Date(), 1)
+					return {
+						startDate: startOfMonth(lastMonth),
+						endDate: endOfMonth(lastMonth),
+					}
+				},
+			},
+			'Last week': {
+				getRange: () => {
+					const lastWeek = subWeeks(new Date(), 1)
+					return {
+						startDate: startOfWeek(lastWeek),
+						endDate: endOfWeek(lastWeek),
+					}
+				},
+			},
+		}),
+		[]
+	)
 
 	useEffect(() => {
 		if (dateRange) {
@@ -219,7 +224,7 @@ export const ChartHeader: React.FC<ChartHeaderProps> = ({
 										radius="m"
 										overflowX="scroll"
 									>
-										{(Object.keys(dateRangePresets) as PresetName[])
+										{presetNames
 											.filter((presetName) => {
 												if (presets.granularity === 'year') {
 													return presetName.includes('year')

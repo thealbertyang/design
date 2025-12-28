@@ -4,6 +4,13 @@ import { ArrowNavigation, Column, Dropdown, Flex, FocusTrap, Row } from '.'
 import type { NavigationLayout } from '../hooks/useArrowNavigation'
 import { useIsomorphicLayoutEffect } from '../hooks/useIsomorphicLayoutEffect'
 import styles from './DropdownWrapper.module.css'
+
+// Extend Window interface for dropdown tracking
+declare global {
+	interface Window {
+		lastOpenedDropdown: string | null
+	}
+}
 import {
 	autoUpdate,
 	flip,
@@ -93,10 +100,7 @@ function DropdownWrapper({
 		(newIsOpen: boolean) => {
 			if (newIsOpen) {
 				// Close any other open dropdown before opening this one
-				if (
-					(window as any).lastOpenedDropdown &&
-					(window as any).lastOpenedDropdown !== dropdownId.current
-				) {
+				if (window.lastOpenedDropdown && window.lastOpenedDropdown !== dropdownId.current) {
 					// Dispatch event to close other dropdowns
 					const closeEvent = new CustomEvent('close-other-dropdowns', {
 						detail: { exceptId: dropdownId.current },
@@ -108,18 +112,18 @@ function DropdownWrapper({
 						if (!isControlled) {
 							setInternalIsOpen(true)
 						}
-						;(window as any).lastOpenedDropdown = dropdownId.current
+						window.lastOpenedDropdown = dropdownId.current
 						onOpenChange?.(true)
 					}, 50)
 					return
 				}
 
 				// Set this as the last opened dropdown using global variable
-				;(window as any).lastOpenedDropdown = dropdownId.current
+				window.lastOpenedDropdown = dropdownId.current
 			} else {
 				// Clear the last opened dropdown if this one is closing
-				if ((window as any).lastOpenedDropdown === dropdownId.current) {
-					;(window as any).lastOpenedDropdown = null
+				if (window.lastOpenedDropdown === dropdownId.current) {
+					window.lastOpenedDropdown = null
 				}
 			}
 
@@ -282,8 +286,9 @@ function DropdownWrapper({
 						'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
 					)
 
-					if (focusableElements.length > 0) {
-						;(focusableElements[0] as HTMLElement).focus({ preventScroll: true })
+					const firstFocusable = focusableElements[0]
+					if (firstFocusable instanceof HTMLElement) {
+						firstFocusable.focus({ preventScroll: true })
 					}
 
 					const optionElements = dropdownRef.current
@@ -297,10 +302,12 @@ function DropdownWrapper({
 					if (optionElements.length > 0) {
 						setFocusedIndex(0)
 						optionElements.forEach((el, i) => {
-							if (i === 0) {
-								;(el as HTMLElement).classList.add('highlighted')
-							} else {
-								;(el as HTMLElement).classList.remove('highlighted')
+							if (el instanceof HTMLElement) {
+								if (i === 0) {
+									el.classList.add('highlighted')
+								} else {
+									el.classList.remove('highlighted')
+								}
 							}
 						})
 					}
@@ -308,15 +315,19 @@ function DropdownWrapper({
 			})
 		} else if (!isOpen && previouslyFocusedElement.current) {
 			// Only try to focus if the element is still in the document
-			if (document.contains(previouslyFocusedElement.current)) {
-				;(previouslyFocusedElement.current as HTMLElement).focus({ preventScroll: true })
+			if (
+				document.contains(previouslyFocusedElement.current) &&
+				previouslyFocusedElement.current instanceof HTMLElement
+			) {
+				previouslyFocusedElement.current.focus({ preventScroll: true })
 			}
 		}
 	}, [isOpen, mounted, refs, update])
 
 	const handleClickOutside = useCallback(
 		(event: MouseEvent) => {
-			const target = event.target as HTMLElement
+			const target = event.target
+			if (!(target instanceof HTMLElement)) return
 
 			// Check if the click is inside the dropdown or the wrapper
 			const isClickInDropdown = dropdownRef.current?.contains(target)
@@ -357,8 +368,8 @@ function DropdownWrapper({
 							const wrapper = portal.closest('[data-role="dropdown-wrapper"]')
 							if (wrapper) {
 								const trigger = wrapper.querySelector('.dropdown-trigger')
-								if (trigger) {
-									;(trigger as HTMLElement).click()
+								if (trigger instanceof HTMLElement) {
+									trigger.click()
 								}
 							}
 						}
@@ -372,8 +383,11 @@ function DropdownWrapper({
 	const handleFocusOut = useCallback(
 		(event: FocusEvent) => {
 			// Check if focus moved to the dropdown or stayed in the wrapper
-			const isFocusInDropdown = dropdownRef.current?.contains(event.relatedTarget as Node)
-			const isFocusInWrapper = wrapperRef.current?.contains(event.relatedTarget as Node)
+			const relatedTarget = event.relatedTarget
+			const isFocusInDropdown =
+				relatedTarget instanceof Node && dropdownRef.current?.contains(relatedTarget)
+			const isFocusInWrapper =
+				relatedTarget instanceof Node && wrapperRef.current?.contains(relatedTarget)
 
 			// Only close if focus moved outside both the dropdown and the wrapper
 			if (!isFocusInDropdown && !isFocusInWrapper) {
@@ -397,8 +411,8 @@ function DropdownWrapper({
 
 		// Listen for close-other-dropdowns event to close this dropdown when another opens
 		const handleCloseOtherDropdowns = (e: Event) => {
-			const customEvent = e as CustomEvent
-			const exceptId = customEvent.detail?.exceptId
+			if (!(e instanceof CustomEvent)) return
+			const exceptId = e.detail?.exceptId
 
 			// Close this dropdown if it's not the one being excepted
 			if (isOpen && dropdownId.current !== exceptId) {
@@ -407,35 +421,33 @@ function DropdownWrapper({
 			}
 		}
 
+		// Create a wrapper to handle the focusout event with proper typing
+		const handleFocusOutEvent = (e: Event) => {
+			if (e instanceof FocusEvent) {
+				handleFocusOut(e)
+			}
+		}
+
 		document.addEventListener('click', handleClickOutside)
-		currentWrapperRef?.addEventListener('focusout', handleFocusOut as unknown as EventListener)
+		currentWrapperRef?.addEventListener('focusout', handleFocusOutEvent)
 		document.addEventListener('close-nested-dropdowns', handleCloseNestedDropdowns)
-		document.addEventListener(
-			'close-other-dropdowns',
-			handleCloseOtherDropdowns as EventListener
-		)
+		document.addEventListener('close-other-dropdowns', handleCloseOtherDropdowns)
 
 		return () => {
 			document.removeEventListener('click', handleClickOutside)
-			currentWrapperRef?.removeEventListener(
-				'focusout',
-				handleFocusOut as unknown as EventListener
-			)
+			currentWrapperRef?.removeEventListener('focusout', handleFocusOutEvent)
 			document.removeEventListener('close-nested-dropdowns', handleCloseNestedDropdowns)
-			document.removeEventListener(
-				'close-other-dropdowns',
-				handleCloseOtherDropdowns as EventListener
-			)
+			document.removeEventListener('close-other-dropdowns', handleCloseOtherDropdowns)
 		}
 	}, [handleClickOutside, handleFocusOut, isNested, isOpen, handleOpenChange])
 
 	// Get options from the dropdown
-	const getOptions = useCallback(() => {
+	const getOptions = useCallback((): HTMLElement[] => {
 		if (!dropdownRef.current) return []
 
 		return Array.from(
 			dropdownRef.current.querySelectorAll('.option, [role="option"], [data-value]')
-		) as HTMLElement[]
+		).filter((el): el is HTMLElement => el instanceof HTMLElement)
 	}, [])
 
 	// Track hover on options to sync with keyboard navigation
@@ -444,10 +456,13 @@ function DropdownWrapper({
 
 		const dropdown = dropdownRef.current
 		const handleOptionHover = (e: MouseEvent) => {
-			const target = e.target as HTMLElement
-			const option = target.closest('[role="option"], [data-value]') as HTMLElement
+			const target = e.target
+			if (!(target instanceof HTMLElement)) return
 
-			if (option && dropdown.contains(option)) {
+			const option = target.closest('[role="option"], [data-value]')
+			if (!(option instanceof HTMLElement)) return
+
+			if (dropdown.contains(option)) {
 				const options = getOptions()
 				const index = options.indexOf(option)
 				if (index >= 0 && index !== focusedIndex) {
@@ -558,7 +573,7 @@ function DropdownWrapper({
 					dropdownRef.current.querySelectorAll(
 						'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
 					)
-				) as HTMLElement[]
+				).filter((el): el is HTMLElement => el instanceof HTMLElement)
 
 				if (focusableElements.length === 0) return
 
@@ -677,7 +692,7 @@ function DropdownWrapper({
 								itemSelector='.option, [role="option"], [data-value]'
 								role={navigationLayout === 'grid' ? 'grid' : 'listbox'}
 								aria-label="Dropdown options"
-								disabled={(window as any).lastOpenedDropdown !== dropdownId.current}
+								disabled={window.lastOpenedDropdown !== dropdownId.current}
 							>
 								<Flex
 									zIndex={9}
@@ -693,7 +708,7 @@ function DropdownWrapper({
 									data-is-dropdown="true"
 									data-dropdown-id={dropdownId.current}
 									data-is-active={
-										(window as any).lastOpenedDropdown === dropdownId.current
+										window.lastOpenedDropdown === dropdownId.current
 									}
 									onKeyDown={(e) => {
 										// If handleArrowNavigation is false, let all keyboard events pass through
@@ -715,32 +730,38 @@ function DropdownWrapper({
 									}}
 									onMouseDown={(e) => {
 										// Allow interactive elements (inputs, buttons, etc.) to work normally
-										const target = e.target as HTMLElement
-										const isInteractive = target.closest(
-											'input, textarea, select, button, [role="button"], a'
-										)
-										if (!isInteractive) {
-											e.preventDefault()
+										const target = e.target
+										if (target instanceof HTMLElement) {
+											const isInteractive = target.closest(
+												'input, textarea, select, button, [role="button"], a'
+											)
+											if (!isInteractive) {
+												e.preventDefault()
+											}
 										}
 									}}
 									onPointerDown={(e) => {
 										// Allow interactive elements (inputs, buttons, etc.) to work normally
-										const target = e.target as HTMLElement
-										const isInteractive = target.closest(
-											'input, textarea, select, button, [role="button"], a'
-										)
-										if (!isInteractive) {
-											e.preventDefault()
+										const target = e.target
+										if (target instanceof HTMLElement) {
+											const isInteractive = target.closest(
+												'input, textarea, select, button, [role="button"], a'
+											)
+											if (!isInteractive) {
+												e.preventDefault()
+											}
 										}
 									}}
 									onTouchStart={(e) => {
 										// Allow interactive elements (inputs, buttons, etc.) to work normally
-										const target = e.target as HTMLElement
-										const isInteractive = target.closest(
-											'input, textarea, select, button, [role="button"], a'
-										)
-										if (!isInteractive) {
-											e.preventDefault()
+										const target = e.target
+										if (target instanceof HTMLElement) {
+											const isInteractive = target.closest(
+												'input, textarea, select, button, [role="button"], a'
+											)
+											if (!isInteractive) {
+												e.preventDefault()
+											}
 										}
 									}}
 								>
@@ -802,9 +823,7 @@ function DropdownWrapper({
 								data-role="dropdown-portal"
 								data-is-dropdown="true"
 								data-dropdown-id={dropdownId.current}
-								data-is-active={
-									(window as any).lastOpenedDropdown === dropdownId.current
-								}
+								data-is-active={window.lastOpenedDropdown === dropdownId.current}
 								onKeyDown={(e) => {
 									// If handleArrowNavigation is false, let all keyboard events pass through
 									if (!handleArrowNavigation) {
@@ -818,32 +837,38 @@ function DropdownWrapper({
 								}}
 								onMouseDown={(e) => {
 									// Allow interactive elements (inputs, buttons, etc.) to work normally
-									const target = e.target as HTMLElement
-									const isInteractive = target.closest(
-										'input, textarea, select, button, [role="button"], a'
-									)
-									if (!isInteractive) {
-										e.preventDefault()
+									const target = e.target
+									if (target instanceof HTMLElement) {
+										const isInteractive = target.closest(
+											'input, textarea, select, button, [role="button"], a'
+										)
+										if (!isInteractive) {
+											e.preventDefault()
+										}
 									}
 								}}
 								onPointerDown={(e) => {
 									// Allow interactive elements (inputs, buttons, etc.) to work normally
-									const target = e.target as HTMLElement
-									const isInteractive = target.closest(
-										'input, textarea, select, button, [role="button"], a'
-									)
-									if (!isInteractive) {
-										e.preventDefault()
+									const target = e.target
+									if (target instanceof HTMLElement) {
+										const isInteractive = target.closest(
+											'input, textarea, select, button, [role="button"], a'
+										)
+										if (!isInteractive) {
+											e.preventDefault()
+										}
 									}
 								}}
 								onTouchStart={(e) => {
 									// Allow interactive elements (inputs, buttons, etc.) to work normally
-									const target = e.target as HTMLElement
-									const isInteractive = target.closest(
-										'input, textarea, select, button, [role="button"], a'
-									)
-									if (!isInteractive) {
-										e.preventDefault()
+									const target = e.target
+									if (target instanceof HTMLElement) {
+										const isInteractive = target.closest(
+											'input, textarea, select, button, [role="button"], a'
+										)
+										if (!isInteractive) {
+											e.preventDefault()
+										}
 									}
 								}}
 							>

@@ -6,7 +6,7 @@ import type {
 	SpacingProps,
 	StyleProps,
 } from '../interfaces'
-import type { ColorScheme, ColorWeight, SpacingToken, TextVariant } from '../types'
+import type { SpacingToken, TextVariant } from '../types'
 import classNames from 'classnames'
 import type { CSSProperties, Ref } from 'react'
 
@@ -51,8 +51,13 @@ const generateDynamicClass = (type: string, value: string | undefined): string |
 		return `${scheme}-${type}-alpha-${weight}`
 	}
 
-	const [scheme, weight] = value.split('-') as [ColorScheme, ColorWeight]
-	return `${scheme}-${type}-${weight}`
+	const splitParts = value.split('-')
+	const scheme = splitParts[0]
+	const weight = splitParts[1]
+	if (scheme && weight) {
+		return `${scheme}-${type}-${weight}`
+	}
+	return undefined
 }
 
 const parseDimension = (
@@ -80,7 +85,7 @@ function ServerFlex({
 	dark,
 	light,
 	direction,
-	xl,
+	_xl,
 	l,
 	m,
 	s,
@@ -185,11 +190,19 @@ function ServerFlex({
 
 	let colorClass = ''
 	if (onBackground) {
-		const [scheme, weight] = onBackground.split('-') as [ColorScheme, ColorWeight]
-		colorClass = `${scheme}-on-background-${weight}`
+		const bgParts = onBackground.split('-')
+		const scheme = bgParts[0]
+		const weight = bgParts[1]
+		if (scheme && weight) {
+			colorClass = `${scheme}-on-background-${weight}`
+		}
 	} else if (onSolid) {
-		const [scheme, weight] = onSolid.split('-') as [ColorScheme, ColorWeight]
-		colorClass = `${scheme}-on-solid-${weight}`
+		const solidParts = onSolid.split('-')
+		const scheme = solidParts[0]
+		const weight = solidParts[1]
+		if (scheme && weight) {
+			colorClass = `${scheme}-on-solid-${weight}`
+		}
 	}
 
 	let classes = classNames(

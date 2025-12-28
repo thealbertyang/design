@@ -43,8 +43,8 @@ function ContextMenu({
 	onOpenChange,
 	minWidth = 12,
 	maxWidth,
-	fillWidth = false,
-	placement = 'bottom-end',
+	_fillWidth = false,
+	_placement = 'bottom-end',
 	className,
 	style,
 	ref,
@@ -115,7 +115,11 @@ function ContextMenu({
 		if (!isDropdownOpen) return
 
 		const handleClickOutside = (e: MouseEvent) => {
-			if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+			if (
+				dropdownRef.current &&
+				e.target instanceof Node &&
+				!dropdownRef.current.contains(e.target)
+			) {
 				handleOpenChange(false)
 			}
 		}
@@ -151,10 +155,10 @@ function ContextMenu({
 
 					// Find all option elements
 					const optionElements = Array.from(
-						dropdownRef.current.querySelectorAll(
+						dropdownRef.current.querySelectorAll<HTMLElement>(
 							'.option, [role="option"], [data-value]'
 						)
-					) as HTMLElement[]
+					)
 
 					if (optionElements.length > 0) {
 						// Set focus index to first option
@@ -170,12 +174,12 @@ function ContextMenu({
 						}
 					} else {
 						// If no options, focus any focusable element
-						const focusableElements = dropdownRef.current.querySelectorAll(
+						const focusableElements = dropdownRef.current.querySelectorAll<HTMLElement>(
 							'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
 						)
 
 						if (focusableElements.length > 0) {
-							;(focusableElements[0] as HTMLElement).focus({ preventScroll: true })
+							focusableElements[0].focus({ preventScroll: true })
 						}
 					}
 
@@ -188,9 +192,9 @@ function ContextMenu({
 				// Unlock scroll when component unmounts or dropdown closes
 				document.body.style.overflow = originalStyle
 			}
-		} else if (!isDropdownOpen && previouslyFocusedElement.current) {
+		} else if (!isDropdownOpen && previouslyFocusedElement.current instanceof HTMLElement) {
 			// Restore focus when closing
-			;(previouslyFocusedElement.current as HTMLElement).focus()
+			previouslyFocusedElement.current.focus()
 
 			// Ensure scroll is unlocked
 			document.body.style.overflow = ''
@@ -212,10 +216,10 @@ function ContextMenu({
 			if (e.key === 'Tab' && dropdownRef.current) {
 				// Find all focusable elements in the dropdown
 				const focusableElements = Array.from(
-					dropdownRef.current.querySelectorAll(
+					dropdownRef.current.querySelectorAll<HTMLElement>(
 						'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
 					)
-				) as HTMLElement[]
+				)
 
 				if (focusableElements.length === 0) return
 
@@ -247,7 +251,7 @@ function ContextMenu({
 				// Find all Option components in the dropdown
 				const optionElements = dropdownRef.current
 					? Array.from(
-							dropdownRef.current.querySelectorAll(
+							dropdownRef.current.querySelectorAll<HTMLElement>(
 								'.option, [role="option"], [data-value]'
 							)
 						)
@@ -268,13 +272,13 @@ function ContextMenu({
 				// Highlight the element visually
 				optionElements.forEach((el, i) => {
 					if (i === newIndex) {
-						;(el as HTMLElement).classList.add('highlighted')
+						el.classList.add('highlighted')
 						// Scroll into view if needed
-						;(el as HTMLElement).scrollIntoView({ block: 'nearest' })
+						el.scrollIntoView({ block: 'nearest' })
 						// Focus the element
-						;(el as HTMLElement).focus()
+						el.focus()
 					} else {
-						;(el as HTMLElement).classList.remove('highlighted')
+						el.classList.remove('highlighted')
 					}
 				})
 			} else if (e.key === 'Enter' || e.key === ' ') {
@@ -283,7 +287,7 @@ function ContextMenu({
 				// Find all Option components
 				const optionElements = dropdownRef.current
 					? Array.from(
-							dropdownRef.current.querySelectorAll(
+							dropdownRef.current.querySelectorAll<HTMLElement>(
 								'.option, [role="option"], [data-value]'
 							)
 						)
@@ -291,7 +295,7 @@ function ContextMenu({
 
 				// Click the focused option
 				if (focusedIndex >= 0 && focusedIndex < optionElements.length) {
-					;(optionElements[focusedIndex] as HTMLElement).click()
+					optionElements[focusedIndex].click()
 
 					if (closeAfterClick) {
 						handleOpenChange(false)
@@ -334,11 +338,11 @@ function ContextMenu({
 						role="menu"
 						onKeyDown={handleKeyDown}
 						onClick={(e) => {
-							const el = e.target as HTMLElement
+							if (!(e.target instanceof HTMLElement)) return
 							const isSelectable =
-								el.closest('.option') ||
-								el.closest("[role='option']") ||
-								el.closest('[data-value]')
+								e.target.closest('.option') ||
+								e.target.closest("[role='option']") ||
+								e.target.closest('[data-value]')
 
 							if (isSelectable && closeAfterClick) {
 								setTimeout(() => {

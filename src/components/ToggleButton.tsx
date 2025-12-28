@@ -46,7 +46,7 @@ function ToggleButton({
 	horizontal = 'center',
 	fillWidth = false,
 	weight = 'default',
-	truncate = false,
+	truncate: _truncate = false,
 	prefixIcon,
 	suffixIcon,
 	className,

@@ -4,7 +4,6 @@ import {
 	ChartHeader,
 	type ChartProps,
 	ChartStatus,
-	type ChartVariant,
 	type curveType,
 	DataTooltip,
 	Legend,
@@ -28,6 +27,10 @@ import {
 	XAxis as RechartsXAxis,
 	YAxis as RechartsYAxis,
 } from 'recharts'
+
+const radiusSizes: readonly string[] = ['xs', 's', 'm', 'l', 'xl', 'full', 'none']
+const isRadiusSize = (value: unknown): value is RadiusSize =>
+	typeof value === 'string' && radiusSizes.includes(value)
 
 interface LineChartProps extends ChartProps {
 	curve?: curveType
@@ -90,7 +93,10 @@ const LineChart: React.FC<LineChartProps> = ({
 		}
 	}, [date?.start, date?.end])
 
-	const seriesArray = Array.isArray(series) ? series : series ? [series] : []
+	const seriesArray = useMemo(
+		() => (Array.isArray(series) ? series : series ? [series] : []),
+		[series]
+	)
 	const seriesKeys = seriesArray.map((s: SeriesConfig) => s.key)
 
 	// Generate a unique ID for this chart instance
@@ -130,13 +136,16 @@ const LineChart: React.FC<LineChartProps> = ({
 						const itemDate =
 							typeof itemDateValue === 'string'
 								? parseISO(itemDateValue)
-								: (itemDateValue as Date)
+								: itemDateValue instanceof Date
+									? itemDateValue
+									: null
+						if (!itemDate) return false
 
 						return isWithinInterval(itemDate, {
 							start: startDate,
 							end: endDate,
 						})
-					} catch (_error) {
+					} catch {
 						return false
 					}
 				})
@@ -168,7 +177,7 @@ const LineChart: React.FC<LineChartProps> = ({
 					labels={axis}
 					position={legend.position}
 					direction={legend.direction}
-					variant={variant as ChartVariant}
+					variant={variant}
 				/>
 			)
 		},
@@ -238,7 +247,7 @@ const LineChart: React.FC<LineChartProps> = ({
 						? border || 'neutral-alpha-weak'
 						: undefined
 				}
-				topRadius={(flex.radius as RadiusSize) || 'l'}
+				topRadius={isRadiusSize(flex.radius) ? flex.radius : 'l'}
 				overflow="hidden"
 			>
 				<ChartStatus
@@ -258,14 +267,14 @@ const LineChart: React.FC<LineChartProps> = ({
 							margin={{ left: 0, bottom: 0, top: 0, right: 0 }}
 						>
 							<defs>
-								{autoSeries.map(({ key, color }, index) => {
+								{autoSeries.map(({ key: _key, color }, index) => {
 									const colorValue = color || schemes[index % schemes.length]
 									const lineColor = `var(--data-${colorValue})`
 									return (
 										<LinearGradient
 											key={`gradient-${chartId}-${index}`}
 											id={`barGradient${chartId}${index}`}
-											variant={variant as ChartVariant}
+											variant={variant}
 											color={lineColor}
 										/>
 									)
@@ -326,7 +335,7 @@ const LineChart: React.FC<LineChartProps> = ({
 									content={(props) => (
 										<DataTooltip
 											{...props}
-											variant={variant as ChartVariant}
+											variant={variant}
 											date={date}
 										/>
 									)}

@@ -118,11 +118,13 @@ function Option({
 		<ElementType
 			tabIndex={tabIndex}
 			ref={(el) => {
-				// Forward the ref
-				if (typeof ref === 'function') {
-					ref(el as HTMLDivElement)
-				} else if (ref) {
-					ref.current = el as HTMLDivElement
+				// Forward the ref (only if el is an HTMLDivElement)
+				if (el instanceof HTMLDivElement) {
+					if (typeof ref === 'function') {
+						ref(el)
+					} else if (ref) {
+						ref.current = el
+					}
 				}
 				// Store our own ref
 				elementRef.current = el

@@ -4,7 +4,13 @@ import { Flex } from '.'
 import styles from './Mask.module.css'
 import classNames from 'classnames'
 import type React from 'react'
-import { type CSSProperties, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+
+interface MaskCSSProperties extends React.CSSProperties {
+	'--mask-position-x'?: string
+	'--mask-position-y'?: string
+	'--mask-radius'?: string
+}
 
 export interface MaskProps extends Omit<React.ComponentProps<typeof Flex>, 'radius' | 'cursor'> {
 	ref?: React.Ref<HTMLDivElement>
@@ -89,13 +95,13 @@ function Mask({
 		}
 	}, [cursorPosition, cursor])
 
-	const maskStyle = (): CSSProperties => {
+	const maskStyle = (): MaskCSSProperties => {
 		if (cursor) {
 			return {
 				'--mask-position-x': `${smoothPosition.x}px`,
 				'--mask-position-y': `${smoothPosition.y}px`,
 				'--mask-radius': `${radius}vh`,
-			} as CSSProperties
+			}
 		}
 
 		if (x != null && y != null) {
@@ -103,7 +109,7 @@ function Mask({
 				'--mask-position-x': `${x}%`,
 				'--mask-position-y': `${y}%`,
 				'--mask-radius': `${radius}vh`,
-			} as CSSProperties
+			}
 		}
 
 		return {}

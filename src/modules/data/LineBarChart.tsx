@@ -5,7 +5,6 @@ import {
 	ChartHeader,
 	type ChartProps,
 	ChartStatus,
-	type ChartVariant,
 	type curveType,
 	DataTooltip,
 	Legend,
@@ -29,6 +28,10 @@ import {
 	XAxis as RechartsXAxis,
 	YAxis as RechartsYAxis,
 } from 'recharts'
+
+const radiusSizes: readonly string[] = ['xs', 's', 'm', 'l', 'xl', 'full', 'none']
+const isRadiusSize = (value: unknown): value is RadiusSize =>
+	typeof value === 'string' && radiusSizes.includes(value)
 
 interface LineBarChartProps extends ChartProps {
 	barWidth?: barWidth
@@ -111,13 +114,16 @@ const LineBarChart: React.FC<LineBarChartProps> = ({
 						const itemDate =
 							typeof itemDateValue === 'string'
 								? parseISO(itemDateValue)
-								: (itemDateValue as Date)
+								: itemDateValue instanceof Date
+									? itemDateValue
+									: null
+						if (!itemDate) return false
 
 						return isWithinInterval(itemDate, {
 							start: startDate,
 							end: endDate,
 						})
-					} catch (_error) {
+					} catch {
 						return false
 					}
 				})
@@ -153,7 +159,7 @@ const LineBarChart: React.FC<LineBarChartProps> = ({
 	const legendContent = useMemo(
 		() => (
 			<Legend
-				variant={variant as ChartVariant}
+				variant={variant}
 				colors={[finalLineColor, finalBarColor]}
 				labels={axis}
 				position={legend.position}
@@ -228,7 +234,7 @@ const LineBarChart: React.FC<LineBarChartProps> = ({
 						? border || 'neutral-alpha-weak'
 						: undefined
 				}
-				topRadius={(flex.radius as RadiusSize) || 'l'}
+				topRadius={isRadiusSize(flex.radius) ? flex.radius : 'l'}
 				overflow="hidden"
 			>
 				<ChartStatus
@@ -252,13 +258,13 @@ const LineBarChart: React.FC<LineBarChartProps> = ({
 								<LinearGradient
 									id={`barGradient${chartId}`}
 									color={finalBarColor}
-									variant={variant as ChartVariant}
+									variant={variant}
 								/>
 
 								<LinearGradient
 									id={`lineGradient${chartId}`}
 									color={finalLineColor}
-									variant={variant as ChartVariant}
+									variant={variant}
 								/>
 							</defs>
 							<RechartsCartesianGrid
@@ -316,7 +322,7 @@ const LineBarChart: React.FC<LineBarChartProps> = ({
 									content={(props) => (
 										<DataTooltip
 											{...props}
-											variant={variant as ChartVariant}
+											variant={variant}
 											date={date}
 											dataKey={xAxisKey}
 										/>

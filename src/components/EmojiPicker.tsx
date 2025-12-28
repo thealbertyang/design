@@ -199,7 +199,7 @@ function EmojiPicker({
 						.filter((emoji: EmojiItem) =>
 							emoji.description.includes(searchQuery.toLowerCase())
 						)
-				: emojiData[activeCategory as keyof typeof emojiData] || [],
+				: emojiData[activeCategory] || [],
 		[searchQuery, activeCategory]
 	)
 

@@ -3,7 +3,7 @@
 import { Column, Fade, Flex, IconButton, Media, RevealFx, Row, Scroller } from '.'
 import styles from './Carousel.module.css'
 import type { SpacingToken } from '@/types'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 interface CarouselItem {
 	slide: string | React.ReactNode
@@ -60,15 +60,18 @@ const Carousel: React.FC<CarouselProps> = ({
 	const touchStartXRef = useRef<number | null>(null)
 	const touchEndXRef = useRef<number | null>(null)
 
-	const preloadNextImage = (nextIndex: number) => {
-		if (nextIndex >= 0 && nextIndex < items.length) {
-			const item = items[nextIndex]
-			if (typeof item.slide === 'string') {
-				nextImageRef.current = new Image()
-				nextImageRef.current.src = item.slide
+	const preloadNextImage = useCallback(
+		(nextIndex: number) => {
+			if (nextIndex >= 0 && nextIndex < items.length) {
+				const item = items[nextIndex]
+				if (typeof item.slide === 'string') {
+					nextImageRef.current = new Image()
+					nextImageRef.current.src = item.slide
+				}
 			}
-		}
-	}
+		},
+		[items]
+	)
 
 	const handlePrevClick = () => {
 		if (items.length > 1 && activeIndex > 0) {
@@ -85,28 +88,31 @@ const Carousel: React.FC<CarouselProps> = ({
 		}
 	}
 
-	const handleControlClick = (nextIndex: number) => {
-		if (nextIndex !== activeIndex && !transitionTimeoutRef.current) {
-			preloadNextImage(nextIndex)
+	const handleControlClick = useCallback(
+		(nextIndex: number) => {
+			if (nextIndex !== activeIndex && !transitionTimeoutRef.current) {
+				preloadNextImage(nextIndex)
 
-			setIsTransitioning(false)
+				setIsTransitioning(false)
 
-			transitionTimeoutRef.current = setTimeout(() => {
-				setActiveIndex(nextIndex)
+				transitionTimeoutRef.current = setTimeout(() => {
+					setActiveIndex(nextIndex)
 
-				setTimeout(() => {
-					setIsTransitioning(true)
-					transitionTimeoutRef.current = undefined
-				}, 50)
-			}, 300)
-		}
-	}
+					setTimeout(() => {
+						setIsTransitioning(true)
+						transitionTimeoutRef.current = undefined
+					}, 50)
+				}, 300)
+			}
+		},
+		[activeIndex, preloadNextImage]
+	)
 
 	// Simple function to handle auto-play
-	const handleNextWithLoop = () => {
+	const handleNextWithLoop = useCallback(() => {
 		const nextIndex = activeIndex < items.length - 1 ? activeIndex + 1 : 0
 		handleControlClick(nextIndex)
-	}
+	}, [activeIndex, items.length, handleControlClick])
 
 	// Progress tracking for animation
 	useEffect(() => {
@@ -256,7 +262,7 @@ const Carousel: React.FC<CarouselProps> = ({
 						aspectRatio={
 							fill ? undefined : aspectRatio === 'auto' ? undefined : aspectRatio
 						}
-						src={items[activeIndex]?.slide as string}
+						src={items[activeIndex]?.slide}
 						alt={items[activeIndex]?.alt || ''}
 					/>
 				) : (

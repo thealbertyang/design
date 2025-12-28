@@ -5,7 +5,6 @@ import {
 	ChartHeader,
 	type ChartProps,
 	ChartStatus,
-	type ChartVariant,
 	DataTooltip,
 	Legend,
 	LinearGradient,
@@ -26,6 +25,10 @@ import {
 	XAxis as RechartsXAxis,
 	YAxis as RechartsYAxis,
 } from 'recharts'
+
+const radiusSizes: readonly string[] = ['xs', 's', 'm', 'l', 'xl', 'full', 'none']
+const isRadiusSize = (value: unknown): value is RadiusSize =>
+	typeof value === 'string' && radiusSizes.includes(value)
 
 interface BarChartProps extends ChartProps {
 	barWidth?: barWidth
@@ -99,7 +102,10 @@ const BarChart: React.FC<BarChartProps> = ({
 		[date]
 	)
 
-	const seriesArray = Array.isArray(series) ? series : series ? [series] : []
+	const seriesArray = useMemo(
+		() => (Array.isArray(series) ? series : series ? [series] : []),
+		[series]
+	)
 	const seriesKeys = seriesArray.map((s) => s.key)
 	const chartId = React.useMemo(() => Math.random().toString(36).substring(2, 9), [])
 	const coloredSeriesArray = useMemo(
@@ -133,7 +139,7 @@ const BarChart: React.FC<BarChartProps> = ({
 
 			return (
 				<Legend
-					variant={variant as ChartVariant}
+					variant={variant}
 					payload={customPayload}
 					labels={axis}
 					position={legend.position}
@@ -194,15 +200,19 @@ const BarChart: React.FC<BarChartProps> = ({
 					return true
 				}
 
+				const xAxisValue = item[xAxisKey]
 				const itemDate =
-					typeof item[xAxisKey] === 'string'
-						? new Date(item[xAxisKey] as string)
-						: (item[xAxisKey] as Date)
+					typeof xAxisValue === 'string'
+						? new Date(xAxisValue)
+						: xAxisValue instanceof Date
+							? xAxisValue
+							: null
+				if (!itemDate) return true
 
 				return (
 					itemDate >= selectedDateRange.startDate && itemDate <= selectedDateRange.endDate
 				)
-			} catch (_e) {
+			} catch {
 				return true
 			}
 		})
@@ -232,7 +242,7 @@ const BarChart: React.FC<BarChartProps> = ({
 						? border || 'neutral-alpha-weak'
 						: undefined
 				}
-				topRadius={(flex.radius as RadiusSize) || 'l'}
+				topRadius={isRadiusSize(flex.radius) ? flex.radius : 'l'}
 				overflow="hidden"
 			>
 				<ChartStatus
@@ -309,7 +319,7 @@ const BarChart: React.FC<BarChartProps> = ({
 										<DataTooltip
 											{...props}
 											date={date}
-											variant={variant as ChartVariant}
+											variant={variant}
 										/>
 									)}
 								/>
@@ -320,7 +330,7 @@ const BarChart: React.FC<BarChartProps> = ({
 										key={`gradient-${chartId}-${index}`}
 										id={`barGradient${chartId}${index}`}
 										color={color}
-										variant={variant as ChartVariant}
+										variant={variant}
 									/>
 								))}
 							</defs>

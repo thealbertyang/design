@@ -4,13 +4,11 @@ import {
 	ChartHeader,
 	type ChartProps,
 	ChartStatus,
-	type ChartVariant,
 	Column,
 	DataTooltip,
 	type DateRange,
 	Legend,
 	RadialGradient,
-	type RadiusSize,
 	Row,
 	schemes,
 	useDataTheme,
@@ -38,7 +36,7 @@ export const PieChart: React.FC<PieChartProps> = ({
 	title,
 	description,
 	data,
-	series,
+	series: _series,
 	date,
 	emptyState,
 	errorState,
@@ -112,7 +110,7 @@ export const PieChart: React.FC<PieChartProps> = ({
 				return (
 					itemDate >= selectedDateRange.startDate && itemDate <= selectedDateRange.endDate
 				)
-			} catch (_e) {
+			} catch {
 				return true
 			}
 		})
@@ -146,7 +144,7 @@ export const PieChart: React.FC<PieChartProps> = ({
 						? border || 'neutral-alpha-weak'
 						: undefined
 				}
-				topRadius={(flex.radius as RadiusSize) || 'l'}
+				topRadius={flex.radius ?? 'l'}
 				overflow="hidden"
 			>
 				<ChartStatus
@@ -177,7 +175,7 @@ export const PieChart: React.FC<PieChartProps> = ({
 										r="50%"
 										fx="50%"
 										fy="50%"
-										variant={variant as ChartVariant}
+										variant={variant}
 									/>
 									<rect
 										x="0"
@@ -198,12 +196,13 @@ export const PieChart: React.FC<PieChartProps> = ({
 										})
 									)
 								).map((colorKey) => {
-									const baseColor = `var(--data-${colorKey})`
-									const patternId = getGradientId(colorKey as string)
+									const colorKeyStr = String(colorKey)
+									const baseColor = `var(--data-${colorKeyStr})`
+									const patternId = getGradientId(colorKey)
 									return (
 										<pattern
 											id={patternId}
-											key={`pattern-${colorKey}`}
+											key={`pattern-${colorKeyStr}`}
 											patternUnits="userSpaceOnUse"
 											width="100%"
 											height="100%"
@@ -235,7 +234,7 @@ export const PieChart: React.FC<PieChartProps> = ({
 									content={(props) => (
 										<Legend
 											{...props}
-											variant={variant as ChartVariant}
+											variant={variant}
 											position={legend.position}
 											direction={legend.direction}
 											labels="none"
@@ -277,8 +276,9 @@ export const PieChart: React.FC<PieChartProps> = ({
 									const colorKey =
 										entry.color ||
 										getDistributedColor(index, filteredData.length)
-									const baseColor = `var(--data-${colorKey})`
-									const gradientId = getGradientId(String(colorKey))
+									const colorKeyStr = String(colorKey)
+									const baseColor = `var(--data-${colorKeyStr})`
+									const gradientId = getGradientId(colorKey)
 									return (
 										<RechartsCell
 											key={`cell-${index}`}
@@ -305,7 +305,7 @@ export const PieChart: React.FC<PieChartProps> = ({
 											const colorKey =
 												filteredData[index]?.color ||
 												getDistributedColor(index, filteredData.length)
-											const color = `var(--data-${colorKey})`
+											const color = `var(--data-${String(colorKey)})`
 
 											props.payload[0].color = color
 										}
@@ -314,7 +314,7 @@ export const PieChart: React.FC<PieChartProps> = ({
 												{...props}
 												label={undefined}
 												date={date}
-												variant={variant as ChartVariant}
+												variant={variant}
 											/>
 										)
 									}}

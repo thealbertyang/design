@@ -1,7 +1,7 @@
 'use client'
 
 import { Column, Row, Spinner } from '.'
-import React, { type ReactNode, useEffect, useRef, useState } from 'react'
+import React, { type ReactNode, useCallback, useEffect, useRef, useState } from 'react'
 
 export interface InfiniteScrollProps<T> extends React.ComponentProps<typeof Row> {
 	items: T[]
@@ -30,7 +30,7 @@ function InfiniteScroll<T>({
 		setIsLoading(loading)
 	}, [loading])
 
-	const handleLoadMore = async () => {
+	const handleLoadMore = useCallback(async () => {
 		if (isLoading || !hasMore) return
 
 		setIsLoading(true)
@@ -43,7 +43,7 @@ function InfiniteScroll<T>({
 		} finally {
 			setIsLoading(false)
 		}
-	}
+	}, [isLoading, hasMore, loadMore])
 
 	useEffect(() => {
 		if (!hasMore || isLoading) return
@@ -52,7 +52,7 @@ function InfiniteScroll<T>({
 		observerRef.current = new IntersectionObserver(
 			([entry]) => {
 				if (entry.isIntersecting) {
-					handleLoadMore()
+					void handleLoadMore()
 				}
 			},
 			{

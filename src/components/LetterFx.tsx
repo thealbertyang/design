@@ -99,7 +99,7 @@ const LetterFx: React.FC<LetterFxProps> = ({
 	const originalText = useRef<string>(typeof children === 'string' ? children : '')
 
 	const eventHandler = useCallback(() => {
-		createEventHandler(
+		void createEventHandler(
 			originalText.current,
 			setText,
 			inProgress,

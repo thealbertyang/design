@@ -91,9 +91,7 @@ const MobileMegaMenu: React.FC<MobileMegaMenuProps> = ({ menuGroups, onClose, ..
 								fillWidth
 							>
 								{group.sections.map((section, secIdx) => {
-									const sectionKey = section.title
-										? `${group.id}-${section.title}`
-										: `sec-${secIdx}`
+									const sectionKey = `${group.id}-sec-${secIdx}`
 
 									return section.title ? (
 										<Accordion

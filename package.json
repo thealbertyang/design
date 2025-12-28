@@ -78,8 +78,8 @@
 	},
 	"scripts": {
 		"build": "bun run clean && bun run icons:generate && bun run generate-emoji-data && tsc --project tsconfig.build.json && bun run copy-files && bun run build:css",
-		"build:css": "node scripts/build-css.js",
-		"copy-files": "node scripts/copy-files.js",
+		"build:css": "bun scripts/build-css.js",
+		"copy-files": "bun scripts/copy-files.js",
 		"clean": "rm -rf dist",
 		"clean:node": "rm -rf node_modules",
 		"kill": "pkill -15 -f 'tsc --watch' || true",
@@ -87,11 +87,11 @@
 		"lint:fix": "oxlint --fix .",
 		"format": "oxfmt --write .",
 		"fix": "bun run lint:fix && bun run format",
-		"typecheck": "tsc --noEmit",
+		"typecheck": "oxlint --type-aware .",
 		"dev": "tsc --watch --preserveWatchOutput",
-		"generate-emoji-data": "node scripts/generate-emoji-data.js",
-		"icons:generate": "node ../../scripts/generate-icons.js --package once-ui && bun run lint:fix && bun run format",
-		"icons:generate:force": "node ../../scripts/generate-icons.js --package once-ui --force && bun run lint:fix && bun run format"
+		"generate-emoji-data": "bun scripts/generate-emoji-data.js",
+		"icons:generate": "bun ../../scripts/generate-icons.js --package once-ui",
+		"icons:generate:force": "bun ../../scripts/generate-icons.js --package once-ui --force"
 	},
 	"dependencies": {
 		"@floating-ui/react-dom": "catalog:ui",

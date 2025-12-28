@@ -7,7 +7,7 @@
  * Format: { iconName: 'package/ComponentName' }
  * Packages: hi2 (Heroicons v2), io5 (Ionicons), lu (Lucide), pi (Phosphor)
  */
-export default {
+const iconConfig = {
 	// Heroicons v2 (hi2)
 	chevronUp: 'hi2/HiChevronUp',
 	chevronDown: 'hi2/HiChevronDown',
@@ -65,5 +65,7 @@ export default {
 	linearGauge: 'pi/PiBatteryFull',
 } as const
 
-export type IconConfig = typeof import('./icons.config').default
+export default iconConfig
+
+export type IconConfig = typeof iconConfig
 export type IconName = keyof IconConfig

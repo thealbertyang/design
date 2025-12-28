@@ -27,7 +27,7 @@ export interface MediaProps extends React.ComponentProps<typeof Flex> {
 const Media: React.FC<MediaProps> = ({
 	src,
 	alt = '',
-	fillWidth = true,
+	_fillWidth = true,
 	fill = false,
 	loading = false,
 	enlarge = false,
@@ -219,6 +219,7 @@ const Media: React.FC<MediaProps> = ({
 						frameBorder="0"
 						allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 						allowFullScreen
+						sandbox="allow-scripts allow-presentation"
 						style={{
 							objectFit: objectFit,
 						}}

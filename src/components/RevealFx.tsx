@@ -4,7 +4,7 @@ import { Flex } from '.'
 import type { SpacingToken } from '../types'
 import styles from './RevealFx.module.css'
 import type React from 'react'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 interface RevealFxProps extends React.ComponentProps<typeof Flex> {
 	children: React.ReactNode
@@ -34,7 +34,7 @@ const RevealFx: React.FC<RevealFxProps> = ({
 	const [maskRemoved, setMaskRemoved] = useState(false)
 	const transitionTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-	const getSpeedDurationMs = () => {
+	const getSpeedDurationMs = useCallback(() => {
 		if (typeof speed === 'number') {
 			return speed
 		}
@@ -49,7 +49,7 @@ const RevealFx: React.FC<RevealFxProps> = ({
 			default:
 				return 2000
 		}
-	}
+	}, [speed])
 
 	const getSpeedDuration = () => {
 		const ms = getSpeedDurationMs()

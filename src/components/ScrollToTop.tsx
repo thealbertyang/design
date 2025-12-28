@@ -3,7 +3,7 @@
 import { Flex } from '.'
 import styles from './ScrollToTop.module.css'
 import classNames from 'classnames'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 interface ScrollToTopProps extends React.ComponentProps<typeof Flex> {
 	offset?: number
@@ -12,9 +12,9 @@ interface ScrollToTopProps extends React.ComponentProps<typeof Flex> {
 export const ScrollToTop = ({ children, offset = 300, className, ...rest }: ScrollToTopProps) => {
 	const [isVisible, setIsVisible] = useState(false)
 
-	const handleScroll = () => {
+	const handleScroll = useCallback(() => {
 		setIsVisible(window.scrollY > offset)
-	}
+	}, [offset])
 
 	const scrollToTop = () => {
 		window.scrollTo({

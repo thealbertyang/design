@@ -8,11 +8,96 @@ export type Theme = 'dark' | 'light' | 'system'
 export type NeutralColor = 'sand' | 'gray' | 'slate'
 export type SolidType = 'color' | 'contrast' | 'inverse'
 export type SolidStyle = 'flat' | 'plastic'
-export type BorderStyle = 'rounded' | 'playful' | 'conservative'
+export type BorderStyle = 'rounded' | 'playful' | 'conservative' | 'sharp'
 export type SurfaceStyle = 'filled' | 'translucent'
 export type TransitionStyle = 'all' | 'micro' | 'macro' | 'none'
 export type ScalingSize = '90' | '95' | '100' | '105' | '110'
 export type DataStyle = 'categorical' | 'divergent' | 'sequential'
+
+// Pure utility function - defined outside component to avoid recreation on each render
+const camelToKebab = (str: string): string => {
+	return str.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase()
+}
+
+// Type guards for safe type narrowing
+const BORDER_STYLES = ['rounded', 'playful', 'conservative', 'sharp'] as const
+const SOLID_STYLES = ['flat', 'plastic'] as const
+const TRANSITION_STYLES = ['all', 'micro', 'macro', 'none'] as const
+const SCALING_SIZES = ['90', '95', '100', '105', '110'] as const
+const SURFACE_STYLES = ['filled', 'translucent'] as const
+const NEUTRAL_COLORS = ['sand', 'gray', 'slate'] as const
+const SOLID_TYPES = ['color', 'contrast', 'inverse'] as const
+const THEMES = ['dark', 'light', 'system'] as const
+
+function isBorderStyle(value: string): value is BorderStyle {
+	return (BORDER_STYLES as readonly string[]).includes(value)
+}
+
+function isSolidStyle(value: string): value is SolidStyle {
+	return (SOLID_STYLES as readonly string[]).includes(value)
+}
+
+function isTransitionStyle(value: string): value is TransitionStyle {
+	return (TRANSITION_STYLES as readonly string[]).includes(value)
+}
+
+function isScalingSize(value: string): value is ScalingSize {
+	return (SCALING_SIZES as readonly string[]).includes(value)
+}
+
+function isSurfaceStyle(value: string): value is SurfaceStyle {
+	return (SURFACE_STYLES as readonly string[]).includes(value)
+}
+
+function isNeutralColor(value: string): value is NeutralColor {
+	return (NEUTRAL_COLORS as readonly string[]).includes(value)
+}
+
+function isSolidType(value: string): value is SolidType {
+	return (SOLID_TYPES as readonly string[]).includes(value)
+}
+
+function isTheme(value: string): value is Theme {
+	return (THEMES as readonly string[]).includes(value)
+}
+
+function isScheme(value: string): value is Schemes {
+	// Schemes is a union type from '../types', we check for common color scheme values
+	const schemes = [
+		'blue',
+		'indigo',
+		'violet',
+		'magenta',
+		'pink',
+		'red',
+		'orange',
+		'yellow',
+		'moss',
+		'green',
+		'emerald',
+		'aqua',
+		'cyan',
+	]
+	return schemes.includes(value)
+}
+
+const STYLE_KEYS = [
+	'theme',
+	'neutral',
+	'brand',
+	'accent',
+	'solid',
+	'solidStyle',
+	'border',
+	'surface',
+	'transition',
+	'scaling',
+] as const
+type StyleKey = (typeof STYLE_KEYS)[number]
+
+function isStyleKey(key: string): key is StyleKey {
+	return (STYLE_KEYS as readonly string[]).includes(key)
+}
 
 interface StyleOptions {
 	theme: Theme
@@ -97,30 +182,30 @@ function getStoredStyleValues() {
 
 		styleKeys.forEach((key) => {
 			const kebabKey = key
-			const camelKey = kebabKey.replace(/-([a-z])/g, (_, letter) =>
+			const camelKey = kebabKey.replace(/-([a-z])/g, (_, letter: string) =>
 				letter.toUpperCase()
-			) as keyof StyleOptions
+			)
 			const value = localStorage.getItem(`data-${kebabKey}`)
 
-			if (value) {
-				if (camelKey === 'border') {
-					storedStyle[camelKey] = value as BorderStyle
-				} else if (camelKey === 'solidStyle') {
-					storedStyle[camelKey] = value as SolidStyle
-				} else if (camelKey === 'transition') {
-					storedStyle[camelKey] = value as TransitionStyle
-				} else if (camelKey === 'scaling') {
-					storedStyle[camelKey] = value as ScalingSize
-				} else if (camelKey === 'surface') {
-					storedStyle[camelKey] = value as SurfaceStyle
-				} else if (camelKey === 'neutral') {
-					storedStyle.neutral = value as NeutralColor
-				} else if (camelKey === 'brand') {
-					storedStyle.brand = value as Schemes
-				} else if (camelKey === 'accent') {
-					storedStyle.accent = value as Schemes
-				} else if (camelKey === 'solid') {
-					storedStyle.solid = value as SolidType
+			if (value && isStyleKey(camelKey)) {
+				if (camelKey === 'border' && isBorderStyle(value)) {
+					storedStyle.border = value
+				} else if (camelKey === 'solidStyle' && isSolidStyle(value)) {
+					storedStyle.solidStyle = value
+				} else if (camelKey === 'transition' && isTransitionStyle(value)) {
+					storedStyle.transition = value
+				} else if (camelKey === 'scaling' && isScalingSize(value)) {
+					storedStyle.scaling = value
+				} else if (camelKey === 'surface' && isSurfaceStyle(value)) {
+					storedStyle.surface = value
+				} else if (camelKey === 'neutral' && isNeutralColor(value)) {
+					storedStyle.neutral = value
+				} else if (camelKey === 'brand' && isScheme(value)) {
+					storedStyle.brand = value
+				} else if (camelKey === 'accent' && isScheme(value)) {
+					storedStyle.accent = value
+				} else if (camelKey === 'solid' && isSolidType(value)) {
+					storedStyle.solid = value
 				}
 			}
 		})
@@ -135,8 +220,8 @@ function getStoredStyleValues() {
 const getInitialTheme = (): Theme => {
 	if (typeof window === 'undefined') return 'system'
 
-	const savedTheme = localStorage.getItem('data-theme') as Theme | null
-	if (savedTheme && (savedTheme === 'light' || savedTheme === 'dark')) {
+	const savedTheme = localStorage.getItem('data-theme')
+	if (savedTheme && isTheme(savedTheme) && (savedTheme === 'light' || savedTheme === 'dark')) {
 		return savedTheme
 	}
 
@@ -152,7 +237,7 @@ const getInitialResolvedTheme = (): 'light' | 'dark' => {
 	if (typeof window === 'undefined') return 'dark'
 
 	const domTheme = document.documentElement.getAttribute('data-theme')
-	return domTheme === 'dark' || domTheme === 'light' ? (domTheme as 'light' | 'dark') : 'dark'
+	return domTheme === 'dark' || domTheme === 'light' ? domTheme : 'dark'
 }
 
 export function ThemeProvider({
@@ -280,10 +365,6 @@ export function ThemeProvider({
 		setTheme: setThemeAndSave,
 	}
 
-	const camelToKebab = (str: string): string => {
-		return str.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase()
-	}
-
 	const styleValue: StyleProviderState = {
 		...style,
 		setStyle: (newStyle: Partial<StyleOptions>) => {
@@ -352,7 +433,7 @@ export function ThemeProvider({
 				}
 			})
 		}
-	}, [style, propTheme, camelToKebab])
+	}, [style, propTheme])
 
 	return (
 		<ThemeProviderContext.Provider value={themeValue}>

@@ -3,6 +3,8 @@ import Link from 'next/link'
 import type React from 'react'
 import type { ReactNode } from 'react'
 
+type ElementRef = HTMLAnchorElement | HTMLButtonElement | HTMLDivElement
+
 interface ElementTypeProps {
 	href?: string
 	onClick?: React.MouseEventHandler<HTMLElement>
@@ -11,8 +13,22 @@ interface ElementTypeProps {
 	className?: string
 	style?: React.CSSProperties
 	type?: 'button' | 'submit' | 'reset' | (string & {})
-	ref?: React.Ref<HTMLElement>
+	ref?: React.RefCallback<ElementRef> | React.RefObject<ElementRef | null>
 	[key: string]: unknown
+}
+
+// Helper to safely assign ref using runtime type checks
+function assignRef(
+	ref: React.RefCallback<ElementRef> | React.RefObject<ElementRef | null> | undefined,
+	element: ElementRef | null
+): void {
+	if (!ref) return
+	if (typeof ref === 'function') {
+		ref(element)
+	} else if (ref && typeof ref === 'object' && 'current' in ref) {
+		// RefObject - need to use Object.assign to avoid readonly error
+		Object.assign(ref, { current: element })
+	}
 }
 
 const isExternalLink = (url: string) => /^https?:\/\//.test(url)
@@ -36,7 +52,7 @@ function ElementType({
 					href={href}
 					target="_blank"
 					rel="noreferrer"
-					ref={ref as React.Ref<HTMLAnchorElement>}
+					ref={(el) => assignRef(ref, el)}
 					className={className}
 					style={style}
 					onClick={() => onLinkClick?.()}
@@ -63,11 +79,11 @@ function ElementType({
 	if (onClick || type === 'submit' || type === 'button') {
 		return (
 			<button
-				ref={ref as React.Ref<HTMLButtonElement>}
+				ref={(el) => assignRef(ref, el)}
 				className={className}
 				onClick={onClick}
 				style={style}
-				type={type as 'button' | 'submit' | 'reset' | undefined}
+				type={type === 'button' || type === 'submit' || type === 'reset' ? type : undefined}
 				{...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
 			>
 				{children}
@@ -77,7 +93,7 @@ function ElementType({
 
 	return (
 		<Flex
-			ref={ref as React.Ref<HTMLDivElement>}
+			ref={(el) => assignRef(ref, el)}
 			className={className}
 			style={style}
 			{...(props as React.HTMLAttributes<HTMLDivElement>)}

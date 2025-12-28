@@ -23,7 +23,7 @@ function OTPInput({
 	errorMessage,
 	disabled = false,
 	autoFocus = false,
-	className,
+	className: _className,
 	...props
 }: OTPInputProps) {
 	const [values, setValues] = useState<string[]>(Array(length).fill(''))

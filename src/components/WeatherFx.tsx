@@ -81,6 +81,25 @@ interface Lightning {
 	revealDuration: number // Duration for the reveal animation
 }
 
+type Particle = RainDrop | Snowflake | Leaf | Lightning
+
+// Type guards for particle types
+function isRainDrop(p: Particle): p is RainDrop {
+	return 'thickness' in p && 'length' in p
+}
+
+function isSnowflake(p: Particle): p is Snowflake {
+	return 'size' in p && 'swayAmplitude' in p && !('width' in p)
+}
+
+function isLeaf(p: Particle): p is Leaf {
+	return 'width' in p && 'height' in p && 'color1' in p
+}
+
+function isLightning(p: Particle): p is Lightning {
+	return 'segments' in p && 'branches' in p
+}
+
 function WeatherFx({
 	ref,
 	type = 'rain',
@@ -97,7 +116,7 @@ function WeatherFx({
 	const containerRef = useRef<HTMLDivElement>(null)
 	const canvasRef = useRef<HTMLCanvasElement>(null)
 	const animationRef = useRef<number | undefined>(undefined)
-	const particlesRef = useRef<(RainDrop | Snowflake | Leaf | Lightning)[]>([])
+	const particlesRef = useRef<Particle[]>([])
 	const timeRef = useRef<number>(0)
 	const isEmittingRef = useRef<boolean>(trigger === 'mount' || (trigger === 'manual' && active))
 	const emitStartTimeRef = useRef<number>(Date.now())
@@ -447,7 +466,7 @@ function WeatherFx({
 
 			if (type === 'rain') {
 				// Update and draw rain drops
-				;(particlesRef.current as RainDrop[]).forEach((drop) => {
+				particlesRef.current.filter(isRainDrop).forEach((drop) => {
 					// Update position with angle
 					drop.y += drop.speed * dy
 					drop.x += drop.speed * dx
@@ -490,7 +509,7 @@ function WeatherFx({
 				})
 			} else if (type === 'snow') {
 				// Update and draw snowflakes
-				;(particlesRef.current as Snowflake[]).forEach((flake) => {
+				particlesRef.current.filter(isSnowflake).forEach((flake) => {
 					// Calculate sway motion (sine wave)
 					const swayX =
 						Math.sin(timeRef.current * flake.swaySpeed + flake.swayOffset) *
@@ -525,7 +544,7 @@ function WeatherFx({
 				})
 			} else if (type === 'leaves') {
 				// Update and draw leaves
-				;(particlesRef.current as Leaf[]).forEach((leaf) => {
+				particlesRef.current.filter(isLeaf).forEach((leaf) => {
 					// Calculate sway motion
 					const swayX =
 						Math.sin(timeRef.current * leaf.swaySpeed + leaf.swayOffset) *
@@ -634,14 +653,16 @@ function WeatherFx({
 						const bolt = generateLightningBolt(startX, 0, canvasHeight)
 						// Add slight age offset for staggered appearance
 						bolt.age = -i * 0.025 // 25ms offset between bolts
-						;(particlesRef.current as Lightning[]).push(bolt)
+						particlesRef.current.push(bolt)
 					}
 
 					lastLightningTimeRef.current = currentTime
 				}
 
 				// Update and draw lightning bolts
-				;(particlesRef.current as Lightning[]).forEach((bolt, index) => {
+				particlesRef.current.forEach((particle, index) => {
+					if (!isLightning(particle)) return
+					const bolt = particle
 					bolt.age += 0.016 // Increment age
 
 					// Skip if not yet started (negative age for staggered bolts)
@@ -649,7 +670,7 @@ function WeatherFx({
 
 					// Remove expired bolts
 					if (bolt.age > bolt.lifetime) {
-						;(particlesRef.current as Lightning[]).splice(index, 1)
+						particlesRef.current.splice(index, 1)
 						return
 					}
 
@@ -863,7 +884,7 @@ function WeatherFx({
 		} else if (!active && isEmittingRef.current) {
 			isEmittingRef.current = false
 		}
-	}, [active, trigger, angle, colors.map, intensity, speed, type])
+	}, [active, trigger, angle, colors, intensity, speed, type])
 
 	const handleMouseEnter = () => {
 		if (trigger === 'hover' && !isHoveredRef.current) {

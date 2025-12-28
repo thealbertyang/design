@@ -115,7 +115,7 @@ const Legend: React.FC<LegendProps> = ({
 						<Swatch
 							color={color}
 							size="m"
-							variant={variant as ChartVariant}
+							variant={variant}
 						/>
 						<Text
 							variant="label-default-s"

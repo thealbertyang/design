@@ -111,7 +111,7 @@ const TypeFx: React.FC<TypeFxProps> = ({
 	useEffect(() => {
 		if (trigger === 'instant' && !hasTriggeredRef.current) {
 			hasTriggeredRef.current = true
-			typeText()
+			void typeText()
 		} else if (trigger === 'custom' && onTrigger && !hasTriggeredRef.current) {
 			hasTriggeredRef.current = true
 			onTrigger(typeText)

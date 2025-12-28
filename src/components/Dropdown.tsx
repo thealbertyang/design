@@ -13,17 +13,19 @@ interface DropdownProps extends Omit<React.ComponentProps<typeof Row>, 'onSelect
 }
 
 function Dropdown({
-	selectedOption,
-	className,
+	selectedOption: _selectedOption,
+	className: _className,
 	children,
-	onEscape,
+	onEscape: _onEscape,
 	onSelect,
 	ref,
 	...flex
 }: DropdownProps) {
 	const handleSelect = (event: SyntheticEvent<HTMLDivElement>) => {
 		// Only handle clicks on elements that have a data-value attribute
-		const target = event.target as HTMLElement
+		const target = event.target
+		if (!(target instanceof HTMLElement)) return
+
 		const value =
 			target.getAttribute('data-value') ||
 			target.closest('[data-value]')?.getAttribute('data-value')

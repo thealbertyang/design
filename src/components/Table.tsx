@@ -38,8 +38,19 @@ function Table({ data, onRowClick, ...flex }: TableProps) {
 		const headerIndex = data.headers.findIndex((header) => header.key === sortConfig.key)
 		if (headerIndex === -1) return 0
 
-		const aValue = String(a[headerIndex])
-		const bValue = String(b[headerIndex])
+		const aCell = a[headerIndex]
+		const bCell = b[headerIndex]
+
+		// Extract string value from ReactNode for comparison
+		const getStringValue = (node: ReactNode): string => {
+			if (node === null || node === undefined) return ''
+			if (typeof node === 'string') return node
+			if (typeof node === 'number' || typeof node === 'boolean') return String(node)
+			return ''
+		}
+
+		const aValue = getStringValue(aCell)
+		const bValue = getStringValue(bCell)
 
 		if (sortConfig.direction === 'ascending') {
 			return aValue.localeCompare(bValue)

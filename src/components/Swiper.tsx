@@ -63,8 +63,8 @@ const Swiper: React.FC<SwiperProps> = ({
 
 		const observer = new IntersectionObserver((entries) => {
 			entries.forEach((entry) => {
-				if (entry.isIntersecting) {
-					const index = slideRefs.current.indexOf(entry.target as HTMLDivElement)
+				if (entry.isIntersecting && entry.target instanceof HTMLDivElement) {
+					const index = slideRefs.current.indexOf(entry.target)
 					if (index !== -1 && index !== activeIndex) {
 						setActiveIndex(index)
 					}
@@ -246,7 +246,7 @@ const Swiper: React.FC<SwiperProps> = ({
 													? undefined
 													: aspectRatio
 										}
-										src={item.slide as string}
+										src={item.slide}
 										alt={item.alt || ''}
 										onDragStart={(e) => e.preventDefault()}
 										style={{

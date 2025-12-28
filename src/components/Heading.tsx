@@ -1,5 +1,5 @@
 import type { CommonProps, SpacingProps, TextProps } from '../interfaces'
-import type { ColorScheme, ColorWeight, SpacingToken, TextVariant } from '../types'
+import type { SpacingToken, TextVariant } from '../types'
 import classNames from 'classnames'
 import type { ComponentPropsWithoutRef, ElementType } from 'react'
 
@@ -61,10 +61,14 @@ const Heading = <T extends ElementType = 'h1'>({
 
 	let colorClass = 'neutral-on-background-strong'
 	if (onBackground) {
-		const [scheme, weight] = onBackground.split('-') as [ColorScheme, ColorWeight]
+		const dashIndex = onBackground.indexOf('-')
+		const scheme = onBackground.substring(0, dashIndex)
+		const weight = onBackground.substring(dashIndex + 1)
 		colorClass = `${scheme}-on-background-${weight}`
 	} else if (onSolid) {
-		const [scheme, weight] = onSolid.split('-') as [ColorScheme, ColorWeight]
+		const dashIndex = onSolid.indexOf('-')
+		const scheme = onSolid.substring(0, dashIndex)
+		const weight = onSolid.substring(dashIndex + 1)
 		colorClass = `${scheme}-on-solid-${weight}`
 	}
 

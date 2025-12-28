@@ -3,6 +3,36 @@ import type { ColorScheme, ColorWeight, SpacingToken, TextVariant } from '../typ
 import classNames from 'classnames'
 import type { ComponentPropsWithoutRef, ElementType } from 'react'
 
+const COLOR_SCHEMES = new Set<string>([
+	'brand',
+	'accent',
+	'neutral',
+	'success',
+	'warning',
+	'danger',
+	'info',
+])
+
+const COLOR_WEIGHTS = new Set<string>(['strong', 'medium', 'weak'])
+
+function isColorScheme(value: string): value is ColorScheme {
+	return COLOR_SCHEMES.has(value)
+}
+
+function isColorWeight(value: string): value is ColorWeight {
+	return COLOR_WEIGHTS.has(value)
+}
+
+function parseColorProp(value: string): [ColorScheme, ColorWeight] | null {
+	const parts = value.split('-')
+	if (parts.length !== 2) return null
+	const [scheme, weight] = parts
+	if (scheme && weight && isColorScheme(scheme) && isColorWeight(weight)) {
+		return [scheme, weight]
+	}
+	return null
+}
+
 type TypeProps<T extends ElementType> = TextProps<T> &
 	CommonProps &
 	SpacingProps &
@@ -61,11 +91,17 @@ const Text = <T extends ElementType = 'span'>({
 
 	let colorClass = ''
 	if (onBackground) {
-		const [scheme, weight] = onBackground.split('-') as [ColorScheme, ColorWeight]
-		colorClass = `${scheme}-on-background-${weight}`
+		const parsed = parseColorProp(onBackground)
+		if (parsed) {
+			const [scheme, weight] = parsed
+			colorClass = `${scheme}-on-background-${weight}`
+		}
 	} else if (onSolid) {
-		const [scheme, weight] = onSolid.split('-') as [ColorScheme, ColorWeight]
-		colorClass = `${scheme}-on-solid-${weight}`
+		const parsed = parseColorProp(onSolid)
+		if (parsed) {
+			const [scheme, weight] = parsed
+			colorClass = `${scheme}-on-solid-${weight}`
+		}
 	}
 
 	const generateClassName = (prefix: string, token: SpacingToken | undefined) => {

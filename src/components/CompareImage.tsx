@@ -2,7 +2,7 @@
 
 import { Flex, IconButton, Media } from '.'
 import styles from './CompareImage.module.css'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 interface SideContent {
 	src: string | React.ReactNode
@@ -49,11 +49,11 @@ const CompareImage = ({ leftContent, rightContent, aspectRatio, ...rest }: Compa
 		isDragging.current = true
 	}
 
-	const handleMouseUp = () => {
+	const handleMouseUp = useCallback(() => {
 		isDragging.current = false
-	}
+	}, [])
 
-	const updatePosition = (clientX: number) => {
+	const updatePosition = useCallback((clientX: number) => {
 		if (!isDragging.current || !containerRef.current) return
 
 		const rect = containerRef.current.getBoundingClientRect()
@@ -63,15 +63,21 @@ const CompareImage = ({ leftContent, rightContent, aspectRatio, ...rest }: Compa
 		// Calculate percentage (constrained between 0 and 100)
 		const newPosition = Math.max(0, Math.min(100, (x / containerWidth) * 100))
 		setPosition(newPosition)
-	}
+	}, [])
 
-	const handleMouseMove = (e: MouseEvent) => {
-		updatePosition(e.clientX)
-	}
+	const handleMouseMove = useCallback(
+		(e: MouseEvent) => {
+			updatePosition(e.clientX)
+		},
+		[updatePosition]
+	)
 
-	const handleTouchMove = (e: TouchEvent) => {
-		updatePosition(e.touches[0].clientX)
-	}
+	const handleTouchMove = useCallback(
+		(e: TouchEvent) => {
+			updatePosition(e.touches[0].clientX)
+		},
+		[updatePosition]
+	)
 
 	useEffect(() => {
 		document.addEventListener('mousemove', handleMouseMove)

@@ -15,7 +15,7 @@ interface PulseProps extends React.ComponentProps<typeof Row> {
 }
 
 function Pulse({
-	children,
+	children: _children,
 	className,
 	style,
 	size = 'm',

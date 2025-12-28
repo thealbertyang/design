@@ -55,7 +55,8 @@ const KbarSearchInput: React.FC<{
 		(e: React.KeyboardEvent<HTMLInputElement>) => {
 			// Forward arrow keys and Enter to navigation
 			if (['ArrowUp', 'ArrowDown', 'Enter', 'Home', 'End'].includes(e.key)) {
-				navKeyDown(e as any)
+				// Cast is safe: HTMLInputElement extends HTMLElement
+				navKeyDown(e as React.KeyboardEvent<HTMLElement>)
 			}
 		},
 		[navKeyDown]
@@ -459,9 +460,9 @@ export const Kbar: React.FC<KbarProps> = ({ items, children, ...rest }) => {
 		setIsOpen(true)
 	}
 
-	const handleClose = () => {
+	const handleClose = useCallback(() => {
 		setIsOpen(false)
-	}
+	}, [])
 
 	// Close Kbar when pathname changes
 	useEffect(() => {

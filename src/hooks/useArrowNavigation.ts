@@ -51,8 +51,8 @@ export const useArrowNavigation = ({
 	useEffect(() => {
 		if (focusedIndex >= 0 && containerRef?.current) {
 			const items = Array.from(
-				containerRef.current.querySelectorAll(itemSelector)
-			) as HTMLElement[]
+				containerRef.current.querySelectorAll<HTMLElement>(itemSelector)
+			)
 
 			if (items.length > focusedIndex) {
 				// Check if the item is disabled
@@ -80,8 +80,8 @@ export const useArrowNavigation = ({
 			if (!containerRef?.current) return currentIndex
 
 			const items = Array.from(
-				containerRef.current.querySelectorAll(itemSelector)
-			) as HTMLElement[]
+				containerRef.current.querySelectorAll<HTMLElement>(itemSelector)
+			)
 
 			let index = currentIndex
 			let loopCount = 0
@@ -135,8 +135,8 @@ export const useArrowNavigation = ({
 			if (!containerRef?.current) return startIndex
 
 			const items = Array.from(
-				containerRef.current.querySelectorAll(itemSelector)
-			) as HTMLElement[]
+				containerRef.current.querySelectorAll<HTMLElement>(itemSelector)
+			)
 
 			// First check the start index itself
 			if (startIndex < items.length) {
@@ -258,9 +258,7 @@ export const useArrowNavigation = ({
 	const applyHighlightedState = useCallback(() => {
 		if (!containerRef?.current || disableHighlighting) return
 
-		const items = Array.from(
-			containerRef.current.querySelectorAll(itemSelector)
-		) as HTMLElement[]
+		const items = Array.from(containerRef.current.querySelectorAll<HTMLElement>(itemSelector))
 
 		items.forEach((item, index) => {
 			// Check if the item is disabled

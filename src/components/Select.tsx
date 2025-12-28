@@ -97,7 +97,7 @@ const SearchInput: React.FC<{
 			onKeyDown={(e) => {
 				// Handle arrow keys and Enter for navigation
 				if (['ArrowDown', 'ArrowUp', 'Enter', 'Home', 'End'].includes(e.key)) {
-					navKeyDown(e as any)
+					navKeyDown(e as React.KeyboardEvent<HTMLElement>)
 					return
 				}
 
@@ -115,8 +115,9 @@ const SearchInput: React.FC<{
 				}
 			}}
 			onBlur={(e) => {
-				const relatedTarget = e.relatedTarget as Node
-				const isClickInDropdown = selectRef.current?.contains(relatedTarget)
+				const relatedTarget = e.relatedTarget
+				const isClickInDropdown =
+					relatedTarget instanceof Node && selectRef.current?.contains(relatedTarget)
 				if (!isClickInDropdown) {
 					handleBlur(e)
 				}
@@ -131,7 +132,7 @@ function Select({
 	onSelect,
 	searchable = false,
 	emptyState = 'No results',
-	minHeight,
+	minHeight: _minHeight,
 	minWidth,
 	maxWidth,
 	placement,
@@ -177,10 +178,13 @@ function Select({
 
 	const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
 		// Don't close dropdown if focus is moving to an element within the select component
-		if (selectRef.current && !selectRef.current.contains(event.relatedTarget as Node)) {
+		const relatedTarget = event.relatedTarget
+		const isContained =
+			relatedTarget instanceof Node && selectRef.current?.contains(relatedTarget)
+		if (selectRef.current && !isContained) {
 			// Only close if we're not moving to the dropdown or its children
 			const isMovingToDropdown =
-				event.relatedTarget && (event.relatedTarget as Element).closest('[data-dropdown]')
+				relatedTarget instanceof Element && relatedTarget.closest('[data-dropdown]')
 
 			if (!isMovingToDropdown) {
 				setIsFocused(false)
@@ -218,6 +222,13 @@ function Select({
 	const currentValue = value !== undefined ? value : internalValue
 	const selectedOption = options.find((opt) => opt.value === currentValue) || null
 
+	// Helper to safely get label text from an option
+	const getLabelText = (label: React.ReactNode, fallback: string): string => {
+		if (typeof label === 'string') return label
+		if (typeof label === 'number') return String(label)
+		return fallback
+	}
+
 	// For multiple mode, get display text
 	const getDisplayText = () => {
 		if (multiple) {
@@ -225,11 +236,11 @@ function Select({
 			if (selectedValues.length === 0) return ''
 			if (selectedValues.length === 1) {
 				const option = options.find((opt) => opt.value === selectedValues[0])
-				return String(option?.label || selectedValues[0])
+				return getLabelText(option?.label, selectedValues[0])
 			}
 			return `${selectedValues.length} options selected`
 		} else {
-			return selectedOption?.label ? String(selectedOption.label) : ''
+			return selectedOption?.label ? getLabelText(selectedOption.label, '') : ''
 		}
 	}
 
@@ -243,8 +254,8 @@ function Select({
 				setTimeout(() => {
 					const searchInput = selectRef.current?.querySelector(
 						`#select-search-${searchInputId}`
-					) as HTMLInputElement
-					if (searchInput) {
+					)
+					if (searchInput instanceof HTMLInputElement) {
 						searchInput.focus()
 					}
 				}, 0)
@@ -253,11 +264,11 @@ function Select({
 	}, [isDropdownOpen, searchable, searchInputId])
 
 	// Filter options based on search query
-	const filteredOptions = options.filter((option) =>
-		searchable
-			? option.label?.toString().toLowerCase().includes(searchQuery.toLowerCase())
-			: true
-	)
+	const filteredOptions = options.filter((option) => {
+		if (!searchable) return true
+		const labelText = getLabelText(option.label, option.value)
+		return labelText.toLowerCase().includes(searchQuery.toLowerCase())
+	})
 
 	return (
 		<DropdownWrapper

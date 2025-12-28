@@ -58,6 +58,20 @@ interface CelebrationFxPropsWithRef extends CelebrationFxProps {
 	ref?: React.Ref<HTMLDivElement>
 }
 
+function isConfettiArray(
+	particles: (ConfettiPiece | Firework)[],
+	type: CelebrationType
+): particles is ConfettiPiece[] {
+	return type === 'confetti'
+}
+
+function isFireworkArray(
+	particles: (ConfettiPiece | Firework)[],
+	type: CelebrationType
+): particles is Firework[] {
+	return type === 'fireworks'
+}
+
 const CelebrationFx: React.FC<CelebrationFxPropsWithRef> = ({
 	type = 'confetti',
 	speed = 1,
@@ -229,9 +243,9 @@ const CelebrationFx: React.FC<CelebrationFxPropsWithRef> = ({
 				}
 			}
 
-			if (type === 'confetti') {
+			if (type === 'confetti' && isConfettiArray(particlesRef.current, type)) {
 				// Update and draw confetti
-				;(particlesRef.current as ConfettiPiece[]).forEach((piece) => {
+				particlesRef.current.forEach((piece) => {
 					// Update physics
 					piece.velocityY += piece.gravity
 					piece.x += piece.velocityX
@@ -282,7 +296,7 @@ const CelebrationFx: React.FC<CelebrationFxPropsWithRef> = ({
 						ctx.restore()
 					}
 				})
-			} else if (type === 'fireworks') {
+			} else if (type === 'fireworks' && isFireworkArray(particlesRef.current, type)) {
 				// Launch new fireworks
 				if (trigger === 'click' && clickPositionRef.current) {
 					// Fire from click position
@@ -298,7 +312,7 @@ const CelebrationFx: React.FC<CelebrationFxPropsWithRef> = ({
 				}
 
 				// Update and draw fireworks (explosion particles only)
-				;(particlesRef.current as Firework[]).forEach((firework) => {
+				particlesRef.current.forEach((firework) => {
 					// Update and draw explosion particles
 					firework.particles.forEach((particle) => {
 						particle.life++
@@ -324,12 +338,10 @@ const CelebrationFx: React.FC<CelebrationFxPropsWithRef> = ({
 
 				// Clean up dead fireworks (only when not emitting)
 				if (!shouldEmit) {
-					particlesRef.current = (particlesRef.current as Firework[]).filter(
-						(firework) => {
-							// Keep if any particles are still alive
-							return firework.particles.some((p) => p.life < p.maxLife)
-						}
-					)
+					particlesRef.current = particlesRef.current.filter((firework) => {
+						// Keep if any particles are still alive
+						return firework.particles.some((p) => p.life < p.maxLife)
+					})
 				}
 			}
 
@@ -362,12 +374,13 @@ const CelebrationFx: React.FC<CelebrationFxPropsWithRef> = ({
 	}
 
 	const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-		if (trigger === 'click' && containerRef.current) {
-			const rect = containerRef.current.getBoundingClientRect()
+		const container = containerRef.current
+		if (trigger === 'click' && container) {
+			const rect = container.getBoundingClientRect()
 			const x = e.clientX - rect.left
 			const y = e.clientY - rect.top
 
-			if (type === 'confetti') {
+			if (type === 'confetti' && isConfettiArray(particlesRef.current, type)) {
 				// For confetti, add burst of particles from click position
 				const shapes: ('rectangle' | 'circle' | 'triangle')[] = [
 					'rectangle',
@@ -378,16 +391,14 @@ const CelebrationFx: React.FC<CelebrationFxPropsWithRef> = ({
 				if (!canvas) return
 
 				const parsedColors = colors.map((color) => {
-					const computedColor = getComputedStyle(containerRef.current!).getPropertyValue(
-						`--${color}`
-					)
+					const computedColor = getComputedStyle(container).getPropertyValue(`--${color}`)
 					return computedColor || color
 				})
 
 				for (let i = 0; i < intensity; i++) {
 					const angle = (Math.PI * 2 * i) / intensity
 					const velocity = 2 + Math.random() * 3
-					;(particlesRef.current as ConfettiPiece[]).push({
+					particlesRef.current.push({
 						x,
 						y,
 						width: 8 + Math.random() * 8,

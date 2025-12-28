@@ -18,15 +18,52 @@ import type { ChartMode } from '@/modules/data'
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
 
+// Type guards (only used for localStorage values which come as strings)
+const BORDER_STYLES = ['rounded', 'playful', 'conservative', 'sharp'] as const
+const SOLID_TYPES = ['color', 'contrast', 'inverse'] as const
+const SOLID_STYLES = ['flat', 'plastic'] as const
+const SURFACE_STYLES = ['filled', 'translucent'] as const
+const SCALING_SIZES = ['90', '95', '100', '105', '110'] as const
+const TRANSITION_STYLES = ['all', 'micro', 'macro', 'none'] as const
+const CHART_MODES = ['categorical', 'divergent', 'sequential'] as const
+
+function isBorderStyle(value: string): value is BorderStyle {
+	return (BORDER_STYLES as readonly string[]).includes(value)
+}
+
+function isSolidType(value: string): value is SolidType {
+	return (SOLID_TYPES as readonly string[]).includes(value)
+}
+
+function isSolidStyle(value: string): value is SolidStyle {
+	return (SOLID_STYLES as readonly string[]).includes(value)
+}
+
+function isSurfaceStyle(value: string): value is SurfaceStyle {
+	return (SURFACE_STYLES as readonly string[]).includes(value)
+}
+
+function isScalingSize(value: string): value is ScalingSize {
+	return (SCALING_SIZES as readonly string[]).includes(value)
+}
+
+function isTransitionStyle(value: string): value is TransitionStyle {
+	return (TRANSITION_STYLES as readonly string[]).includes(value)
+}
+
+function isChartMode(value: string): value is ChartMode {
+	return (CHART_MODES as readonly string[]).includes(value)
+}
+
 interface StylePanelProps extends React.ComponentProps<typeof Flex> {
 	ref?: React.Ref<HTMLDivElement>
 	style?: React.CSSProperties
 	className?: string
 }
 
-const shapes = ['sharp', 'conservative', 'playful', 'rounded']
+const shapes: BorderStyle[] = ['sharp', 'conservative', 'playful', 'rounded']
 
-const colorOptions = {
+const colorOptions: { brand: Schemes[]; accent: Schemes[]; neutral: NeutralColor[] } = {
 	brand: [...schemes],
 	accent: [...schemes],
 	neutral: ['sand', 'gray', 'slate'],
@@ -53,8 +90,9 @@ function StylePanel({ ref, ...rest }: StylePanelProps) {
 			const storedSolid = localStorage.getItem('data-solid')
 			const storedSolidStyle = localStorage.getItem('data-solid-style')
 
-			if (storedSolid) setSolidValue(storedSolid as SolidType)
-			if (storedSolidStyle) setSolidStyleValue(storedSolidStyle as SolidStyle)
+			if (storedSolid && isSolidType(storedSolid)) setSolidValue(storedSolid)
+			if (storedSolidStyle && isSolidStyle(storedSolidStyle))
+				setSolidStyleValue(storedSolidStyle)
 		}
 	}, [])
 
@@ -130,8 +168,10 @@ function StylePanel({ ref, ...rest }: StylePanelProps) {
 									mounted && borderValue === radius ? styles.selected : ''
 								)}
 								onClick={() => {
-									styleContext.setStyle({ border: radius as BorderStyle })
-									setBorderValue(radius as BorderStyle)
+									if (isBorderStyle(radius)) {
+										styleContext.setStyle({ border: radius })
+										setBorderValue(radius)
+									}
 								}}
 							>
 								<IconButton
@@ -197,8 +237,8 @@ function StylePanel({ ref, ...rest }: StylePanelProps) {
 									mounted && brandValue === color ? styles.selected : ''
 								)}
 								onClick={() => {
-									styleContext.setStyle({ brand: color as Schemes })
-									setBrandValue(color as Schemes)
+									styleContext.setStyle({ brand: color })
+									setBrandValue(color)
 								}}
 							>
 								<IconButton
@@ -242,8 +282,8 @@ function StylePanel({ ref, ...rest }: StylePanelProps) {
 									mounted && accentValue === color ? styles.selected : ''
 								)}
 								onClick={() => {
-									styleContext.setStyle({ accent: color as Schemes })
-									setAccentValue(color as Schemes)
+									styleContext.setStyle({ accent: color })
+									setAccentValue(color)
 								}}
 							>
 								<IconButton
@@ -286,8 +326,8 @@ function StylePanel({ ref, ...rest }: StylePanelProps) {
 									mounted && neutralValue === color ? styles.selected : ''
 								)}
 								onClick={() => {
-									styleContext.setStyle({ neutral: color as NeutralColor })
-									setNeutralValue(color as NeutralColor)
+									styleContext.setStyle({ neutral: color })
+									setNeutralValue(color)
 								}}
 							>
 								<IconButton
@@ -397,9 +437,11 @@ function StylePanel({ ref, ...rest }: StylePanelProps) {
 							},
 						]}
 						onToggle={(value) => {
-							styleContext.setStyle({ solid: value as SolidType })
-							setSolidValue(value as SolidType)
-							localStorage.setItem('data-solid', value)
+							if (isSolidType(value)) {
+								styleContext.setStyle({ solid: value })
+								setSolidValue(value)
+								localStorage.setItem('data-solid', value)
+							}
 						}}
 						selected={mounted ? solidValue : undefined}
 						defaultSelected="contrast"
@@ -462,9 +504,11 @@ function StylePanel({ ref, ...rest }: StylePanelProps) {
 							},
 						]}
 						onToggle={(value) => {
-							styleContext.setStyle({ solidStyle: value as SolidStyle })
-							setSolidStyleValue(value as SolidStyle)
-							localStorage.setItem('data-solid-style', value)
+							if (isSolidStyle(value)) {
+								styleContext.setStyle({ solidStyle: value })
+								setSolidStyleValue(value)
+								localStorage.setItem('data-solid-style', value)
+							}
 						}}
 						selected={mounted ? solidStyleValue : undefined}
 						defaultSelected="flat"
@@ -504,8 +548,10 @@ function StylePanel({ ref, ...rest }: StylePanelProps) {
 						maxWidth={22}
 						minWidth={0}
 						onToggle={(value) => {
-							styleContext.setStyle({ surface: value as SurfaceStyle })
-							setSurfaceValue(value as SurfaceStyle)
+							if (isSurfaceStyle(value)) {
+								styleContext.setStyle({ surface: value })
+								setSurfaceValue(value)
+							}
 						}}
 						selected={mounted ? surfaceValue : undefined}
 						defaultSelected="filled"
@@ -537,8 +583,10 @@ function StylePanel({ ref, ...rest }: StylePanelProps) {
 						maxWidth={22}
 						minWidth={0}
 						onToggle={(value) => {
-							styleContext.setStyle({ scaling: value as ScalingSize })
-							setScalingValue(value as ScalingSize)
+							if (isScalingSize(value)) {
+								styleContext.setStyle({ scaling: value })
+								setScalingValue(value)
+							}
 						}}
 						selected={mounted ? scalingValue : undefined}
 						defaultSelected="100"
@@ -585,8 +633,10 @@ function StylePanel({ ref, ...rest }: StylePanelProps) {
 						maxWidth={22}
 						minWidth={0}
 						onToggle={(value) => {
-							setChartOptions({ mode: value as ChartMode })
-							setChartModeValue(value as ChartMode)
+							if (isChartMode(value)) {
+								setChartOptions({ mode: value })
+								setChartModeValue(value)
+							}
 						}}
 						selected={mounted ? chartModeValue : undefined}
 						defaultSelected="categorical"
@@ -622,8 +672,10 @@ function StylePanel({ ref, ...rest }: StylePanelProps) {
 						maxWidth={22}
 						minWidth={0}
 						onToggle={(value) => {
-							styleContext.setStyle({ transition: value as TransitionStyle })
-							setTransitionValue(value as TransitionStyle)
+							if (isTransitionStyle(value)) {
+								styleContext.setStyle({ transition: value })
+								setTransitionValue(value)
+							}
 						}}
 						selected={mounted ? transitionValue : undefined}
 						defaultSelected="all"

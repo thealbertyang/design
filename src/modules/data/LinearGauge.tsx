@@ -34,7 +34,7 @@ const resolveHueRange = (hue: LinearGaugeProps['hue']): [number, number] => {
 
 export const LinearGauge = ({
 	width = 400,
-	height = 80,
+	height: _height = 80,
 	line,
 	value = 50,
 	labels = 'none',

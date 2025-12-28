@@ -14,7 +14,15 @@ import type { SpacingToken } from '../../types'
 import styles from './CodeBlock.module.css'
 import classNames from 'classnames'
 import Prism from 'prismjs'
-import React, { type ReactNode, type RefObject, useEffect, useRef, useState } from 'react'
+import React, {
+	type ReactNode,
+	type RefObject,
+	useCallback,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from 'react'
 import ReactDOM from 'react-dom'
 
 const loadCssFiles = async () => {
@@ -434,11 +442,21 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
 	const codeBlockRef = useRef<HTMLDivElement>(null)
 	const [dependenciesLoaded, setDependenciesLoaded] = useState(false)
 
-	const codeInstance = codes[selectedInstance] || {
-		code: '',
-		language: '',
-	}
+	const codeInstance = useMemo(
+		() =>
+			codes[selectedInstance] || {
+				code: '',
+				language: '',
+			},
+		[codes, selectedInstance]
+	)
 	const { code, language, startLineNumber } = codeInstance
+
+	// Get normalized language string for class names
+	const languageClassName = useMemo(
+		() => (Array.isArray(language) ? language[0] : language),
+		[language]
+	)
 
 	const highlight =
 		codeInstance.highlight !== undefined ? codeInstance.highlight : deprecatedHighlight
@@ -456,8 +474,8 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
 			setDependenciesLoaded(true)
 		}
 
-		loadDependencies()
-	}, [codes.flatMap])
+		void loadDependencies()
+	}, [codes])
 
 	useEffect(() => {
 		if (dependenciesLoaded && codeRef.current && codes.length > 0) {
@@ -467,7 +485,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
 		}
 	}, [dependenciesLoaded, codes.length])
 
-	const toggleFullscreen = () => {
+	const toggleFullscreen = useCallback(() => {
 		if (isFullscreen) {
 			// When exiting fullscreen, first remove animation class, then remove portal after transition
 			setIsAnimating(false)
@@ -488,7 +506,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
 				Prism.highlightAll()
 			}, 50)
 		}
-	}
+	}, [isFullscreen])
 
 	useEffect(() => {
 		if (isFullscreen) {
@@ -536,13 +554,12 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
 					if (lang && Prism.languages[lang]) {
 						diffRows.forEach((row) => {
 							const codeContent = row.querySelector('.diff-line-content code')
-							const rowElement = row as HTMLElement
 
 							if (
 								codeContent &&
-								(rowElement.classList.contains('added') ||
-									rowElement.classList.contains('deleted') ||
-									rowElement.classList.contains('context'))
+								(row.classList.contains('added') ||
+									row.classList.contains('deleted') ||
+									row.classList.contains('context'))
 							) {
 								const textContent = codeContent.textContent || ''
 								try {
@@ -818,7 +835,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
 								className={classNames(
 									lineNumbers ? styles.lineNumberPadding : styles.padding,
 									styles.pre,
-									`language-${language}`,
+									`language-${languageClassName}`,
 									{
 										'line-numbers': lineNumbers,
 									}
@@ -827,7 +844,10 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
 								<code
 									tabIndex={-1}
 									ref={codeRef}
-									className={classNames(styles.code, `language-${language}`)}
+									className={classNames(
+										styles.code,
+										`language-${languageClassName}`
+									)}
 								>
 									{typeof code === 'string' ? code : code.content}
 								</code>

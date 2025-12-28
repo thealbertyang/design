@@ -4,7 +4,7 @@ import { type BaseColor, Fade, Flex, IconButton } from '.'
 import styles from './Scroller.module.css'
 import type { RadiusSize } from '@/types'
 import classNames from 'classnames'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 interface ScrollerProps extends React.ComponentProps<typeof Flex> {
 	children?: React.ReactNode
@@ -34,7 +34,7 @@ const Scroller: React.FC<ScrollerProps> = ({
 	const [showNextButton, setShowNextButton] = useState<boolean>(false)
 
 	// Function to check and update scroll buttons visibility
-	const updateScrollButtonsVisibility = () => {
+	const updateScrollButtonsVisibility = useCallback(() => {
 		const scroller = scrollerRef.current
 		if (scroller) {
 			const scrollPosition = direction === 'row' ? scroller.scrollLeft : scroller.scrollTop
@@ -52,7 +52,7 @@ const Scroller: React.FC<ScrollerProps> = ({
 			setShowPrevButton(isScrollable && scrollPosition > 0)
 			setShowNextButton(isScrollable && scrollPosition < maxScrollPosition - 1)
 		}
-	}
+	}, [direction])
 
 	// Handle scroll events
 	useEffect(() => {
@@ -114,7 +114,8 @@ const Scroller: React.FC<ScrollerProps> = ({
 				onKeyDown: (e: React.KeyboardEvent) => {
 					childOnKeyDown?.(e)
 					if (e.key === 'Enter' || e.key === ' ') {
-						childOnClick?.(e as any)
+						// For keyboard activation, only trigger the item click callback
+						// since the original onClick expects a MouseEvent
 						onItemClick?.(index)
 					}
 				},

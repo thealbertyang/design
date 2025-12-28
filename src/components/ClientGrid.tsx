@@ -69,16 +69,17 @@ function ClientGrid({ cursor, hide, xl, l, m, s, xs, ref, ...props }: ClientGrid
 		}
 
 		// Clear only responsive styles, not base styles
-		const styleRecord = element.style as unknown as Record<string, string>
 		appliedResponsiveStyles.current.forEach((key) => {
-			styleRecord[key] = ''
+			element.style.removeProperty(key)
 		})
 		appliedResponsiveStyles.current.clear()
 
 		// Reapply base styles
 		if (baseStyleRef.current) {
 			Object.entries(baseStyleRef.current).forEach(([key, value]) => {
-				styleRecord[key] = value as string
+				if (value !== undefined && value !== null) {
+					element.style.setProperty(key, String(value))
+				}
 			})
 		}
 
@@ -86,8 +87,10 @@ function ClientGrid({ cursor, hide, xl, l, m, s, xs, ref, ...props }: ClientGrid
 		if (currentResponsiveProps) {
 			if (currentResponsiveProps.style) {
 				Object.entries(currentResponsiveProps.style).forEach(([key, value]) => {
-					styleRecord[key] = value as string
-					appliedResponsiveStyles.current.add(key)
+					if (value !== undefined && value !== null) {
+						element.style.setProperty(key, String(value))
+						appliedResponsiveStyles.current.add(key)
+					}
 				})
 			}
 			if (currentResponsiveProps.aspectRatio) {

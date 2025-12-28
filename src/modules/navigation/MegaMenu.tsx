@@ -74,9 +74,10 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({ menuGroups, className, ...re
 
 							if (activeContent) {
 								// Find all fillWidth buttons and temporarily override their width
-								const fillWidthButtons = activeContent.querySelectorAll(
-									'[class*="fill-width"]'
-								) as NodeListOf<HTMLElement>
+								const fillWidthButtons =
+									activeContent.querySelectorAll<HTMLElement>(
+										'[class*="fill-width"]'
+									)
 								const originalWidths: string[] = []
 
 								fillWidthButtons.forEach((button, index) => {
@@ -93,8 +94,8 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({ menuGroups, className, ...re
 								dropdown.style.width = 'max-content'
 								dropdown.style.overflow = 'visible'
 
-								// Force reflow
-								dropdown.offsetHeight
+								// Force reflow (void to satisfy linter)
+								void dropdown.offsetHeight
 
 								// Measure the active content
 								const contentWidth = activeContent.scrollWidth // Use scrollWidth for full content
@@ -126,9 +127,11 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({ menuGroups, className, ...re
 			setIsFirstAppearance(true)
 		}
 
+		// Capture ref value before cleanup to avoid accessing stale .current
+		const currentMeasureTimeout = measureTimeoutRef.current
 		return () => {
-			if (measureTimeoutRef.current) {
-				clearTimeout(measureTimeoutRef.current)
+			if (currentMeasureTimeout) {
+				clearTimeout(currentMeasureTimeout)
 			}
 		}
 	}, [activeDropdown])
